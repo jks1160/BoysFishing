@@ -15,6 +15,9 @@
 
 <configuration>
 	<typeAliases>
-		<package name="com.boys.fishing.dto"/>
+		<package name="com.boys.fishing.user.dto"/>
+		<package name="com.boys.fishing.board.dto"/>
+		<package name="com.boys.fishing.apis.dto"/>
+		<package name="com.boys.fishing.reservation.dto"/>	
 	</typeAliases>
 </configuration>
