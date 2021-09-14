@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mapper에 대한 선언 문 -->
+<!DOCTYPE configuration PUBLIC
+   "-//mybatis.org//DTD Config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd"
+>
+<!-- 클래스 하나만 등록할 때. -->
+<!-- <configuration>
+	<typeAliases>
+		<typeAlias type="com.spring.bbs.dto.BoardDTO" alias="board"/>
+	</typeAliases>
+
+</configuration> -->
+
+
+<configuration>
+	<typeAliases>
+		<package name="com.boys.fishing.dto"/>
+	</typeAliases>
+</configuration>
