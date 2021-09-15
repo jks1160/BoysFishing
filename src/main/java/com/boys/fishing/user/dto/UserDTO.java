@@ -35,8 +35,7 @@ public class UserDTO {
 	private char cap_licenseYN; // 자격증
 	private char cap_idYSN; // 승인여부
 	private String cap_cancelreason; // 취소 사유
-	// 배 이미지 
-	private String si_name; // 사진 이름
+	
 	// 자격증
 	private int l_num; // 배 번호
 	private String l_name; // 사진 이름
@@ -196,12 +195,6 @@ public class UserDTO {
 	}
 	public void setP_cost(int p_cost) {
 		this.p_cost = p_cost;
-	}
-	public String getSi_name() {
-		return si_name;
-	}
-	public void setSi_name(String si_name) {
-		this.si_name = si_name;
 	}
 	public int getL_num() {
 		return l_num;
