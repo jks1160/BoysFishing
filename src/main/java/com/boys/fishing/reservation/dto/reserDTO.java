@@ -27,8 +27,19 @@ public class reserDTO {
 	private String op_duringtime; // 소요 시간
 	private String op_returntime; // 회항시간
 	private Date op_date; // 날짜
+	// 배 정보
+	private String u_userid; // 선장 아이디
+	private String s_name; // 배 이름
+	private int s_minpassenger; // 최소 탑승 인원
+	private int s_maxpassenger; // 최대 탑승 인원
+	private char s_img; // 배 사진
+	private String s_equipment; // 장비
+	private String s_convenient; // 편의시설 여부
+	private String s_address; // 정박 위치 주소
 	
 	
+	// 배 이미지 
+	private String si_name; // 사진 이름
 	
 	public int getS_num() {
 		return s_num;
@@ -137,6 +148,60 @@ public class reserDTO {
 	}
 	public void setRi_cancelreason(String ri_cancelreason) {
 		this.ri_cancelreason = ri_cancelreason;
+	}
+	public String getU_userid() {
+		return u_userid;
+	}
+	public void setU_userid(String u_userid) {
+		this.u_userid = u_userid;
+	}
+	public String getS_name() {
+		return s_name;
+	}
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
+	}
+	public int getS_minpassenger() {
+		return s_minpassenger;
+	}
+	public void setS_minpassenger(int s_minpassenger) {
+		this.s_minpassenger = s_minpassenger;
+	}
+	public int getS_maxpassenger() {
+		return s_maxpassenger;
+	}
+	public void setS_maxpassenger(int s_maxpassenger) {
+		this.s_maxpassenger = s_maxpassenger;
+	}
+	public char getS_img() {
+		return s_img;
+	}
+	public void setS_img(char s_img) {
+		this.s_img = s_img;
+	}
+	public String getS_equipment() {
+		return s_equipment;
+	}
+	public void setS_equipment(String s_equipment) {
+		this.s_equipment = s_equipment;
+	}
+	public String getS_convenient() {
+		return s_convenient;
+	}
+	public void setS_convenient(String s_convenient) {
+		this.s_convenient = s_convenient;
+	}
+	public String getS_address() {
+		return s_address;
+	}
+	public void setS_address(String s_address) {
+		this.s_address = s_address;
+	}
+	public String getSi_name() {
+		return si_name;
+	}
+	public void setSi_name(String si_name) {
+		this.si_name = si_name;
 	}
 	
 	

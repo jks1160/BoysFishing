@@ -32,18 +32,10 @@ public class UserDTO {
 	private String p_otherid;// 상대 아이디
 	private int p_cost; // 비용
 	// 선장 정보
-	private int s_num; // 배 번호
-	private String s_id; // 선장 아이디
-	private String s_name; // 배 이름
-	private int s_minpassenger; // 최소 탑승 인원
-	private int s_maxpassenger; // 최대 탑승 인원
-	private char s_licenseYN; // 자격증
-	private String s_equipment; // 장비
-	private String s_convenient; // 편의시설 여부
-	private String s_address; // 정박 위치 주소
-	private char s_idYSN; // 승인 여부
-	// 배 이미지
-	private int si_num; // 배 번호
+	private char cap_licenseYN; // 자격증
+	private char cap_idYSN; // 승인여부
+	private String cap_cancelreason; // 취소 사유
+	// 배 이미지 
 	private String si_name; // 사진 이름
 	// 자격증
 	private int l_num; // 배 번호
@@ -102,6 +94,24 @@ public class UserDTO {
 	}
 	public void setU_kakaoYN(char u_kakaoYN) {
 		this.u_kakaoYN = u_kakaoYN;
+	}
+	public char getCap_licenseYN() {
+		return cap_licenseYN;
+	}
+	public void setCap_licenseYN(char cap_licenseYN) {
+		this.cap_licenseYN = cap_licenseYN;
+	}
+	public char getCap_idYSN() {
+		return cap_idYSN;
+	}
+	public void setCap_idYSN(char cap_idYSN) {
+		this.cap_idYSN = cap_idYSN;
+	}
+	public String getCap_cancelreason() {
+		return cap_cancelreason;
+	}
+	public void setCap_cancelreason(String cap_cancelreason) {
+		this.cap_cancelreason = cap_cancelreason;
 	}
 	public char getU_userdelYN() {
 		return u_userdelYN;
@@ -186,72 +196,6 @@ public class UserDTO {
 	}
 	public void setP_cost(int p_cost) {
 		this.p_cost = p_cost;
-	}
-	public int getS_num() {
-		return s_num;
-	}
-	public void setS_num(int s_num) {
-		this.s_num = s_num;
-	}
-	public String getS_id() {
-		return s_id;
-	}
-	public void setS_id(String s_id) {
-		this.s_id = s_id;
-	}
-	public String getS_name() {
-		return s_name;
-	}
-	public void setS_name(String s_name) {
-		this.s_name = s_name;
-	}
-	public int getS_minpassenger() {
-		return s_minpassenger;
-	}
-	public void setS_minpassenger(int s_minpassenger) {
-		this.s_minpassenger = s_minpassenger;
-	}
-	public int getS_maxpassenger() {
-		return s_maxpassenger;
-	}
-	public void setS_maxpassenger(int s_maxpassenger) {
-		this.s_maxpassenger = s_maxpassenger;
-	}
-	public char getS_licenseYN() {
-		return s_licenseYN;
-	}
-	public void setS_licenseYN(char s_licenseYN) {
-		this.s_licenseYN = s_licenseYN;
-	}
-	public String getS_equipment() {
-		return s_equipment;
-	}
-	public void setS_equipment(String s_equipment) {
-		this.s_equipment = s_equipment;
-	}
-	public String getS_convenient() {
-		return s_convenient;
-	}
-	public void setS_convenient(String s_convenient) {
-		this.s_convenient = s_convenient;
-	}
-	public String getS_address() {
-		return s_address;
-	}
-	public void setS_address(String s_address) {
-		this.s_address = s_address;
-	}
-	public char getS_idYSN() {
-		return s_idYSN;
-	}
-	public void setS_idYSN(char s_idYSN) {
-		this.s_idYSN = s_idYSN;
-	}
-	public int getSi_num() {
-		return si_num;
-	}
-	public void setSi_num(int si_num) {
-		this.si_num = si_num;
 	}
 	public String getSi_name() {
 		return si_name;
