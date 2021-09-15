@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.boys.fishing.apis.dao.ApisDAO;
+import com.boys.fishing.apis.dto.IslandDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,10 +80,9 @@ public class ApisService {
 		for (Object item : list) {
 			HashMap<String, String> island = (HashMap<String, String>) item;
 			if (island.get("관리유형").equals("이용가능") || island.get("관리유형").equals("개발가능")) {
-				Set<String> set = island.keySet();
-				for (String key : set) {
-					
-				}
+				IslandDTO dto = new IslandDTO();
+				dto.setI_num(Integer.parseInt(island.get("연변")));
+				
 			}
 		}
 		return "home";
