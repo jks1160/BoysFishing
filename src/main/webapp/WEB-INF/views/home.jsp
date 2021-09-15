@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>	
 	<title>Home</title>
 </head>
 <body>
@@ -14,4 +17,6 @@
 <P> 영환 완료 </P>
 <P> 봉조 완료 </P>
 </body>
+<script>
+</script>
 </html>
