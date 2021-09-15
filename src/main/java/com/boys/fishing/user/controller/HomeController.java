@@ -32,6 +32,7 @@ public class HomeController {
 		
 		return "loginPage";
 	}
+	
 		
 	
 }
