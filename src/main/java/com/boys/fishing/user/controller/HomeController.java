@@ -23,10 +23,15 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("보이즈 피싱 프로젝트 Some낚시 시작합니다.");
-		
-		
-		
+
 		return "mainPage";
 	}
+	@RequestMapping(value="/loginPage", method = RequestMethod.GET)
+	public String loginPage() {
+		logger.info("로그인 페이지 요청 ");
+		
+		return "loginPage";
+	}
+		
 	
 }
