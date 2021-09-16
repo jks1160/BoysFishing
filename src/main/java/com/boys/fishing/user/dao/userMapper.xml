@@ -8,6 +8,7 @@
 
 <select id="sumsumlist" resultType="sumsum">
 	SELECT * FROM board
+</select>
 <select id="myUserInfo" parameterType="String" resultType="userInfo">
 	SELECT * FROM userInfo WHERE u_userid = #{u_userid}
 </select>
