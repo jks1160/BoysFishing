@@ -5,64 +5,23 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
-<script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
-<script>
-var today = new Date();
-var year = today.getFullYear();//년도
-var month = today.getMonth() + 1; // 월
-var date = today.getDate(); //날짜
-if(month <10){
-	month = "0"+month;
-}
-if(date <10){
-	date = "0"+date;
-}
-
-console.log("year",year );
-console.log("months", month);
-console.log("date",date);
-var O_nuel = year+'-'+month+'-'+date;
-console.log(O_nuel);
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-      },
-      initialDate: O_nuel,
-      navLinks: false, // can click day/week names to navigate views
-      businessHours: true, // display business hours
-      editable: true,
-      selectable: true,     
-    });
-
-    calendar.render();
-  });
-
-</script>
-<style>
-
-  body {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-
-  #calendar {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-  <div id='calendar'></div>
+	<div class='container'>
+		
+		
+	</div>
+  
 
 </body>
 </html>
