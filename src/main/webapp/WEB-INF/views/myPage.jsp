@@ -32,11 +32,11 @@
 		<th>좋아요</th>
 	</tr>
 </thead>
-<tbody class="hi">
+<tbody class="my_free_cont">
 
 </tbody>
 </table>
-<div class="bye">
+<div class="my_free_page">
 
 </div>
 
@@ -51,10 +51,12 @@
 		<th>좋아요</th>
 	</tr>
 </thead>
-<tbody>
+<tbody class="my_info_cont">
 
 </tbody>
 </table>
+<div class="my_info_page">
+</div>
 
 <h4>후기게시판</h4>
 <table>
@@ -67,64 +69,95 @@
 		<th>좋아요</th>
 	</tr>
 </thead>
-<tbody>
+<tbody class="my_rev_cont">
 
 </tbody>
 </table>
+<div class="my_div_page">
+</div>
 
 </body>
 <script>
-listCall();
-function listCall() {
+
+//자유게시판 글 리스트 뿌리기
+var sumPage = 1;
+var infoPage = 1;
+var revPage = 1;
+var user = 'somefishing';
+
+sumListCall(sumPage);
+function sumListCall(sumPage) {
+	var param = {};
+	param.page = sumPage;
+	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'someList',
+		url : 'sumsumlist',
+		data : param,
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
-			drawList(data);
-			pageList(data);
+			sumsumDrawList(data);
+			sumsumPageList(data);
 		},
 		error : function(e) {
 			console.log(e);
 		}
 	});
 }
+function sumsumDrawList(list) {
+	console.log(list);
+	var content = "";
+	list.list.forEach(function(item, idx) {
+		console.log(item, idx);
+		content += "<tr>";
+		content += "<td>" + item.b_num  + "</td>";
+		content += "<td>" + item.b_userid  + "</td>";
+		content += "<td>" + item.b_subject  + "</td>";
+		content += "<td>" + item.b_regdate  + "</td>";
+		content += "<td>좋아요X</td>";
+		content += "</tr>";
+	});
+	$(".my_free_cont").empty();
+	$(".my_free_cont").append(content);
+	console.log("자유게시판");
+}
 
-function listCall() {
+function sumsumPageList(list){
+	var content = "";
+	console.log("페이징처리 함수옴")
+		for(i = 1; i<= list.totalPage; i++){
+			content += "<span class='page'>";
+			if(i != list.currPage){
+				content += "<button onclick='sumListCall("+i+");'>"+i+"</button>";
+			}else{
+				content += "<b>"+i+"</b>";
+			}
+			content += "</span>";
+		};
+		$(".my_free_page").empty();
+		$(".my_free_page").append(content);
+}
+
+
+//정보게시판 글 리스트 뿌리기
+infoListCall();
+function infoListCall() {
 	$.ajax({
 		type : 'get',
-		url : 'someList',
+		url : 'infoList',
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
-			drawList(data);
-			pageList(data);
+			infoDrawList(data);
+			infoPageList(data);
 		},
 		error : function(e) {
 			console.log(e);
 		}
 	});
 }
-
-function listCall() {
-	$.ajax({
-		type : 'get',
-		url : 'someList',
-		dataType : 'JSON',
-		success : function(data) {
-			console.log(data);
-			drawList(data);
-			pageList(data);
-		},
-		error : function(e) {
-			console.log(e);
-		}
-	});
-}
-
-
-function drawList(list) {
+function infoDrawList(list) {
 	console.log(list);
 	var content = "";
 	list.forEach(function(item, idx) {
@@ -137,10 +170,12 @@ function drawList(list) {
 		content += "<td>좋아요X</td>";
 		content += "</tr>";
 	});
-	$(".hi").empty();
-	$(".hi").append(content);
+	$(".my_info_cont").empty();
+	$(".my_info_cont").append(content);
+	console.log("정보게시판");
 }
-function pageList(list){
+
+function infoPageList(list){
 	var content = "";
 	console.log("페이징처리 함수옴")
 		for(i = 1; i<= list.totalPage; i++){
@@ -152,8 +187,62 @@ function pageList(list){
 			}
 			content += "</span>";
 		};
-		$(".bye").empty();
-		$(".bye").append(content);
+		$(".my_info_page").empty();
+		$(".my_info_page").append(content);
+}
+
+
+//후기게시판 글 리스트 뿌리기
+revListCall();
+function revListCall() {
+	$.ajax({
+		type : 'get',
+		url : 'revList',
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			revDrawList(data);
+			revPageList(data);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+
+function revDrawList(list) {
+	console.log(list);
+	var content = "";
+	list.forEach(function(item, idx) {
+		console.log(item, idx);
+		content += "<tr>";
+		content += "<td>" + item.b_num  + "</td>";
+		content += "<td>" + item.b_userid  + "</td>";
+		content += "<td>" + item.b_subject  + "</td>";
+		content += "<td>" + item.b_regdate  + "</td>";
+		content += "<td>좋아요X</td>";
+		content += "</tr>";
+	});
+	$(".my_rev_cont").empty();
+	$(".my_rev_cont").append(content);
+	console.log("후기게시판");
+}
+
+function revPageList(list){
+	var content = "";
+	console.log("페이징처리 함수옴")
+		for(i = 1; i<= list.totalPage; i++){
+			content += "<span class='page'>";
+			if(i != list.currPage){
+				content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+			}else{
+				content += "<b>"+i+"</b>";
+			}
+			content += "</span>";
+		};
+		$(".my_div_page").empty();
+		$(".my_div_page").append(content);
 }
 </script>
 </html>

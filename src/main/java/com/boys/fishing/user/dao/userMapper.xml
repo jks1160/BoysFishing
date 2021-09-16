@@ -6,12 +6,37 @@
 >
 <mapper namespace="com.boys.fishing.user.dao.UserDAO">
 
-<select id="sumsumlist" resultType="sumsum">
-	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
-AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = 'somefishing') WHERE rnum BETWEEN 1 AND 2
-</select>
 <select id="myUserInfo" parameterType="String" resultType="userInfo">
 	SELECT * FROM userInfo WHERE u_userid = #{u_userid}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+<select id="sumsumlist" resultType="sumsum">
+	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
+AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{param2} AND b_code = 'B001') WHERE rnum BETWEEN #{param1} AND #{param3}
+</select>
+
+<select id="infoList" resultType="sumsum">
+	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
+AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = 'somefishing' AND b_code = 'B003') WHERE rnum BETWEEN 1 AND 2
+</select>
+
+<select id="revList" resultType="sumsum">
+	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
+AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = 'somefishing' AND b_code = 'B002') WHERE rnum BETWEEN 1 AND 2
+</select>
+
+<select id="totalPage" resultType="int">
+SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 </select>
 
 </mapper>

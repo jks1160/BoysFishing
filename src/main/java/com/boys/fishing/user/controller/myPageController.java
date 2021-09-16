@@ -1,6 +1,7 @@
 package com.boys.fishing.user.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -39,26 +40,25 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/someList")
-	public ArrayList<SumsumDTO> someList() {
+	@RequestMapping(value="/sumsumlist")
+	public HashMap<String,Object> sumsumlist(int page, String user) {
 		logger.info("자유글 리스트 받기 요청");
-		
-		return myservice.list();
+		logger.info("page:"+page+" user:"+user);
+		//int page1 = Integer.parseInt(String.valueOf(page));
+		return myservice.sumsumlist(page, user);
 	}
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value="/someList") public ArrayList<SumsumDTO> someList() {
-	 * logger.info("정보글 리스트 받기 요청");
-	 * 
-	 * return myservice.list(); }
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value="/someList") public ArrayList<SumsumDTO> someList() {
-	 * logger.info("후기글 리스트 받기 요청");
-	 * 
-	 * return myservice.list(); }
-	 */
+	
+	  @ResponseBody
+	  @RequestMapping(value="/infoList") public ArrayList<SumsumDTO> infoList() {
+	  logger.info("정보글 리스트 받기 요청");
+	  
+	  return myservice.infoList(); }
+	  
+	  @ResponseBody
+	  @RequestMapping(value="/revList") public ArrayList<SumsumDTO> revList() {
+	  logger.info("후기글 리스트 받기 요청");
+	  
+	  return myservice.revList(); }
+	 
 	
 }
