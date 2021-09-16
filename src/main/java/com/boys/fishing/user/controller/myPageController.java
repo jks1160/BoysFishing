@@ -1,5 +1,6 @@
 package com.boys.fishing.user.controller;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -9,14 +10,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.service.UserService;
+import com.boys.fishing.user.service.myPageService;
 
 @Controller
 public class myPageController {
 Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired UserService service;
+	@Autowired myPageService myservice;
+	
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String loginPage() {
@@ -30,5 +36,13 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		logger.info("포인트 페이지 요청");
 		
 		return "pointPage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/someList")
+	public ArrayList<SumsumDTO> someList() {
+		logger.info("글리스트 받기 요청");
+		
+		return myservice.list();
 	}
 }

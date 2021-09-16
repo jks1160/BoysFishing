@@ -6,5 +6,8 @@
 >
 <mapper namespace="com.boys.fishing.user.dao.UserDAO">
 
+<select id="sumsumlist" resultType="sumsum">
+	SELECT * FROM board
+</select>
 
 </mapper>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
 <h1>마이페이지</h1>
@@ -25,24 +26,27 @@
 		<th>글번호</th>
 		<th>작성자</th>
 		<th>제목</th>
-		<th>조회수</th>
 		<th>좋아요</th>
 		<th>날짜</th>
 	</tr>
 </thead>
+<tbody>
+
+</tbody>
 </table>
 </body>
 <script>
-function listCall(page) {
+listCall();
+function listCall() {
 	$.ajax({
 		type : 'get',
 		url : 'someList',
-		data : param,
+		//data : data,
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
-			drawList(data.list);
-			pageList(data);
+			drawList(data);
+			//pageList(data);
 		},
 		error : function(e) {
 			console.log(e);
@@ -52,11 +56,17 @@ function listCall(page) {
 
 
 function drawList(list) {
-	//console.log(list);
+	console.log(list);
 	var content = "";
 	list.forEach(function(item, idx) {
 		console.log(item, idx);
 		content += "<tr>";
+		content += "<td>" + item.b_num  + "</td>";
+		content += "<td>" + item.b_userid  + "</td>";
+		content += "<td>" + item.b_subject  + "</td>";
+		content += "<td>" +   + "</td>";
+		content += "<td>" +  + "</td>";
+		content += "<td>" +  + "</td>"; 
 		content += "</tr>";
 	});
 	$("tbody").empty();
