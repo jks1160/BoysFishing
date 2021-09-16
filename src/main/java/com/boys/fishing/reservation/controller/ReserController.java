@@ -33,9 +33,9 @@ public class ReserController {
 	}
 	// 섬에 해당하는 배 찾기
 	@RequestMapping(value="/find_ship", method = RequestMethod.GET)
-	public ModelAndView findShip() {
+	public ModelAndView findShip(@RequestParam HashMap<String, Object> params) {
 		
-		logger.info("배 편찾기 : {}");
+		logger.info("배 편찾기 : {}",params);
 		
 		return null;
 	}

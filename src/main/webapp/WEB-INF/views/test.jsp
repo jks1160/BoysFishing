@@ -58,17 +58,17 @@
 				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
 					<!-- 이곳에 섬 리스트 출력 -->
 					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
-  						<a class="list-group-item list-group-item-action">First item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Second item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action">Third item</a>
+  						<a class="list-group-item list-group-item-action island_data">First item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data" >Second item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
   						
 					</div>
 			</div>
@@ -82,10 +82,10 @@
 				
 				
 				
-				<div class='list-group'  style='overflow-y:scroll;' id='result' >
+				<div class='list-group result_list'  style='overflow-y:scroll;' id='result' >
 					<!-- 검색 결과 -->
-					<a class="list-group-item list-group-item-action">First item</a>
-					<a class="list-group-item list-group-item-action">First item</a>
+					<a class="list-group-item list-group-item-action pick_data">First item</a>
+					<a class="list-group-item list-group-item-action pick_data">First item</a>
 				</div>
 				
 				<button type='button' class='btn btn-dark' onclick='search_ship()'>예약편 찾기</button>
@@ -119,7 +119,7 @@
 	marker.setMap(map);
 	
 	// 리스트 클릭 시 이벤트 
-	$(document).on("click",".list-group-item",function(){
+	$(document).on("click",".island_data",function(){
 		
 		var researcher = $(this).html();
 		console.log("선택한 섬 :", researcher);
@@ -138,13 +138,17 @@
 			},
 			dataType : "JSON",
 			success : function(data){
-				console.log("접속 성공", data);
+				var context ="";
+				
 				if(data.findData == null){
 					$("#result").empty();
 					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
+				}else{ 
+					console.log("찾은 데이터 : ",data.findData.i_name);
+					context = "<a class='list-group-item list-group-item-action pick_data'>"+data.findData.i_name+"</a>";
+					$(".result_list").empty();
+					$(".result_list").append(context);
 				}
-				
-				
 			},
 			error : function(e) {
 				console.log("오류 발생 ", e);
@@ -152,9 +156,24 @@
 			
 		});
 	}
-	// 예약 배 선택
+	// 검색 결과 확정
+	$(document).on("click",".pick_data",function(){
+		var me = $(this);
+		console.log("나다",me);
+		var context = "<input type='text' class='form-control pick_island' value='"+this.innerText+"'  name='choice' />";
+		$(".pick_island").remove();
+		$("#result").append(context);
+	});
+	
+	// 예약 배 찾기
 	function search_ship() {
-		document.research_form.submit();
+		// 검색 결과를 선택하지 않으면...
+		if($(".pick_island").val() == null){
+			alert("섬을 선택하세요");
+		}
+		else{ //검색 결과를 선택하면 진행
+			document.research_form.submit();
+		}
 	}
 	
 </script>
