@@ -37,9 +37,10 @@
 	font-family: 'Do Hyeon', sans-serif;
 }
 </style>
+<%@ include file="header.jsp" %>
 </head>
-
 <body>
+
 	<div class='container'>
 		<h2 class='text-dark font-weight-bold myText'>섬 정보 / 예약하기</h2>
 		<hr/>
