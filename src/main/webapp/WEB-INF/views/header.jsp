@@ -12,7 +12,8 @@
 </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:cornflowerblue;">
+<div class="fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-light "  style="background-color:cornflowerblue;">
 			<div class="container-fluid">
 			  <a class="navbar-brand" href="./">
 				<span style="color: white">SOMEFISH</span>
@@ -44,12 +45,10 @@
 			 </div>
 			</div>
 		  </nav>
-		  <nav class="navbar navbar-expand-sm navbar-light" style="background-color:cornflowerblue;">
-			<div class="container-fluid ">
-			
-			<div class="d-flex position-absolute top-0 start-50 translate-middle" id="menu">
-			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto">
+		  <nav class="navbar navbar-expand-sm container-row " style="background-color:cornflowerblue; height:30px; ">			
+			<div class="position-absolute top-50 start-50 translate-middle" id="menu">
+			  <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto " >
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="test">섬정보/예약</a>
 				  </li>
@@ -74,9 +73,9 @@
 				 </ul>	 												
 			  </div>
 			 </div>			 
-			</div>			
+						
 		  </nav>
-		    	 
+	    	 
 		 	 
 		 	 <div class="collapse" id="navbarToggleExternalContent">
 			<div class="bg-primary p-2">
@@ -107,5 +106,6 @@
 			  	 </div>
 			</div>
 		</div>
+	</div>		
 </body>
 </html>
