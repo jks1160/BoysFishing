@@ -6,7 +6,6 @@
 <head>
 <meta charset='utf-8' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -52,13 +51,13 @@
 		<hr />
 	</div>
 	<div class='container'>
-		<div id="map" style="width: 500px; height: 400px; float: left"></div>
+		<div id="map" style="width: 500px; height: 400px; float: left"  class='container'></div>
 		<div class="select-zone row"
-			style='background-color: rgb(126, 210, 248); width: 600px; float: left;'>
-			<div class="col lg-5 text-center"style='display: inline; '>
+			style='background-color: rgb(126, 210, 248); width: 620px; float: left;'>
+			<div class="col lg-5 text-center"style='display: inline; margin-left:20px'>
 				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
 					<!-- 이곳에 섬 리스트 출력 -->
-					<div class="list-group" style='overflow-y:scroll; max-height:350px;' id='islands'>
+					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
   						<a class="list-group-item list-group-item-action">First item</a>
   						<a href="#" class="list-group-item list-group-item-action">Second item</a>
   						<a href="#" class="list-group-item list-group-item-action">Third item</a>
@@ -77,7 +76,7 @@
 			<div style='min-height: 400px; border-right: 2px solid gray; display:inline'></div>
 			<div style='display: inline' class="col lg-6 text-center">
 				<h2 class ='text-center' style='display: inline;'>섬 이름 검색하기</h2>
-				<form action='reser/reser_research' method='GET' name='research_form'>
+				<form action='reser/find_ship' method='GET' name='research_form'>
 					<input type='text' class='form-control'  id='text-zone' placeholder='섬 이름 검색' name='searchData' />
 					<button type='button' class='btn btn-dark' onclick= 'reser_research()'>검색</button>
 				
