@@ -1,6 +1,6 @@
 package com.boys.fishing.reservation.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boys.fishing.reservation.service.ReserService;
 
@@ -22,12 +22,12 @@ public class ReserController {
 	@Autowired ReserService service;
 	
 	@RequestMapping(value="/reser_research", method = RequestMethod.GET)
-	public ModelAndView myUserInfo(@RequestParam String searchData) {
+	public @ResponseBody HashMap<String, Object> reserResearch(@RequestParam HashMap<String, Object> searchData) {
 		
 		logger.info("섬 검색 요청 : {}", searchData );
 		
 		
-		return null;
+		return service.reserResearch(searchData);
 	}	
 	
 }

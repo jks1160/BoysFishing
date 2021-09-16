@@ -80,17 +80,17 @@
 				<form action='reser/reser_research' method='GET' name='research_form'>
 					<input type='text' class='form-control'  id='text-zone' placeholder='섬 이름 검색' name='searchData' />
 					<button type='button' class='btn btn-dark' onclick= 'reser_research()'>검색</button>
-				</form>
 				
 				
-				<div class='list-group'  style='overflow-y:scroll;' >
+				
+				<div class='list-group'  style='overflow-y:scroll;' id='result' >
 					<!-- 검색 결과 -->
 					<a class="list-group-item list-group-item-action">First item</a>
 					<a class="list-group-item list-group-item-action">First item</a>
 				</div>
 				
 				<button type='button' class='btn btn-dark' onclick='search_ship()'>예약편 찾기</button>
-				
+				</form>
 			</div>
 			
 		</div>
@@ -119,24 +119,44 @@
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	
-	
+	// 리스트 클릭 시 이벤트 
 	$(document).on("click",".list-group-item",function(){
-		
 		
 		var researcher = $(this).html();
 		console.log("선택한 섬 :", researcher);
 		document.getElementById("text-zone").value = researcher;
 	});
 	
-	
-	
-	// 예약 배 선택
+	// 검색
 	function reser_research(){
-
-		document.research_form.submit();
+		var r_rsc = document.getElementById("text-zone").value;
 		
+		$.ajax({
+			url: "reser/reser_research",
+			type : "GET",
+			data : {
+				'searchData' : r_rsc
+			},
+			dataType : "JSON",
+			success : function(data){
+				console.log("접속 성공", data);
+				if(data.findData == null){
+					$("#result").empty();
+					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
+				}
+				
+				
+			},
+			error : function(e) {
+				console.log("오류 발생 ", e);
+			}
+			
+		});
 	}
-	
+	// 예약 배 선택
+	function search_ship() {
+		document.research_form.submit();
+	}
 	
 </script>
 </html>
