@@ -45,7 +45,7 @@
                     <button class="btn btn-class">로그인</button>
                 </form>
                 <input class="btn btn-class" type="button" value="카카오로 시작하기" onclick="kakaoLogin();">
-                <input class="btn btn-class" type="button" value="회원가입">
+                <input class="btn btn-class" type="button" value="회원가입" onclick = "location.href = 'joinForm'">
             </div>
         </div>
     </div>

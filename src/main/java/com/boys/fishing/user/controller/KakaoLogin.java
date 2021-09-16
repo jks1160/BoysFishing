@@ -10,15 +10,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -58,7 +55,7 @@ public class KakaoLogin {
         
         
         
-        return "/home"; //본인 원하는 경로 설정
+        return "./mainPage"; //본인 원하는 경로 설정
 	}
 	
     //토큰발급(인증코드로 토큰 요청)
@@ -122,9 +119,8 @@ public class KakaoLogin {
     //유저정보조회
     public HashMap<String, Object> getUserInfo (String access_Token) {
     	
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-        HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
+        HashMap<String, Object> userInfo = new HashMap<String, Object>();
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -142,7 +138,6 @@ public class KakaoLogin {
             System.out.println("responseCode : " + responseCode);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            System.out.println("readLine : "+br.readLine());
             
             String line = "";
             String result = "";
@@ -152,13 +147,16 @@ public class KakaoLogin {
             }
             System.out.println("response body : " + result);
             
+            //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+            ObjectMapper mapper = new ObjectMapper();
+            userInfo = mapper.readValue(result, HashMap.class);
             
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
         return userInfo;
     }
     
