@@ -43,7 +43,7 @@ public class HomeController {
 	public String test() {
 		logger.info("달력 테스트 ");
 		
-		return "calendar";
+		return "test";
 	}
 	@RequestMapping(value="/logOut", method = RequestMethod.GET)
 	public String logOut(HttpSession session) {
