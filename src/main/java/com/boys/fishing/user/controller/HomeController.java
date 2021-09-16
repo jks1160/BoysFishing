@@ -1,6 +1,6 @@
 package com.boys.fishing.user.controller;
 
-import java.util.Locale;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.user.service.UserService;
 
@@ -21,10 +22,16 @@ public class HomeController {
 	@Autowired UserService service;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public ModelAndView home(Model model, HttpSession session) {
 		logger.info("보이즈 피싱 프로젝트 Some낚시 시작합니다.");
-
-		return "mainPage";
+		ModelAndView mav = new ModelAndView();
+		
+		if(session.getAttribute("loginId") != null) {
+			mav.setViewName("mainPage");
+		}
+		
+		return mav;
+		
 	}
 	@RequestMapping(value="/loginPage", method = RequestMethod.GET)
 	public String loginPage() {
@@ -37,6 +44,14 @@ public class HomeController {
 		logger.info("달력 테스트 ");
 		
 		return "calendar";
+	}
+	@RequestMapping(value="/logOut", method = RequestMethod.GET)
+	public String logOut(HttpSession session) {
+		logger.info("로그아웃 요청 ");
+		
+		session.removeAttribute("loginId");
+		
+		return "mainPage";
 	}
 		
 	

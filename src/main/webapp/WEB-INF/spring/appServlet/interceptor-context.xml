@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- 인터셉터 그룹(이 안에 인터셉터를 등록하면 된다.) -->
+	<!-- /board/* : /board 요청 다음에 뭐가 오든 상관없이 인터셉트하거라. -->
+	<!-- /board/detail* : detail뒤에 뭐가 오던지...(ex> ?idx=123) -->
+	<!-- bean에는 항상 특정 클래스가 들어간다. -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<bean class="com.boys.fishing.user.service.LoginChecker" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
