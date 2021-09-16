@@ -54,5 +54,15 @@ public class HomeController {
 		return "mainPage";
 	}
 		
+	@RequestMapping(value="/myUserInfo", method = RequestMethod.GET)
+	public ModelAndView myUserInfo(HttpSession session) {
+		logger.info("회원정보조회 페이지 ");
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
+		
+		String u_userid = (String) session.getAttribute("loginId");
+		return service.myUserInfo(u_userid);
+	}	
 	
 }

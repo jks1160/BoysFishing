@@ -11,11 +11,11 @@ public class UserDTO {
 	private String u_userid; // 아이디
 	private String u_userpw; // 비밀번호(해쉬)
 	private String u_userphonenum; // 핸드폰번호
-	private String u_userninkname;// 닉네임
+	private String u_usernickname;// 닉네임
 	private char u_managerYN; // 관리자 여부
 	private char u_kakaoYN; // 카카오 가입 여부
 	private char u_userdelYN; // 탈퇴 여부
-	private String u_tiercode;// 티어 코드
+	private String u_useremail;// 이메일
 	private Date u_joindate; // 가입 날짜
 	// 카카오 회원
 	private String k_key; // 카톡 키
@@ -76,11 +76,11 @@ public class UserDTO {
 	public void setU_userphonenum(String u_userphonenum) {
 		this.u_userphonenum = u_userphonenum;
 	}
-	public String getU_userninkname() {
-		return u_userninkname;
+	public String getU_usernickname() {
+		return u_usernickname;
 	}
-	public void setU_userninkname(String u_userninkname) {
-		this.u_userninkname = u_userninkname;
+	public void setU_usernickname(String u_userninkname) {
+		this.u_usernickname = u_userninkname;
 	}
 	public char getU_managerYN() {
 		return u_managerYN;
@@ -118,11 +118,11 @@ public class UserDTO {
 	public void setU_userdelYN(char u_userdelYN) {
 		this.u_userdelYN = u_userdelYN;
 	}
-	public String getU_tiercode() {
-		return u_tiercode;
+	public String getU_useremail() {
+		return u_useremail;
 	}
-	public void setU_tiercode(String u_tiercode) {
-		this.u_tiercode = u_tiercode;
+	public void setU_useremail(String u_useremail) {
+		this.u_useremail = u_useremail;
 	}
 	public Date getU_joindate() {
 		return u_joindate;
