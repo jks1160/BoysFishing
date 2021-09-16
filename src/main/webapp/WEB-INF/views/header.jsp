@@ -17,9 +17,7 @@
   		<path d="M7 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zm4.225 4.053a.5.5 0 0 0-.577.093l-3.71 4.71-2.66-2.772a.5.5 0 0 0-.63.062L.002 13v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4.5l-4.777-3.947z"/>
 				</svg>
 			  </a>
-			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			  </button>
+			 
 				<form class="d-flex m-auto position-absolute top-50 start-50 translate-middle">
 					<input class="ms-5" type="search" placeholder="통합검색" aria-label="Search">
 					<button class="btn btn-outline-light btn-sm ms-2 text-cornflowerblue" type="submit">검색</button>
@@ -43,12 +41,12 @@
 			 </div>
 			</div>
 		  </nav>
-		  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:cornflowerblue;">
+		  <nav class="navbar navbar-expand-sm navbar-light" style="background-color:cornflowerblue;">
 			<div class="container-fluid ">
 			
 			<div class="d-flex position-absolute top-0 start-50 translate-middle" id="menu">
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<ul class="navbar-nav me-auto">
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="test">섬정보/예약</a>
 				  </li>
@@ -63,11 +61,48 @@
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">공지사항</a>
-				  </li>
-											
+				  </li>	
+				  
+				  <li class="nav-item">
+				<a class="nav-link active text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">					
+					<span>관리자 메뉴</span>
+				</a>
+				  </li>	
+				 </ul>	 												
 			  </div>
-			 </div>
-			</div>
+			 </div>			 
+			</div>			
 		  </nav>
+		    	 
+		 	 
+		 	 <div class="collapse" id="navbarToggleExternalContent">
+			<div class="bg-primary p-2">
+			  	 <div class="container">
+			  	  <div class="row" >
+				     <div class="col-6 lg-6">
+				      	<a class="nav-link active text-white" aria-current="page" href="#">회원정보</a>
+				    </div>
+				    <div class="col-6 lg-6">
+				     	<a class="nav-link active text-white" aria-current="page" href="#">선장관리</a>
+				    </div>
+				     <div class="col-6 lg-6">
+				     	<a class="nav-link active text-white" aria-current="page" href="#">신고관리</a>
+				    </div>
+				     <div class="col-6 lg-6">
+				    	<a class="nav-link active text-white" aria-current="page" href="#">블랙리스트관리</a>
+				    </div>
+				    <div class="col-6 lg-6">
+				     	<a class="nav-link active text-white" aria-current="page" href="#">Q&A관리</a>
+				    </div>
+				     <div class="col-6 lg-6">
+				     	<a class="nav-link active text-white" aria-current="page" href="#">배편관리</a>
+				    </div>
+				    <div class="col-6 lg-6">
+				     	<a class="nav-link active text-white" aria-current="page" href="#">공지사항</a>
+				    </div>
+				  </div>
+			  	 </div>
+			</div>
+		</div>
 </body>
 </html>
