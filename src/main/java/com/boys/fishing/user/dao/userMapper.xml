@@ -6,5 +6,8 @@
 >
 <mapper namespace="com.boys.fishing.user.dao.UserDAO">
 
+<select id="myUserInfo" parameterType="String" resultType="userInfo">
+	SELECT * FROM userInfo WHERE u_userid = #{u_userid}
+</select>
 
 </mapper>
