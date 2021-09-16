@@ -12,7 +12,7 @@
 </script>
 </head>
 <body>
-<div class="fixed-top">
+<div>
 		<nav class="navbar navbar-expand-lg navbar-light "  style="background-color:cornflowerblue;">
 			<div class="container-fluid">
 			  <a class="navbar-brand" href="./">

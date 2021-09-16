@@ -6,7 +6,6 @@
 <head>
 <meta charset='utf-8' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -29,45 +28,77 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ad015af81e6fe8681aaca4a1fd22948"></script>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ad015af81e6fe8681aaca4a1fd22948&libraries=LIBRARY"></script>
 <!-- services 라이브러리 불러오기 -->
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ad015af81e6fe8681aaca4a1fd22948&libraries=services"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ad015af81e6fe8681aaca4a1fd22948&libraries=services,clusterer,drawing"></script>
 <style>
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
 </style>
-<%@ include file="header.jsp"%>
 </head>
 <body>
 
+
+	<jsp:include page="header.jsp"></jsp:include>
+	
 	<div class='container'>
-		<h2 class='text-dark font-weight-bold myText'>섬 정보 / 예약하기</h2>
+		<h2 class='text-dark font-weight-bold'>섬 정보 / 예약하기</h2>
 		<hr />
 	</div>
 	<div class='container'>
-		<div id="map" style="width: 555px; height: 400px; float: left"></div>
+		<div id="map" style="width: 500px; height: 400px; float: left"  class='container'></div>
 		<div class="select-zone row"
-			style='background-color: rgb(126, 210, 248); width: 555px; float: left'>
-			<div class="col lg-6 text-center"style='display: inline; border-right: 2px solid gray'>
+			style='background-color: rgb(126, 210, 248); width: 620px; float: left;'>
+			<div class="col lg-5 text-center"style='display: inline; margin-left:20px'>
 				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
-
+					<!-- 이곳에 섬 리스트 출력 -->
+					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
+  						<a class="list-group-item list-group-item-action island_data">First item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data" >Second item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+  						
+					</div>
 			</div>
 			
-			<div style='min-height: 400px; border-right: 2px solid gray; display:inline''></div>
+			<div style='min-height: 400px; border-right: 2px solid gray; display:inline'></div>
 			<div style='display: inline' class="col lg-6 text-center">
 				<h2 class ='text-center' style='display: inline;'>섬 이름 검색하기</h2>
+				<form action='reser/find_ship' method='GET' name='research_form'>
+					<input type='text' class='form-control'  id='text-zone' placeholder='섬 이름 검색' name='searchData' />
+					<button type='button' class='btn btn-dark' onclick= 'reser_research()'>검색</button>
+				
+				
+				
+				<div class='list-group result_list'  style='overflow-y:scroll;' id='result' >
+					<!-- 검색 결과 -->
+					<a class="list-group-item list-group-item-action pick_data">First item</a>
+					<a class="list-group-item list-group-item-action pick_data">First item</a>
+				</div>
+				
+				<button type='button' class='btn btn-dark' onclick='search_ship()'>예약편 찾기</button>
+				</form>
 			</div>
+			
 		</div>
 	</div>
 
 
 </body>
 <script>
+    // 카카오 지도 API 
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
 		center : new kakao.maps.LatLng(37.7111947, 126.3566827), //지도의 중심좌표.
@@ -86,5 +117,64 @@
 
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
+	
+	// 리스트 클릭 시 이벤트 
+	$(document).on("click",".island_data",function(){
+		
+		var researcher = $(this).html();
+		console.log("선택한 섬 :", researcher);
+		document.getElementById("text-zone").value = researcher;
+	});
+	
+	// 검색
+	function reser_research(){
+		var r_rsc = document.getElementById("text-zone").value;
+		
+		$.ajax({
+			url: "reser/reser_research",
+			type : "GET",
+			data : {
+				'searchData' : r_rsc
+			},
+			dataType : "JSON",
+			success : function(data){
+				var context ="";
+				
+				if(data.findData == null){
+					$("#result").empty();
+					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
+				}else{ 
+					console.log("찾은 데이터 : ",data.findData.i_name);
+					context = "<a class='list-group-item list-group-item-action pick_data'>"+data.findData.i_name+"</a>";
+					$(".result_list").empty();
+					$(".result_list").append(context);
+				}
+			},
+			error : function(e) {
+				console.log("오류 발생 ", e);
+			}
+			
+		});
+	}
+	// 검색 결과 확정
+	$(document).on("click",".pick_data",function(){
+		var me = $(this);
+		console.log("나다",me);
+		var context = "<input type='text' class='form-control pick_island' value='"+this.innerText+"'  name='choice' />";
+		$(".pick_island").remove();
+		$("#result").append(context);
+	});
+	
+	// 예약 배 찾기
+	function search_ship() {
+		// 검색 결과를 선택하지 않으면...
+		if($(".pick_island").val() == null){
+			alert("섬을 선택하세요");
+		}
+		else{ //검색 결과를 선택하면 진행
+			document.research_form.submit();
+		}
+	}
+	
 </script>
 </html>

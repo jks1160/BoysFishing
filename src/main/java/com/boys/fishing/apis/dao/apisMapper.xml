@@ -5,5 +5,8 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
 <mapper namespace="com.boys.fishing.apis.dao.ApisDAO">
-
+	<select id="reserResearch" parameterType="hashmap"
+		resultType="apis">
+		select i_name from island where i_name LIKE '%'||#{searchData}||'%'
+	</select>
 </mapper>
