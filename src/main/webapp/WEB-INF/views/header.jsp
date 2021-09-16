@@ -27,7 +27,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="#">로그인/회원가입</a>
+					<a class="nav-link active text-white" aria-current="page" href="loginPage">로그인/회원가입</a>
 				  </li>
 				  <a class="navbar-brand" href="#">
 					<img src="bell.jpg" alt="" width="50" height="40">
@@ -45,7 +45,7 @@
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="#">섬정보 / 예약</a>
+					<a class="nav-link active text-white" aria-current="page" href="test">섬정보 / 예약</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">섬섬톡</a>
