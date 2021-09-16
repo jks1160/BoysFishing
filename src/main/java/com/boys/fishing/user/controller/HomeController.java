@@ -29,7 +29,7 @@ public class HomeController {
 		if(session.getAttribute("loginId") != null) {
 			mav.setViewName("mainPage");
 		}
-		
+		mav.setViewName("mainPage");
 		return mav;
 		
 	}
