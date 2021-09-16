@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.apache.ibatis.type.Alias;
 
 @Alias("reser")
-public class reserDTO {
+public class ReserDTO {
 
 	//예약 정보
 	private int ri_num; //예약 번호

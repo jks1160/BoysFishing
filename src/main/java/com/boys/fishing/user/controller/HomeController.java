@@ -41,7 +41,7 @@ public class HomeController {
 	}
 	@RequestMapping(value="/test", method = RequestMethod.GET)
 	public String test() {
-		logger.info("달력 테스트 ");
+		logger.info("먼데이거 테스트 ");
 		
 		return "test";
 	}
