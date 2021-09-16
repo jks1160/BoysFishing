@@ -41,8 +41,24 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	@ResponseBody
 	@RequestMapping(value="/someList")
 	public ArrayList<SumsumDTO> someList() {
-		logger.info("글리스트 받기 요청");
+		logger.info("자유글 리스트 받기 요청");
 		
 		return myservice.list();
 	}
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/someList") public ArrayList<SumsumDTO> someList() {
+	 * logger.info("정보글 리스트 받기 요청");
+	 * 
+	 * return myservice.list(); }
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/someList") public ArrayList<SumsumDTO> someList() {
+	 * logger.info("후기글 리스트 받기 요청");
+	 * 
+	 * return myservice.list(); }
+	 */
+	
 }

@@ -7,7 +7,8 @@
 <mapper namespace="com.boys.fishing.user.dao.UserDAO">
 
 <select id="sumsumlist" resultType="sumsum">
-	SELECT * FROM board
+	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
+AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = 'somefishing') WHERE rnum BETWEEN 1 AND 2
 </select>
 <select id="myUserInfo" parameterType="String" resultType="userInfo">
 	SELECT * FROM userInfo WHERE u_userid = #{u_userid}

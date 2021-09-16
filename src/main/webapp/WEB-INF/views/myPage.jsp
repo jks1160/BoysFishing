@@ -20,20 +20,58 @@
 <a href="#">스케쥴</a>
 <a href="#">운행 예약확인</a>
 </div>
+
+<h4>자유게시판</h4>
 <table>
 <thead>
 	<tr>
 		<th>글번호</th>
 		<th>작성자</th>
 		<th>제목</th>
-		<th>좋아요</th>
 		<th>날짜</th>
+		<th>좋아요</th>
+	</tr>
+</thead>
+<tbody class="hi">
+
+</tbody>
+</table>
+<div class="bye">
+
+</div>
+
+<h4>정보게시판</h4>
+<table>
+<thead>
+	<tr>
+		<th>글번호</th>
+		<th>작성자</th>
+		<th>제목</th>
+		<th>날짜</th>
+		<th>좋아요</th>
 	</tr>
 </thead>
 <tbody>
 
 </tbody>
 </table>
+
+<h4>후기게시판</h4>
+<table>
+<thead>
+	<tr>
+		<th>글번호</th>
+		<th>작성자</th>
+		<th>제목</th>
+		<th>날짜</th>
+		<th>좋아요</th>
+	</tr>
+</thead>
+<tbody>
+
+</tbody>
+</table>
+
 </body>
 <script>
 listCall();
@@ -41,12 +79,43 @@ function listCall() {
 	$.ajax({
 		type : 'get',
 		url : 'someList',
-		//data : data,
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
 			drawList(data);
-			//pageList(data);
+			pageList(data);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+function listCall() {
+	$.ajax({
+		type : 'get',
+		url : 'someList',
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			drawList(data);
+			pageList(data);
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+function listCall() {
+	$.ajax({
+		type : 'get',
+		url : 'someList',
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			drawList(data);
+			pageList(data);
 		},
 		error : function(e) {
 			console.log(e);
@@ -64,13 +133,12 @@ function drawList(list) {
 		content += "<td>" + item.b_num  + "</td>";
 		content += "<td>" + item.b_userid  + "</td>";
 		content += "<td>" + item.b_subject  + "</td>";
-		content += "<td>" +   + "</td>";
-		content += "<td>" +  + "</td>";
-		content += "<td>" +  + "</td>"; 
+		content += "<td>" + item.b_regdate  + "</td>";
+		content += "<td>좋아요X</td>";
 		content += "</tr>";
 	});
-	$("tbody").empty();
-	$("tbody").append(content);
+	$(".hi").empty();
+	$(".hi").append(content);
 }
 function pageList(list){
 	var content = "";
@@ -84,8 +152,8 @@ function pageList(list){
 			}
 			content += "</span>";
 		};
-		$("div").empty();
-		$("div").append(content);
+		$(".bye").empty();
+		$(".bye").append(content);
 }
 </script>
 </html>
