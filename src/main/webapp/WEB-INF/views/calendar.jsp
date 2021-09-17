@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
 <script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
+<script src='resources/fullcalendar-5.9.0/calendar.js'></script>
+<link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src='resources/js/bPopup.js'></script>
 <script>
@@ -26,18 +27,17 @@ console.log("months", month);
 console.log("date",date);
 var O_nuel = year+'-'+month+'-'+date;
 console.log(O_nuel);
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+ document.addEventListener('DOMContentLoaded', function() {
+ var calendarEl = document.getElementById('calendar');
+ var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+        center: 'title'
       },
       initialDate: O_nuel,
       navLinks: false, // can click day/week names to navigate views
       businessHours: true, // display business hours
+      locale: "ko",
       editable: true,
       selectable: true,     
     });
