@@ -38,7 +38,7 @@ public class HomeController {
 	@RequestMapping(value="/loginPage", method = RequestMethod.GET)
 	public String loginPage() {
 		logger.info("로그인 페이지 요청 ");
-		
+		logger.info("테스트");
 		return "login";
 	}
 	@RequestMapping(value="/test", method = RequestMethod.GET)
