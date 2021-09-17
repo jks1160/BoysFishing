@@ -31,6 +31,7 @@ public class UserDTO {
 	private Date p_regdate; // 날짜
 	private String p_otherid;// 상대 아이디
 	private int p_cost; // 비용
+	private int p_balance; // 잔액
 	// 선장 정보
 	private char cap_licenseYN; // 자격증
 	private char cap_idYSN; // 승인여부
@@ -178,6 +179,7 @@ public class UserDTO {
 	public void setP_content(String p_content) {
 		this.p_content = p_content;
 	}
+	
 	public Date getP_regdate() {
 		return p_regdate;
 	}
@@ -195,6 +197,12 @@ public class UserDTO {
 	}
 	public void setP_cost(int p_cost) {
 		this.p_cost = p_cost;
+	}
+	public int getP_balance() {
+		return p_balance;
+	}
+	public void setP_balance(int p_balance) {
+		this.p_balance = p_balance;
 	}
 	public int getL_num() {
 		return l_num;
@@ -286,6 +294,7 @@ public class UserDTO {
 	public void setBl_disdate(Date bl_disdate) {
 		this.bl_disdate = bl_disdate;
 	}
+	
 	
 	
 	

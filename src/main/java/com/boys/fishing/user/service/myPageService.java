@@ -7,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.dao.UserDAO;
+import com.boys.fishing.user.dto.UserDTO;
 
 @Service
 public class myPageService {
@@ -75,6 +77,12 @@ public class myPageService {
 		map.put("totalPage", pages);
 		map.put("currPage", page);
 		return map;
+	}
+
+	public ModelAndView point(String id) {
+		logger.info("회원 포인트조회 서비스");
+		ModelAndView mav = new ModelAndView();
+		return null;
 	}
 
 }

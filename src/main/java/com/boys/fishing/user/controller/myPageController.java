@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,25 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String loginPage() {
+	public ModelAndView loginPage(HttpSession session) {
 		logger.info("마이 페이지 요청 ");
-		
-		return "myPage";
+		ModelAndView mav = new ModelAndView();
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
+		mav.setViewName("loginPage");
+		return mav;
 	}
 	
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
-	public ModelAndView pointPage() {
+	public ModelAndView pointPage(HttpSession session) {
 		logger.info("포인트 페이지 요청");
 		ModelAndView mav = new ModelAndView();
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
 		
-		return mav;
+		return myservice.point(id);
 	}
 	
 	@ResponseBody
