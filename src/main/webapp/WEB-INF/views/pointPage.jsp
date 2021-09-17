@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% String id = (String)session.getAttribute("loginid"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<h1>님의 포인트 정보</h1>
+<h1>${loginId}님의 포인트 정보</h1>
 <div>
 	<form action="pointCharge" method="GET">
 	<table>
@@ -28,7 +29,7 @@
 			<td>포인트 출금하기</td>
 			<td>
 				<input type="text" name="p_withdraw">
-				<button onclick='return withdraw(this.form)'>출금하기하기</button>
+				<button onclick='return withdraw(this.form)'>출금하기</button>
 			</td>		
 		</tr>
 	</table>

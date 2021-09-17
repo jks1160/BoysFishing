@@ -40,6 +40,15 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return mav;
 	}
 	
+
+	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
+	public ModelAndView pointPage(HttpSession session) {
+		logger.info("포인트 페이지 요청");
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
+		return myservice.point(id);
+	}
+	
 	@RequestMapping(value="/pointCharge")
 	public String pointCharge(Model model, HttpSession session ,@RequestParam String p_charge) {
 		logger.info("포인트충전 왔슈?"+p_charge);
@@ -49,21 +58,14 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/pointWithdraw")
-	public String pointWithdraw(Model model, @RequestParam String p_withdraw) {
+	public String pointWithdraw(Model model, HttpSession session, @RequestParam String p_withdraw ) {
 		logger.info("포인트인출 왔슈?"+p_withdraw);
-		
+		String user = (String) session.getAttribute("loginId");
+		myservice.pointWithdraw(Integer.parseInt(p_withdraw),user);
 		return "redirect:/pointPage";
 	}
 	
 	
-	
-	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
-	public ModelAndView pointPage(HttpSession session) {
-		logger.info("포인트 페이지 요청");
-		String id = "somefishing";
-		session.setAttribute("loginId", id);
-		return myservice.point(id);
-	}
 	
 	@ResponseBody
 	@RequestMapping(value="/pointHistoryPage")

@@ -34,9 +34,7 @@ public interface UserDAO {
 
 
 
+	void pointCharge(int balance, int p_charge, String user);
+	void pointWithdraw(int balance, int p_withdraw, String user);
 
-
-
-
-	void pointCharge(int p_charge, String user);
 }

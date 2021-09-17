@@ -108,8 +108,22 @@ public class myPageService {
 	}
 
 	public void pointCharge(int p_charge, String user) {
-		int balance;
-		dao.pointCharge(p_charge,user);
+		int balance = 0;
+		int currBalance;
+		currBalance = dao.point(user);
+		balance = currBalance + p_charge;
+		logger.info("balance: "+ balance + "p_charge: "+ p_charge + "user: " + user);
+		dao.pointCharge(balance, p_charge, user);
+		
+	}
+
+	public void pointWithdraw(int p_withdraw, String user) {
+		int balance = 0;
+		int currBalance;
+		currBalance = dao.point(user);
+		balance = currBalance - p_withdraw;
+		logger.info("balance: "+ balance + "p_charge: "+ p_withdraw + "user: " + user);
+		dao.pointWithdraw(balance, p_withdraw, user);
 		
 	}
 

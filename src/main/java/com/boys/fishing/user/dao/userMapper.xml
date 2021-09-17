@@ -53,9 +53,13 @@ from(
 where ROWNUM = 1
 </select>
 
-<update id="pointCharge">
+<insert id="pointCharge">
+INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{param3}, 'PNT_001', #{param3}, #{param2}, #{param1})
+</insert>
 
-</update>
+<insert id="pointWithdraw">
+INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{param3}, 'PNT_002', #{param3}, #{param2}, #{param1})
+</insert>
 
 
 <select id="pointHistoryList" resultType="userInfo">
