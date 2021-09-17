@@ -8,7 +8,7 @@
 <link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
 <script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src='resources/js/cal.js'></script>
+<script src='resources/js/bPopup.js'></script>
 <script>
 var today = new Date();
 var year = today.getFullYear();//년도
