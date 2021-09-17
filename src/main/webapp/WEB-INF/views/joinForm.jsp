@@ -6,14 +6,14 @@
       	<meta name="viewport" content="width=device-width, initail-scale=1.0">
         <title>j-query 강좌</title>
       	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
         <div class="container my-5">
-            <form class="validation-form" action="/join" method="POST" novalidate>
+            <form class="validation-form" action="join" method="POST" novalidate>
                 <div class ="row my-3">
                     <div class="col">
                         <h2>
@@ -32,7 +32,7 @@
                         <div class="invalid-feedback"> 아이디를 입력해주세요. </div>
                     </div>
                     <div class="col-2">
-                        <button type="button" class="btn btn-outline-dark" onclick="idOverCheck();">중복확인</button>
+                        <button type="button" class="btn btn-outline-dark" id="idCheck">중복확인</button>
                     </div>
                 </div>
                 <div class ="row my-3">
@@ -40,7 +40,7 @@
                         <label for="pw">비밀번호 : </label>
                     </div>
                     <div class="col-5">
-                        <input type="text" name= "pw" class="form-control" name="U_userpw" placeholder="8~16자로 입력해주세요." required>
+                        <input type="password" class="form-control" name="U_userpw" minlength="8" maxlength="16" placeholder="8~16자로 입력해주세요." required>
                         <div class="invalid-feedback"> 비밀번호를 입력해주세요. </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         <label for="pwck">비밀번호 확인 : </label>
                     </div>
                     <div class="col-5">
-                        <input type="text" name= "pwck" class="form-control" placeholder="8~16자로 입력해주세요." required>
+                        <input type="password" name= "pwck" class="form-control" minlength="8" maxlength="16" placeholder="8~16자로 입력해주세요." required>
                         <div class="invalid-feedback"> 비밀번호를 한번 더 입력해주세요. </div>
                     </div>
                 </div>
@@ -58,11 +58,11 @@
                         <label for="nick">닉네임 : </label>
                     </div>
                     <div class="col-5">
-                        <input type="text" id="nick" class="form-control" name="U_usernickname" placeholder="특수문자를 제외한 20자로 입력해주세요." required>
+                        <input type="text" id="nick" class="form-control" name="U_usernickname" maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요." required>
                         <div class="invalid-feedback"> 닉네임을 입력해주세요. </div>
                     </div>
                     <div class="col-2">
-                        <button type="button" class="btn btn-outline-dark" onclick="check();">중복확인</button>
+                        <button type="button" class="btn btn-outline-dark" id="nickCheck">중복확인</button>
                     </div>
                 </div>
                 <div class ="row my-3">
@@ -105,31 +105,105 @@
         </div>
     </body>
     <script>
-    function idOverCheck(){
+    
+    var pwChvar = false;
+    var idChvar = false;
+    var nickChvar = false;
+
+	$("#idCheck").click(function(){
         $.ajax({
-            url:'login/idcheck',
+            url:'idcheck',
             type:'get',
             data:{"U_userid":$("#id").val()},
-            dataType:'text',
-            success:function(){
-                $(this).next
+            dataType:'JSON',
+            success:function(data){
+               	console.log(data);
             },
-            error:function(){
-
+            error:function(e){
+				console.log(e);
             }
         });
-    }
+	});
 
+    $("#nickCheck").click(function(){
+        $.ajax({
+            url:'nickcheck',
+            type:'get',
+            data:{"U_usernickname":$("#nick").val()},
+            dataType:'JSON',
+            success:function(data){
+               	console.log(data);
+            },
+            error:function(e){
+				console.log(e);
+            }
+        });
+	});
+
+
+	
+	$("input[name=pwck]").focusout(function(){
+		if($("input[name=U_userpw]").val() != $("input[name=pwck]").val()){
+			console.log($("input[name=pwck]").val());
+			console.log($("input[name=U_userpw]").val());
+			console.log(document.querySelector("select").value);
+            alert("비밀번호가 일치 하지 않습니다.");
+        }else{
+            pwChvar = true;
+        }
+	});
+	
     window.addEventListener('load', () => { 
         const forms = document.getElementsByClassName('validation-form'); 
         Array.prototype.filter.call(forms, (form) => { 
-            form.addEventListener('submit', function (event) { 
+            form.addEventListener('submit', function (event) {
+                if(idChvar || nickChvar || pwChvar) {
+                    alert("아이디, 닉네임 중복체크를 진행해주세요");
+                    event.preventDefault(); event.stopPropagation(); 
+                }
                 if (form.checkValidity() === false) { 
                     event.preventDefault(); event.stopPropagation(); 
-                } 
+                } else{
+                    document.getElementById("email").value = document.getElementById("email").value + "@" + document.querySelector("select").value;
+                    console.log(document.getElementById("email").value);
+                }
                 form.classList.add('was-validated'); 
             }, false); 
         }); 
     }, false);
+    
+    $("#id").keyup(function (){
+		chk_input_filter("non_spec", $("#id"));
+	});
+    
+    $("#nick").keyup(function (){
+		chk_input_filter("non_spec", $("#nick"));
+	});
+    
+    $("#phone").keyup(function (){
+		chk_input_filter("number", $("#phone"));
+	});
+    
+	function chk_input_filter(type, obj){
+
+		var str = $(obj).val();
+
+		if(type == 'alphabet'){
+			//영문만 허용
+			$(obj).val(str.replace(/[^a-z]/gi,""));
+		}else if(type == 'number'){
+			//숫자만 허용
+			$(obj).val(str.replace(/[^0-9]/gi,""));
+		}else if(type == 'alphabet_number'){
+			//영문 , 숫자만 허용
+			$(obj).val(str.replace(/[^a-z0-9]/gi,""));
+		}else if(type == 'non_spec'){
+			//특수문자 비허용
+			$(obj).val(str.replace(/[~!@#$%^&*()_+|<>?:;{}`\-\=\\\,.'"\[\]/]/gi,""));
+		}else if(type == 'name'){
+			//특수문자, 숫자 비허용
+			$(obj).val(str.replace(/[~!@#$%^&*()_+|<>?:;{}`\-\=\\\,.'"\[\]/0-9]/gi,""));
+		}
+	}    
     </script>
 </html>
