@@ -35,48 +35,44 @@
 		</style>
 </head>
 <body>
+<input type="button" onclick="shownm()" value="show">
 			<ul id="list">
 		
 			</ul>
+			
 </body>
 <script>
-var page=1;
-var perPage=5;
-var serviceKey="aRrhNJkloo/8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w+FHu2u/wOWaDcC8/s5hsyxhQaP6bgNp/dEl7OCVQ==";
+function shownm(){
 
-		$.ajax({
-			url:'https://api.odcloud.kr/api/15072401/v1/uddi:aab44eac-714e-4da1-a2fc-ec295c657189?',
-			type:'get',
-			data:{
-				'page':1,
-				'perPage':10,
-				'serviceKey':serviceKey
-			},
-			dataType:'json',
-			success:function(data){
-				console.log(data);				
-				var content = "";
-				data.data.replaceAll("\\s", "");
-				console.log(data);
-				data.data.forEach(function(item) {
-				
-						content +="<li>";
-						content +="<div class ='a2'>"+item.지번+"</div>";
-						content +="<div class ='b2'>"+item.무인도서명+"</div>";
-						content +="<div class ='b2'>"+item.지목+"</div>";
-						content +="<div class ='b2'>"+"</div>";
-						content +="</a>"
-						content +="</li>";
+	$.ajax({
+		url:'apiCall',
+		type:'post',
+		data:{
 			
-				});
-				$("#list").empty();
-				$("#list").append(content);
-				
-			},
-					error:function(e){
-						console.log(e)
-					}
-		})
+		},
+		dataType:'json',
+		success:function(data){
+			console.log(data);
+			console.log(data.features[0]);	
+			console.log(data.features[0].attributes);				
+			var content = "";
+		
+			data.features.forEach(function(item) {
+				 	content +="<li>";
+					content +="<div class ='b2'>"+item.attributes.isln_nm+"</div>";
+					content +="</li>";	
+		
+			}); 
+			$("#list").empty();
+			$("#list").append(content);
+
+			 
+		},
+				error:function(e){
+					console.log(e)
+				}
+	})
+}
 	
 </script>
 </html>

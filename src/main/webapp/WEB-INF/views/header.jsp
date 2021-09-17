@@ -102,6 +102,9 @@
 				    <div class="col-6 lg-6">
 				     	<a class="nav-link active text-white" aria-current="page" href="#">공지사항</a>
 				    </div>
+				    <div class="col-6 lg-6">
+					     <a class="nav-link active text-white" aria-current="page" href="insertisland">섬 관리</a>
+					</div>
 				  </div>
 			  	 </div>
 			</div>
