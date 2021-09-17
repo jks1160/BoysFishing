@@ -8,6 +8,7 @@
 <link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
 <script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src='resources/js/cal.js'></script>
 <script>
 var today = new Date();
 var year = today.getFullYear();//년도
@@ -65,5 +66,16 @@ console.log(O_nuel);
 
   <div id='calendar'></div>
 
+<h1>테스트</h1>
 </body>
+<script>
+$("h1").click(function(){
+	$("h1").bPopup({
+		modalClose: false,
+	    opacity: 0.6,
+	    positionStyle: 'fixed' //'fixed' or 'absolute'
+	   });
+})
+
+</script>
 </html>

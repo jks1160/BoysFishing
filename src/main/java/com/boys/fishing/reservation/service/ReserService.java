@@ -43,8 +43,8 @@ public class ReserService {
 		System.out.println("리스트 2 : " +list.get(1).getS_num());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list",list);
-		System.out.println("오류 테스트");
 		
+		// 배 정보 페이지 완성 시 보내면 된다.
 		return null;
 	}
 	
