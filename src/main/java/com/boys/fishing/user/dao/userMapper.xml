@@ -39,4 +39,18 @@ AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{par
 SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 </select>
 
+
+
+
+
+
+
+
+
+
+<select id="overCheck" resultType="int">
+	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
+</select>
+
+
 </mapper>

@@ -2,6 +2,8 @@ package com.boys.fishing.user.service;
 
 
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,21 @@ public class UserService {
 		mav.setViewName("myUserInfo");
 		
 		return mav;
+	}
+
+	public HashMap<String, Object> overCheck(String col, String val) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String msg = "일치하는 사용자가 없습니다.";
+		if(dao.overCheck(col, val)>0) {
+			msg = "일치하는 사용자가 있습니다.";
+			if(col.equals("U_userid")) {
+				map.put("idChvar", true);
+			}else {
+				map.put("nickChvar", true);
+			}
+		}
+		map.put("msg", msg);
+		return map;
 	}
 
 }

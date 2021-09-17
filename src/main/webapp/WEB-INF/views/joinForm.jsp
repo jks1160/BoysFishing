@@ -32,7 +32,7 @@
                         <div class="invalid-feedback"> 아이디를 입력해주세요. </div>
                     </div>
                     <div class="col-2">
-                        <button type="button" class="btn btn-outline-dark" id="idCheck">중복확인</button>
+                        <button type="button" class="btn btn-outline-dark overCheck" id="test">중복확인</button>
                     </div>
                 </div>
                 <div class ="row my-3">
@@ -62,7 +62,7 @@
                         <div class="invalid-feedback"> 닉네임을 입력해주세요. </div>
                     </div>
                     <div class="col-2">
-                        <button type="button" class="btn btn-outline-dark" id="nickCheck">중복확인</button>
+                        <button type="button" class="btn btn-outline-dark overCheck">중복확인</button>
                     </div>
                 </div>
                 <div class ="row my-3">
@@ -109,38 +109,27 @@
     var pwChvar = false;
     var idChvar = false;
     var nickChvar = false;
-
-	$("#idCheck").click(function(){
+	$(".overCheck").click(function(){
+		var name = $(this).parent().prev().children().first().attr('name');
+		var val = $(this).parent().prev().children().first().val();
         $.ajax({
-            url:'idcheck',
-            type:'get',
-            data:{"U_userid":$("#id").val()},
+            url:'overCheck',
+            type:'POST',
+            data:{ [name] : val},
             dataType:'JSON',
             success:function(data){
                	console.log(data);
+               	idChvar = data.idChvar;
+               	nickChvar = data.nickChvar;
+               	if(data.msg != ""){
+               		alert(data.msg);
+               	}
             },
             error:function(e){
 				console.log(e);
             }
         });
 	});
-
-    $("#nickCheck").click(function(){
-        $.ajax({
-            url:'nickcheck',
-            type:'get',
-            data:{"U_usernickname":$("#nick").val()},
-            dataType:'JSON',
-            success:function(data){
-               	console.log(data);
-            },
-            error:function(e){
-				console.log(e);
-            }
-        });
-	});
-
-
 	
 	$("input[name=pwck]").focusout(function(){
 		if($("input[name=U_userpw]").val() != $("input[name=pwck]").val()){
