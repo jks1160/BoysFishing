@@ -31,7 +31,7 @@ public class ApisController {
 		
 		return "insertisland";
 	}
-	@RequestMapping(value = "/apiCalls", method = RequestMethod.POST)
+	@RequestMapping(value = "/apiCalls")
 	public @ResponseBody HashMap<String, Object> apiCalls
 	(@RequestParam HashMap<String, String> params) {
 		logger.info("params : {}",params);
