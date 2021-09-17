@@ -11,15 +11,28 @@
 <body>
 <h1>님의 포인트 정보</h1>
 <div>
-
-</div>
-${point}
-<div>
-
-</div>
-
-<div>
-
+	<form action="pointCharge" method="GET">
+	<table>
+		<tr>
+			<td>보유 포인트</td>
+			<td>${point}</td>
+		</tr>
+		<tr>
+			<td>포인트 충전하기</td>
+			<td>
+				<input type="text" name="p_charge">
+				<button>충전하기</button>
+			</td>
+		</tr>
+		<tr>
+			<td>포인트 출금하기</td>
+			<td>
+				<input type="text" name="p_withdraw">
+				<button onclick='return withdraw(this.form)'>출금하기하기</button>
+			</td>		
+		</tr>
+	</table>
+</form>
 </div>
 
 <div class="p_history">
@@ -43,6 +56,15 @@ ${point}
 
 </body>
 <script>
+function withdraw(form) { 
+    form.action='pointWithdraw'; 
+    form.submit(); 
+    return true; 
+  } 
+
+
+
+
 var p_page = 1;
 pointListCall(p_page);
 function pointListCall(p_page) {

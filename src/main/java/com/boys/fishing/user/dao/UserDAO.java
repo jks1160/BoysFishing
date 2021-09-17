@@ -31,4 +31,12 @@ public interface UserDAO {
 	ArrayList<UserDTO> pointHistoryList(int start, String user, int end);
 	int totalPageP(String user);
 	int point(String id);
+
+
+
+
+
+
+
+	void pointCharge(int p_charge, String user);
 }

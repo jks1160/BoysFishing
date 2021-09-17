@@ -107,4 +107,10 @@ public class myPageService {
 		return map;
 	}
 
+	public void pointCharge(int p_charge, String user) {
+		int balance;
+		dao.pointCharge(p_charge,user);
+		
+	}
+
 }

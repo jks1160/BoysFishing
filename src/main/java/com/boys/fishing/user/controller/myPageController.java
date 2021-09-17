@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,6 +39,23 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		mav.setViewName("myPage");
 		return mav;
 	}
+	
+	@RequestMapping(value="/pointCharge")
+	public String pointCharge(Model model, HttpSession session ,@RequestParam String p_charge) {
+		logger.info("포인트충전 왔슈?"+p_charge);
+		String user = (String) session.getAttribute("loginId");
+		myservice.pointCharge(Integer.parseInt(p_charge),user);
+		return "redirect:/pointPage";
+	}
+	
+	@RequestMapping(value="/pointWithdraw")
+	public String pointWithdraw(Model model, @RequestParam String p_withdraw) {
+		logger.info("포인트인출 왔슈?"+p_withdraw);
+		
+		return "redirect:/pointPage";
+	}
+	
+	
 	
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
 	public ModelAndView pointPage(HttpSession session) {

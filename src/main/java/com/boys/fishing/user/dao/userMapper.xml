@@ -39,6 +39,10 @@ AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{par
 SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 </select>
 
+
+
+
+
 <select id="point" resultType="int">
 select p_balance
 from(
@@ -48,6 +52,11 @@ from(
 )
 where ROWNUM = 1
 </select>
+
+<update id="pointCharge">
+
+</update>
+
 
 <select id="pointHistoryList" resultType="userInfo">
 select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY p_regdate DESC)
