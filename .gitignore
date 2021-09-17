@@ -2,3 +2,5 @@
 .settings/
 target/
 src/test/
+.project
+.springBeans
