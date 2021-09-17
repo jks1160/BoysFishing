@@ -35,6 +35,6 @@ public class ApisController {
 	public @ResponseBody HashMap<String, Object> apiCall
 	(@RequestParam HashMap<String, String> params) {
 		logger.info("params : {}",params);
-		return null;
+		return service.apiCalls();
 	}
 }
