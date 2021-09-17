@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.service.UserService;
@@ -33,10 +34,11 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
-	public String pointPage() {
+	public ModelAndView pointPage() {
 		logger.info("포인트 페이지 요청");
+		ModelAndView mav = new ModelAndView();
 		
-		return "pointPage";
+		return mav;
 	}
 	
 	@ResponseBody

@@ -9,6 +9,17 @@
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<h1>포인트 페이지</h1>
+<h1>님의 포인트 정보</h1>
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+<div>
+
+</div>
 </body>
 </html>
