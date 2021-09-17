@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.service.UserService;
@@ -26,17 +29,25 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String loginPage() {
+	public ModelAndView loginPage(HttpSession session) {
 		logger.info("마이 페이지 요청 ");
-		
-		return "myPage";
+		ModelAndView mav = new ModelAndView();
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
+		mav.setViewName("loginPage");
+		return mav;
 	}
 	
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
-	public String pointPage() {
+	public ModelAndView pointPage(HttpSession session) {
 		logger.info("포인트 페이지 요청");
+		ModelAndView mav = new ModelAndView();
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
 		
-		return "pointPage";
+		return myservice.point(id);
 	}
 	
 	@ResponseBody

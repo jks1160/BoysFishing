@@ -141,11 +141,15 @@ function sumsumPageList(list){
 
 
 //정보게시판 글 리스트 뿌리기
-infoListCall();
-function infoListCall() {
+infoListCall(infoPage);
+function infoListCall(infoPage) {
+	var param = {};
+	param.page = infoPage;
+	param.user = user;
 	$.ajax({
 		type : 'get',
 		url : 'infoList',
+		data : param,
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
@@ -193,11 +197,15 @@ function infoPageList(list){
 
 
 //후기게시판 글 리스트 뿌리기
-revListCall();
-function revListCall() {
+revListCall(revPage);
+function revListCall(revPage) {
+	var param = {};
+	param.page = revPage;
+	param.user = user;
 	$.ajax({
 		type : 'get',
 		url : 'revList',
+		data : param,
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
