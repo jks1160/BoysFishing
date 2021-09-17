@@ -31,10 +31,10 @@ public class ApisController {
 		
 		return "insertisland";
 	}
-	@RequestMapping(value = "/apiCall", method = RequestMethod.POST)
-	public @ResponseBody HashMap<String, Object> apiCall
+	@RequestMapping(value = "/apiCalls", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> apiCalls
 	(@RequestParam HashMap<String, String> params) {
 		logger.info("params : {}",params);
-		return service.apiCalls();
+		return service.apiCalls(params);
 	}
 }

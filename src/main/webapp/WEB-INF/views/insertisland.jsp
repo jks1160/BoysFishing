@@ -45,7 +45,7 @@
 function shownm(){
 
 	$.ajax({
-		url:'apiCall',
+		url:'apiCalls',
 		type:'post',
 		data:{
 			
