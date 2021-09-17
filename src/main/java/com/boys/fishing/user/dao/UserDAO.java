@@ -12,10 +12,10 @@ public interface UserDAO {
 	UserDTO myUserInfo(String u_userid);
 
 
-	ArrayList<SumsumDTO> infoList();
+	ArrayList<SumsumDTO> infoList(int start, String user, int end);
 
 
-	ArrayList<SumsumDTO> revList();
+	ArrayList<SumsumDTO> revList(int start, String user, int end);
 
 
 	int totalPage(String user, String code);

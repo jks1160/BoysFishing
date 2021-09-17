@@ -48,17 +48,23 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.sumsumlist(page, user);
 	}
 	
-	  @ResponseBody
-	  @RequestMapping(value="/infoList") public ArrayList<SumsumDTO> infoList() {
-	  logger.info("정보글 리스트 받기 요청");
+	@ResponseBody
+	@RequestMapping(value="/revList") 
+	public HashMap<String,Object> revList(int page, String user) {
+		logger.info("후기글 리스트 받기 요청");
+		logger.info("page:"+page+" user:"+user);
+		return myservice.revList(page, user); 
+	 }
+	
+	@ResponseBody
+	@RequestMapping(value="/infoList") 
+	public HashMap<String,Object> infoList(int page, String user) {
+		logger.info("정보글 리스트 받기 요청");
+		logger.info("page:"+page+" user:"+user);
+		return myservice.infoList(page, user); 
+	 }
 	  
-	  return myservice.infoList(); }
 	  
-	  @ResponseBody
-	  @RequestMapping(value="/revList") public ArrayList<SumsumDTO> revList() {
-	  logger.info("후기글 리스트 받기 요청");
-	  
-	  return myservice.revList(); }
 	 
 	
 }

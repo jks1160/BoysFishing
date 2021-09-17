@@ -17,6 +17,7 @@ public class myPageService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserDAO dao;
 	
+	//자유게시판 글리스트
 	public HashMap<String,Object> sumsumlist(int page, String user) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int totalPage;
@@ -36,17 +37,44 @@ public class myPageService {
 		return map;
 	}
 
-	public ArrayList<SumsumDTO> infoList() {
-		ArrayList<SumsumDTO> infoinfo = new ArrayList<SumsumDTO>();
-		infoinfo = dao.infoList();
-		return infoinfo;
+	//후기게시판 글리스트
+	public HashMap<String, Object> revList(int page, String user) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalPage;
+		String code = "B002";
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		
+		ArrayList<SumsumDTO> sumsum = new ArrayList<SumsumDTO>();
+		totalPage = dao.totalPage(user,code);
+		sumsum = dao.revList(start,user,end);
+		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
+		logger.info("총 페이지: "+totalPage);
+		map.put("list", sumsum);
+		map.put("totalPage", pages);
+		map.put("currPage", page);
+		return map;
 	}
-
-	public ArrayList<SumsumDTO> revList() {
-		ArrayList<SumsumDTO> revrev = new ArrayList<SumsumDTO>();
-		revrev = dao.revList();
-		return revrev;
+	
+	//정보게시판 글리스트	
+	public HashMap<String, Object> infoList(int page, String user) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalPage;
+		String code = "B003";
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		
+		ArrayList<SumsumDTO> sumsum = new ArrayList<SumsumDTO>();
+		totalPage = dao.totalPage(user,code);
+		sumsum = dao.infoList(start,user,end);
+		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
+		logger.info("총 페이지: "+totalPage);
+		map.put("list", sumsum);
+		map.put("totalPage", pages);
+		map.put("currPage", page);
+		return map;
 	}
-
 
 }

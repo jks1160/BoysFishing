@@ -160,7 +160,7 @@ function infoListCall() {
 function infoDrawList(list) {
 	console.log(list);
 	var content = "";
-	list.forEach(function(item, idx) {
+	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
 		content += "<tr>";
 		content += "<td>" + item.b_num  + "</td>";
@@ -181,7 +181,7 @@ function infoPageList(list){
 		for(i = 1; i<= list.totalPage; i++){
 			content += "<span class='page'>";
 			if(i != list.currPage){
-				content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+				content += "<button onclick='infoListCall("+i+");'>"+i+"</button>";
 			}else{
 				content += "<b>"+i+"</b>";
 			}
@@ -214,7 +214,7 @@ function revListCall() {
 function revDrawList(list) {
 	console.log(list);
 	var content = "";
-	list.forEach(function(item, idx) {
+	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
 		content += "<tr>";
 		content += "<td>" + item.b_num  + "</td>";
@@ -235,7 +235,7 @@ function revPageList(list){
 		for(i = 1; i<= list.totalPage; i++){
 			content += "<span class='page'>";
 			if(i != list.currPage){
-				content += "<button onclick='listCall("+i+");'>"+i+"</button>";
+				content += "<button onclick='revListCall("+i+");'>"+i+"</button>";
 			}else{
 				content += "<b>"+i+"</b>";
 			}

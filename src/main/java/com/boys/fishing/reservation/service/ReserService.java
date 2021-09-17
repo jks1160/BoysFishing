@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.boys.fishing.apis.dao.ApisDAO;
 import com.boys.fishing.apis.dto.IslandDTO;
 import com.boys.fishing.reservation.dao.ReserDAO;
-import com.boys.fishing.reservation.dto.ReserDTO;
+import com.boys.fishing.reservation.dto.reserDTO;
 
 @Service
 public class ReserService {
