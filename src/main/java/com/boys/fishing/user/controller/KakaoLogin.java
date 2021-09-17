@@ -11,12 +11,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
-<<<<<<< HEAD
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-=======
->>>>>>> 536549f87a30d3a76d5cdeea201d8516bd748b3b
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
