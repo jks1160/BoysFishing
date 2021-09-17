@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.boys.fishing.apis.service.ApisService;
 import com.boys.fishing.user.service.UserService;
 
-
+//test controller
 @Controller
 public class ApisController {
 	
@@ -35,6 +35,6 @@ public class ApisController {
 	public @ResponseBody HashMap<String, Object> apiCall
 	(@RequestParam HashMap<String, String> params) {
 		logger.info("params : {}",params);
-		return null;
+		return service.apiCalls();
 	}
 }

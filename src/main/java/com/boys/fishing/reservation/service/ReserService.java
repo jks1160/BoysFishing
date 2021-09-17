@@ -44,7 +44,7 @@ public class ReserService {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list",list);
 		
-		
+		// 배 정보 페이지 완성 시 보내면 된다.
 		return null;
 	}
 	

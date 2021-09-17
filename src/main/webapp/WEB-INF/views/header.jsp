@@ -50,7 +50,7 @@
 			  <div class="collapse navbar-collapse"  id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto " >
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="test">섬정보/예약</a>
+					<a class="nav-link active text-white" aria-current="page" href="islandsReservation">섬정보/예약</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">섬섬톡</a>
@@ -63,6 +63,9 @@
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">공지사항</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link active text-white" aria-current="page" href="calendar">조재현(달력 작업중)</a>
 				  </li>	
 				  
 				  <li class="nav-item">
@@ -102,6 +105,9 @@
 				    <div class="col-6 lg-6">
 				     	<a class="nav-link active text-white" aria-current="page" href="#">공지사항</a>
 				    </div>
+				    <div class="col-6 lg-6">
+					     <a class="nav-link active text-white" aria-current="page" href="insertisland">섬 관리</a>
+					</div>
 				  </div>
 			  	 </div>
 			</div>

@@ -41,11 +41,11 @@ public class HomeController {
 		logger.info("테스트");
 		return "login";
 	}
-	@RequestMapping(value="/test", method = RequestMethod.GET)
+	@RequestMapping(value="/islandsReservation", method = RequestMethod.GET)
 	public String test() {
-		logger.info("먼데이거 테스트 ");
+		logger.info("섬 정보/ 예약 페이지 입장 ");
 		
-		return "test";
+		return "islandsReservation";
 	}
 	@RequestMapping(value="/logOut", method = RequestMethod.GET)
 	public String logOut(HttpSession session) {
@@ -81,4 +81,14 @@ public class HomeController {
 		logger.info(dto.getU_userid());
 		return mav;
 	}
+	//달력
+	@RequestMapping(value="/calendar", method = RequestMethod.GET)
+	public String calendar(@ModelAttribute UserDTO dto) {
+		logger.info("달력 테스트 ");
+		
+		
+		
+		return "calendar";
+	}
+	
 }
