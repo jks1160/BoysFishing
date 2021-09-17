@@ -145,7 +145,7 @@
 					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
 				}else{ 
 					console.log("찾은 데이터 : ",data.findData.i_name);
-					context = "<a class='list-group-item list-group-item-action pick_data'>"+data.findData.i_name+"</a>";
+					context = "<a class='list-group-item list-group-item-action pick_data' id='"+data.findData.i_num+"'>"+data.findData.i_name+"</a>";
 					$(".result_list").empty();
 					$(".result_list").append(context);
 				}
@@ -160,7 +160,7 @@
 	$(document).on("click",".pick_data",function(){
 		var me = $(this);
 		console.log("나다",me);
-		var context = "<input type='text' class='form-control pick_island' value='"+this.innerText+"'  name='choice' />";
+		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' />";
 		$(".pick_island").remove();
 		$("#result").append(context);
 	});

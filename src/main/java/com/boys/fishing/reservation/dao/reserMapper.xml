@@ -6,6 +6,9 @@
 >
 <mapper namespace="com.boys.fishing.reservation.dao.ReserDAO">
 
+	<select id="findShip" resultType="reser" >
+		SELECT * FROM operrange WHERE i_num = #{param1}
+	</select> 
 
 
 </mapper>
