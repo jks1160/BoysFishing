@@ -35,27 +35,33 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		//테스트 세션
 		String id = "somefishing";
 		session.setAttribute("loginId", id);
-		mav.setViewName("loginPage");
+		mav.setViewName("myPage");
 		return mav;
 	}
 	
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
 	public ModelAndView pointPage(HttpSession session) {
 		logger.info("포인트 페이지 요청");
-		ModelAndView mav = new ModelAndView();
-		//테스트 세션
 		String id = "somefishing";
 		session.setAttribute("loginId", id);
-		
 		return myservice.point(id);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/pointHistoryPage")
+	public HashMap<String,Object> pointHistoryPage(HttpSession session, int page) {
+		logger.info("포인트 히스토리 리스트 받기 요청");
+		String user = (String) session.getAttribute("loginId");
+		logger.info("page:"+page+" user:"+user);
+		return myservice.pointHistoryPage(page, user);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/sumsumlist")
 	public HashMap<String,Object> sumsumlist(int page, String user) {
 		logger.info("자유글 리스트 받기 요청");
 		logger.info("page:"+page+" user:"+user);
-		//int page1 = Integer.parseInt(String.valueOf(page));
 		return myservice.sumsumlist(page, user);
 	}
 	

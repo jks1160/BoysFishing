@@ -82,7 +82,29 @@ public class myPageService {
 	public ModelAndView point(String id) {
 		logger.info("회원 포인트조회 서비스");
 		ModelAndView mav = new ModelAndView();
-		return null;
+		int p_point = dao.point(id);
+		mav.addObject("point",p_point);
+		mav.setViewName("pointPage");
+		return mav;
+	}
+
+	public HashMap<String, Object> pointHistoryPage(int page, String user) {
+		logger.info("회원 포인트히스토리 조회 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalPage;
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		
+		ArrayList<UserDTO> pointHistory = new ArrayList<UserDTO>();
+		totalPage = dao.totalPageP(user);
+		pointHistory = dao.pointHistoryList(start,user,end);
+		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
+		logger.info("총 페이지: "+totalPage);
+		map.put("list", pointHistory);
+		map.put("totalPage", pages);
+		map.put("currPage", page);
+		return map;
 	}
 
 }

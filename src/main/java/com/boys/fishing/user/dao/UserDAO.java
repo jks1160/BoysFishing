@@ -21,4 +21,14 @@ public interface UserDAO {
 	ArrayList<SumsumDTO> revList(int page, String user, int totalPage);
 
 	int totalPage(String user, String code);
+
+
+
+
+
+
+
+	ArrayList<UserDTO> pointHistoryList(int start, String user, int end);
+	int totalPageP(String user);
+	int point(String id);
 }
