@@ -30,41 +30,40 @@ if(date <10){
 }
 
 
-$('.pop').height(100);
-
-
 console.log("year",year );
 console.log("months", month);
 console.log("date",date);
 var O_nuel = year+'-'+month+'-'+date;
+console.log(today);
 console.log(O_nuel);
  document.addEventListener('DOMContentLoaded', function() {
  var calendarEl = document.getElementById('calendar');
  var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
+      headerToolbar: { //헤더
         left: 'prev,next today',
-        center: 'title'
+        center: 'title',
+        right: ''
       },
-      initialDate: O_nuel,
+      initialDate: O_nuel, //오늘의 날짜
       navLinks: false, // can click day/week names to navigate views
       businessHours: true, // display business hours
-      locale: "ko",
-      editable: true,
-      selectable: true,
-      select : function(info){
-    	 console.log(info);
-    	 $(".pop").bPopup({
-				modalClose: false,
-			    opacity: 0.6,
-			    positionStyle: 'fixed', //'fixed' or 'absolute'
-			    folow: [false, false]
-			});
-    	var end_date = new Date(info.endStr);
-    	var start_date = new Date(info.StartStr);
-    	console.log("끝날짜 ",end_date);
-    	console.log("시작 날짜 : ", start_date);
-    	 
-      }
+      locale: "ko", //한글 설정
+      editable: true, // 에디터 가능한지 
+      selectable: true, //선택 가능한지
+      dateClick: function(e){
+    	  if(Number(e.date) > Number(today)){
+    		alert("브라보");  
+    	  }
+      },
+      events: [ // 이벤트 등록
+    	  
+    	  
+      ]
+      
+      
+    	  
+      
+     
       
     });
 
@@ -93,12 +92,18 @@ console.log(O_nuel);
   <div id='calendar'></div>
 
 <div class='pop' hidden='hidden' style='width:100px; height:100px;'>
+	<!-- 이 부분에 일정이 나온다. -->
 	<h2> 팝업 테스트 </h2>
 	<button>확인</button>
 	<button>취소</button>
 </div>
 </body>
 <script>
-
+/* $(".pop").bPopup({
+	modalClose: false,
+    opacity: 0.6,
+    positionStyle: 'fixed', //'fixed' or 'absolute'
+    folow: [false, false]
+}); */
 </script>
 </html>
