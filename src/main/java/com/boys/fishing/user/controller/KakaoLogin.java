@@ -12,6 +12,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class KakaoLogin {
 
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 @RequestMapping(value = "/login/getKakaoAuthUrl")
 	// 인증요청 > 인증코드 발급 > 인증토큰 요청
 	// 우리 서버로 들어온 카카오 시작하기 요청을 카카오 서버로 인증요청을 보냄(HttpServletRequest)

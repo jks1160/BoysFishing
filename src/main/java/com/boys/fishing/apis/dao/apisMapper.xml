@@ -7,6 +7,8 @@
 <mapper namespace="com.boys.fishing.apis.dao.ApisDAO">
 	<select id="reserResearch" parameterType="hashmap"
 		resultType="apis">
-		select i_name from island where i_name LIKE '%'||#{searchData}||'%'
+		select i_name, i_num from island where i_name LIKE '%'||#{searchData}||'%'
 	</select>
+	
+	
 </mapper>
