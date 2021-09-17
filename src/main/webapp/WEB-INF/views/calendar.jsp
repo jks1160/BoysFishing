@@ -11,16 +11,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src='resources/js/bPopup.js'></script>
 <script>
+
+// 아이디 가져오기
+var checker = "${sessionScope.loginId}";
+console.log(checker);
+
+// 날짜 설정
 var today = new Date();
 var year = today.getFullYear();//년도
 var month = today.getMonth() + 1; // 월
 var date = today.getDate(); //날짜
+
 if(month <10){
 	month = "0"+month;
 }
 if(date <10){
 	date = "0"+date;
 }
+
+
+$('.pop').height(100);
+
 
 console.log("year",year );
 console.log("months", month);
@@ -39,7 +50,22 @@ console.log(O_nuel);
       businessHours: true, // display business hours
       locale: "ko",
       editable: true,
-      selectable: true,     
+      selectable: true,
+      select : function(info){
+    	 console.log(info);
+    	 $(".pop").bPopup({
+				modalClose: false,
+			    opacity: 0.6,
+			    positionStyle: 'fixed', //'fixed' or 'absolute'
+			    folow: [false, false]
+			});
+    	var end_date = new Date(info.endStr);
+    	var start_date = new Date(info.StartStr);
+    	console.log("끝날짜 ",end_date);
+    	console.log("시작 날짜 : ", start_date);
+    	 
+      }
+      
     });
 
     calendar.render();
@@ -66,16 +92,13 @@ console.log(O_nuel);
 
   <div id='calendar'></div>
 
-<h1>테스트</h1>
+<div class='pop' hidden='hidden' style='width:100px; height:100px;'>
+	<h2> 팝업 테스트 </h2>
+	<button>확인</button>
+	<button>취소</button>
+</div>
 </body>
 <script>
-$("h1").click(function(){
-	$("h1").bPopup({
-		modalClose: false,
-	    opacity: 0.6,
-	    positionStyle: 'fixed' //'fixed' or 'absolute'
-	   });
-})
 
 </script>
 </html>
