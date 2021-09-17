@@ -1,5 +1,7 @@
 package com.boys.fishing.user.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.user.dto.UserDTO;
@@ -90,5 +94,16 @@ public class HomeController {
 		
 		return "calendar";
 	}
-	
+	@RequestMapping(value="/idCheck", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> idCheck(@RequestParam HashMap<String, String> map) {
+		logger.info("아이디 중복 확인 요청 ");
+
+		return map;
+	}
+	@RequestMapping(value="/nickCheck", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> nickCheck(@RequestParam HashMap<String, String> map) {
+		logger.info("닉네인 중복 확인 요청");
+
+		return map;
+	}
 }
