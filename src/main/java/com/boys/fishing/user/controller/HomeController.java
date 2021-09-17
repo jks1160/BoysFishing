@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.boys.fishing.user.dto.UserDTO;
 import com.boys.fishing.user.service.UserService;
 
 
@@ -65,4 +67,18 @@ public class HomeController {
 		return service.myUserInfo(u_userid);
 	}	
 	
+	@RequestMapping(value="/joinForm", method = RequestMethod.GET)
+	public String joinForm() {
+		logger.info("회원가입 페이지 요청 ");
+		
+		return "joinForm";
+	}
+	
+	@RequestMapping(value="/join", method = RequestMethod.POST)
+	public ModelAndView join(@ModelAttribute UserDTO dto) {
+		logger.info("회원가입 요청 ");
+		ModelAndView mav = new ModelAndView();
+		logger.info(dto.getU_userid());
+		return mav;
+	}
 }
