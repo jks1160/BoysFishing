@@ -59,16 +59,13 @@ var O_nuel = year+'-'+month+'-'+date;
     		alert("브라보");  
     	  }
       },
-      events: function(info, successCallback, failureCallback){
+       events: function(info, successCallback, failureCallback){
     	  console.log("인포 내놔 : ",info.startStr);
     	  console.log("인포 내놔1 : ",successCallback);
     	  console.log("인포 내놔2 : ",failureCallback);
     	   $.ajax({
 				url:'./reser/user_reser',
 				type: 'POST',
-				data: {
-		
-				},
 				dataType :"JSON",
 				success : function(data) {
 					console.log("성공 데이터 : " ,data);
@@ -77,11 +74,8 @@ var O_nuel = year+'-'+month+'-'+date;
 					console.log("우하하하 ",test );
 					var tt = new Date(test).getFullYear();
 					console.log("설마..",tt);
-					console.log("년", test.getFullYear());
-					console.log("월", test.getMonth()+1);
-					console.log("일", test.getDate());
 					
-					console.log("되나:",my_reser);
+					
 					
 				},
 				error : function(e){
@@ -89,6 +83,7 @@ var O_nuel = year+'-'+month+'-'+date;
 				}
     	  }); 
       }
+     
        
     });
 
