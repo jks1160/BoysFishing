@@ -63,6 +63,7 @@ public class ReserService {
 			logger.info("이름: {}",name.getRi_userid());
 			logger.info("날짜 : {}",name.getRi_date());
 		}
+		
 		map.put("my_list", list);
 		
 		return map;

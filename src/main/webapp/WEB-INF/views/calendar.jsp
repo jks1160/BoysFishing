@@ -68,15 +68,34 @@ var O_nuel = year+'-'+month+'-'+date;
 				type: 'POST',
 				dataType :"JSON",
 				success : function(data) {
+					// 등록할 이벤트를 담을 리스트
+					var events = []; 
+					//성공 했는지 확인
 					console.log("성공 데이터 : " ,data);
+					// 받은 데이터 중 my_list 부분을 가져온다.
+					data.my_list.forEach(function(myReser){
+							myReser.ri_date
+					})
 					var test = Date(data.ri_date);
 					
 					console.log("우하하하 ",test );
-					var tt = new Date(test).getFullYear();
-					console.log("설마..",tt);
+					var get_year = new Date(test).getFullYear();
+					var get_month = new Date(test).getMonth()+1;
+					var get_day = new Date(test).getDate();
+					
+					var tests = test.format('YYYY-MM-DD');
+					console.log(tests);
+					
+					var get_reser = get_year+"-"+get_month+"-"+get_day;
+					console.log("설마..",get_reser);
+					
+					if(data != null){
+						
+					}
 					
 					
 					
+					successCallback(events);
 				},
 				error : function(e){
 				console.log("에러났습니다." ,e);
