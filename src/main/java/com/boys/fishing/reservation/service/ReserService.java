@@ -47,6 +47,26 @@ public class ReserService {
 		// 배 정보 페이지 완성 시 보내면 된다.
 		return null;
 	}
+
+	/**
+	 * 
+	 * @param id : 유저의 달력 예약 정보를 가져온다.
+	 * @return
+	 */
+	public HashMap<String,Object> user_reser(String id) {
+		
+		logger.info("예약 정보 서비스 요청 아이디 : {}", id);
+		
+		ArrayList<ReserDTO> list = reserDAO.user_reser(id);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		for (ReserDTO name : list) {
+			logger.info("이름: {}",name.getRi_userid());
+			logger.info("날짜 : {}",name.getRi_date());
+		}
+		map.put("my_list", list);
+		
+		return map;
+	}
 	
 	
 }

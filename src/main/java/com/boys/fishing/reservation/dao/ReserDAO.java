@@ -8,6 +8,8 @@ public interface ReserDAO {
 
 	ArrayList<ReserDTO> findShip(String find_ship);
 
+	ArrayList<ReserDTO> user_reser(String id);
+
 	
 
 	

@@ -90,9 +90,9 @@ public class HomeController {
 	}
 	//달력
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
-	public String calendar(@ModelAttribute UserDTO dto) {
+	public String calendar(@ModelAttribute UserDTO dto, HttpSession session) {
 		logger.info("달력 테스트 ");
-		
+		session.setAttribute("loginId","test_user1");
 		
 		
 		return "calendar";

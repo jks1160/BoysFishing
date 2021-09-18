@@ -14,8 +14,8 @@ public class LoginChecker extends HandlerInterceptorAdapter {
 			throws Exception {
 		System.out.println("로그인 체크");
 	
-		System.out.println(request.getSession().getAttribute("loginId"));
-		System.out.println(request.getSession().getAttribute(""));
+		//System.out.println(request.getSession().getAttribute("loginId"));
+		//System.out.println(request.getSession().getAttribute(""));
 		if(request.getSession().getAttribute("userInfo") != null) {
 			
 			return true;
