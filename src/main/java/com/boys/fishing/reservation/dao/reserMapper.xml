@@ -9,6 +9,9 @@
 	<select id="findShip" resultType="reser" >
 		SELECT * FROM operrange WHERE i_num = #{param1}
 	</select> 
-
-
+	<!-- 유저 달력 예약 정보를 가져온다. -->
+	<select id="user_reser" resultType="reser">
+		SELECT ri_num, ri_userid, ri_code, s_num, ri_date FROM reserINFO
+		WHERE ri_userid = #{param1}
+	</select>
 </mapper>

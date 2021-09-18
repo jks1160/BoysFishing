@@ -2,6 +2,8 @@ package com.boys.fishing.reservation.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,14 @@ public class ReserController {
 		
 		
 		return service.findShip(find_ship);
+	}
+	@RequestMapping(value="/user_reser",method=RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> user_reser(HttpSession session){
+		
+		logger.info("아이디 정보 : {}",session.getAttribute("loginId"));
+		String id = (String)session.getAttribute("loginId");
+		
+		return service.user_reser(id);
 	}
 	
 }
