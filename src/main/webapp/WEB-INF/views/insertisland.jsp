@@ -45,15 +45,14 @@
 function shownm(){
 
 	$.ajax({
-		url:'apiCalls',
-		type:'post',
+		url: "apiCalls",
+		type:'get',
 		data:{
 			
 		},
 		dataType:'json',
 		success:function(data){
 			console.log(data);
-			console.log(data.features[0]);	
 			console.log(data.features[0].attributes);				
 			var content = "";
 		

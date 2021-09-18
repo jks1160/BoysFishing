@@ -21,4 +21,25 @@ public interface UserDAO {
 	ArrayList<SumsumDTO> revList(int page, String user, int totalPage);
 
 	int totalPage(String user, String code);
+
+
+
+
+
+
+
+	int overCheck(String string, String val);
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

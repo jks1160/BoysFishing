@@ -1,6 +1,7 @@
 package com.boys.fishing.user.controller;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
@@ -82,7 +83,7 @@ public class HomeController {
 	public ModelAndView join(@ModelAttribute UserDTO dto) {
 		logger.info("회원가입 요청 ");
 		ModelAndView mav = new ModelAndView();
-		logger.info(dto.getU_userid());
+		logger.info(dto.getU_useremail());
 		return mav;
 	}
 	//달력
@@ -94,16 +95,17 @@ public class HomeController {
 		
 		return "calendar";
 	}
-	@RequestMapping(value="/idCheck", method = RequestMethod.POST)
+	@RequestMapping(value="/overCheck", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, String> idCheck(@RequestParam HashMap<String, String> map) {
-		logger.info("아이디 중복 확인 요청 ");
-
-		return map;
-	}
-	@RequestMapping(value="/nickCheck", method = RequestMethod.POST)
-	public @ResponseBody HashMap<String, String> nickCheck(@RequestParam HashMap<String, String> map) {
-		logger.info("닉네인 중복 확인 요청");
-
-		return map;
+		logger.info("중복 확인 요청 ");
+		String col = null;
+		String val = null;
+		for (Entry<String, String> elem : map.entrySet()) {
+			System.out.println("키 : " + elem.getKey() + "값 : " + elem.getValue());
+			col = elem.getKey();
+			val = elem.getValue();
+		}
+		
+		return service.overCheck(col, val);
 	}
 }
