@@ -110,9 +110,5 @@ public class HomeController {
 		
 		return service.overCheck(col, val);
 	}
-	@RequestMapping(value = "/upload", method= RequestMethod.POST)
-	public ModelAndView upload(MultipartFile file, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
-		logger.info("파일업로드 요청");
-		return service.fileUpload(file, session);
-	}
+
 }
