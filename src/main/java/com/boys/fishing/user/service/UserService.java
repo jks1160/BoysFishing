@@ -32,15 +32,17 @@ public class UserService {
 		return mav;
 	}
 
-	public HashMap<String, Object> overCheck(String col, String val) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public HashMap<String, String> overCheck(String col, String val) {
+		HashMap<String, String> map = new HashMap<String, String>();
 		String msg = "일치하는 사용자가 없습니다.";
+		map.put("idChvar", "true");
+		map.put("nickChvar", "true");
 		if(dao.overCheck(col, val)>0) {
 			msg = "일치하는 사용자가 있습니다.";
 			if(col.equals("U_userid")) {
-				map.put("idChvar", true);
+				map.put("idChvar", "false");
 			}else {
-				map.put("nickChvar", true);
+				map.put("nickChvar", "false");
 			}
 		}
 		map.put("msg", msg);

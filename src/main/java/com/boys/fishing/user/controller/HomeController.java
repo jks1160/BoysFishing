@@ -83,7 +83,7 @@ public class HomeController {
 	public ModelAndView join(@ModelAttribute UserDTO dto) {
 		logger.info("회원가입 요청 ");
 		ModelAndView mav = new ModelAndView();
-		logger.info(dto.getU_userid());
+		logger.info(dto.getU_useremail());
 		return mav;
 	}
 	//달력
@@ -96,7 +96,7 @@ public class HomeController {
 		return "calendar";
 	}
 	@RequestMapping(value="/overCheck", method = RequestMethod.POST)
-	public @ResponseBody HashMap<String, Object> idCheck(@RequestParam HashMap<String, String> map) {
+	public @ResponseBody HashMap<String, String> idCheck(@RequestParam HashMap<String, String> map) {
 		logger.info("중복 확인 요청 ");
 		String col = null;
 		String val = null;

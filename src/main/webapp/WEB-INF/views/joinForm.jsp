@@ -118,9 +118,13 @@
             data:{ [name] : val},
             dataType:'JSON',
             success:function(data){
-               	console.log(data);
-               	idChvar = data.idChvar;
-               	nickChvar = data.nickChvar;
+            	if(JSON.parse(data.idChvar)){
+            		idChvar = JSON.parse(data.idChvar);
+            	}
+            	if(JSON.parse(data.nickChvar)){
+            		nickChvar = JSON.parse(data.nickChvar);
+            	}
+            	console.log(JSON.parse(data.idChvar));
                	if(data.msg != ""){
                		alert(data.msg);
                	}
