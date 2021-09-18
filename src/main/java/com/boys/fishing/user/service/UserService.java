@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.user.dao.UserDAO;
 import com.boys.fishing.user.dto.UserDTO;
@@ -59,23 +60,57 @@ public class UserService {
 	}
 	
 	@Transactional
-	public ModelAndView join(UserDTO dto) {
+	public ModelAndView join(UserDTO dto, String fileName) {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, String> map = new HashMap<String, String>();
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
-		
-		
-		
+		mav.setViewName("joinForm");
+		mav.addObject("msg","회원가입에 실패했습니다. 다시 시도해주세요");
 		if(dao.join(dto)>0) {
-			mav.setViewName("main");
+			mav.setViewName("mainPage");
 			map.put("msg", "회원가입에 성공했습니다.");
 			mav.addObject(map);
 		}
 		
+		if(fileName != null) {
+			dao.userProfile(dto.getU_userid(), fileName);		
+		}
 		return mav;
 	}
 
-	
+	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
+		String path = null;
+		String fileName = file.getOriginalFilename();
+		logger.info(fileName);
+		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+		try {
+			byte[] bytes = file.getBytes();
+			Path filePath = Paths.get("C:/upload/" + fileName);
+			Files.write(filePath, bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		attr.addFlashAttribute("fileName", fileName);
+		return "redirect:/joinForm";
+	}
+
+	public HashMap<String, String> login(String id, String pw) {
+		HashMap<String, String> userInfo = dao.login(id);
+		logger.info(userInfo.toString());
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		  if(encoder.matches(pw, userInfo.get("U_USERPW"))){
+			  userInfo.put("u_userid", userInfo.get("U_USERID"));
+			  userInfo.put("u_usernickname", userInfo.get("U_USERNICKNAME"));
+			  userInfo.put("u_managerYN", userInfo.get("U_MANAGERYN"));
+			  userInfo.put("u_kakaoYN", userInfo.get("U_KAKAOYN"));
+			  userInfo.put("ui_name", userInfo.get("UI_NAME"));
+		  }
+
+		return userInfo;
+	}
+
+
 }

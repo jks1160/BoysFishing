@@ -30,4 +30,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 
 </body>
+<script type="text/javascript">
+	console.log(${sessionScope.userinfo });
+</script>
 </html>
