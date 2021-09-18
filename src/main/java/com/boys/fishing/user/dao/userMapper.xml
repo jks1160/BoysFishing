@@ -52,5 +52,10 @@ SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
 </select>
 
+<insert id="join" parameterType="userInfo">
+	INSERT INTO userInfo VALUES (#{U_userid},#{U_userpw},#{U_userphonenum},#{U_useremail},#{U_usernickname},'N','N','N',SYSDATE)
+</insert>
+
+
 
 </mapper>

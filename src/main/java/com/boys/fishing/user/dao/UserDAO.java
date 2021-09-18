@@ -36,6 +36,14 @@ public interface UserDAO {
 
 
 
+	int join(UserDTO dto);
+
+
+
+
+
+
+
 
 
 

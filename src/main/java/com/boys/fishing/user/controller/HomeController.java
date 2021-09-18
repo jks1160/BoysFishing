@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.user.dto.UserDTO;
@@ -80,11 +81,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.POST)
-	public ModelAndView join(@ModelAttribute UserDTO dto) {
+	public ModelAndView join(@ModelAttribute UserDTO dto, @RequestParam String emailEnd) {
 		logger.info("회원가입 요청 ");
 		ModelAndView mav = new ModelAndView();
-		logger.info(dto.getU_useremail());
-		return mav;
+		dto.setU_useremail(dto.getU_useremail() + "@" + emailEnd);
+		
+		return service.join(dto);
 	}
 	//달력
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
@@ -107,5 +109,10 @@ public class HomeController {
 		}
 		
 		return service.overCheck(col, val);
+	}
+	@RequestMapping(value = "/upload", method= RequestMethod.POST)
+	public ModelAndView upload(MultipartFile file, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+		logger.info("파일업로드 요청");
+		return service.fileUpload(file, session);
 	}
 }

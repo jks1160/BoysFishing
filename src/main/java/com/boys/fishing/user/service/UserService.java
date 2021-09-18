@@ -2,12 +2,21 @@ package com.boys.fishing.user.service;
 
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.user.dao.UserDAO;
@@ -48,5 +57,48 @@ public class UserService {
 		map.put("msg", msg);
 		return map;
 	}
+	
+	@Transactional
+	public ModelAndView join(UserDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
+		
+		
+		
+		if(dao.join(dto)>0) {
+			mav.setViewName("main");
+			map.put("msg", "회원가입에 성공했습니다.");
+			mav.addObject(map);
+		}
+		
+		return mav;
+	}
+
+		public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("joinForm");
+
+		String fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+
+		try {
+			byte[] bytes = file.getBytes();
+			Path filePath = Paths.get(root + fileName);
+			Files.write(filePath, bytes);
+			String path = "/photo/" + fileName;
+			mav.addObject("path", path);
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			fileList.put(newFileName, fileName); //fileName = oriFileName
+			logger.info("업로드된 파일 수 : " + fileList.size());
+			session.setAttribute("fileList", fileList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
 
 }
