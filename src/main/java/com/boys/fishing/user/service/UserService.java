@@ -77,28 +77,5 @@ public class UserService {
 		return mav;
 	}
 
-		public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("joinForm");
-
-		String fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
-
-		try {
-			byte[] bytes = file.getBytes();
-			Path filePath = Paths.get(root + fileName);
-			Files.write(filePath, bytes);
-			String path = "/photo/" + fileName;
-			mav.addObject("path", path);
-			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-			fileList.put(newFileName, fileName); //fileName = oriFileName
-			logger.info("업로드된 파일 수 : " + fileList.size());
-			session.setAttribute("fileList", fileList);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return mav;
-	}
-
-
+	
 }
