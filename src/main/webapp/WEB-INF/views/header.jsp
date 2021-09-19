@@ -50,7 +50,7 @@
 			  <div class="collapse navbar-collapse"  id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto " >
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="islandsReservation">섬정보/예약</a>
+					<a class="nav-link active text-white" aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">섬섬톡</a>

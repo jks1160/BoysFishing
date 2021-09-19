@@ -137,7 +137,6 @@
 			dataType : "JSON",
 			success : function(data){
 				var context ="";
-				console.log("다시 검색 : ",data.findData);
 				if(data.findData.length == 0){
 					$("#result").empty();
 					$("#result").append("<h6 class='text-danger'><a class='list-group-item list-group-item-action pick_data text-danger'>검색 결과가 존재하지 않습니다.</a></h6>");
@@ -160,6 +159,8 @@
 	// 검색 결과 확정
 	$(document).on("click",".pick_data",function(){
 		var me = $(this);
+		$(".pick_data").css("background-color","white");
+		$(this).css("background-color","#FFDEE9");
 		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' hidden='hidden'/>";
 		$(".pick_island").remove();
 		$("#result").append(context);
