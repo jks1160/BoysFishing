@@ -218,6 +218,11 @@ public class ApisService {
     
 	public HashMap<String, Object> islanddel() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(dao.islanddel()>0) {
+			map.put("del", "success");
+		}else {
+			map.put("del", "fail");
+		}
 		
 		return map;
 	}

@@ -17,4 +17,8 @@
 		i_num, TRIM(i_name) as i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
 		FROM island) ORDER BY rnum DESC
 	</select>
+	
+	<delete id="islanddel" parameterType="int">
+	DELETE FROM island WHERE i_sido is null
+	</delete>
 </mapper>
