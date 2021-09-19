@@ -1,5 +1,8 @@
 package com.boys.fishing.user.controller;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.user.dto.UserDTO;
@@ -90,5 +95,17 @@ public class HomeController {
 		
 		return "calendar";
 	}
-	
+	@RequestMapping(value="/overCheck", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> idCheck(@RequestParam HashMap<String, String> map) {
+		logger.info("중복 확인 요청 ");
+		String col = null;
+		String val = null;
+		for (Entry<String, String> elem : map.entrySet()) {
+			System.out.println("키 : " + elem.getKey() + "값 : " + elem.getValue());
+			col = elem.getKey();
+			val = elem.getValue();
+		}
+		
+		return service.overCheck(col, val);
+	}
 }

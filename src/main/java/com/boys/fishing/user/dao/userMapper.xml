@@ -43,6 +43,7 @@ SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 
 
 
+<<<<<<< HEAD
 <select id="point" resultType="int">
 select p_balance
 from(
@@ -71,4 +72,16 @@ AS rnum, p_content, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{p
 SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 </select>
 
+=======
+
+
+
+
+
+<select id="overCheck" resultType="int">
+	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
+</select>
+
+
+>>>>>>> 945b7889b43dae4f982c8da218056636e88da0d1
 </mapper>
