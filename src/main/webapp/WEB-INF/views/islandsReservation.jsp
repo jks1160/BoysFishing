@@ -79,7 +79,7 @@
 				
 				
 				
-				<div class='list-group result_list'  style='overflow-y:scroll;' id='result' >
+				<div class='list-group result_list'  style='overflow-y:scroll; max-height:280px ;' id='result' >
 					<!-- 검색 결과 -->
 					<a class="list-group-item list-group-item-action pick_data">First item</a>
 					<a class="list-group-item list-group-item-action pick_data">First item</a>
@@ -120,8 +120,10 @@
 	$(document).on("click",".island_data",function(){
 		
 		var researcher = $(this).html();
+		// 정규표현식으로 띄어쓰기 맨 끝만 제거
+		var regex = /[\s\uFEFF\xA0]+$/gi;
 		console.log("선택한 섬 :", researcher);
-		document.getElementById("text-zone").value = researcher.replace(" ","");
+		document.getElementById("text-zone").value = researcher.replace(regex,"");
 	});
 	
 	// 검색

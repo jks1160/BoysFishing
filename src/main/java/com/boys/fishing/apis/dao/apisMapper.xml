@@ -13,8 +13,8 @@
 	<!-- 모든 섬들의 정보를 담아서 가져온다. -->
 	<select id="islandsList" resultType="apis">
 		SELECT rnum,i_num ,TRIM(i_name) AS i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
-FROM( SELECT ROW_NUMBER() OVER(ORDER BY i_num ASC) AS rnum,
-i_num, TRIM(i_name) as i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
-FROM island) ORDER BY rnum DESC
+		FROM( SELECT ROW_NUMBER() OVER(ORDER BY i_num ASC) AS rnum,
+		i_num, TRIM(i_name) as i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
+		FROM island) ORDER BY rnum DESC
 	</select>
 </mapper>
