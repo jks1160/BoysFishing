@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.user.dto.UserDTO;
 import com.boys.fishing.user.service.UserService;
@@ -44,7 +45,7 @@ public class HomeController {
 	@RequestMapping(value="/loginPage", method = RequestMethod.GET)
 	public String loginPage() {
 		logger.info("로그인 페이지 요청 ");
-		logger.info("테스트");
+		
 		return "login";
 	}
 	@RequestMapping(value="/islandsReservation", method = RequestMethod.GET)
@@ -81,12 +82,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.POST)
-	public ModelAndView join(@ModelAttribute UserDTO dto, @RequestParam String emailEnd) {
+	public String join(@ModelAttribute UserDTO dto, @RequestParam String emailEnd, @RequestParam String fileName, RedirectAttributes attr) {
 		logger.info("회원가입 요청 ");
-		ModelAndView mav = new ModelAndView();
 		dto.setU_useremail(dto.getU_useremail() + "@" + emailEnd);
-		
-		return service.join(dto);
+		logger.info(dto.getU_useremail());
+		return service.join(dto, fileName, attr);
 	}
 	//달력
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
@@ -110,5 +110,15 @@ public class HomeController {
 		
 		return service.overCheck(col, val);
 	}
-
+	@RequestMapping(value = "/upload", method= RequestMethod.POST)
+	public String upload(MultipartFile file, RedirectAttributes attr) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+		logger.info("파일업로드 요청");
+		return service.fileUpload(file, attr);
+	}
+	@RequestMapping(value = "/login")
+	public ModelAndView login(@RequestParam String id, @RequestParam String pw, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+		logger.info("로그인 요청");
+		
+		return service.login(id, pw, session);
+	}
 }

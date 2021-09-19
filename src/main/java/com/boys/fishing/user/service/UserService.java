@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.user.dao.UserDAO;
 import com.boys.fishing.user.dto.UserDTO;
@@ -59,23 +60,63 @@ public class UserService {
 	}
 	
 	@Transactional
-	public ModelAndView join(UserDTO dto) {
+	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, String> map = new HashMap<String, String>();
-		
+		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
-		
-		
-		
+		String page = "redirect:/joinForm";
 		if(dao.join(dto)>0) {
-			mav.setViewName("main");
-			map.put("msg", "회원가입에 성공했습니다.");
-			mav.addObject(map);
+			page = "redirect:/login";
+			attr.addAttribute("id",dto.getU_userid());
+			attr.addAttribute("pw",pw);
+		}else {
+			attr.addFlashAttribute("msg","다시 시도해주세요.");
 		}
-		
-		return mav;
+
+		if(fileName != "") {
+			dao.userProfile(dto.getU_userid(), fileName);		
+		}
+		return page;
 	}
 
-	
+	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
+		String path = null;
+		String fileName = file.getOriginalFilename();
+		logger.info(fileName);
+		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+		try {
+			byte[] bytes = file.getBytes();
+			Path filePath = Paths.get("C:/upload/" + fileName);
+			Files.write(filePath, bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		attr.addFlashAttribute("fileName", fileName);
+		return "redirect:/joinForm";
+	}
+
+	public ModelAndView login(String id, String pw, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, String> userInfo = dao.login(id);
+		String page = "login";
+		String msg = "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.";
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		logger.info(userInfo.get("U_USERPW"));
+		  if(encoder.matches(pw, userInfo.get("U_USERPW"))){
+			  userInfo.put("u_userid", userInfo.get("U_USERID"));
+			  userInfo.put("u_usernickname", userInfo.get("U_USERNICKNAME"));
+			  userInfo.put("u_managerYN", userInfo.get("U_MANAGERYN"));
+			  userInfo.put("u_kakaoYN", userInfo.get("U_KAKAOYN"));
+			  userInfo.put("ui_name", userInfo.get("UI_NAME"));
+			  page = "mainPage";
+			  msg = "환영합니다. "+userInfo.get("u_usernickname")+"님";
+		  }
+		  session.setAttribute("userinfo", userInfo);
+		  mav.addObject("msg",msg);
+		  mav.setViewName(page);
+		  return mav;
+	}
+
+
 }
