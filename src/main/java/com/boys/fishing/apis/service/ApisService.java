@@ -34,11 +34,17 @@ public class ApisService {
 	@Autowired
 	ApisDAO dao;
 
+	/**
+	 * 이선우
+	 * 받아온 db값을 반복하여 insert 해주는 메서드
+	 * @param params
+	 * @return
+	 */
 	public HashMap<String, Object> apiCalls(HashMap<String,String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		boolean success = false;
 		System.out.println("서비스 진입");
-		String url = "https://icloudgis.incheon.go.kr/server/rest/services/Hosted/UnmannedIslandInfo/FeatureServer/0/query?where=1%3D1&outFields=isln_nm,mng_num,lnm,lad_ar,mng_ty,dstnc,tp_ntrfs&outSR=4326&f=json";
+		String url = "https://icloudgis.incheon.go.kr/server/rest/services/Hosted/UnmannedIslandInfo/FeatureServer/0/query?where=1%3D1&outFields=isln_nm,mng_num,lnm,lad_ar,mng_ty,dstnc,tp_ntrfs,objectid,xcnts,ydnts&outSR=4326&f=json";
 		String param = null;
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add(url);
@@ -55,7 +61,7 @@ public class ApisService {
 	    
 	    Connection con = null;
         PreparedStatement pstmt = null;
-        String sql = "Insert Into island(i_num,i_name,i_controlnum,i_jibeon ,i_landarea,i_islandmanage,i_distance,i_distanceex) Values(island_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
+        String sql = "Insert Into island(i_num,i_name,i_controlnum,i_jibeon ,i_landarea,i_islandmanage,i_distance,i_distanceex,i_latitude,i_longitude) Values(?,?,?,?,?,?,?,?,?,?)";
         
 	    
 	         try {
@@ -65,13 +71,18 @@ public class ApisService {
 	            pstmt = con.prepareStatement(sql);
 	            for(int i=0; i<list.size(); i++) {
 	    	    HashMap<String, Object> mapp = (HashMap<String, Object>) list.get(i).get("attributes");
-	            pstmt.setString(1, String.valueOf(mapp.get("isln_nm")));
-	            pstmt.setString(2, String.valueOf(mapp.get("mng_num")));
-            	pstmt.setString(3, String.valueOf(mapp.get("lnm")));
-            	pstmt.setString(4, String.valueOf(mapp.get("lad_ar")));
-            	pstmt.setString(5, String.valueOf(mapp.get("mng_ty")));
-            	pstmt.setString(6, String.valueOf(mapp.get("dstnc")));
-            	pstmt.setString(7, String.valueOf(mapp.get("tp_ntrfs")));
+	    	    pstmt.setString(1, String.valueOf(mapp.get("objectid")));//무인도 번호
+	            pstmt.setString(2, String.valueOf(mapp.get("isln_nm")));// 무인도서명
+	            pstmt.setString(3, String.valueOf(mapp.get("mng_num")));// 관리 번호
+            	pstmt.setString(4, String.valueOf(mapp.get("lnm")));// 지번
+            	pstmt.setString(5, String.valueOf(mapp.get("lad_ar")));// 토지전체면적
+            	pstmt.setString(6, String.valueOf(mapp.get("mng_ty")));//무인도서관리유형
+            	pstmt.setString(7, String.valueOf(mapp.get("dstnc")));//육지와의 거리
+            	pstmt.setString(8, String.valueOf(mapp.get("tp_ntrfs")));//육지와의거리부가설명
+            	pstmt.setString(9, String.valueOf(mapp.get("xcnts")));// x값
+            	pstmt.setString(10, String.valueOf(mapp.get("ydnts")));// y값
+ 
+
             	pstmt.executeUpdate();
 	            }
 	            con.commit();
@@ -89,63 +100,7 @@ public class ApisService {
 	            } catch (SQLException ex) {
 	            }
 	        }
-				
-	    
-	    
-	    /*	   
-        // DB 연결
-       
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        
-        String sql = "Insert Into island(i_num,i_name,i_controlnum,i_jibeon ,i_landarea,i_islandmanage,i_distance,i_distanceex) Values(island_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
-        
-        try {
-			Class.forName("net.sf.log4jdbc.DriverSpy");
-			con = DriverManager.getConnection("jdbc:log4jdbc:oracle:thin:@61.78.121.242:1521:xe", "C##SEC_PRO4", "fish");
-            
-            pstmt = con.prepareStatement(sql);
-            for(int i = 0; i<hashMapArrayList.size(); i++) {
-            	pstmt.setString(1, (String) hashMapArrayList.get(i).get("attributes").get("isln_nm"));
-            	pstmt.setString(2, (String) hashMapArrayList.get(i).get("mng_num"));
-            	pstmt.setString(3, (String) hashMapArrayList.get(i).get("lnm"));
-            	pstmt.setString(4, (String) hashMapArrayList.get(i).get("lad_ar"));
-            	pstmt.setString(5, (String) hashMapArrayList.get(i).get("mng_ty"));
-            	pstmt.setString(6, (String) hashMapArrayList.get(i).get("dstnc"));
-            	pstmt.setString(7, (String) hashMapArrayList.get(i).get("tp_ntrfs"));
-            	pstmt.executeUpdate();
-            }
-            
-            logger.info("성공");
-           
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}finally {
-			if(pstmt != null)try {
-				pstmt.close();
-				pstmt = null;
-			}catch (Exception e) {
-				e.printStackTrace();
-			}if(con != null)try {
-				con.close();
-				con = null;
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-        
-        
-               
-		if(!result.contains("Fail")) {
-			success = true;
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				map = mapper.readValue(result, new TypeReference<HashMap<String, Object>>() {});
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		 */
+		
 		map.put("suc", success);
 		return map;
 	}
@@ -260,6 +215,12 @@ public class ApisService {
         }
         return arr;
     }
+    
+	public HashMap<String, Object> islanddel() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		return map;
+	}
 
 	
 }
