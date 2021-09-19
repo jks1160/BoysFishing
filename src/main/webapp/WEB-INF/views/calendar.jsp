@@ -60,9 +60,6 @@ var O_nuel = year+'-'+month+'-'+date;
     	  }
       },
        events: function(info, successCallback, failureCallback){
-    	  console.log("인포 내놔 : ",info.startStr);
-    	  console.log("인포 내놔1 : ",successCallback);
-    	  console.log("인포 내놔2 : ",failureCallback);
     	   $.ajax({
 				url:'./reser/user_reser',
 				type: 'POST',
@@ -74,37 +71,37 @@ var O_nuel = year+'-'+month+'-'+date;
 					console.log("성공 데이터 : " ,data);
 					// 받은 데이터 중 my_list 부분을 가져온다.
 					data.my_list.forEach(function(myReser){
-							myReser.ri_date
-					})
-					var test = Date(data.ri_date);
-					
-					console.log("우하하하 ",test );
-					var get_year = new Date(test).getFullYear();
-					var get_month = new Date(test).getMonth()+1;
-					var get_day = new Date(test).getDate();
-					
-					var tests = test.format('YYYY-MM-DD');
-					console.log(tests);
-					
-					var get_reser = get_year+"-"+get_month+"-"+get_day;
-					console.log("설마..",get_reser);
-					
-					if(data != null){
+						var get_year = new Date(myReser.ri_date).getFullYear();
+						var get_month = new Date(myReser.ri_date).getMonth()+1;
+						var get_day = new Date(myReser.ri_date).getDate();
+
+						if(get_month <10){
+							get_month = "0"+get_month;
+						}
+						if(get_day <10){
+							get_day = "0"+get_day;
+						}
+						var reserDate = get_year+"-"+get_month+"-"+get_day;
 						
-					}
+						
+						console.log("스타트데이 : " , reserDate);
+						my_reser.push({
+							start : reserDate,
+							title : "제발"
+						});
+					}); // forEach end
 					
-					
-					
-					successCallback(events);
-				},
+
+					console.log(successCallback(my_reser));
+				}, // ajax success end
 				error : function(e){
 				console.log("에러났습니다." ,e);
-				}
-    	  }); 
-      }
+				} // ajax error end
+    	  });// ajax end  
+      }// events:function end */ 
      
        
-    });
+    });// full Calendar end 
 
     calendar.render();
   });
