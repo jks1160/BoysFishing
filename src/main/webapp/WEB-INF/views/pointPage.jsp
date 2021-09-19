@@ -62,10 +62,7 @@ function withdraw(form) {
     form.submit(); 
     return true; 
   } 
-
-
-
-
+var code;
 var p_page = 1;
 pointListCall(p_page);
 function pointListCall(p_page) {
@@ -92,12 +89,34 @@ function pointDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
+		var date = new Date(item.p_regdate);
+		switch(item.p_content){
+		case "PNT_001":
+			code = "충전";
+			break;
+		case "PNT_002":
+			code = "출금";
+			break;
+		case "PNT_003":
+			code = "예약";
+			break;
+		case "PNT_004":
+			code = "환불";
+			break;
+		case "PNT_005":
+			code = "운행";
+			break;
+		case "PNT_006":
+			code = "운행취소";
+			break;
+		}
 		content += "<tr>";
-		content += "<td>" + item.p_content  + "</td>";
+		content += "<td>" + code + "</td>";
 		content += "<td>" + item.p_cost  + "</td>";
 		content += "<td>" + item.p_balance  + "</td>";
-		content += "<td>" + item.p_regdate  + "</td>";
+		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";
 		content += "</tr>";
+	console.log(typeof date.getMonth());
 	});
 	$(".p_history_cont").empty();
 	$(".p_history_cont").append(content);

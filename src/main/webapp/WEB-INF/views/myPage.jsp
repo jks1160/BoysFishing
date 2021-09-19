@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String userid = (String)session.getAttribute("userId"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +11,18 @@
 <body>
 <h1>마이페이지</h1>
 <div class="user">
-<a href="#">회원정보</a>
-<a href="#">포인트</a>
+<a href="myUserInfo">회원정보</a>
+<a href="pointPage">포인트</a>
 <a href="#">예약확인</a>
 <a href="#">선장등록 요청</a>
 </div>
+<c:if >
 <div class="captain">
 <a href="#">배 정보 관리</a>
 <a href="#">스케쥴</a>
 <a href="#">운행 예약확인</a>
 </div>
-
+</c:if>
 <h4>자유게시판</h4>
 <table>
 <thead>
@@ -110,11 +112,12 @@ function sumsumDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
+		var date = new Date(item.b_regdate);
 		content += "<tr>";
 		content += "<td>" + item.b_num  + "</td>";
 		content += "<td>" + item.b_userid  + "</td>";
 		content += "<td>" + item.b_subject  + "</td>";
-		content += "<td>" + item.b_regdate  + "</td>";
+		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";
 		content += "<td>좋아요X</td>";
 		content += "</tr>";
 	});
@@ -166,11 +169,12 @@ function infoDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
+		var date = new Date(item.b_regdate);
 		content += "<tr>";
 		content += "<td>" + item.b_num  + "</td>";
 		content += "<td>" + item.b_userid  + "</td>";
 		content += "<td>" + item.b_subject  + "</td>";
-		content += "<td>" + item.b_regdate  + "</td>";
+		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";
 		content += "<td>좋아요X</td>";
 		content += "</tr>";
 	});
@@ -224,11 +228,12 @@ function revDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
+		var date = new Date(item.b_regdate);
 		content += "<tr>";
 		content += "<td>" + item.b_num  + "</td>";
 		content += "<td>" + item.b_userid  + "</td>";
 		content += "<td>" + item.b_subject  + "</td>";
-		content += "<td>" + item.b_regdate  + "</td>";
+		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";
 		content += "<td>좋아요X</td>";
 		content += "</tr>";
 	});
