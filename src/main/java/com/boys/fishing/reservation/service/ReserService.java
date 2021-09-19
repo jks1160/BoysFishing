@@ -21,11 +21,19 @@ public class ReserService {
 	@Autowired ReserDAO reserDAO;
 	@Autowired ApisDAO apiDAO;
 	
+	
+	/** 조재현
+	 * 섬들을 검색하여 뿌려주기 위한 메소드
+	 * 
+	 * @param  searchData (HashMap<String,Object>)타입으로 해당 섬 정보를 받는다
+	 * 
+	 * @return
+	 */
+	
 	public HashMap<String, Object> reserResearch(HashMap<String, Object> searchData) {
 		
 		logger.info("검색 서비스 : {}",searchData);
 		// 검색 결과들을 담아주는 리스트
-		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -53,8 +61,8 @@ public class ReserService {
 			mav.addObject("list",list);
 			mav.setViewName("shipDetails");
 		}else { // 섬에 대한 배편이 없을 경우
-			
-			mav.setViewName("../mainPage");
+			// reser에 있기 때문에 redirect로 보낸다
+			mav.setViewName("redirect:/");
 		}
 		
 		// 배 정보 페이지 완성 시 보내면 된다.

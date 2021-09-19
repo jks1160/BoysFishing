@@ -83,7 +83,7 @@
 					<!-- 검색 결과 -->
 					<a class="list-group-item list-group-item-action pick_data">검색 결과</a>
 				</div>
-				<button type='button' class='btn btn-dark' onclick='search_ship()'>예약편 찾기</button>
+				<button type='button' class='btn btn-dark' onclick='search_ship()'>섬 상세보기</button>
 				</form>
 			</div>
 			
@@ -161,7 +161,7 @@
 		var me = $(this);
 		$(".pick_data").css("background-color","white");
 		$(this).css("background-color","#FFDEE9");
-		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' hidden='hidden'/>";
+		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' readonly/>";
 		$(".pick_island").remove();
 		$("#result").append(context);
 	});
@@ -169,7 +169,9 @@
 	// 예약 배 찾기
 	function search_ship() {
 		// 검색 결과를 선택하지 않으면...
-		if($(".pick_island").val() == null){
+		console.log("으아아 " ,$(".pick_island").val());
+		//오류 대폭 수정
+		if($(".pick_island").val() == null || $(".pick_island").val() == "" || $(".pick_data").val() ==null ){
 			alert("섬을 선택하세요");
 		}
 		else{ //검색 결과를 선택하면 진행
