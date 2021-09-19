@@ -60,24 +60,24 @@ public class UserService {
 	}
 	
 	@Transactional
-	public ModelAndView join(UserDTO dto, String fileName) {
+	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, String> map = new HashMap<String, String>();
-		
+		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
-		mav.setViewName("joinForm");
-		mav.addObject("msg","회원가입에 실패했습니다. 다시 시도해주세요");
+		String page = "redirect:/joinForm";
 		if(dao.join(dto)>0) {
-			mav.setViewName("mainPage");
-			map.put("msg", "회원가입에 성공했습니다.");
-			mav.addObject(map);
+			page = "redirect:/login";
+			attr.addAttribute("id",dto.getU_userid());
+			attr.addAttribute("pw",pw);
+		}else {
+			attr.addFlashAttribute("msg","다시 시도해주세요.");
 		}
-		
-		if(fileName != null) {
+
+		if(fileName != "") {
 			dao.userProfile(dto.getU_userid(), fileName);		
 		}
-		return mav;
+		return page;
 	}
 
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
@@ -96,20 +96,26 @@ public class UserService {
 		return "redirect:/joinForm";
 	}
 
-	public HashMap<String, String> login(String id, String pw) {
+	public ModelAndView login(String id, String pw, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
 		HashMap<String, String> userInfo = dao.login(id);
-		logger.info(userInfo.toString());
+		String page = "login";
+		String msg = "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.";
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
+		logger.info(userInfo.get("U_USERPW"));
 		  if(encoder.matches(pw, userInfo.get("U_USERPW"))){
 			  userInfo.put("u_userid", userInfo.get("U_USERID"));
 			  userInfo.put("u_usernickname", userInfo.get("U_USERNICKNAME"));
 			  userInfo.put("u_managerYN", userInfo.get("U_MANAGERYN"));
 			  userInfo.put("u_kakaoYN", userInfo.get("U_KAKAOYN"));
 			  userInfo.put("ui_name", userInfo.get("UI_NAME"));
+			  page = "mainPage";
+			  msg = "환영합니다. "+userInfo.get("u_usernickname")+"님";
 		  }
-
-		return userInfo;
+		  session.setAttribute("userinfo", userInfo);
+		  mav.addObject("msg",msg);
+		  mav.setViewName(page);
+		  return mav;
 	}
 
 

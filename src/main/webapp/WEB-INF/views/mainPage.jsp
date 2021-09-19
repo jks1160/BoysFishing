@@ -31,6 +31,6 @@
 
 </body>
 <script type="text/javascript">
-	console.log(${sessionScope.userinfo });
+	console.log("${sessionScope.userinfo.u_usernickname}");
 </script>
 </html>

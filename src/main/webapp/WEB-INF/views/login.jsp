@@ -65,6 +65,10 @@
 			}
         });
     }
+    
+	if("${msg}" != ""){
+		alert("${msg}");
+	}
 </script>
 
 </html>

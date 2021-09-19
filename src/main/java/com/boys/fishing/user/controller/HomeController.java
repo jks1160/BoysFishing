@@ -82,11 +82,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.POST)
-	public ModelAndView join(@ModelAttribute UserDTO dto, @RequestParam String emailEnd, @RequestParam String fileName) {
+	public String join(@ModelAttribute UserDTO dto, @RequestParam String emailEnd, @RequestParam String fileName, RedirectAttributes attr) {
 		logger.info("회원가입 요청 ");
 		dto.setU_useremail(dto.getU_useremail() + "@" + emailEnd);
 		logger.info(dto.getU_useremail());
-		return service.join(dto,fileName);
+		return service.join(dto, fileName, attr);
 	}
 	//달력
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
@@ -115,10 +115,10 @@ public class HomeController {
 		logger.info("파일업로드 요청");
 		return service.fileUpload(file, attr);
 	}
-	@RequestMapping(value = "/login", method= RequestMethod.POST)
-	public String login(@RequestParam String id, @RequestParam String pw, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+	@RequestMapping(value = "/login")
+	public ModelAndView login(@RequestParam String id, @RequestParam String pw, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
 		logger.info("로그인 요청");
-		session.setAttribute("userinfo", service.login(id, pw));
-		return "mainPage";
+		
+		return service.login(id, pw, session);
 	}
 }
