@@ -79,12 +79,10 @@
 				
 				
 				
-				<div class='list-group result_list'  style='overflow-y:scroll; max-height:280px ;' id='result' >
+				<div class='list-group result_list'  style='overflow-y:scroll; max-height:248px ;' id='result' >
 					<!-- 검색 결과 -->
-					<a class="list-group-item list-group-item-action pick_data">First item</a>
-					<a class="list-group-item list-group-item-action pick_data">First item</a>
+					<a class="list-group-item list-group-item-action pick_data">검색 결과</a>
 				</div>
-				
 				<button type='button' class='btn btn-dark' onclick='search_ship()'>예약편 찾기</button>
 				</form>
 			</div>
@@ -142,7 +140,7 @@
 				console.log("다시 검색 : ",data.findData);
 				if(data.findData.length == 0){
 					$("#result").empty();
-					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
+					$("#result").append("<h6 class='text-danger'><a class='list-group-item list-group-item-action pick_data text-danger'>검색 결과가 존재하지 않습니다.</a></h6>");
 				}else{
 					data.findData.forEach(function(item){
 						// 여러개가 나오기 때문에 += 으로 해야한다.
@@ -162,8 +160,7 @@
 	// 검색 결과 확정
 	$(document).on("click",".pick_data",function(){
 		var me = $(this);
-		console.log("나다",me);
-		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' />";
+		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' hidden='hidden'/>";
 		$(".pick_island").remove();
 		$("#result").append(context);
 	});
