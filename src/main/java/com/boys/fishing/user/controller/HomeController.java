@@ -39,6 +39,7 @@ public class HomeController {
 			mav.setViewName("mainPage");
 		}
 		mav.setViewName("mainPage");
+		
 		return mav;
 		
 	}
