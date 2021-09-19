@@ -49,10 +49,10 @@ public class HomeController {
 		return "login";
 	}
 	@RequestMapping(value="/islandsReservation", method = RequestMethod.GET)
-	public String test() {
+	public ModelAndView islandsReservation() {
 		logger.info("섬 정보/ 예약 페이지 입장 ");
 		
-		return "islandsReservation";
+		return service.islandsReservation();
 	}
 	@RequestMapping(value="/logOut", method = RequestMethod.GET)
 	public String logOut(HttpSession session) {

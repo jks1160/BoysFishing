@@ -1,3 +1,4 @@
+<%@page import="org.apache.taglibs.standard.tei.ForEachTEI"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -58,17 +59,12 @@
 				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
 					<!-- 이곳에 섬 리스트 출력 -->
 					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
-  						<a class="list-group-item list-group-item-action island_data">First item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data" >Second item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
-  						<a href="#" class="list-group-item list-group-item-action island_data">Third item</a>
+						<c:if test="${island_list ne null }" >
+							<c:forEach items="${island_list }" var = "item">
+								<a class="list-group-item list-group-item-action island_data">${item.i_name} </a>
+							</c:forEach>
+  						</c:if>
+
   						
 					</div>
 			</div>
@@ -98,6 +94,7 @@
 
 </body>
 <script>
+	
     // 카카오 지도 API 
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -129,7 +126,7 @@
 	// 검색
 	function reser_research(){
 		var r_rsc = document.getElementById("text-zone").value;
-		
+		console.log(r_rsc);
 		$.ajax({
 			url: "reser/reser_research",
 			type : "GET",
