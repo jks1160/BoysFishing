@@ -29,11 +29,11 @@
     <div class="container my-5">
         <div class="row align-items-center">
             <div class="col-md-6 mb-3">
-                <img src="#" class="img-fluid" alt="image">
+                <img src="resources/logo.png" class="img-fluid" alt="image">
             </div>
             <div class="col-md-6">
                 <h3 class="signin-text mb-3">로그인</h3>
-                <form>
+                <form action="login" method="POST">
                     <div class="form-group">
                         <label for="id">아이디 : </label>
                         <input type="text" name="id" class="form-control">
@@ -65,6 +65,10 @@
 			}
         });
     }
+    
+	if("${msg}" != ""){
+		alert("${msg}");
+	}
 </script>
 
 </html>

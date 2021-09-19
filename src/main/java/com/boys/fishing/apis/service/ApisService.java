@@ -8,8 +8,12 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,35 +38,63 @@ public class ApisService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		boolean success = false;
 		System.out.println("서비스 진입");
-		String url = "https://icloudgis.incheon.go.kr/server/rest/services/Hosted/UnmannedIslandInfo/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json";
+		String url = "https://icloudgis.incheon.go.kr/server/rest/services/Hosted/UnmannedIslandInfo/FeatureServer/0/query?where=1%3D1&outFields=isln_nm,mng_num,lnm,lad_ar,mng_ty,dstnc,tp_ntrfs&outSR=4326&f=json";
 		String param = null;
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add(url);
 		
 		HashMap<String, String> headers = new HashMap<String, String>();
 	    headers.put("Content-type", "application/json");
-	     
 	    String result = sendMsg(urls, headers, param, "get");
-	    logger.info("result : {}", result);
+	    logger.info("RESULT :  {}",result);
+
 	    JSONObject jsonObject1 = jsonStringToJson(result);
-	    logger.info("이게 뭘까 : {} ", jsonObject1.get("features").getClass().getName());
-	    JSONArray jsonObject2 = (JSONArray) jsonObject1.get("features");
-        logger.info("jsonObject2 : {}", jsonObject2);
-	    JSONObject jsonObject3 = jsonObject2.getJSONObject(0);
+	    logger.info("이게 뭘까 : {} ", jsonObject1.get("features"));
+	    ArrayList<HashMap<String, Object>> list = jsonArray(jsonObject1.get("features"));
+	    
+	    
+	    Connection con = null;
+        PreparedStatement pstmt = null;
+        String sql = "Insert Into island(i_num,i_name,i_controlnum,i_jibeon ,i_landarea,i_islandmanage,i_distance,i_distanceex) Values(island_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
         
-        logger.info("테스트 : {}", jsonObject3);
-        // 배열화
-        ArrayList<HashMap<String, Object>> hashMapArrayList = jsonArray(jsonObject1.get("features"));
-        logger.info("hashMapArrayList: {}", hashMapArrayList);
-        System.out.println("size" + hashMapArrayList.size());
-        HashMap<String, Object> ob = new HashMap<String, Object>();
-        ob.put("sdf", "sdf");
-        
-        logger.info("봐보자2 : {}",ob);
-        logger.info("봐보자 : {} ", hashMapArrayList.get(0).get("attributes"));
-        
+	    
+	         try {
+				Class.forName("net.sf.log4jdbc.DriverSpy");
+				con = DriverManager.getConnection("jdbc:log4jdbc:oracle:thin:@61.78.121.242:1521:xe", "C##SEC_PRO4", "fish");
+			    con.setAutoCommit(false);
+	            pstmt = con.prepareStatement(sql);
+	            for(int i=0; i<list.size(); i++) {
+	    	    HashMap<String, Object> mapp = (HashMap<String, Object>) list.get(i).get("attributes");
+	            pstmt.setString(1, String.valueOf(mapp.get("isln_nm")));
+	            pstmt.setString(2, String.valueOf(mapp.get("mng_num")));
+            	pstmt.setString(3, String.valueOf(mapp.get("lnm")));
+            	pstmt.setString(4, String.valueOf(mapp.get("lad_ar")));
+            	pstmt.setString(5, String.valueOf(mapp.get("mng_ty")));
+            	pstmt.setString(6, String.valueOf(mapp.get("dstnc")));
+            	pstmt.setString(7, String.valueOf(mapp.get("tp_ntrfs")));
+            	pstmt.executeUpdate();
+	            }
+	            con.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+	            if (pstmt != null) try {
+	                pstmt.close();
+	                pstmt = null;
+	            } catch (SQLException ex) {
+	            }
+	            if (con != null) try {
+	                con.close();
+	                con = null;
+	            } catch (SQLException ex) {
+	            }
+	        }
+				
+	    
+	    
+	    /*	   
         // DB 연결
-        /*
+       
         Connection con = null;
         PreparedStatement pstmt = null;
         
@@ -101,7 +133,7 @@ public class ApisService {
 				e.printStackTrace();
 			}
 		}
-         */
+        
         
                
 		if(!result.contains("Fail")) {
@@ -113,7 +145,7 @@ public class ApisService {
 				e.printStackTrace();
 			}
 		}
-		
+		 */
 		map.put("suc", success);
 		return map;
 	}
@@ -132,8 +164,7 @@ public class ApisService {
 		for(String url:urls) {
 			sb.append(url);
 		}
-		logger.info("sb가 무엇인지 확인해보자 : " + sb);
-		
+				
 		URL url;
 		try {
 			url = new URL(sb.toString());
@@ -171,7 +202,7 @@ public class ApisService {
 				logger.info("Fail Message : " + result);
 				result = "Fail Message : " + result;
 			}
-			System.out.println("sb 찍어볼게 : "+ sb);
+			
 			
 			
 		} catch (Exception e) {
@@ -213,7 +244,7 @@ public class ApisService {
     }
     
     public static ArrayList<HashMap<String, Object>> jsonArray(Object result) {
-    	org.json.simple.JSONArray jsonArr = null;
+        org.json.simple.JSONArray jsonArr = null;
         org.json.simple.JSONObject jsonObject = null;
         HashMap<String, Object> map = null;
         ArrayList<HashMap<String, Object>> arr = new ArrayList<HashMap<String, Object>>();
