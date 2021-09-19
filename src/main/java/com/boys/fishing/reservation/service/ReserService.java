@@ -35,19 +35,30 @@ public class ReserService {
 		
 		return map;
 	}
-
+	
+	/** 조재현
+	 * 해당 섬에 일치하는 배 편 찾기
+	 * @param find_ship (String) 배 번호를 받아온다.
+	 * @return
+	 */
 	public ModelAndView findShip(String find_ship) {
 		
 		logger.info("배편 찾기 서비스 : {}",find_ship);
-		ArrayList<ReserDTO> list =reserDAO.findShip(find_ship);
-		logger.info("완료 : {}",list);
-		System.out.println("리스트 1 : " +list.get(0).getS_num());
-		System.out.println("리스트 2 : " +list.get(1).getS_num());
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list",list);
+		
+		ArrayList<ReserDTO> list =reserDAO.findShip(find_ship);
+		
+		logger.info("완료 : {}",list);
+		if(list.size() != 0) {	// 섬에 대한 배편이 있을 경우
+			mav.addObject("list",list);
+			mav.setViewName("shipDetails");
+		}else { // 섬에 대한 배편이 없을 경우
+			
+			mav.setViewName("../mainPage");
+		}
 		
 		// 배 정보 페이지 완성 시 보내면 된다.
-		return null;
+		return mav;
 	}
 
 	/**조재현
@@ -61,10 +72,10 @@ public class ReserService {
 		
 		ArrayList<ReserDTO> list = reserDAO.user_reser(id);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		for (ReserDTO name : list) {
-			logger.info("이름: {}",name.getRi_userid());
-			logger.info("날짜 : {}",name.getRi_date());
-		}
+		/* 테스트용
+		 * for (ReserDTO name : list) { logger.info("이름: {}",name.getRi_userid());
+		 * logger.info("날짜 : {}",name.getRi_date()); }
+		 */
 		
 		map.put("my_list", list);
 		

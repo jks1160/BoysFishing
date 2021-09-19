@@ -142,8 +142,10 @@ public class UserService {
 		
 		  // 데이터 제대로 받았는지 테스트
 		  
-		  for (IslandDTO items : list) { logger.info("섬 번호 : {} 섬 이름 : {}",
-		  items.getI_num(), items.getI_name()); }
+			/*
+			 * for (IslandDTO items : list) { logger.info("섬 번호 : {} 섬 이름 : {}",
+			 * items.getI_num(), items.getI_name()); }
+			 */
 		 
 
 		return mav;

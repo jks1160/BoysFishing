@@ -7,7 +7,7 @@
 <mapper namespace="com.boys.fishing.reservation.dao.ReserDAO">
 
 	<select id="findShip" resultType="reser" >
-		SELECT * FROM operrange WHERE i_num = #{param1}
+		SELECT * FROM operrange WHERE op_date >= SYSDATE AND i_num = #{param1}
 	</select> 
 	<!-- 유저 달력 예약 정보를 가져온다. -->
 	<select id="user_reser" resultType="reser">
