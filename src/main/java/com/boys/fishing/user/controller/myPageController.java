@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,27 +36,52 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		//테스트 세션
 		String id = "somefishing";
 		session.setAttribute("loginId", id);
-		mav.setViewName("loginPage");
+		mav.setViewName("myPage");
 		return mav;
 	}
 	
+
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
 	public ModelAndView pointPage(HttpSession session) {
 		logger.info("포인트 페이지 요청");
-		ModelAndView mav = new ModelAndView();
-		//테스트 세션
 		String id = "somefishing";
 		session.setAttribute("loginId", id);
-		
 		return myservice.point(id);
 	}
+	
+	@RequestMapping(value="/pointCharge")
+	public String pointCharge(Model model, HttpSession session ,@RequestParam String p_charge) {
+		logger.info("포인트충전 왔슈?"+p_charge);
+		String user = (String) session.getAttribute("loginId");
+		myservice.pointCharge(Integer.parseInt(p_charge),user);
+		return "redirect:/pointPage";
+	}
+	
+	@RequestMapping(value="/pointWithdraw")
+	public String pointWithdraw(Model model, HttpSession session, @RequestParam String p_withdraw ) {
+		logger.info("포인트인출 왔슈?"+p_withdraw);
+		String user = (String) session.getAttribute("loginId");
+		myservice.pointWithdraw(Integer.parseInt(p_withdraw),user);
+		return "redirect:/pointPage";
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/pointHistoryPage")
+	public HashMap<String,Object> pointHistoryPage(HttpSession session, int page) {
+		logger.info("포인트 히스토리 리스트 받기 요청");
+		String user = (String) session.getAttribute("loginId");
+		logger.info("page:"+page+" user:"+user);
+		return myservice.pointHistoryPage(page, user);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/sumsumlist")
 	public HashMap<String,Object> sumsumlist(int page, String user) {
 		logger.info("자유글 리스트 받기 요청");
 		logger.info("page:"+page+" user:"+user);
-		//int page1 = Integer.parseInt(String.valueOf(page));
 		return myservice.sumsumlist(page, user);
 	}
 	
