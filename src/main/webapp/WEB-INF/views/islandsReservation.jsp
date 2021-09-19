@@ -59,6 +59,7 @@
 				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
 					<!-- 이곳에 섬 리스트 출력 -->
 					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
+						<!-- 섬 리스트 출력 부분 -->
 						<c:if test="${island_list ne null }" >
 							<c:forEach items="${island_list }" var = "item">
 								<a class="list-group-item list-group-item-action island_data">${item.i_name} </a>
@@ -120,7 +121,7 @@
 		
 		var researcher = $(this).html();
 		console.log("선택한 섬 :", researcher);
-		document.getElementById("text-zone").value = researcher;
+		document.getElementById("text-zone").value = researcher.replace(" ","");
 	});
 	
 	// 검색
@@ -136,13 +137,16 @@
 			dataType : "JSON",
 			success : function(data){
 				var context ="";
-				
-				if(data.findData == null){
+				console.log("다시 검색 : ",data.findData);
+				if(data.findData.length == 0){
 					$("#result").empty();
 					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
-				}else{ 
-					console.log("찾은 데이터 : ",data.findData.i_name);
-					context = "<a class='list-group-item list-group-item-action pick_data' id='"+data.findData.i_num+"'>"+data.findData.i_name+"</a>";
+				}else{
+					data.findData.forEach(function(item){
+						// 여러개가 나오기 때문에 += 으로 해야한다.
+						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"'>"+item.i_name+"</a>";
+
+					})
 					$(".result_list").empty();
 					$(".result_list").append(context);
 				}

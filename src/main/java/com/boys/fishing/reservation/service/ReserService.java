@@ -24,12 +24,14 @@ public class ReserService {
 	public HashMap<String, Object> reserResearch(HashMap<String, Object> searchData) {
 		
 		logger.info("검색 서비스 : {}",searchData);
+		// 검색 결과들을 담아주는 리스트
+		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		IslandDTO dto = apiDAO.reserResearch(searchData);
+		ArrayList<IslandDTO> research_list  = apiDAO.reserResearch(searchData);
 		
-		map.put("findData", dto);
+		map.put("findData", research_list);
 		
 		return map;
 	}
@@ -48,9 +50,9 @@ public class ReserService {
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param id : 유저의 달력 예약 정보를 가져온다.
+	/**조재현
+	 * 로그인 한 유저의 예약 정보를 가져온다.
+	 * @param id : 유저의 아이디(세션에서 가져와야함)
 	 * @return
 	 */
 	public HashMap<String,Object> user_reser(String id) {
