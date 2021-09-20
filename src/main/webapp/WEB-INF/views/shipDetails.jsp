@@ -53,6 +53,11 @@
 					<c:when test="${list eq null }">
 						테스트
 					</c:when>
+					<c:when test="${list ne null }">
+						<c:forEach items="${list }" var="item">
+							
+						</c:forEach>
+					</c:when>
 				</c:choose>
 				
 				
