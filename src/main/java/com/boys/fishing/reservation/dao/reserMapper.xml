@@ -10,7 +10,7 @@
 	<select id="findShip" resultType="reser" >
 		SELECT * FROM operrange op LEFT OUTER JOIN ship s ON (op.s_num = s.s_num)
 		LEFT OUTER JOIN shipIMG simg ON (op.s_num = simg.s_num)
-		WHERE op.op_date = SYSDATE AND op.i_num = #{param1}
+		WHERE op.op_date >= SYSDATE AND op.i_num = #{param1}
 	</select> 
 	<!-- 유저 달력 예약 정보를 가져온다. -->
 	<select id="user_reser" resultType="reser">
