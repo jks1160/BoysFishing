@@ -65,12 +65,13 @@ public class UserService {
 
 	@Transactional
 	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
-		ModelAndView mav = new ModelAndView();
+		logger.info("kakaoYN : "+dto.getU_kakaoYN());
 		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
 		String page = "redirect:/joinForm";
 		if (dao.join(dto) > 0) {
+			logger.info("회원가입 정보 DB 입력완료");
 			page = "redirect:/login";
 			attr.addAttribute("id", dto.getU_userid());
 			attr.addAttribute("pw", pw);
@@ -81,11 +82,15 @@ public class UserService {
 		if (fileName != "") {
 			dao.userProfile(dto.getU_userid(), fileName);
 		}
+		if(dto.getU_kakaoYN() == 'Y') {
+			logger.info("카카오 회원가입 dao 진입");
+			dao.kakaoJoin(dto);
+		}
 		return page;
 	}
 
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
-		String path = null;
+
 		String fileName = file.getOriginalFilename();
 		logger.info(fileName);
 		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
@@ -97,7 +102,7 @@ public class UserService {
 			e.printStackTrace();
 		}
 		attr.addFlashAttribute("fileName", fileName);
-		return "redirect:/joinForm";
+		return "redirect:/uploadForm";
 	}
 
 	public ModelAndView login(String id, String pw, HttpSession session) {
@@ -149,6 +154,11 @@ public class UserService {
 		 
 
 		return mav;
+	}
+
+	public int lookUp(String id) {
+
+		return dao.lookUp(id);
 	}
 
 }
