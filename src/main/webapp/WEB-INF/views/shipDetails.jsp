@@ -51,7 +51,7 @@
 				<!-- 배 편이 없을 경우 -->
 				<c:choose>
 					<c:when test="${list eq null }">
-						테스트
+						<h1>테스트</h1>
 					</c:when>
 					<c:when test="${list ne null }">
 						<c:forEach items="${list }" var="item">
@@ -61,15 +61,15 @@
 				</c:choose>
 				
 				
-				<img src="../resources/defaultimg/bell.jpg" class="rounded float-start" style="width: 200px; height: 200px; float:left;"/>
+				<!-- <img src="../resources/defaultimg/bell.jpg" class="rounded float-start" style="width: 200px; height: 200px; float:left;"/>
 				<div style="float:left; width : 15px; height:200px; background-color:white" ></div>
 				<p class='text-dark font-weight-bold'>배 이름</p>
 				<p style="margin:0px">최대 탑승 인원 : 10명</p>
 				<p style="margin:0px">정박 위치 : 집</p>
 				<p style="margin:0px">보유 장비 : 레이더</p>
 				<p style="margin:0px">편의 시설 : 화장실 </p>
+				<h5 >인당 배 값 : 12000</h5> -->
 				
-				<h5 >인당 배 값 : 12000</h5>
 				<a class= 'btn btn-primary' style="float:right">예약하기</a>
 			</div>
 		</div>
