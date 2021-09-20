@@ -13,5 +13,7 @@ public interface ApisDAO {
 
 	int islanddel();
 
+	int islandcnt();
+
 
 }
