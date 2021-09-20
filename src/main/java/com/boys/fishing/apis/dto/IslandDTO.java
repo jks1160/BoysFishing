@@ -29,9 +29,10 @@ public class IslandDTO {
 	private String i_isUITS; //영해기면무인도서유무
 	private String i_islandmanage; //무인도서관리유형
 	private String i_surrmanage; //주변해역관리유형
-	private String i_latitude; //위도
-	private String i_longitude;//경도
+	private String i_latitude; //x값 좌표
+	private String i_longitude;//y값 좌표
 	private String i_appointeddate; // 지정고시일
+	
 	
 	
 	public int getI_num() {

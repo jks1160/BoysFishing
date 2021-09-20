@@ -31,10 +31,18 @@ public class ApisController {
 		
 		return "insertisland";
 	}
+	//섬정보 db insert 메서드
 	@RequestMapping(value = "/apiCalls")
 	public @ResponseBody HashMap<String, Object> apiCalls
 	(@RequestParam HashMap<String, String> params) {
 		logger.info("params : {}",params);
 		return service.apiCalls(params);
+	}
+	//섬정보 db del 메서드
+	@RequestMapping(value = "/islanddel")
+	public @ResponseBody HashMap<String, Object> islanddel
+	() {
+		logger.info("db 삭제 요청");
+		return service.islanddel();
 	}
 }

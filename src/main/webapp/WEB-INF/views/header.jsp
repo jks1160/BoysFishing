@@ -15,7 +15,7 @@
 <div>
 		<nav class="navbar navbar-expand-lg navbar-light "  style="background-color:cornflowerblue;">
 			<div class="container-fluid">
-			  <a class="navbar-brand" href="./">
+			  <a class="navbar-brand" href="/fishing/">
 				<span style="color: white">SOMEFISH</span>
 				<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-image-alt" style="color: white"   viewBox="0 0 16 16">
   		<path d="M7 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zm4.225 4.053a.5.5 0 0 0-.577.093l-3.71 4.71-2.66-2.772a.5.5 0 0 0-.63.062L.002 13v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4.5l-4.777-3.947z"/>
@@ -50,7 +50,7 @@
 			  <div class="collapse navbar-collapse"  id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto " >
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="islandsReservation">섬정보/예약</a>
+					<a class="nav-link active text-white" aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">섬섬톡</a>

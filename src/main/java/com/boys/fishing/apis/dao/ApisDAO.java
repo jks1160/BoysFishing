@@ -7,9 +7,11 @@ import com.boys.fishing.apis.dto.IslandDTO;
 
 public interface ApisDAO {
 
-	IslandDTO reserResearch(HashMap<String, Object> searchData);
+	ArrayList<IslandDTO> reserResearch(HashMap<String, Object> searchData);
 
 	ArrayList<IslandDTO> islandsList();
+
+	int islanddel();
 
 
 }

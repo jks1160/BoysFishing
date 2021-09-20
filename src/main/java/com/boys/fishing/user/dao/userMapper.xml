@@ -43,6 +43,34 @@ SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 
 
 
+<select id="point" resultType="int">
+select p_balance
+from(
+   select *
+   from point
+   order by p_regdate DESC
+)
+where ROWNUM = 1
+</select>
+
+<insert id="pointCharge">
+INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{param3}, 'PNT_001', #{param3}, #{param2}, #{param1})
+</insert>
+
+<insert id="pointWithdraw">
+INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{param3}, 'PNT_002', #{param3}, #{param2}, #{param1})
+</insert>
+
+
+<select id="pointHistoryList" resultType="userInfo">
+select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY p_regdate DESC)
+AS rnum, p_content, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{param2}) WHERE rnum BETWEEN #{param1} AND #{param3}
+</select>
+
+<select id="totalPageP" resultType="int">
+SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
+</select>
+
 
 
 

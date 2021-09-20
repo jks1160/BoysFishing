@@ -59,6 +59,7 @@
 				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
 					<!-- 이곳에 섬 리스트 출력 -->
 					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
+						<!-- 섬 리스트 출력 부분 -->
 						<c:if test="${island_list ne null }" >
 							<c:forEach items="${island_list }" var = "item">
 								<a class="list-group-item list-group-item-action island_data">${item.i_name} </a>
@@ -78,13 +79,11 @@
 				
 				
 				
-				<div class='list-group result_list'  style='overflow-y:scroll;' id='result' >
+				<div class='list-group result_list'  style='overflow-y:scroll; max-height:248px ;' id='result' >
 					<!-- 검색 결과 -->
-					<a class="list-group-item list-group-item-action pick_data">First item</a>
-					<a class="list-group-item list-group-item-action pick_data">First item</a>
+					<a class="list-group-item list-group-item-action pick_data">검색 결과</a>
 				</div>
-				
-				<button type='button' class='btn btn-dark' onclick='search_ship()'>예약편 찾기</button>
+				<button type='button' class='btn btn-dark' onclick='search_ship()'>섬 상세보기</button>
 				</form>
 			</div>
 			
@@ -119,8 +118,10 @@
 	$(document).on("click",".island_data",function(){
 		
 		var researcher = $(this).html();
+		// 정규표현식으로 띄어쓰기 맨 끝만 제거
+		var regex = /[\s\uFEFF\xA0]+$/gi;
 		console.log("선택한 섬 :", researcher);
-		document.getElementById("text-zone").value = researcher;
+		document.getElementById("text-zone").value = researcher.replace(regex,"");
 	});
 	
 	// 검색
@@ -136,13 +137,15 @@
 			dataType : "JSON",
 			success : function(data){
 				var context ="";
-				
-				if(data.findData == null){
+				if(data.findData.length == 0){
 					$("#result").empty();
-					$("#result").append("<h5 class='text-danger'>검색 결과가 존재하지 않습니다.</h5>");
-				}else{ 
-					console.log("찾은 데이터 : ",data.findData.i_name);
-					context = "<a class='list-group-item list-group-item-action pick_data' id='"+data.findData.i_num+"'>"+data.findData.i_name+"</a>";
+					$("#result").append("<h6 class='text-danger'><a class='list-group-item list-group-item-action pick_data text-danger'>검색 결과가 존재하지 않습니다.</a></h6>");
+				}else{
+					data.findData.forEach(function(item){
+						// 여러개가 나오기 때문에 += 으로 해야한다.
+						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"'>"+item.i_name+"</a>";
+
+					})
 					$(".result_list").empty();
 					$(".result_list").append(context);
 				}
@@ -156,8 +159,9 @@
 	// 검색 결과 확정
 	$(document).on("click",".pick_data",function(){
 		var me = $(this);
-		console.log("나다",me);
-		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' />";
+		$(".pick_data").css("background-color","white");
+		$(this).css("background-color","#FFDEE9");
+		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' readonly/>";
 		$(".pick_island").remove();
 		$("#result").append(context);
 	});
@@ -165,7 +169,9 @@
 	// 예약 배 찾기
 	function search_ship() {
 		// 검색 결과를 선택하지 않으면...
-		if($(".pick_island").val() == null){
+		console.log("으아아 " ,$(".pick_island").val());
+		//오류 대폭 수정
+		if($(".pick_island").val() == null || $(".pick_island").val() == "" || $(".pick_data").val() ==null ){
 			alert("섬을 선택하세요");
 		}
 		else{ //검색 결과를 선택하면 진행

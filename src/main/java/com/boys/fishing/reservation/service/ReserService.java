@@ -21,36 +21,57 @@ public class ReserService {
 	@Autowired ReserDAO reserDAO;
 	@Autowired ApisDAO apiDAO;
 	
+	
+	/** 조재현
+	 * 섬들을 검색하여 뿌려주기 위한 메소드
+	 * 
+	 * @param  searchData (HashMap<String,Object>)타입으로 해당 섬 정보를 받는다
+	 * 
+	 * @return
+	 */
+	
 	public HashMap<String, Object> reserResearch(HashMap<String, Object> searchData) {
 		
 		logger.info("검색 서비스 : {}",searchData);
+		// 검색 결과들을 담아주는 리스트
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		IslandDTO dto = apiDAO.reserResearch(searchData);
+		ArrayList<IslandDTO> research_list  = apiDAO.reserResearch(searchData);
 		
-		map.put("findData", dto);
+		map.put("findData", research_list);
 		
 		return map;
 	}
-
+	
+	/** 조재현
+	 * 해당 섬에 일치하는 배 편 찾기
+	 * @param find_ship (String) 배 번호를 받아온다.
+	 * @return
+	 */
 	public ModelAndView findShip(String find_ship) {
 		
 		logger.info("배편 찾기 서비스 : {}",find_ship);
-		ArrayList<ReserDTO> list =reserDAO.findShip(find_ship);
-		logger.info("완료 : {}",list);
-		System.out.println("리스트 1 : " +list.get(0).getS_num());
-		System.out.println("리스트 2 : " +list.get(1).getS_num());
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list",list);
+		
+		ArrayList<ReserDTO> list =reserDAO.findShip(find_ship);
+		
+		logger.info("완료 : {}",list);
+		if(list.size() != 0) {	// 섬에 대한 배편이 있을 경우
+			mav.addObject("list",list);
+			mav.setViewName("shipDetails");
+		}else { // 섬에 대한 배편이 없을 경우
+			// reser에 있기 때문에 redirect로 보낸다
+			mav.setViewName("redirect:/");
+		}
 		
 		// 배 정보 페이지 완성 시 보내면 된다.
-		return null;
+		return mav;
 	}
 
-	/**
-	 * 
-	 * @param id : 유저의 달력 예약 정보를 가져온다.
+	/**조재현
+	 * 로그인 한 유저의 예약 정보를 가져온다.
+	 * @param id : 유저의 아이디(세션에서 가져와야함)
 	 * @return
 	 */
 	public HashMap<String,Object> user_reser(String id) {
@@ -59,10 +80,10 @@ public class ReserService {
 		
 		ArrayList<ReserDTO> list = reserDAO.user_reser(id);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		for (ReserDTO name : list) {
-			logger.info("이름: {}",name.getRi_userid());
-			logger.info("날짜 : {}",name.getRi_date());
-		}
+		/* 테스트용
+		 * for (ReserDTO name : list) { logger.info("이름: {}",name.getRi_userid());
+		 * logger.info("날짜 : {}",name.getRi_date()); }
+		 */
 		
 		map.put("my_list", list);
 		

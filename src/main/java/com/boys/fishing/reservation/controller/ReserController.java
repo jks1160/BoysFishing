@@ -29,8 +29,7 @@ public class ReserController {
 	public @ResponseBody HashMap<String, Object> reserResearch(@RequestParam HashMap<String, Object> searchData) {
 		
 		logger.info("섬 검색 요청 : {}", searchData );
-		
-		
+
 		return service.reserResearch(searchData);
 	}
 	// 섬에 해당하는 배 찾기

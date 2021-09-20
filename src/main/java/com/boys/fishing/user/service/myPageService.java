@@ -82,7 +82,49 @@ public class myPageService {
 	public ModelAndView point(String id) {
 		logger.info("회원 포인트조회 서비스");
 		ModelAndView mav = new ModelAndView();
-		return null;
+		int p_point = dao.point(id);
+		mav.addObject("point",p_point);
+		mav.setViewName("pointPage");
+		return mav;
+	}
+
+	public HashMap<String, Object> pointHistoryPage(int page, String user) {
+		logger.info("회원 포인트히스토리 조회 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalPage;
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		
+		ArrayList<UserDTO> pointHistory = new ArrayList<UserDTO>();
+		totalPage = dao.totalPageP(user);
+		pointHistory = dao.pointHistoryList(start,user,end);
+		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
+		logger.info("총 페이지: "+totalPage);
+		map.put("list", pointHistory);
+		map.put("totalPage", pages);
+		map.put("currPage", page);
+		return map;
+	}
+
+	public void pointCharge(int p_charge, String user) {
+		int balance = 0;
+		int currBalance;
+		currBalance = dao.point(user);
+		balance = currBalance + p_charge;
+		logger.info("balance: "+ balance + "p_charge: "+ p_charge + "user: " + user);
+		dao.pointCharge(balance, p_charge, user);
+		
+	}
+
+	public void pointWithdraw(int p_withdraw, String user) {
+		int balance = 0;
+		int currBalance;
+		currBalance = dao.point(user);
+		balance = currBalance - p_withdraw;
+		logger.info("balance: "+ balance + "p_charge: "+ p_withdraw + "user: " + user);
+		dao.pointWithdraw(balance, p_withdraw, user);
+		
 	}
 
 }
