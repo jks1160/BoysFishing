@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +36,8 @@
 		</style>
 </head>
 <body>
-<input type="button" onclick="islandinsert()" value="db 업데이트">
-<input type="button" onclick="islanddelete()" value="db 삭제">
+<input type="button" onclick="islandinsert()" value="섬 db 업데이트">
+<input type="button" onclick="islanddelete()" value="섬 db 삭제">
 
 			<ul id="list">
 		
@@ -52,7 +53,8 @@ function islandinsert(){
 		},
 		dataType:'json',
 				success:function(data){
-					console.log(data);				
+					alert(data.island);	
+					
 				},
 				error:function(e){
 					console.log(e);
@@ -66,8 +68,7 @@ function islanddelete(){
 		type:'get',
 		datatype:'json',
 		success:function(data){
-			console.log(data,"성공");
-			
+			alert("삭제에 성공하였습니다.");
 		},
 		error:function(e){
 			console.log(e);

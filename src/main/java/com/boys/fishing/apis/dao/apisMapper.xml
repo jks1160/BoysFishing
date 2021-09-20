@@ -21,4 +21,8 @@
 	<delete id="islanddel" parameterType="int">
 	DELETE FROM island WHERE i_sido is null
 	</delete>
+	
+	<select id="islandcnt" resultType="int">
+	select count(i_num) from island
+	</select>
 </mapper>
