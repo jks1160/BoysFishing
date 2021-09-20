@@ -15,7 +15,7 @@
 		SELECT rnum,i_num ,TRIM(i_name) AS i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
 		FROM( SELECT ROW_NUMBER() OVER(ORDER BY i_num ASC) AS rnum,
 		i_num, TRIM(i_name) as i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
-		FROM island) ORDER BY rnum DESC
+		FROM island WHERE i_islandmanage='이용가능' OR i_islandmanage='개발가능') ORDER BY rnum DESC
 	</select>
 	
 	<delete id="islanddel" parameterType="int">
