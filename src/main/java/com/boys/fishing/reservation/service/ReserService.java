@@ -85,6 +85,12 @@ public class ReserService {
 		for(int i=0; i<list.size(); i++) {
 			logger.info("배 번호 : {} ",list.get(i).getS_num());
 			logger.info("배 이름 : {}",list.get(i).getS_name());
+			logger.info("최대 탑승 인원 : {}",list.get(i).getS_maxpassenger());
+			logger.info("최소 탑승 인원 : {}",list.get(i).getS_minpassenger());
+			logger.info("출발지 : {}", list.get(i).getS_address());
+			logger.info("보유 장비 : {}",list.get(i).getS_equipment());
+			logger.info("편의 시설 : {}",list.get(i).getS_convenient());
+			logger.info("인당 배 값 : {}",list.get(i).getOp_price());
 			logger.info("이미지 이름 : {}" ,list.get(i).getSi_name());
 			logger.info("이미지 경로  : {}",list.get(i).getS_img());
 		}
