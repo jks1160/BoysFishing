@@ -65,7 +65,7 @@ public class UserService {
 
 	@Transactional
 	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
-		logger.info("kakaoYN : "+dto.getU_kakaoYN());
+		logger.info("kakaoYN : " + dto.getU_kakaoYN());
 		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
@@ -82,7 +82,7 @@ public class UserService {
 		if (fileName != "") {
 			dao.userProfile(dto.getU_userid(), fileName);
 		}
-		if(dto.getU_kakaoYN() == 'Y') {
+		if (dto.getU_kakaoYN() == 'Y') {
 			logger.info("카카오 회원가입 dao 진입");
 			dao.kakaoJoin(dto);
 		}
@@ -144,14 +144,12 @@ public class UserService {
 		mav.addObject("island_list", list);
 		// 섬 정보 페이지로 이동시키기위한 view 설정
 		mav.setViewName("islandsReservation");
-		
-		  // 데이터 제대로 받았는지 테스트
-		  
-			/*
-			 * for (IslandDTO items : list) { logger.info("섬 번호 : {} 섬 이름 : {}",
-			 * items.getI_num(), items.getI_name()); }
-			 */
-		 
+
+		// 데이터 제대로 받았는지 테스트
+		/*
+		 * for (IslandDTO items : list) { logger.info("섬 x좌표 : {} 섬 y좌표 : {}",
+		 * items.getI_latitude(), items.getI_longitude()); }
+		 */
 
 		return mav;
 	}
@@ -160,7 +158,5 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	
 
 }
