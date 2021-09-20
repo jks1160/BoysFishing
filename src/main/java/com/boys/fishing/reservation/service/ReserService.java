@@ -53,7 +53,10 @@ public class ReserService {
 		
 		ModelAndView mav = new ModelAndView();
 		// 테스트 용 입니다.
+		IslandDTO dto = reserDAO.detail_island(choice);
+				
 		mav.setViewName("islandDetails");
+		mav.addObject("isd", dto);
 		return mav;
 	}
 	

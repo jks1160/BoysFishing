@@ -14,4 +14,8 @@
 		SELECT ri_num, ri_userid, ri_code, s_num, ri_date FROM reserINFO
 		WHERE ri_userid = #{param1}
 	</select>
+	
+	<select id="detail_island" resultType="apis" parameterType="String">
+		SELECT * FROM island WHERE i_num = #{param1}
+	</select>
 </mapper>
