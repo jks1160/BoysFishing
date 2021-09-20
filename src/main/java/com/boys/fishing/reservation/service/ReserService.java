@@ -82,7 +82,12 @@ public class ReserService {
 		mav.addObject("list", list);
 		mav.setViewName("shipDetails");
 
-		logger.info("list : {}", list.get(0).getS_num());
+		for(int i=0; i<list.size(); i++) {
+			logger.info("배 번호 : {} ",list.get(i).getS_num());
+			logger.info("배 이름 : {}",list.get(i).getS_name());
+			logger.info("이미지 이름 : {}" ,list.get(i).getSi_name());
+			logger.info("이미지 경로  : {}",list.get(i).getS_img());
+		}
 
 		// 배 정보 페이지 완성 시 보내면 된다.
 		return mav;

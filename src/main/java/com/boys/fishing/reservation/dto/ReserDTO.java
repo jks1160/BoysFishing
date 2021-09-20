@@ -27,6 +27,8 @@ public class ReserDTO {
 	private String op_duringtime; // 소요 시간
 	private String op_returntime; // 회항시간
 	private Date op_date; // 날짜
+	private int op_price; // 운행 비용
+	
 	// 배 정보
 	private String u_userid; // 선장 아이디
 	private String s_name; // 배 이름
@@ -187,6 +189,12 @@ public class ReserDTO {
 	}
 	public String getS_convenient() {
 		return s_convenient;
+	}
+	public int getOp_price() {
+		return op_price;
+	}
+	public void setOp_price(int op_price) {
+		this.op_price = op_price;
 	}
 	public void setS_convenient(String s_convenient) {
 		this.s_convenient = s_convenient;
