@@ -32,6 +32,15 @@ public class ReserController {
 
 		return service.reserResearch(searchData);
 	}
+	// 섬 상세보기
+	@RequestMapping(value="/detail_island", method = RequestMethod.GET)
+	public ModelAndView detail_island(@RequestParam HashMap<String, String> params) {
+		
+		logger.info("섬 정보 요청 : {}", params.get("choice"));
+		
+		return service.detail_island(params.get("choice"));
+	}
+	
 	// 섬에 해당하는 배 찾기
 	@RequestMapping(value="/find_ship", method = RequestMethod.GET)
 	public ModelAndView findShip(@RequestParam HashMap<String, String> params) {

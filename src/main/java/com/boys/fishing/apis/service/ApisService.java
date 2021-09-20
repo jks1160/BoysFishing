@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.apis.dao.ApisDAO;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -58,51 +59,57 @@ public class ApisService {
 	    logger.info("이게 뭘까 : {} ", jsonObject1.get("features"));
 	    ArrayList<HashMap<String, Object>> list = jsonArray(jsonObject1.get("features"));
 	    
-	    
-	    Connection con = null;
-        PreparedStatement pstmt = null;
-        String sql = "Insert Into island(i_num,i_name,i_controlnum,i_jibeon ,i_landarea,i_islandmanage,i_distance,i_distanceex,i_latitude,i_longitude) Values(?,?,?,?,?,?,?,?,?,?)";
-        
-	    
-	         try {
-				Class.forName("net.sf.log4jdbc.DriverSpy");
-				con = DriverManager.getConnection("jdbc:log4jdbc:oracle:thin:@61.78.121.242:1521:xe", "C##SEC_PRO4", "fish");
-			    con.setAutoCommit(false);
-	            pstmt = con.prepareStatement(sql);
-	            for(int i=0; i<list.size(); i++) {
-	    	    HashMap<String, Object> mapp = (HashMap<String, Object>) list.get(i).get("attributes");
-	    	    pstmt.setString(1, String.valueOf(mapp.get("objectid")));//무인도 번호
-	            pstmt.setString(2, String.valueOf(mapp.get("isln_nm")));// 무인도서명
-	            pstmt.setString(3, String.valueOf(mapp.get("mng_num")));// 관리 번호
-            	pstmt.setString(4, String.valueOf(mapp.get("lnm")));// 지번
-            	pstmt.setString(5, String.valueOf(mapp.get("lad_ar")));// 토지전체면적
-            	pstmt.setString(6, String.valueOf(mapp.get("mng_ty")));//무인도서관리유형
-            	pstmt.setString(7, String.valueOf(mapp.get("dstnc")));//육지와의 거리
-            	pstmt.setString(8, String.valueOf(mapp.get("tp_ntrfs")));//육지와의거리부가설명
-            	pstmt.setString(9, String.valueOf(mapp.get("xcnts")));// x값
-            	pstmt.setString(10, String.valueOf(mapp.get("ydnts")));// y값
- 
 
-            	pstmt.executeUpdate();
-	            }
-	            con.commit();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-	            if (pstmt != null) try {
-	                pstmt.close();
-	                pstmt = null;
-	            } catch (SQLException ex) {
-	            }
-	            if (con != null) try {
-	                con.close();
-	                con = null;
-	            } catch (SQLException ex) {
-	            }
-	        }
-		
-		map.put("suc", success);
+	    logger.info("cnt 확인 : {} ",dao.islandcnt());
+	    if(dao.islandcnt()>1) {
+	    	map.put("island", "이미 데이터가 있습니다.");
+	    }else {
+	    	map.put("island", "섬 정보가 업데이트 되었습니다.");
+	    	  Connection con = null;
+	          PreparedStatement pstmt = null;
+	          String sql = "Insert Into island(i_num,i_name,i_controlnum,i_jibeon ,i_landarea,i_islandmanage,i_distance,i_distanceex,i_latitude,i_longitude) Values(?,?,?,?,?,?,?,?,?,?)";
+	          
+	  	    
+	  	         try {
+	  				Class.forName("net.sf.log4jdbc.DriverSpy");
+	  				con = DriverManager.getConnection("jdbc:log4jdbc:oracle:thin:@61.78.121.242:1521:xe", "C##SEC_PRO4", "fish");
+	  			    con.setAutoCommit(false);
+	  	            pstmt = con.prepareStatement(sql);
+	  	            for(int i=0; i<list.size(); i++) {
+	  	    	    HashMap<String, Object> mapp = (HashMap<String, Object>) list.get(i).get("attributes");
+	  	    	    pstmt.setString(1, String.valueOf(mapp.get("objectid")));//무인도 번호
+	  	            pstmt.setString(2, String.valueOf(mapp.get("isln_nm")));// 무인도서명
+	  	            pstmt.setString(3, String.valueOf(mapp.get("mng_num")));// 관리 번호
+	              	pstmt.setString(4, String.valueOf(mapp.get("lnm")));// 지번
+	              	pstmt.setString(5, String.valueOf(mapp.get("lad_ar")));// 토지전체면적
+	              	pstmt.setString(6, String.valueOf(mapp.get("mng_ty")));//무인도서관리유형
+	              	pstmt.setString(7, String.valueOf(mapp.get("dstnc")));//육지와의 거리
+	              	pstmt.setString(8, String.valueOf(mapp.get("tp_ntrfs")));//육지와의거리부가설명
+	              	pstmt.setString(9, String.valueOf(mapp.get("xcnts")));// x값
+	              	pstmt.setString(10, String.valueOf(mapp.get("ydnts")));// y값
+	   
+
+	              	pstmt.executeUpdate();
+	  	            }
+	  	            con.commit();
+	  			} catch (Exception e) {
+	  				e.printStackTrace();
+	  			}finally {
+	  	            if (pstmt != null) try {
+	  	                pstmt.close();
+	  	                pstmt = null;
+	  	            } catch (SQLException ex) {
+	  	            }
+	  	            if (con != null) try {
+	  	                con.close();
+	  	                con = null;
+	  	            } catch (SQLException ex) {
+	  	            }
+	  	        }
+	  	
+	    }
 		return map;
+	  
 	}
 
 	private String sendMsg(ArrayList<String> urls, HashMap<String, String> header, String params,
@@ -216,12 +223,15 @@ public class ApisService {
         return arr;
     }
     
-	public HashMap<String, Object> islanddel() {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	public HashMap<String,Object> islanddel() {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object>map = new HashMap<String, Object>();
+		String msg = "삭제에 실패하였습니다.";
 		if(dao.islanddel()>0) {
-			map.put("del", "success");
+			msg = "삭제에 성공하였습니다.";
+			map.put("del", msg);
 		}else {
-			map.put("del", "fail");
+			map.put("del", msg);
 		}
 		
 		return map;

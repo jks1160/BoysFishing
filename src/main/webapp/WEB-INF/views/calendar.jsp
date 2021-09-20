@@ -45,8 +45,6 @@ if(date <10){
 console.log("year",year );
 console.log("months", month);
 console.log("date",date);
-// fullCalendar에 넣을 이벤트를 받아 줄 리스트
-var my_reser = [];
 //오늘 날짜
 var O_nuel = year+'-'+month+'-'+date;
 
@@ -76,8 +74,8 @@ var O_nuel = year+'-'+month+'-'+date;
 				type: 'POST',
 				dataType :"JSON",
 				success : function(data) {
-					// 등록할 이벤트를 담을 리스트
-					var events = []; 
+					// fullCalendar에 넣을 이벤트를 받아 줄 리스트
+					var my_reser = [];
 					//성공 했는지 확인
 					console.log("성공 데이터 : " ,data);
 					// 받은 데이터 중 my_list 부분을 가져온다.

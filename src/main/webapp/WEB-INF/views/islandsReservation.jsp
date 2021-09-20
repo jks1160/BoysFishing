@@ -73,7 +73,7 @@
 			<div style='min-height: 400px; border-right: 2px solid gray; display:inline'></div>
 			<div style='display: inline' class="col lg-6 text-center">
 				<h2 class ='text-center' style='display: inline;'>섬 이름 검색하기</h2>
-				<form action='reser/find_ship' method='GET' name='research_form'>
+				<form action='reser/detail_island' method='GET' name='research_form'>
 					<input type='text' class='form-control'  id='text-zone' placeholder='섬 이름 검색' name='searchData' />
 					<button type='button' class='btn btn-dark' onclick= 'reser_research()'>검색</button>
 				
@@ -83,7 +83,7 @@
 					<!-- 검색 결과 -->
 					<a class="list-group-item list-group-item-action pick_data">검색 결과</a>
 				</div>
-				<button type='button' class='btn btn-dark' onclick='search_ship()'>섬 상세보기</button>
+				<button type='button' class='btn btn-dark' onclick='detail_island()'>섬 상세보기</button>
 				</form>
 			</div>
 			
@@ -166,8 +166,8 @@
 		$("#result").append(context);
 	});
 	
-	// 예약 배 찾기
-	function search_ship() {
+	// 섬 상세보기
+	function detail_island() {
 		// 검색 결과를 선택하지 않으면...
 		console.log("으아아 " ,$(".pick_island").val());
 		//오류 대폭 수정
