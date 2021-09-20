@@ -83,7 +83,7 @@
 					<!-- 검색 결과 -->
 					<a class="list-group-item list-group-item-action pick_data">검색 결과</a>
 				</div>
-				<button type='button' class='btn btn-dark' onclick='search_ship()'>섬 상세보기</button>
+				<button type='button' class='btn btn-dark' onclick='detail_island()'>섬 상세보기</button>
 				</form>
 			</div>
 			
@@ -166,8 +166,8 @@
 		$("#result").append(context);
 	});
 	
-	// 예약 배 찾기
-	function search_ship() {
+	// 섬 상세보기
+	function detail_island() {
 		// 검색 결과를 선택하지 않으면...
 		console.log("으아아 " ,$(".pick_island").val());
 		//오류 대폭 수정

@@ -43,7 +43,7 @@ public class ReserService {
 		
 		return map;
 	}
-	/** 조재현
+	/**@author  조재현, 이선우
 	 *   선택한 섬의 상세보기를 보기 위한 서비스
 	 * @param choice 스트링타입으로 선택한 섬 번호를 뽑아온다.
 	 * @return
