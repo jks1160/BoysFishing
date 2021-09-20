@@ -38,8 +38,6 @@ public class ReserController {
 		
 		logger.info("섬 정보 요청 : {}", params.get("choice"));
 		
-		
-		
 		return service.detail_island(params.get("choice"));
 	}
 	

@@ -16,4 +16,8 @@
 		WHERE ri_userid = #{param1}
 	</select>
 	
+	<select id="detail_island" resultType="apis" parameterType="String">
+		SELECT * FROM island WHERE i_num = #{param1}
+	</select>
+
 </mapper>
