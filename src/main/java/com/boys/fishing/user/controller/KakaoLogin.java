@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,8 +47,8 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	@RequestMapping(value = "/login/oauth_kakao")
 	public String oauthKakao(
 			@RequestParam(value = "code", required = false) String code
-			, Model model) throws Exception {
-
+			, Model model, RedirectAttributes attr) throws Exception {
+		String page = "redirect:/";
 		System.out.println("#########" + code);
 		// 받아온 인증코드 값으로 인증토큰을 요청 
 		String access_Token = getAccessToken(code);
@@ -55,12 +57,13 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
         // ---------- 여기까지 완료
         HashMap<String, Object> userInfo = getUserInfo(access_Token);
         System.out.println("###access_Token#### : " + access_Token);
-        System.out.println("###userInfo#### : " + userInfo.get("email"));
-        System.out.println("###nickname#### : " + userInfo.get("nickname"));
+        System.out.println("###id#### : " + userInfo.get("id"));
         
-        
-        
-        return "./mainPage"; //본인 원하는 경로 설정
+        if(userInfo.get("id") == "" || userInfo.get("id") == null) {
+        	page = "redirect:/joinForm";
+        	attr.addAttribute("kakaoId",userInfo.get("id"));
+        }
+        return page; //본인 원하는 경로 설정
 	}
 	
     //토큰발급(인증코드로 토큰 요청)

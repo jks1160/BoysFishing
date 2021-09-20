@@ -32,7 +32,10 @@
 		<div class="row my-3">
 			<div class="col">
 				<h2>
-					회원가입 <small class="text-muted">(일반 회원)</small>
+					회원가입 <small class="text-muted"><c:choose>
+						<c:when test="${kakaoid eq ''}">(일반 회원)</c:when>
+						<c:otherwise>(카카오 회원)</c:otherwise>	
+					</c:choose></small>
 				</h2>
 			</div>
 		</div>
@@ -56,13 +59,14 @@
 			</div>
 		</form>
         <form class="validation-form" action="join" method="POST" novalidate>
-			<div class="row my-3">
+			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="id">아이디 : </label>
 				</div>
 				<div class="col-5">
 					<input type="text" id="id" class="form-control" name="u_userid"
-						maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요." required>
+						maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
+						<c:if test = "${empty kakaoid}">value="${kakaoid }"</c:if> required>
 					<div class="invalid-feedback">아이디를 입력해주세요.</div>
 				</div>
 				<div class="col-2">
@@ -70,7 +74,7 @@
 						id="test">중복확인</button>
 				</div>
 			</div>
-			<div class="row my-3">
+			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="pw">비밀번호 : </label>
 				</div>
@@ -80,7 +84,7 @@
 					<div class="invalid-feedback">(8자리 이상)비밀번호를 입력해주세요.</div>
 				</div>
 			</div>
-			<div class="row my-3">
+			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="pwck">비밀번호 확인 : </label>
 				</div>
@@ -153,6 +157,16 @@
     var pwChvar = false;
     var idChvar = false;
     var nickChvar = false;
+    
+    if(${kakaoid ne ''}){
+    	$(".kakaodel").css("display","none");
+    	$("input[name=u_userid]").val(${kakaoid});
+    	var randompw = Math.random();
+    	$("input[name=u_userpw]").val(randompw);
+    	$("input[name=pwck]").val(randompw);
+    	pwChvar = true;
+    	idChvar = true;
+    }
     
     function imgUpload(){
     	$("#profile").submit();
