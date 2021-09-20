@@ -50,7 +50,7 @@
 			<div class="list-group-item">
 				<!-- 배 편이 없을 경우 -->
 				<c:choose>
-					<c:when test="${list.s_num eq null }">
+					<c:when test="${list eq  [] }">
 						<h1>테스트</h1>
 					</c:when>
 					<c:when test="${list ne null }">

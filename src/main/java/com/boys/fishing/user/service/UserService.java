@@ -156,6 +156,11 @@ public class UserService {
 		return mav;
 	}
 
+	public int lookUp(String string) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 
 }
