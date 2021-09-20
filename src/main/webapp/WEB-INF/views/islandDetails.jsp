@@ -87,8 +87,9 @@
 		</div>
 		<input value="${isd.i_latitude }" id="xlocation" type="hidden"/>
 		<input value="${isd.i_longitude}" id="ylocation" type="hidden"/>
-		
+		<input value="${isd.i_num}" id="islandnum" type="hidden"/>
 	<button onclick="test_jo()" class="mt-3">조재현예약편 찾기 테스트</button>
+	<button onclick="findreser()" class="mt-3">예약편 찾기 </button>
 	<button onclick="location.href='/fishing/islandsReservation'">리스트</button>
 	</div>
 	</div>
@@ -100,6 +101,11 @@
 <script>
 var xlo =$("#xlocation").val();
 var ylo =$("#ylocation").val();
+var num = $("#islandnum").val();
+
+function findreser(){
+	location.href="find_ship?choice="+num;
+}
 
 function test_jo(){
 	// 테스트 번호 무조건 0번으로 예약 정보를 가져올 것이다.
