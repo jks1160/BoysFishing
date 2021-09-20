@@ -28,24 +28,12 @@
 </style>
 </head>
 <body>
-	<!-- 헤더 인클루드 -->
+	<!-- 헤더 부분 -->
 	<jsp:include page="header.jsp"></jsp:include>
-	
 	<div class='container'>
-		<h2 class='text-dark font-weight-bold'>섬 상세보기</h2>
+		<h2 class='text-dark font-weight-bold'> 예약편 찾기</h2>
 		<hr />
 	</div>
 	
-	
-	
-	<button onclick="test_jo()">조재현예약편 찾기 테스트</button>
 </body>
-<script>
-function test_jo(){
-	// 테스트 번호 무조건 0번으로 예약 정보를 가져올 것이다.
-	var idx = 0;
-	location.href="find_ship?choice="+idx;
-	
-}
-</script>
 </html>

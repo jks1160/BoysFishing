@@ -51,8 +51,10 @@ public class ReserService {
 	public ModelAndView detail_island(String choice) {
 		logger.info("섬 상세보기 서비스 요청 : {}",choice);
 		
-		
-		return null;
+		ModelAndView mav = new ModelAndView();
+		// 테스트 용 입니다.
+		mav.setViewName("islandDetails");
+		return mav;
 	}
 	
 	
