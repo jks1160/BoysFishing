@@ -4,6 +4,9 @@
    "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
 >
-<mapper namespace="com.boys.fishing.reservation.dao.BoardDAO">
+<mapper namespace="com.boys.fishing.board.dao.BoardDAO">
 
+	<select id="qna" resultType="sumsum">
+		SELECT * FROM qna
+	</select>
 </mapper>
