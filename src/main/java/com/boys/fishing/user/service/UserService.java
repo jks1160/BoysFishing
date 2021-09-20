@@ -156,9 +156,6 @@ public class UserService {
 		return mav;
 	}
 
-	public int lookUp(String id) {
-
-		return dao.lookUp(id);
-	}
+	
 
 }

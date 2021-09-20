@@ -50,12 +50,12 @@
 			<div class="list-group-item">
 				<!-- 배 편이 없을 경우 -->
 				<c:choose>
-					<c:when test="${list eq null }">
+					<c:when test="${list.s_num eq null }">
 						<h1>테스트</h1>
 					</c:when>
 					<c:when test="${list ne null }">
 						<c:forEach items="${list }" var="item">
-							
+							<h1>리스트가 있을 경우</h1>
 						</c:forEach>
 					</c:when>
 				</c:choose>
