@@ -69,15 +69,22 @@ public class ReserService {
 		ModelAndView mav = new ModelAndView();
 		
 		ArrayList<ReserDTO> list =reserDAO.findShip(find_ship);
+		IslandDTO dto = apiDAO.getIslandName(find_ship);
 		
 		logger.info("완료 : {}",list);
+		
 		if(list.size() != 0) {	// 섬에 대한 배편이 있을 경우
+			mav.addObject("islandName",dto.getI_name());
 			mav.addObject("list",list);
 			mav.setViewName("shipDetails");
+			
 		}else { // 섬에 대한 배편이 없을 경우
 			// reser에 있기 때문에 redirect로 보낸다
 			mav.setViewName("redirect:/");
 		}
+		
+		logger.info("list : {}", list.get(0).getS_num());
+		
 		
 		// 배 정보 페이지 완성 시 보내면 된다.
 		return mav;

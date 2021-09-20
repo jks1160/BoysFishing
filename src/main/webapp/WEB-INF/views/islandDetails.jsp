@@ -45,7 +45,6 @@ function test_jo(){
 	// 테스트 번호 무조건 0번으로 예약 정보를 가져올 것이다.
 	var idx = 0;
 	location.href="find_ship?choice="+idx;
-	
 }
 </script>
 </html>

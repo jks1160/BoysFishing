@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.boys.fishing.apis.dto.IslandDTO;
+import com.boys.fishing.reservation.dto.ReserDTO;
 
 public interface ApisDAO {
 
@@ -14,6 +15,8 @@ public interface ApisDAO {
 	int islanddel();
 
 	int islandcnt();
+
+	IslandDTO getIslandName(String find_ship);
 
 
 }

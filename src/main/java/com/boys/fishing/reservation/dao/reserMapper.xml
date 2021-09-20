@@ -6,6 +6,7 @@
 >
 <mapper namespace="com.boys.fishing.reservation.dao.ReserDAO">
 
+	
 	<select id="findShip" resultType="reser" >
 		SELECT * FROM operrange WHERE op_date >= SYSDATE AND i_num = #{param1}
 	</select> 
@@ -14,4 +15,5 @@
 		SELECT ri_num, ri_userid, ri_code, s_num, ri_date FROM reserINFO
 		WHERE ri_userid = #{param1}
 	</select>
+	
 </mapper>

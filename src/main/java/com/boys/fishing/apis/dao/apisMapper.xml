@@ -25,4 +25,10 @@
 	<select id="islandcnt" resultType="int">
 	select count(i_num) from island
 	</select>
+	
+	<!-- 섬 이름 가져오기 -->
+	<select id="getIslandName" resultType="apis">
+		SELECT * FROM island WHERE i_num = #{param1}
+	</select>
+	
 </mapper>
