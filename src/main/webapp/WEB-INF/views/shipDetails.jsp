@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,19 +48,30 @@
 		
 		<div class = 'list-group result_list'>
 			<!-- 배 편 리스트 -->
-			<div class="list-group-item">
 				<!-- 배 편이 없을 경우 -->
 				<c:choose>
-					<c:when test="${list eq  [] }">
-						<h1>테스트</h1>
+					<c:when test="${fn:length(list) eq 0 }">
+						<h1 class='text-danger' >해당 섬에 관한 배 편이 존재하지 않습니다!</h1>
+						<a class='btn btn-default col align-self-center' style='border: 1px solid gray;' href="/fishing/islandsReservation">되돌아가기</a>
 					</c:when>
 					<c:when test="${list ne null }">
+						<!-- 배편이 존재할 경우 -->
 						<c:forEach items="${list }" var="item">
-							<h1>리스트가 있을 경우</h1>
+							<div class="list-group-item">
+							<img src="${item.si_name }" style="width: 350px; height: 250px; float:left;" / >
+							<div style="float:left; width : 15px; height:200px; background-color:white" ></div>
+							<p class='text-dark font-weight-bold'>배 이름 : ${item.s_name }</p>
+							<p style="margin:0px">최대 탑승 인원 : ${item.s_maxpassenger }</p>
+							<p style="margin:0px">최소 탑승 인원 : ${item.s_minpassenger }</p>
+							<p style="margin:0px">정박 위치 : ${item.s_address }</p>
+							<p style="margin:0px">보유 장비 : ${item.s_equipment }</p>
+							<p style="margin:0px">편의 시설 : ${item.s_convenient } </p>
+							<h5 >인당 배 값 : ${item.op_price }</h5>
+							<a class= 'btn btn-primary' style="float:right">예약하기</a>
+							</div>
 						</c:forEach>
 					</c:when>
 				</c:choose>
-				
 				
 				<!-- <img src="../resources/defaultimg/bell.jpg" class="rounded float-start" style="width: 200px; height: 200px; float:left;"/>
 				<div style="float:left; width : 15px; height:200px; background-color:white" ></div>
@@ -68,10 +80,10 @@
 				<p style="margin:0px">정박 위치 : 집</p>
 				<p style="margin:0px">보유 장비 : 레이더</p>
 				<p style="margin:0px">편의 시설 : 화장실 </p>
-				<h5 >인당 배 값 : 12000</h5> -->
+				<h5 >인당 배 값 : 12000</h5> 
 				
-				<a class= 'btn btn-primary' style="float:right">예약하기</a>
-			</div>
+				<a class= 'btn btn-primary' style="float:right">예약하기</a> -->
+			
 		</div>
 	</div>
 	<span id="remoCon">
