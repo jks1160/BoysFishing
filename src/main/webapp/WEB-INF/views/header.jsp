@@ -56,7 +56,7 @@
 					<a class="nav-link active text-white" aria-current="page" href="#">섬섬톡</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="#">Q&A</a>
+					<a class="nav-link active text-white" aria-current="page" href="qna">Q&A</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="#">마이페이지</a>
