@@ -43,6 +43,18 @@ public class ReserService {
 		
 		return map;
 	}
+	/** 조재현
+	 *   선택한 섬의 상세보기를 보기 위한 서비스
+	 * @param choice 스트링타입으로 선택한 섬 번호를 뽑아온다.
+	 * @return
+	 */
+	public ModelAndView detail_island(String choice) {
+		logger.info("섬 상세보기 서비스 요청 : {}",choice);
+		
+		
+		return null;
+	}
+	
 	
 	/** 조재현
 	 * 해당 섬에 일치하는 배 편 찾기
@@ -89,6 +101,16 @@ public class ReserService {
 		
 		return map;
 	}
+
+
+
+
+
+
+
+
+
+	
 	
 	
 }

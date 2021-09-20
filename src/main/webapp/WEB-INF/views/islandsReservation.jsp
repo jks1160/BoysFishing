@@ -73,7 +73,7 @@
 			<div style='min-height: 400px; border-right: 2px solid gray; display:inline'></div>
 			<div style='display: inline' class="col lg-6 text-center">
 				<h2 class ='text-center' style='display: inline;'>섬 이름 검색하기</h2>
-				<form action='reser/find_ship' method='GET' name='research_form'>
+				<form action='reser/detail_island' method='GET' name='research_form'>
 					<input type='text' class='form-control'  id='text-zone' placeholder='섬 이름 검색' name='searchData' />
 					<button type='button' class='btn btn-dark' onclick= 'reser_research()'>검색</button>
 				

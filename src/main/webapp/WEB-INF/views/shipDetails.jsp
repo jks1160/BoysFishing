@@ -28,8 +28,13 @@
 </style>
 </head>
 <body>
+	<!-- 헤더 인클루드 -->
 	<jsp:include page="header.jsp"></jsp:include>
 	
-	<h1>배 정보</h1>
+	<div class='container'>
+		<h2 class='text-dark font-weight-bold'>섬 상세보기</h2>
+		<hr />
+	</div>
+	
 </body>
 </html>
