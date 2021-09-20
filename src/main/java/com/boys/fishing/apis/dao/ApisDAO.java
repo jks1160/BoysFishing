@@ -11,5 +11,7 @@ public interface ApisDAO {
 
 	ArrayList<IslandDTO> islandsList();
 
+	int islanddel();
+
 
 }
