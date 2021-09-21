@@ -117,10 +117,10 @@ public class HomeController {
 		return service.fileUpload(file, attr);
 	}
 	@RequestMapping(value = "/login")
-	public ModelAndView login(@RequestParam String id, @RequestParam String pw, HttpSession session, @RequestParam HashMap<String, Object> kakaoDTO) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+	public ModelAndView login(@RequestParam String id, @RequestParam String pw, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
 		logger.info("로그인 요청");
 		
-		return service.login(id, pw, kakaoDTO ,session);
+		return service.login(id, pw ,session);
 	}
 	
 	@RequestMapping(value = "/uploadForm")
