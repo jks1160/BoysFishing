@@ -59,7 +59,7 @@ public class HomeController {
 	public String logOut(HttpSession session) {
 		logger.info("로그아웃 요청 ");
 		
-		session.removeAttribute("loginId");
+		session.removeAttribute("userinfo");
 		
 		return "mainPage";
 	}
