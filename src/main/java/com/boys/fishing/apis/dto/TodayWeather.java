@@ -6,18 +6,91 @@ import org.apache.ibatis.type.Alias;
 public class TodayWeather {
 
 	//당일 날씨
-	private String tw_date;//날짜
-	private String tw_time;//시간
-	private String temper;//기온
-	private String temperH; //최고기온
-	private String temperL; //최저기온
-	private String vec; // 풍향
-	private String wsd; //풍속
-	private String sky; // 하늘상태
-	private String pty; //강수형태
-	private String pop; //강수확률
-	private String pcp; //강수량
+	private String tw_date;//날짜O
+	private String tw_time;//시간O
+	private String tw_temper;//기온O
+	private String tw_temperH; //최고기온
+	private String tw_temperL; //최저기온
+	private String tw_vec; // 풍향O
+	private String tw_wsd; //풍속O
+	private String tw_sky; // 하늘상태O
+	private String tw_pty; //강수형태O
+	private String tw_pop; //강수확률O
+	private String tw_pcp; //강수량O
+	private String tw_wave; //파고 O
 	
+	public String getTw_date() {
+		return tw_date;
+	}
+	public void setTw_date(String tw_date) {
+		this.tw_date = tw_date;
+	}
+	public String getTw_time() {
+		return tw_time;
+	}
+	public void setTw_time(String tw_time) {
+		this.tw_time = tw_time;
+	}
+	public String getTw_temper() {
+		return tw_temper;
+	}
+	public void setTw_temper(String tw_temper) {
+		this.tw_temper = tw_temper;
+	}
+	public String getTw_temperH() {
+		return tw_temperH;
+	}
+	public void setTw_temperH(String tw_temperH) {
+		this.tw_temperH = tw_temperH;
+	}
+	public String getTw_temperL() {
+		return tw_temperL;
+	}
+	public void setTw_temperL(String tw_temperL) {
+		this.tw_temperL = tw_temperL;
+	}
+	public String getTw_vec() {
+		return tw_vec;
+	}
+	public void setTw_vec(String tw_vec) {
+		this.tw_vec = tw_vec;
+	}
+	public String getTw_wsd() {
+		return tw_wsd;
+	}
+	public void setTw_wsd(String tw_wsd) {
+		this.tw_wsd = tw_wsd;
+	}
+	public String getTw_sky() {
+		return tw_sky;
+	}
+	public void setTw_sky(String tw_sky) {
+		this.tw_sky = tw_sky;
+	}
+	public String getTw_pty() {
+		return tw_pty;
+	}
+	public void setTw_pty(String tw_pty) {
+		this.tw_pty = tw_pty;
+	}
+	public String getTw_pop() {
+		return tw_pop;
+	}
+	public void setTw_pop(String tw_pop) {
+		this.tw_pop = tw_pop;
+	}
+	public String getTw_pcp() {
+		return tw_pcp;
+	}
+	public void setTw_pcp(String tw_pcp) {
+		this.tw_pcp = tw_pcp;
+	}
+	public String getTw_wave() {
+		return tw_wave;
+	}
+	public void setTw_wave(String tw_wave) {
+		this.tw_wave = tw_wave;
+	}
 	
 	
 }
