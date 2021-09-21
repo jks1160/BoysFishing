@@ -7,15 +7,43 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+	.entire{
+		display : inline-block;
+		text-align: center;
+	}
+	.user{
+		display: inline;
+	}
+</style>
 </head>
 <body>
+<div class="entire">
 <h1>마이페이지</h1>
+<hr>
 <div class="user">
-<a href="myUserInfo">회원정보</a>
-<a href="pointPage">포인트</a>
-<a href="#">예약확인</a>
-<a href="#">선장등록 요청</a>
+	<div class="user">
+		<a href="myUserInfo"><img src="resources/user.png" width="50px"/><br>회원정보</a>
+	</div>
+	<div class="user">
+		<a href="pointPage"><img src="resources/point.png" width="50px"/><br>포인트</a>
+	</div>
+	<div class="user">
+		<a href="#"><img src="resources/calendar.png" width="50px"/><br>예약확인</a>
+	</div>
+	<div class="user">
+		<a href="#"><img src="resources/ship.png" width="50px"/><br>선장등록</a>
+	</div>
 </div>
+
+<h1>선장페이지</h1>
+<hr>
 <c:if >
 <div class="captain">
 <a href="#">배 정보 관리</a>
@@ -24,7 +52,7 @@
 </div>
 </c:if>
 <h4>자유게시판</h4>
-<table>
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -43,7 +71,7 @@
 </div>
 
 <h4>정보게시판</h4>
-<table>
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -61,7 +89,7 @@
 </div>
 
 <h4>후기게시판</h4>
-<table>
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -78,6 +106,7 @@
 <div class="my_div_page">
 </div>
 
+</div>
 </body>
 <script>
 
@@ -94,7 +123,7 @@ function sumListCall(sumPage) {
 	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'sumsumlist',
+		url : 'mp_sumsumlist',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {
@@ -151,7 +180,7 @@ function infoListCall(infoPage) {
 	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'infoList',
+		url : 'mp_infoList',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {
@@ -208,7 +237,7 @@ function revListCall(revPage) {
 	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'revList',
+		url : 'mp_revList',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {

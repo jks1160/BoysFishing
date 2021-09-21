@@ -1,8 +1,6 @@
 package com.boys.fishing.user.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.service.UserService;
 import com.boys.fishing.user.service.myPageService;
 
@@ -78,7 +75,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/sumsumlist")
+	@RequestMapping(value="/mp_sumsumlist")
 	public HashMap<String,Object> sumsumlist(int page, String user) {
 		logger.info("자유글 리스트 받기 요청");
 		logger.info("page:"+page+" user:"+user);
@@ -86,7 +83,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/revList") 
+	@RequestMapping(value="/mp_revList") 
 	public HashMap<String,Object> revList(int page, String user) {
 		logger.info("후기글 리스트 받기 요청");
 		logger.info("page:"+page+" user:"+user);
@@ -94,7 +91,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	 }
 	
 	@ResponseBody
-	@RequestMapping(value="/infoList") 
+	@RequestMapping(value="/mp_infoList") 
 	public HashMap<String,Object> infoList(int page, String user) {
 		logger.info("정보글 리스트 받기 요청");
 		logger.info("page:"+page+" user:"+user);
