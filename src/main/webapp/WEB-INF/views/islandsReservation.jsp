@@ -46,47 +46,58 @@
 
 
 	<jsp:include page="header.jsp"></jsp:include>
-	
-	<div class='container' >
-		<h2 class='text-dark font-weight-bold' style="margin-top:25px;">섬 정보 / 예약하기</h2>
+
+	<div class='container'>
+		<h2 class='text-dark font-weight-bold' style="margin-top: 25px;">섬
+			정보 / 예약하기</h2>
 		<hr />
 	</div>
 	<div class='container'>
-		<div id="map" style="width: 500px; height: 400px; float: left"  class='container'></div>
+		<div id="map" style="width: 500px; height: 400px; float: left"
+			class='container'></div>
 		<div class="select-zone row"
 			style='background-color: rgb(126, 210, 248); width: 620px; float: left;'>
-			<div class="col lg-5 text-center"style='display: inline; margin-left:20px'>
-				<h2 class ='text-center'style='display: inline;'>섬 리스트</h2>
-					<!-- 이곳에 섬 리스트 출력 -->
-					<div class="list-group" style='overflow-y:scroll; max-height:350px ;' id='islands'>
-						<!-- 섬 리스트 출력 부분 -->
-						<c:if test="${island_list ne null }" >
-							<c:forEach items="${island_list }" var = "item">
-								<a class="list-group-item list-group-item-action island_data">${item.i_name} </a>
-							</c:forEach>
-  						</c:if>
+			<div class="col lg-5 text-center"
+				style='display: inline; margin-left: 20px'>
+				<h2 class='text-center' style='display: inline;'>섬 리스트</h2>
+				<!-- 이곳에 섬 리스트 출력 -->
+				<div class="list-group"
+					style='overflow-y: scroll; max-height: 350px;' id='islands'>
+					<!-- 섬 리스트 출력 부분 -->
+					<c:if test="${island_list ne null }">
+						<c:forEach items="${island_list }" var="item">
+							<a class="list-group-item list-group-item-action island_data">${item.i_name}
+							</a>
+						</c:forEach>
+					</c:if>
 
-  						
-					</div>
-			</div>
-			
-			<div style='min-height: 400px; border-right: 2px solid gray; display:inline'></div>
-			<div style='display: inline' class="col lg-6 text-center">
-				<h2 class ='text-center' style='display: inline;'>섬 이름 검색하기</h2>
-				<form action='reser/detail_island' method='GET' name='research_form'>
-					<input type='text' class='form-control'  id='text-zone' placeholder='섬 이름 검색' name='searchData' />
-					<button type='button' class='btn btn-dark' onclick= 'reser_research()'>검색</button>
-				
-				
-				
-				<div class='list-group result_list'  style='overflow-y:scroll; max-height:248px ;' id='result' >
-					<!-- 검색 결과 -->
-					<a class="list-group-item list-group-item-action pick_data">검색 결과</a>
+
 				</div>
-				<button type='button' class='btn btn-dark' onclick='detail_island()'>섬 상세보기</button>
+			</div>
+
+			<div
+				style='min-height: 400px; border-right: 2px solid gray; display: inline'></div>
+			<div style='display: inline' class="col lg-6 text-center">
+				<h2 class='text-center' style='display: inline;'>섬 이름 검색하기</h2>
+				<form action='reser/detail_island' method='GET' name='research_form'>
+					<input type='text' class='form-control' id='text-zone'
+						placeholder='섬 이름 검색' name='searchData' />
+					<button type='button' class='btn btn-dark'
+						onclick='reser_research()'>검색</button>
+
+
+
+					<div class='list-group result_list'
+						style='overflow-y: scroll; max-height: 248px;' id='result'>
+						<!-- 검색 결과 -->
+						<a class="list-group-item list-group-item-action pick_data">검색
+							결과</a>
+					</div>
+					<button type='button' class='btn btn-dark'
+						onclick='detail_island()'>섬 상세보기</button>
 				</form>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -94,25 +105,46 @@
 </body>
 <script>
 	
-    // 카카오 지도 API 
-	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center : new kakao.maps.LatLng(37.711886226271055, 126.35332920975232), //지도의 중심좌표.
-		level : 3
-	//지도의 레벨(확대, 축소 정도)
-	};
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	mapOption = { 
+    center: new kakao.maps.LatLng(37.711886226271055, 126.35332920975232), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+	
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	// 마커를 표시할 위치와 title 객체 배열입니다 
+	var positions = [
+		// c:forEach로 
+		<c:forEach items="${island_list}" var ="item">
+			{
+				title : "${item.i_name}",
+				latlng: new kakao.maps.LatLng("${item.i_longitude}","${item.i_latitude}")
+			},
+		</c:forEach>
+	];
 
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-	//마커가 표시될 위치입니다 
-	var markerPosition = new kakao.maps.LatLng(37.711886226271055, 126.35332920975232);
-
-	// 마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-		position : markerPosition
-	});
-
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	    
+	for (var i = 0; i < positions.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new kakao.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+	    
+	    // 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng, // 마커를 표시할 위치
+	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+	        image : markerImage // 마커 이미지 
+	    });
+	}
+	// 지도 API END
+	
 	
 	// 리스트 클릭 시 이벤트 
 	$(document).on("click",".island_data",function(){
