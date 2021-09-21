@@ -109,9 +109,14 @@ public class UserService {
 		return "redirect:/uploadForm";
 	}
 
-	public ModelAndView login(String id, String pw, HttpSession session) {
+	public ModelAndView login(String id, String pw, HashMap<String, Object> kakaoDTO, HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 		ModelAndView mav = new ModelAndView();
+		UserDTO kakao = (UserDTO) kakaoDTO.get("kakaoDTO");
+		if(kakao != null) {
+			id = kakao.getK_userid();
+			pw = kakao.getK_key();
+		}
 		HashMap<String, String> map = dao.login(id);
 		HashMap<String, String> userInfo = new HashMap<String, String>();
 		String page = "login";
@@ -129,6 +134,7 @@ public class UserService {
 			        String key = iteratorKey.next();
 			        userInfo.put(key.toLowerCase(), map.get(key).toString());
 			    }
+				userInfo.remove("u_userpw");
 				page = "mainPage";
 				msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
 			}			
@@ -166,9 +172,8 @@ public class UserService {
 		return mav;
 	}
 
-	public int lookUp(String string) {
-		// TODO Auto-generated method stub
-		return 0;
+	public UserDTO lookUp(String id) {
+		return dao.lookUp(id);
 	}
 
 }

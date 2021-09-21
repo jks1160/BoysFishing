@@ -93,12 +93,12 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
     LEFT OUTER JOIN blacklist bl ON u.u_userid = bl.bl_userid WHERE u.u_userid = #{param1}
 </select>
 
-<select id="lookUp" resultType="int">
-	SELECT COUNT(k_key) FROM kakaoUser WHERE k_key = #{param1}
+<select id="lookUp" resultType="userInfo">
+	SELECT * FROM kakaoUser WHERE k_userid = #{param1}
 </select>
 
 <insert id="kakaoJoin" parameterType="userInfo">
-	INSERT INTO kakaoUser VALUES (#{u_userid},#{u_userpw},#{u_userphonenum},#{u_useremail})
+	INSERT INTO kakaoUser VALUES (#{u_userpw},#{u_userid},#{u_userphonenum},#{u_useremail})
 </insert>
 
 </mapper>

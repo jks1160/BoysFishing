@@ -63,7 +63,7 @@ public interface UserDAO {
 
 	HashMap<String, String> login(String id);
 
-	int lookUp(String id);
+	UserDTO lookUp(String id);
 
 
 
