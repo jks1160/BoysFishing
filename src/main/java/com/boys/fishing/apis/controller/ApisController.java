@@ -22,26 +22,35 @@ import com.boys.fishing.user.service.UserService;
 //test controller
 @Controller
 public class ApisController {
-	
+
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired ApisService service;
-	
+	@Autowired
+	ApisService service;
+
 	@RequestMapping(value = "/insertisland", method = RequestMethod.GET)
 	public String home(Model model) {
-		
+
 		return "insertisland";
 	}
-	//섬정보 db insert 메서드
+
+	// 섬정보 db insert 메서드
 	@RequestMapping(value = "/apiCalls")
-	public @ResponseBody HashMap<String, Object> apiCalls
-	(@RequestParam HashMap<String, String> params) {
-		logger.info("params : {}",params);
+	public @ResponseBody HashMap<String, Object> apiCalls(@RequestParam HashMap<String, String> params) {
+		logger.info("params : {}", params);
 		return service.apiCalls(params);
 	}
-	//섬정보 db del 메서드
+
+	// 섬정보 db del 메서드
 	@RequestMapping(value = "/islanddel")
 	public @ResponseBody HashMap<String, Object> islanddel() {
 		logger.info("db 삭제 요청");
 		return service.islanddel();
+	}
+
+	// 
+	@RequestMapping(value = "/todayweatherinsert")
+	public @ResponseBody HashMap<String, Object> todayweatherinsert(@RequestParam HashMap<String, String> params) {
+		logger.info("날씨 insert 요청");
+		return service.todayweatherinsert(params);
 	}
 }

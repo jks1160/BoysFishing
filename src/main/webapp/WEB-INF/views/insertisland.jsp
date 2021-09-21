@@ -38,6 +38,7 @@
 <body>
 <input type="button" onclick="islandinsert()" value="섬 db 업데이트">
 <input type="button" onclick="islanddelete()" value="섬 db 삭제">
+<input type="button" onclick="todayweatherinsert()" value="날씨 정보 업데이트">
 
 			<ul id="list">
 		
@@ -69,6 +70,20 @@ function islanddelete(){
 		datatype:'json',
 		success:function(data){
 			alert("삭제에 성공하였습니다.");
+		},
+		error:function(e){
+			console.log(e);
+		}
+	})
+}
+
+function todayweatherinsert(){
+	$.ajax({
+		url:"todayweatherinsert",
+		type:'get',
+		datatype:'json',
+		success:function(data){
+			console.log(data);
 		},
 		error:function(e){
 			console.log(e);
