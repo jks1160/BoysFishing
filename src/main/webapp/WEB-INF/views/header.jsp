@@ -32,7 +32,15 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="loginPage">로그인/회원가입</a>
+				  	<c:choose>
+				  		<c:when test="${empty sessionScope.userinfo }">
+							<a class="nav-link active text-white" aria-current="page" href="loginPage">로그인/회원가입</a>
+				  		</c:when>
+				  		<c:otherwise>
+				  			<b class="nav-link active text-white">"${sessionScope.userinfo.u_userid }" 님</b>
+				  			<a class="nav-link active text-white" href="logOut">로그아웃</a>
+						</c:otherwise>
+					</c:choose>
 				  </li>
 				  
 				  <a class="navbar-brand" href="#">

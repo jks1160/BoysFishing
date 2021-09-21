@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.boys.fishing.user.dto.UserDTO;
 import com.boys.fishing.user.service.UserService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,9 +64,15 @@ public class KakaoLogin {
         System.out.println("###access_Token#### : " + access_Token);
         System.out.println("###id#### : " + userInfo.get("id"));
         
-        if(service.lookUp(userInfo.get("id").toString())==0) {
+        UserDTO kakaoDTO = service.lookUp(userInfo.get("id").toString());
+        if(kakaoDTO == null) {
         	page = "redirect:/joinForm";
         	attr.addFlashAttribute("kakaoid",userInfo.get("id"));
+        }else {
+        	logger.info("카카오 로그인 진입");
+        	page = "redirect:/login";
+        	attr.addAttribute("id",kakaoDTO.getK_userid());
+        	attr.addAttribute("pw",kakaoDTO.getK_key());
         }
         return page; //본인 원하는 경로 설정
 	}

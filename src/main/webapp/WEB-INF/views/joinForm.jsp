@@ -153,12 +153,12 @@
 	var kakaoid = "${kakaoid}";
 	
     if(kakaoid != ""){
-    	$(".kakaodel").css("display","none");
-    	$("input[name=u_userid]").val("${kakaoid }");
-    	$("#kakaoid").val("Y");
     	var randompw = Math.random();
+    	$(".kakaodel").css("display","none");
     	$("input[name=u_userpw]").val(randompw);
     	$("input[name=pwck]").val(randompw);
+    	$("#kakaoid").val("Y");
+    	$("input[name=u_userid]").val(kakaoid);
     	pwChvar = true;
     	idChvar = true;
     }
