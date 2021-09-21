@@ -19,38 +19,61 @@
 		text-align: center;
 	}
 	.user{
-		display: inline;
+		display: inline-block;
+	}
+	.captain{
+		display: inline-block;
 	}
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <div class="entire">
 <h1>마이페이지</h1>
 <hr>
 <div class="user">
 	<div class="user">
-		<a href="myUserInfo"><img src="resources/user.png" width="50px"/><br>회원정보</a>
+		<a href="myUserInfo"><img src="resources/user.png" width="50px"/>
+		 <br>마이페이지
+		 </a>
 	</div>
 	<div class="user">
-		<a href="pointPage"><img src="resources/point.png" width="50px"/><br>포인트</a>
+		<a href="pointPage"><img src="resources/point.png" width="50px"/>
+		<br>포인트페이지
+		</a>
 	</div>
 	<div class="user">
-		<a href="#"><img src="resources/calendar.png" width="50px"/><br>예약확인</a>
+		<a href="#"><img src="resources/calendar.png" width="50px"/>
+		<br>예약확인
+		</a>
 	</div>
 	<div class="user">
-		<a href="#"><img src="resources/ship.png" width="50px"/><br>선장등록</a>
+		<a href="#"><img src="resources/captain.png" width="50px"/>
+		<br>선장신청
+		</a>
 	</div>
 </div>
-
+<hr>
 <h1>선장페이지</h1>
 <hr>
-<c:if >
 <div class="captain">
-<a href="#">배 정보 관리</a>
-<a href="#">스케쥴</a>
-<a href="#">운행 예약확인</a>
+	<div class="captain">
+		<a href="#"><img src="resources/ship.png" width="50px"/>
+		 <br>배정보 관리
+		 </a>
+	</div>
+	<div class="captain">
+		<a href="#"><img src="resources/clock.png" width="50px"/>
+		<br>스케쥴
+		</a>
+	</div>
+	<div class="captain">
+		<a href="#"><img src="resources/calendar.png" width="50px"/>
+		<br>운항예약확인
+		</a>
+	</div>
 </div>
-</c:if>
+<hr>
 <h4>자유게시판</h4>
 <table class="table table-bordered">
 <thead>

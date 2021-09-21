@@ -33,6 +33,9 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		//테스트 세션
 		String id = "somefishing";
 		session.setAttribute("loginId", id);
+		if(session == null ) {
+			mav.setViewName("/");
+		}
 		mav.setViewName("myPage");
 		return mav;
 	}

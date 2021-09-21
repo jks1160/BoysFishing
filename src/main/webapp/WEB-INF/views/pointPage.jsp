@@ -8,53 +8,74 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+	.entire{
+		display : inline-block;
+		text-align: center;
+	}
+	.user{
+		display: inline-block;
+	}
+	
+</style>
 </head>
 <body>
-<h1>${loginId}님의 포인트 정보</h1>
-<div>
-	<form action="pointCharge" method="GET">
-	<table>
-		<tr>
-			<td>보유 포인트</td>
-			<td>${point}</td>
-		</tr>
-		<tr>
-			<td>포인트 충전하기</td>
-			<td>
-				<input type="text" name="p_charge">
-				<button>충전하기</button>
-			</td>
-		</tr>
-		<tr>
-			<td>포인트 출금하기</td>
-			<td>
-				<input type="text" name="p_withdraw">
-				<button onclick='return withdraw(this.form)'>출금하기</button>
-			</td>		
-		</tr>
-	</table>
-</form>
-</div>
-
-<div class="p_history">
-<h3>포인트 히스토리</h3>
-<table>
-	<thead>
-		<tr>
-			<th>항목</th>
-			<th>금액</th>
-			<th>잔액</th>
-			<th>날짜</th>
-		</tr>
-	</thead>
-	<tbody class="p_history_cont">
+<jsp:include page="header.jsp"></jsp:include>
+<div class="entire">
+	<img src="resources/user.png"  width="50px"/> <div class="user">${loginId}님의 포인트 정보</div>
+	<br><br>
+	<div>
+		<form action="pointCharge" method="GET">
+		<table class="table table-bordered">
+			<tr>
+				<td>보유 포인트</td>
+				<td>${point}</td>
+			</tr>
+			<tr>
+				<td>포인트 충전하기</td>
+				<td>
+					<input type="text" name="p_charge">
+					<button>충전하기</button>
+				</td>
+			</tr>
+			<tr>
+				<td>포인트 출금하기</td>
+				<td>
+					<input type="text" name="p_withdraw">
+					<button onclick='return withdraw(this.form)'>출금하기</button>
+				</td>		
+			</tr>
+		</table>
+	</form>
+	</div>
 	
-	</tbody>
-</table>
-<div class="p_point_page">
-</div>
+	<div class="p_history">
+		<h3>포인트 히스토리</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>항목</th>
+					<th>금액</th>
+					<th>잔액</th>
+					<th>날짜</th>
+				</tr>
+			</thead>
+			<tbody class="p_history_cont">
+			
+			</tbody>
+		</table>
+			<div class="p_point_page">
+			</div>
+	</div>
 </div>
 
+<button onclick="history.back()">뒤로가기</button>
 </body>
 <script>
 function withdraw(form) { 
