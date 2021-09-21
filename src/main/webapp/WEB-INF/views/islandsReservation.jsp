@@ -100,8 +100,6 @@
 
 		</div>
 	</div>
-<%--  중심 좌표
- --%>
 </body>
 <script>
 var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
@@ -226,23 +224,11 @@ kakao.maps.event.addListener(marker, 'click', function() {
     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
     console.log("섬 이름",$(this).attr("Fb"));
+    var is_name = $(this).attr("Fb");
     var regex = /[\s\uFEFF\xA0]+$/gi;
     document.getElementById("text-zone").value = $(this).attr("Fb").replace(regex,"");
-    
+  
 });
-// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-function makeOverListener(map, marker, infowindow) {
-    return function () {
-      infowindow.open(map, marker);
-    };
-  }
-
-  // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-  function makeOutListener(infowindow) {
-    return function () {
-      infowindow.close();
-    };
-  }
 
 }
 
