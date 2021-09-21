@@ -69,6 +69,7 @@
 	if("${msg}" != ""){
 		alert("${msg}");
 	}
+	console.log("${msg}");
 </script>
 
 </html>
