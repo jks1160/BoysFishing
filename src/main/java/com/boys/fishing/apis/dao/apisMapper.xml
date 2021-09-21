@@ -12,9 +12,23 @@
 	</select>
 	<!-- 모든 섬들의 정보를 담아서 가져온다. -->
 	<select id="islandsList" resultType="apis">
-		SELECT rnum,i_num ,TRIM(i_name) AS i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
+		SELECT rnum,i_num ,TRIM(i_name) AS i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage, i_latitude, i_longitude
 		FROM( SELECT ROW_NUMBER() OVER(ORDER BY i_num ASC) AS rnum,
-		i_num, TRIM(i_name) as i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage
-		FROM island) ORDER BY rnum DESC
+		i_num, TRIM(i_name) as i_name, i_controlnum, i_jibeon, i_distance, i_distanceex, i_islandmanage, i_latitude, i_longitude
+		FROM island WHERE i_islandmanage='이용가능' OR i_islandmanage='개발가능') ORDER BY rnum DESC
 	</select>
+	
+	<delete id="islanddel" parameterType="int">
+	DELETE FROM island WHERE i_sido is null
+	</delete>
+	
+	<select id="islandcnt" resultType="int">
+	select count(i_num) from island
+	</select>
+	
+	<!-- 섬 이름 가져오기 -->
+	<select id="getIslandName" resultType="apis">
+		SELECT * FROM island WHERE i_num = #{param1}
+	</select>
+	
 </mapper>

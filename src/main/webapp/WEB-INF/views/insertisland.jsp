@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,43 +36,59 @@
 		</style>
 </head>
 <body>
-<input type="button" onclick="shownm()" value="show">
+<input type="button" onclick="islandinsert()" value="섬 db 업데이트">
+<input type="button" onclick="islanddelete()" value="섬 db 삭제">
+<input type="button" onclick="todayweatherinsert()" value="날씨 정보 업데이트">
+
 			<ul id="list">
 		
 			</ul>
 			
 </body>
 <script>
-function shownm(){
-
+function islandinsert(){
 	$.ajax({
 		url: "apiCalls",
 		type:'get',
-		data:{
-			
+		data:{		
 		},
 		dataType:'json',
-		success:function(data){
-			console.log(data);
-			console.log(data.features[0].attributes);				
-			var content = "";
-		
-			data.features.forEach(function(item) {
-				 	content +="<li>";
-					content +="<div class ='b2'>"+item.attributes.isln_nm+"</div>";
-					content +="</li>";	
-		
-			}); 
-			$("#list").empty();
-			$("#list").append(content);
-
-			 
-		},
+				success:function(data){
+					alert(data.island);	
+					
+				},
 				error:function(e){
-					console.log(e)
+					console.log(e);
 				}
 	})
 }
 	
+function islanddelete(){
+	$.ajax({
+		url:"islanddel",
+		type:'get',
+		datatype:'json',
+		success:function(data){
+			alert("삭제에 성공하였습니다.");
+		},
+		error:function(e){
+			console.log(e);
+		}
+	})
+}
+
+function todayweatherinsert(){
+	$.ajax({
+		url:"todayweatherinsert",
+		type:'get',
+		datatype:'json',
+		success:function(data){
+			console.log(data);
+		},
+		error:function(e){
+			console.log(e);
+		}
+	})
+}
 </script>
 </html>

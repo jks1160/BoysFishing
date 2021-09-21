@@ -32,37 +32,34 @@
 		<div class="row my-3">
 			<div class="col">
 				<h2>
-					회원가입 <small class="text-muted">(일반 회원)</small>
+					회원가입 <small class="text-muted"><c:choose>
+						<c:when test="${kakaoid eq null}">(일반 회원)</c:when>
+						<c:otherwise>(카카오 회원)</c:otherwise>	
+					</c:choose></small>
 				</h2>
 			</div>
 		</div>
 		<hr>
-		<form id="profile" action="upload" method="POST" enctype="multipart/form-data">
 			<div class="row my-3">
 				<div class="col-2 offset-2">
 					<h5>프로필 사진 등록</h5>
 				</div>
 				<div class="col-2">
-					<label class="btn btn-outline-dark" for="inputGroupFile03">이미지 등록</label> 
-					<input type="file" name="file" class="custom-file-input" id="inputGroupFile03" onchange="imgUpload()">
+					<input type="button" name="file" class="btn btn-outline-dark" onclick="imgUpload()" value="이미지 등록">
 				</div>
 				<div class="col-2 offset-2">
-					<img id="preprofile" 
-						<c:choose> 
-							<c:when test="${empty fileName}">src="resources/default.png"</c:when>
-							<c:otherwise>src="/photo/${fileName }"</c:otherwise>
-						</c:choose>>
+					<img id="preprofile" src="resources/default.png">
 				</div>
 			</div>
-		</form>
         <form class="validation-form" action="join" method="POST" novalidate>
-			<div class="row my-3">
+			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="id">아이디 : </label>
 				</div>
 				<div class="col-5">
 					<input type="text" id="id" class="form-control" name="u_userid"
-						maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요." required>
+						maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
+						<c:if test = "${empty kakaoid}">value="${kakaoid }"</c:if> required>
 					<div class="invalid-feedback">아이디를 입력해주세요.</div>
 				</div>
 				<div class="col-2">
@@ -70,7 +67,7 @@
 						id="test">중복확인</button>
 				</div>
 			</div>
-			<div class="row my-3">
+			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="pw">비밀번호 : </label>
 				</div>
@@ -80,7 +77,7 @@
 					<div class="invalid-feedback">(8자리 이상)비밀번호를 입력해주세요.</div>
 				</div>
 			</div>
-			<div class="row my-3">
+			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="pwck">비밀번호 확인 : </label>
 				</div>
@@ -135,13 +132,13 @@
 					<input type="text" id="phone" name="U_userphonenum"
 						class="form-control" placeholder="'-'를 제외한 숫자로 입력해 주세요." required>
 					<div class="invalid-feedback">전화번호를 입력해주세요.</div>
-					<input type="text" id="phone" name="fileName" value="${fileName }" hidden>
+					<input type="text" id="fileName" name="fileName" 5value="" hidden>
+					<input type="text" id="kakaoid" name="u_kakaoYN" value="N" hidden>
 				</div>
 			</div>
 			<hr>
 			<div class="row my-3">
 				<div class="col-2 offset-9">
-					<!-- <input type="button" class="btn btn-outline-dark" value="회원가입" onclick="join()"> -->
 					<button class="btn btn-outline-dark" >회원가입</button>
 				</div>
 			</div>
@@ -153,9 +150,21 @@
     var pwChvar = false;
     var idChvar = false;
     var nickChvar = false;
+	var kakaoid = "${kakaoid}";
+	
+    if(kakaoid != ""){
+    	$(".kakaodel").css("display","none");
+    	$("input[name=u_userid]").val("${kakaoid }");
+    	$("#kakaoid").val("Y");
+    	var randompw = Math.random();
+    	$("input[name=u_userpw]").val(randompw);
+    	$("input[name=pwck]").val(randompw);
+    	pwChvar = true;
+    	idChvar = true;
+    }
     
     function imgUpload(){
-    	$("#profile").submit();
+    	window.open('uploadForm', 'file upload', 'width=400, height=100');
     }
     
     function join(){

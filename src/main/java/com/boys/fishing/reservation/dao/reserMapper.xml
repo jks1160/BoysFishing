@@ -6,12 +6,20 @@
 >
 <mapper namespace="com.boys.fishing.reservation.dao.ReserDAO">
 
+	
 	<select id="findShip" resultType="reser" >
-		SELECT * FROM operrange WHERE i_num = #{param1}
+		SELECT * FROM operrange op LEFT OUTER JOIN ship s ON (op.s_num = s.s_num)
+		LEFT OUTER JOIN shipIMG simg ON (op.s_num = simg.s_num)
+		WHERE op.op_date >= SYSDATE AND op.i_num = #{param1}
 	</select> 
 	<!-- 유저 달력 예약 정보를 가져온다. -->
 	<select id="user_reser" resultType="reser">
 		SELECT ri_num, ri_userid, ri_code, s_num, ri_date FROM reserINFO
 		WHERE ri_userid = #{param1}
 	</select>
+	
+	<select id="detail_island" resultType="apis" parameterType="String">
+		SELECT * FROM island WHERE i_num = #{param1}
+	</select>
+
 </mapper>

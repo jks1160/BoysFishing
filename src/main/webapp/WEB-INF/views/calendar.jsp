@@ -10,6 +10,17 @@
 <link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src='resources/js/bPopup.js'></script>
+<!-- 글꼴 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<style>
+* {
+	font-family: 'Do Hyeon', sans-serif;
+}
+</style>
 <script>
 
 // 아이디 가져오기
@@ -34,8 +45,6 @@ if(date <10){
 console.log("year",year );
 console.log("months", month);
 console.log("date",date);
-// fullCalendar에 넣을 이벤트를 받아 줄 리스트
-var my_reser = [];
 //오늘 날짜
 var O_nuel = year+'-'+month+'-'+date;
 
@@ -65,8 +74,8 @@ var O_nuel = year+'-'+month+'-'+date;
 				type: 'POST',
 				dataType :"JSON",
 				success : function(data) {
-					// 등록할 이벤트를 담을 리스트
-					var events = []; 
+					// fullCalendar에 넣을 이벤트를 받아 줄 리스트
+					var my_reser = [];
 					//성공 했는지 확인
 					console.log("성공 데이터 : " ,data);
 					// 받은 데이터 중 my_list 부분을 가져온다.
@@ -87,7 +96,7 @@ var O_nuel = year+'-'+month+'-'+date;
 						console.log("스타트데이 : " , reserDate);
 						my_reser.push({
 							start : reserDate,
-							title : "제발"
+							title : "예약"
 						});
 					}); // forEach end
 					
@@ -124,8 +133,8 @@ var O_nuel = year+'-'+month+'-'+date;
 </style>
 </head>
 <body>
-
-  <div id='calendar'></div>
+	<jsp:include page="header.jsp"></jsp:include>
+ 	<div id='calendar'></div>
 
 <div class='pop' hidden='hidden' style='width:100px; height:100px;'>
 	<!-- 이 부분에 일정이 나온다. -->

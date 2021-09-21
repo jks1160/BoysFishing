@@ -63,6 +63,22 @@ public interface UserDAO {
 
 	HashMap<String, String> login(String id);
 
+	int lookUp(String id);
+
+
+
+
+
+
+
+	void kakaoJoin(UserDTO dto);
+
+
+
+
+
+
+
 
 
 

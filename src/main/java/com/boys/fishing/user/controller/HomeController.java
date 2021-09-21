@@ -39,6 +39,7 @@ public class HomeController {
 			mav.setViewName("mainPage");
 		}
 		mav.setViewName("mainPage");
+		
 		return mav;
 		
 	}
@@ -98,7 +99,7 @@ public class HomeController {
 		return "calendar";
 	}
 	@RequestMapping(value="/overCheck", method = RequestMethod.POST)
-	public @ResponseBody HashMap<String, String> idCheck(@RequestParam HashMap<String, String> map) {
+	public @ResponseBody HashMap<String, String> overCheck(@RequestParam HashMap<String, String> map) {
 		logger.info("중복 확인 요청 ");
 		String col = null;
 		String val = null;
@@ -120,5 +121,11 @@ public class HomeController {
 		logger.info("로그인 요청");
 		
 		return service.login(id, pw, session);
+	}
+	
+	@RequestMapping(value = "/uploadForm")
+	public String uploadForm() {
+		logger.info("파일업로드 폼 요청");
+		return "uploadForm";
 	}
 }

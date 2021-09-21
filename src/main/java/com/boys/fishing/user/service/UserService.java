@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -65,12 +69,13 @@ public class UserService {
 
 	@Transactional
 	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
-		ModelAndView mav = new ModelAndView();
+		logger.info("kakaoYN : " + dto.getU_kakaoYN());
 		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		dto.setU_userpw(encoder.encode(dto.getU_userpw()));
 		String page = "redirect:/joinForm";
 		if (dao.join(dto) > 0) {
+			logger.info("회원가입 정보 DB 입력완료");
 			page = "redirect:/login";
 			attr.addAttribute("id", dto.getU_userid());
 			attr.addAttribute("pw", pw);
@@ -81,11 +86,15 @@ public class UserService {
 		if (fileName != "") {
 			dao.userProfile(dto.getU_userid(), fileName);
 		}
+		if (dto.getU_kakaoYN() == 'Y') {
+			logger.info("카카오 회원가입 dao 진입");
+			dao.kakaoJoin(dto);
+		}
 		return page;
 	}
 
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
-		String path = null;
+
 		String fileName = file.getOriginalFilename();
 		logger.info(fileName);
 		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
@@ -97,24 +106,32 @@ public class UserService {
 			e.printStackTrace();
 		}
 		attr.addFlashAttribute("fileName", fileName);
-		return "redirect:/joinForm";
+		return "redirect:/uploadForm";
 	}
 
 	public ModelAndView login(String id, String pw, HttpSession session) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, String> userInfo = dao.login(id);
+		HashMap<String, String> map = dao.login(id);
+		HashMap<String, String> userInfo = new HashMap<String, String>();
 		String page = "login";
-		String msg = "로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.";
+		String msg = "로그인에 실패하였습니다. \\n아이디와 비밀번호를 확인해주세요.";
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		logger.info(userInfo.get("U_USERPW"));
-		if (encoder.matches(pw, userInfo.get("U_USERPW"))) {
-			userInfo.put("u_userid", userInfo.get("U_USERID"));
-			userInfo.put("u_usernickname", userInfo.get("U_USERNICKNAME"));
-			userInfo.put("u_managerYN", userInfo.get("U_MANAGERYN"));
-			userInfo.put("u_kakaoYN", userInfo.get("U_KAKAOYN"));
-			userInfo.put("ui_name", userInfo.get("UI_NAME"));
-			page = "mainPage";
-			msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
+		
+		if(map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
+			logger.info("블랙리스트 확인");
+			msg = "고객님 께서는 "+sdf.format(map.get("BL_REGDATE"))+"기준으로\\n 블랙리스트로 등록되어 "
+					+ "로그인이 제한됩니다.\\n 해지일은 "+sdf.format(map.get("BL_DISDATE"))+"일 입니다.";
+		}else {
+			if (encoder.matches(pw, map.get("U_USERPW"))) {	
+				Iterator<String> iteratorKey = map.keySet().iterator();
+				while (iteratorKey.hasNext()) {
+			        String key = iteratorKey.next();
+			        userInfo.put(key.toLowerCase(), map.get(key).toString());
+			    }
+				page = "mainPage";
+				msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
+			}			
 		}
 		session.setAttribute("userinfo", userInfo);
 		mav.addObject("msg", msg);
@@ -139,14 +156,19 @@ public class UserService {
 		mav.addObject("island_list", list);
 		// 섬 정보 페이지로 이동시키기위한 view 설정
 		mav.setViewName("islandsReservation");
-		
-		  // 데이터 제대로 받았는지 테스트
-		  
-		  for (IslandDTO items : list) { logger.info("섬 번호 : {} 섬 이름 : {}",
-		  items.getI_num(), items.getI_name()); }
-		 
+
+		// 데이터 제대로 받았는지 테스트
+		/*
+		 * for (IslandDTO items : list) { logger.info("섬 x좌표 : {} 섬 y좌표 : {}",
+		 * items.getI_latitude(), items.getI_longitude()); }
+		 */
 
 		return mav;
+	}
+
+	public int lookUp(String string) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

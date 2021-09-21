@@ -19,7 +19,6 @@
 
 
 
-
 <select id="sumsumlist" resultType="sumsum">
 	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
 AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{param2} AND b_code = 'B001') WHERE rnum BETWEEN #{param1} AND #{param3}
@@ -81,7 +80,7 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 </select>
 
 <insert id="join" parameterType="userInfo">
-	INSERT INTO userInfo VALUES (#{u_userid},#{u_userpw},#{u_userphonenum},#{u_useremail},#{u_usernickname},'N','N','N',SYSDATE)
+	INSERT INTO userInfo VALUES (#{u_userid},#{u_userpw},#{u_userphonenum},#{u_useremail},#{u_usernickname},'N',#{u_kakaoYN},'N',SYSDATE)
 </insert>
 
 <insert id="userProfile" parameterType="String">
@@ -89,8 +88,17 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 </insert>
 
 <select id="login" parameterType="String" resultType="HashMap">
-	SELECT u.U_userid, u.U_userpw, u.U_usernickname, u.U_managerYN, u.U_kakaoYN, ui.UI_name 
-	FROM userInfo u LEFT OUTER JOIN userIMG ui ON u.u_userid = ui.UI_userid WHERE u.U_userid = #{param1}
+	SELECT u.U_userid, u.U_userpw, u.U_usernickname, u.U_managerYN, u.U_kakaoYN, ui.UI_name, bl.bl_code, bl.bl_regdate, bl.bl_disdate
+	FROM userInfo u LEFT OUTER JOIN userIMG ui ON u.u_userid = ui.UI_userid
+    LEFT OUTER JOIN blacklist bl ON u.u_userid = bl.bl_userid WHERE u.u_userid = #{param1}
 </select>
+
+<select id="lookUp" resultType="int">
+	SELECT COUNT(k_key) FROM kakaoUser WHERE k_key = #{param1}
+</select>
+
+<insert id="kakaoJoin" parameterType="userInfo">
+	INSERT INTO kakaoUser VALUES (#{u_userid},#{u_userpw},#{u_userphonenum},#{u_useremail})
+</insert>
 
 </mapper>
