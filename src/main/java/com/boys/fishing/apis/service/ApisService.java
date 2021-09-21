@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -238,7 +240,12 @@ public class ApisService {
 
 	public HashMap<String, Object> todayweatherinsert(HashMap<String,String> params) {
 		HashMap<String, Object>map = new HashMap<String, Object>();
-		String url = "http://www.khoa.go.kr/oceangrid/grid/api/tideObsRecent/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&ObsCode=DT_0001&ResultType=json";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar c1 = Calendar.getInstance();
+        String strToday = sdf.format(c1.getTime());
+        System.out.println("Today=" + strToday);
+        
+        String url = "http://www.khoa.go.kr/oceangrid/grid/api/tideObsRecent/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&ObsCode=DT_0001&ResultType=json";
 		String param = null;
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add(url);
@@ -261,7 +268,8 @@ public class ApisService {
 		String wsd = (String) jsonObject3.get("wind_speed");//풍속
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		String url2 = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&base_date=20210921&base_time=0500&nx=55&ny=124";
+		//오전 6시 이후부터 관측됨 주의
+		String url2 = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&base_date="+strToday+"&base_time=0500&nx=55&ny=124";
 		ArrayList<String> urls2 = new ArrayList<String>();
 		urls2.add(url2);
 		String result2 = sendMsg(urls2, headers, param, "get");
@@ -291,8 +299,8 @@ public class ApisService {
 		}else if(pty.equals("4")) {
 			pty="소나기";
 		}        
-        String pop = (String) list.get(7).get("fcstValue");//강수확률
-        String pcp = (String) list.get(8).get("fcstValue");//강수량
+        String pop = (String) list.get(7).get("fcstValue");//강수확률 단위:%
+        String pcp = (String) list.get(8).get("fcstValue");//강수량 
         
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		String url3 = "http://www.khoa.go.kr/oceangrid/grid/api/fcIndexOfType/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&Type=SK&ResultType=json";
@@ -303,10 +311,10 @@ public class ApisService {
 		JSONObject jsonObjectthree2 = jsonStringToJson(jsonObjectthree.get("result"));
 		ArrayList<HashMap<String, Object>> list2 = jsonArray(jsonObjectthree2.get("data"));
 				
-		String wave = (String) list2.get(29).get("wave_height");// 인천-백령도 사이의 파고(오후)
+		String wave = (String) list2.get(29).get("wave_height");// 인천-백령도 사이의 파고(오후) 단위:m
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		String url4="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=150&pageNo=1&dataType=JSON&base_date=20210921&base_time=0200&nx=55&ny=124";
+		//오전 6시 이후부터 관측됨 주의
+		String url4="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=150&pageNo=1&dataType=JSON&base_date="+strToday+"&base_time=0200&nx=55&ny=124";
 		ArrayList<String> urls4 = new ArrayList<String>();
 		urls4.add(url4);
 		String result4 = sendMsg(urls4, headers, param, "get");
@@ -318,6 +326,9 @@ public class ApisService {
 		
 		String tmn = (String) list3.get(44).get("fcstValue");//일 최저기온
 		String tmx = (String) list3.get(144).get("fcstValue");//일 최고기온
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		
 		
         Connection con = null;
         PreparedStatement pstmt = null;

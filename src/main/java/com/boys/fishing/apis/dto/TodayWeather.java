@@ -9,8 +9,8 @@ public class TodayWeather {
 	private String tw_date;//날짜O
 	private String tw_time;//시간O
 	private String tw_temper;//기온O
-	private String tw_temperH; //최고기온
-	private String tw_temperL; //최저기온
+	private String tw_temperH; //최고기온O
+	private String tw_temperL; //최저기온O
 	private String tw_vec; // 풍향O
 	private String tw_wsd; //풍속O
 	private String tw_sky; // 하늘상태O
