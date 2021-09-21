@@ -269,7 +269,7 @@ public class ApisService {
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//오전 6시 이후부터 관측됨 주의
-		String url2 = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&base_date="+strToday+"&base_time=0500&nx=55&ny=124";
+		String url2 = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&base_date="+strToday+"&base_time=0200&nx=55&ny=124";
 		ArrayList<String> urls2 = new ArrayList<String>();
 		urls2.add(url2);
 		String result2 = sendMsg(urls2, headers, param, "get");
@@ -313,7 +313,7 @@ public class ApisService {
 				
 		String wave = (String) list2.get(29).get("wave_height");// 인천-백령도 사이의 파고(오후) 단위:m
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//오전 6시 이후부터 관측됨 주의
+		//오전 2시 10분 이후부터 관측됨 주의 
 		String url4="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=150&pageNo=1&dataType=JSON&base_date="+strToday+"&base_time=0200&nx=55&ny=124";
 		ArrayList<String> urls4 = new ArrayList<String>();
 		urls4.add(url4);
@@ -327,12 +327,64 @@ public class ApisService {
 		String tmn = (String) list3.get(44).get("fcstValue");//일 최저기온
 		String tmx = (String) list3.get(144).get("fcstValue");//일 최고기온
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		
+		String url5 ="http://www.khoa.go.kr/oceangrid/grid/api/tideObsPreTab/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&ObsCode=DT_0001&Date="+strToday+"&ResultType=json";
+		ArrayList<String> urls5 = new ArrayList<String>();
+		urls5.add(url5);
+		String result5 = sendMsg(urls5, headers, param, "get");
+		JSONObject jsonObjectfive = jsonStringToJson(result5);
+		JSONObject jsonObjectfive2 = jsonStringToJson(jsonObjectfive.get("result"));
+		ArrayList<HashMap<String, Object>> list4 = jsonArray(jsonObjectfive2.get("data"));
 		
+		String tw_amLowLevel = "측정 안됨"; //오전간조높이
+		String tw_amHighLevel = "측정 안됨"; //오전만조높이
+		String tw_amLowTime = "측정 안됨";//오전 간조 시간
+		String tw_amHighTime = "측정 안됨";//오전 만조 시간
+		String tw_pmLowLevel = "측정 안됨";//오후 간조 높이
+		String tw_pmHighLevel = "측정 안됨";//오후 만조 높이
+		String tw_pmLowTime = "측정 안됨"; //오후 간조 시간
+		String tw_pmHighTime = "측정 안됨";//오후 만조 시간
+		
+		if(list4.get(0).get("hl_code").equals("고조")) {//오전만조높이,오전만조시간
+			tw_amHighLevel = (String) list4.get(0).get("tph_level"); //오전만조높이
+			tw_amHighTime = (String) list4.get(0).get("tph_time").toString().substring(11);//오전 만조 시간
+			tw_amLowLevel = (String) list4.get(1).get("tph_level");//오전 간조 높이
+			tw_amLowTime = (String) list4.get(1).get("tph_time").toString().substring(11);//오전 간조 시간
+			
+			tw_pmHighLevel = (String) list4.get(2).get("tph_level");
+			tw_pmHighTime = (String) list4.get(2).get("tph_time").toString().substring(11);			
+			
+			if(list4.size()!=3) {
+				tw_pmLowLevel = (String) list4.get(3).get("tph_level");//오전 간조 높이
+				tw_pmLowTime = (String) list4.get(3).get("tph_time").toString().substring(11);//오전 간조 시간
+			}else {				
+				tw_pmLowLevel = "측정 안됨";
+				tw_pmLowTime = "측정 안됨";
+			}
+			
+		}else if(list4.get(0).get("hl_code").equals("저조")){//오전 간조 높이, 오전 간조 시간
+			tw_amLowLevel = (String) list4.get(0).get("tph_level");//오전 간조 높이
+			tw_amLowTime = (String) list4.get(0).get("tph_time").toString().substring(11);//오전 간조 시간
+			tw_amHighLevel = (String) list4.get(1).get("tph_level"); //오전만조높이
+			tw_amHighTime = (String) list4.get(1).get("tph_time").toString().substring(11);//오전 만조 시간
+			
+			tw_pmLowLevel = (String) list4.get(2).get("tph_level");
+			tw_pmLowTime = (String) list4.get(2).get("tph_time").toString().substring(11);			
+			
+			if(list4.size()!=3) {
+				tw_pmHighLevel = (String) list4.get(3).get("tph_level");//오전 간조 높이
+				tw_pmHighTime = (String) list4.get(3).get("tph_time").toString().substring(11);//오전 간조 시간
+			}else {
+				tw_pmHighLevel = "측정 안됨";
+				tw_pmHighTime = "측정 안됨";				
+			}
+			 
+		}
+	
+	
         Connection con = null;
         PreparedStatement pstmt = null;
-        String sql = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_wave,tw_temperL,tw_temperH) Values(sysdate,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_wave,tw_temperL,tw_temperH,tw_amLowLevel,tw_amLowTime,tw_amHighLevel,tw_amHighTime,tw_pmLowLevel,tw_pmLowTime,tw_pmHighLevel,tw_pmHighTime) Values(sysdate,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
            
 	         try {
@@ -351,6 +403,15 @@ public class ApisService {
             	pstmt.setString(8, wave);
             	pstmt.setString(9, tmn);
             	pstmt.setString(10, tmx);
+            	pstmt.setString(11, tw_amLowLevel);
+            	pstmt.setString(12, tw_amLowTime);
+            	pstmt.setString(13, tw_amHighLevel);
+            	pstmt.setString(14, tw_amHighTime);
+            	pstmt.setString(15, tw_pmLowLevel);
+            	pstmt.setString(16, tw_pmLowTime);
+            	pstmt.setString(17, tw_pmHighLevel);
+            	pstmt.setString(18, tw_pmHighTime);
+            	
             	
             	pstmt.executeUpdate();	            
 	            con.commit();

@@ -18,6 +18,16 @@ public class TodayWeather {
 	private String tw_pop; //강수확률O
 	private String tw_pcp; //강수량O
 	private String tw_wave; //파고 O
+	private String tw_amLowLevel; //오전간조높이
+	private String tw_amHighLevel; //오전만조높이
+	private String tw_amLowTime;//오전 간조 시간
+	private String tw_amHighTime;//오전 만조 시간
+	private String tw_pmLowLevel;//오후 간조 높이
+	private String tw_pmHighLevel;//오후 만조 높이
+	private String tw_pmLowTime; //오후 간조 시간
+	private String tw_pmHighTime;//오후 만조 시간
+	
+	
 	
 	public String getTw_date() {
 		return tw_date;
@@ -90,6 +100,54 @@ public class TodayWeather {
 	}
 	public void setTw_wave(String tw_wave) {
 		this.tw_wave = tw_wave;
+	}
+	public String getTw_amLowLevel() {
+		return tw_amLowLevel;
+	}
+	public void setTw_amLowLevel(String tw_amLowLevel) {
+		this.tw_amLowLevel = tw_amLowLevel;
+	}
+	public String getTw_amHighLevel() {
+		return tw_amHighLevel;
+	}
+	public void setTw_amHighLevel(String tw_amHighLevel) {
+		this.tw_amHighLevel = tw_amHighLevel;
+	}
+	public String getTw_amLowTime() {
+		return tw_amLowTime;
+	}
+	public void setTw_amLowTime(String tw_amLowTime) {
+		this.tw_amLowTime = tw_amLowTime;
+	}
+	public String getTw_amHighTime() {
+		return tw_amHighTime;
+	}
+	public void setTw_amHighTime(String tw_amHighTime) {
+		this.tw_amHighTime = tw_amHighTime;
+	}
+	public String getTw_pmLowLevel() {
+		return tw_pmLowLevel;
+	}
+	public void setTw_pmLowLevel(String tw_pmLowLevel) {
+		this.tw_pmLowLevel = tw_pmLowLevel;
+	}
+	public String getTw_pmHighLevel() {
+		return tw_pmHighLevel;
+	}
+	public void setTw_pmHighLevel(String tw_pmHighLevel) {
+		this.tw_pmHighLevel = tw_pmHighLevel;
+	}
+	public String getTw_pmLowTime() {
+		return tw_pmLowTime;
+	}
+	public void setTw_pmLowTime(String tw_pmLowTime) {
+		this.tw_pmLowTime = tw_pmLowTime;
+	}
+	public String getTw_pmHighTime() {
+		return tw_pmHighTime;
+	}
+	public void setTw_pmHighTime(String tw_pmHighTime) {
+		this.tw_pmHighTime = tw_pmHighTime;
 	}
 	
 	
