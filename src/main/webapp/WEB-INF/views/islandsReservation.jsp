@@ -102,6 +102,10 @@
 	</div>
 </body>
 <script>
+
+// 마커 인포윈도우 생성
+var infowindow = [];
+
 var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
 MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
 OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -153,9 +157,20 @@ var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마�
     clickOrigin = new kakao.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
     overOrigin = new kakao.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
     
-// 마커를 생성하고 지도위에 표시합니다
-addMarker(positions[i], normalOrigin, overOrigin, clickOrigin,titles[i]);
-}
+   iwRemoveable = true;
+    
+    // 마커를 생성하고 지도위에 표시합니다
+	addMarker(positions[i], normalOrigin, overOrigin, clickOrigin,titles[i]);
+
+    //infowindow 생성
+	 infowindow[i] = new kakao.maps.InfoWindow({
+		map: map,
+		position : positions[i] ,
+		content : titles[i],
+		removable : iwRemoveable	
+	})// 인포 윈도우 생성	
+	infowindow[i].close();
+} //for 문 END
 
 //마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
 function addMarker(position, normalOrigin, overOrigin, clickOrigin,title) {
@@ -175,14 +190,6 @@ var marker = new kakao.maps.Marker({
 
 // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
 marker.normalImage = normalImage;
-
-// 마커에 표시할 인포 윈도우 생성
-<c:forEach items="${island_list}" var ="item">
-	var infowindow = new kakao.maps.InfoWindow({
-		content : "${item.i_name}", // 인포 윈도우에 표시할 내용
-	});
-</c:forEach> 
-
 
 // 마커에 mouseover 이벤트를 등록합니다
 kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -223,11 +230,19 @@ kakao.maps.event.addListener(marker, 'click', function() {
 
     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
-    console.log("섬 이름",$(this).attr("Fb"));
+    console.log("섬 이름",$(this));
     var is_name = $(this).attr("Fb");
     var regex = /[\s\uFEFF\xA0]+$/gi;
     document.getElementById("text-zone").value = $(this).attr("Fb").replace(regex,"");
-  
+	
+    //클릭 시 해당 섬과 일치하는 경우 알람창을 띄운다.
+    for(var i=0; i<infowindow.length; i++){
+    	if(infowindow[i].cc == is_name){
+    		infowindow[i].open(map,marker);
+    		break;
+    	}	
+    }
+    
 });
 
 }
@@ -244,7 +259,11 @@ var markerImage = new kakao.maps.MarkerImage(
     }
 );
 
+
+
+
 return markerImage;
+
 }
 // 지도 API END
 	
