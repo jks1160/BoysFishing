@@ -123,6 +123,13 @@ overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 
 overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
 spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 
+var titles = [
+	<c:forEach items="${island_list}" var ="item">
+	 "${item.i_name}",
+   </c:forEach> 
+];
+
+
 var positions = [  // 마커의 위치
 	
 	<c:forEach items="${island_list}" var ="item">
@@ -149,11 +156,11 @@ var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마�
     overOrigin = new kakao.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
     
 // 마커를 생성하고 지도위에 표시합니다
-addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
+addMarker(positions[i], normalOrigin, overOrigin, clickOrigin,titles[i]);
 }
 
 //마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
+function addMarker(position, normalOrigin, overOrigin, clickOrigin,title) {
 
 // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
 var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
@@ -164,11 +171,20 @@ var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
 var marker = new kakao.maps.Marker({
     map: map,
     position: position,
-    image: normalImage
+    image: normalImage,
+    title : title
 });
 
 // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
 marker.normalImage = normalImage;
+
+// 마커에 표시할 인포 윈도우 생성
+<c:forEach items="${island_list}" var ="item">
+	var infowindow = new kakao.maps.InfoWindow({
+		content : "${item.i_name}", // 인포 윈도우에 표시할 내용
+	});
+</c:forEach> 
+
 
 // 마커에 mouseover 이벤트를 등록합니다
 kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -180,6 +196,7 @@ kakao.maps.event.addListener(marker, 'mouseover', function() {
     }
 });
 
+
 // 마커에 mouseout 이벤트를 등록합니다
 kakao.maps.event.addListener(marker, 'mouseout', function() {
 
@@ -190,7 +207,8 @@ kakao.maps.event.addListener(marker, 'mouseout', function() {
     }
 });
 
-// 마커에 click 이벤트를 등록합니다
+
+
 kakao.maps.event.addListener(marker, 'click', function() {
 
     // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
@@ -207,8 +225,25 @@ kakao.maps.event.addListener(marker, 'click', function() {
 
     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
-    console.log("이게 뭘까",this);
+    console.log("섬 이름",$(this).attr("Fb"));
+    var regex = /[\s\uFEFF\xA0]+$/gi;
+    document.getElementById("text-zone").value = $(this).attr("Fb").replace(regex,"");
+    
 });
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function () {
+      infowindow.open(map, marker);
+    };
+  }
+
+  // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+  function makeOutListener(infowindow) {
+    return function () {
+      infowindow.close();
+    };
+  }
+
 }
 
 //MakrerImage 객체를 생성하여 반환하는 함수입니다
@@ -225,7 +260,7 @@ var markerImage = new kakao.maps.MarkerImage(
 
 return markerImage;
 }
-	// 지도 API END
+// 지도 API END
 	
 	
 	// 리스트 클릭 시 이벤트 
