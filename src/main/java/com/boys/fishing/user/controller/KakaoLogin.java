@@ -69,9 +69,10 @@ public class KakaoLogin {
         	page = "redirect:/joinForm";
         	attr.addFlashAttribute("kakaoid",userInfo.get("id"));
         }else {
+        	logger.info("카카오 로그인 진입");
         	page = "redirect:/login";
-        	attr.addAttribute("kakaoDTO",kakaoDTO);
-        	logger.info("id : "+kakaoDTO.getK_userid());
+        	attr.addAttribute("id",kakaoDTO.getK_userid());
+        	attr.addAttribute("pw",kakaoDTO.getK_key());
         }
         return page; //본인 원하는 경로 설정
 	}

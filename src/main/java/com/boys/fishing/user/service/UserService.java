@@ -88,6 +88,8 @@ public class UserService {
 		}
 		if (dto.getU_kakaoYN() == 'Y') {
 			logger.info("카카오 회원가입 dao 진입");
+			dto.setU_userpw(pw);
+			logger.info("pw : "+pw);
 			dao.kakaoJoin(dto);
 		}
 		return page;
@@ -109,14 +111,10 @@ public class UserService {
 		return "redirect:/uploadForm";
 	}
 
-	public ModelAndView login(String id, String pw, HashMap<String, Object> kakaoDTO, HttpSession session) {
+	public ModelAndView login(String id, String pw, HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 		ModelAndView mav = new ModelAndView();
-		UserDTO kakao = (UserDTO) kakaoDTO.get("kakaoDTO");
-		if(kakao != null) {
-			id = kakao.getK_userid();
-			pw = kakao.getK_key();
-		}
+		
 		HashMap<String, String> map = dao.login(id);
 		HashMap<String, String> userInfo = new HashMap<String, String>();
 		String page = "login";
@@ -173,6 +171,7 @@ public class UserService {
 	}
 
 	public UserDTO lookUp(String id) {
+		logger.info("카카오 테이블 조회");
 		return dao.lookUp(id);
 	}
 

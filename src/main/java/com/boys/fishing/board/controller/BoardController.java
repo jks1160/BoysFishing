@@ -26,4 +26,10 @@ public class BoardController {
 
 		return service.qna();
 	}
+	@RequestMapping(value = "/QNAForm", method = RequestMethod.GET)
+	public String QNAForm() {
+		logger.info("QNA 작성폼 요청");
+
+		return "QNAWriteForm";
+	}
 }
