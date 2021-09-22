@@ -121,10 +121,10 @@
 	$("#overChk").click(function(){
 		var u_usernickname = $("input[id=nickname]").val();
 		var space = /\s/g; 
-		var hangleChk = /([^가-힣\x20])/i; //모음,자음만 사용불가
+		var hangleChk = /([^가-힣a-z\x20])/i; //모음,자음만 사용불가
 		var nickChk = /[가-힣A-Za-z0-9]{1,20}/; //영문 숫자 한글만 허용
 		var nickChkresult = nickChk.test(u_usernickname);
-		var hangleChkresult = hangleChk.test(u_usernickname);
+		var hangleChkresult = u_usernickname.match(hangleChk);
 		console.log(u_usernickname);
 	
 		if(u_usernickname ==""){
