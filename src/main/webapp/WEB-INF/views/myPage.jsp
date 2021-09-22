@@ -50,7 +50,7 @@
 		</a>
 	</div>
 	<div class="user">
-		<a href="#"><img src="resources/defaultimg/calendar.png" width="50px"/>
+		<a href="myUserReserve"><img src="resources/defaultimg/calendar.png" width="50px"/>
 		<br>예약확인
 		</a>
 	</div>

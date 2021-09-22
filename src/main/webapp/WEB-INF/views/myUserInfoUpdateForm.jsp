@@ -11,10 +11,12 @@
 		<meta charset="UTF-8">
 		<title>MyUserInfoUpdate</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
 		<!-- 글꼴 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+		
 		<style>
 		* {
  	    font-family: 'Do Hyeon', sans-serif;
@@ -119,10 +121,10 @@
 	$("#overChk").click(function(){
 		var u_usernickname = $("input[id=nickname]").val();
 		var space = /\s/g; 
-		var hangleChk = /([^가-힣\x20])/i; //모음,자음만 사용불가
+		var hangleChk = /([^가-힣a-z\x20])/i; //모음,자음만 사용불가
 		var nickChk = /[가-힣A-Za-z0-9]{1,20}/; //영문 숫자 한글만 허용
 		var nickChkresult = nickChk.test(u_usernickname);
-		var hangleChkresult = hangleChk.test(u_usernickname);
+		var hangleChkresult = u_usernickname.match(hangleChk);
 		console.log(u_usernickname);
 	
 		if(u_usernickname ==""){
