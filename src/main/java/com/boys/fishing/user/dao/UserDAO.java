@@ -31,7 +31,7 @@ public interface UserDAO {
 
 	ArrayList<UserDTO> pointHistoryList(int start, String user, int end);
 	int totalPageP(String user);
-	int point(String id);
+	int point(String userId);
 
 
 
@@ -72,6 +72,14 @@ public interface UserDAO {
 
 
 	void kakaoJoin(UserDTO dto);
+
+
+
+
+
+
+
+	String captainYN(String userId);
 
 
 

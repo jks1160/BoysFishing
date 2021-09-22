@@ -1,8 +1,6 @@
 package com.boys.fishing.user.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.service.UserService;
 import com.boys.fishing.user.service.myPageService;
 
@@ -34,9 +31,22 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		logger.info("마이 페이지 요청 ");
 		ModelAndView mav = new ModelAndView();
 		//테스트 세션
-		String id = "somefishing";
-		session.setAttribute("loginId", id);
-		mav.setViewName("myPage");
+		//String id = "somefishing";
+		//session.setAttribute("loginId", id);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		mav.setViewName("login");
+		
+		if(session.getAttribute("userinfo") != null ) {
+			logger.info("세션에 값 있당");
+			String userId = userInfo.get("u_userid");
+			String captainYN = myservice.captainYN(userId);
+			logger.info("선장여부는? "+captainYN);
+			if(captainYN.equals("Y") ) {
+				session.setAttribute("captainYN", captainYN);
+			}
+			//mav.addObject("userId", userId); 아직 필요할지 모름
+			mav.setViewName("myPage");
+		}
 		return mav;
 	}
 	
@@ -44,24 +54,31 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	@RequestMapping(value="/pointPage", method = RequestMethod.GET)
 	public ModelAndView pointPage(HttpSession session) {
 		logger.info("포인트 페이지 요청");
-		String id = "somefishing";
-		session.setAttribute("loginId", id);
-		return myservice.point(id);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		//이렇게 로그인 튕기는게 맞을까유?
+		/*
+		 * if(session.getAttribute("userinfo") == null ) { ModelAndView mav = new
+		 * ModelAndView(); mav.setViewName("myPage"); return mav; }
+		 */
+		String userId = userInfo.get("u_userid");
+		return myservice.point(userId);
 	}
 	
 	@RequestMapping(value="/pointCharge")
 	public String pointCharge(Model model, HttpSession session ,@RequestParam String p_charge) {
 		logger.info("포인트충전 왔슈?"+p_charge);
-		String user = (String) session.getAttribute("loginId");
-		myservice.pointCharge(Integer.parseInt(p_charge),user);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		myservice.pointCharge(Integer.parseInt(p_charge),userId);
 		return "redirect:/pointPage";
 	}
 	
 	@RequestMapping(value="/pointWithdraw")
 	public String pointWithdraw(Model model, HttpSession session, @RequestParam String p_withdraw ) {
 		logger.info("포인트인출 왔슈?"+p_withdraw);
-		String user = (String) session.getAttribute("loginId");
-		myservice.pointWithdraw(Integer.parseInt(p_withdraw),user);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		myservice.pointWithdraw(Integer.parseInt(p_withdraw),userId);
 		return "redirect:/pointPage";
 	}
 	
@@ -71,34 +88,41 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	@RequestMapping(value="/pointHistoryPage")
 	public HashMap<String,Object> pointHistoryPage(HttpSession session, int page) {
 		logger.info("포인트 히스토리 리스트 받기 요청");
-		String user = (String) session.getAttribute("loginId");
-		logger.info("page:"+page+" user:"+user);
-		return myservice.pointHistoryPage(page, user);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		logger.info("page:"+page+" user:"+userId);
+		return myservice.pointHistoryPage(page, userId);
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/sumsumlist")
-	public HashMap<String,Object> sumsumlist(int page, String user) {
+	@RequestMapping(value="/mp_sumsumlist")
+	public HashMap<String,Object> sumsumlist(int page, HttpSession session) {
 		logger.info("자유글 리스트 받기 요청");
-		logger.info("page:"+page+" user:"+user);
-		return myservice.sumsumlist(page, user);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		logger.info("page:"+page+" user:"+userId);
+		return myservice.sumsumlist(page, userId);
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/revList") 
-	public HashMap<String,Object> revList(int page, String user) {
+	@RequestMapping(value="/mp_revList") 
+	public HashMap<String,Object> revList(int page, HttpSession session) {
 		logger.info("후기글 리스트 받기 요청");
-		logger.info("page:"+page+" user:"+user);
-		return myservice.revList(page, user); 
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		logger.info("page:"+page+" user:"+userId);
+		return myservice.revList(page, userId); 
 	 }
 	
 	@ResponseBody
-	@RequestMapping(value="/infoList") 
-	public HashMap<String,Object> infoList(int page, String user) {
+	@RequestMapping(value="/mp_infoList") 
+	public HashMap<String,Object> infoList(int page, HttpSession session) {
 		logger.info("정보글 리스트 받기 요청");
-		logger.info("page:"+page+" user:"+user);
-		return myservice.infoList(page, user); 
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		logger.info("page:"+page+" user:"+userId);
+		return myservice.infoList(page, userId); 
 	 }
 	  
 	@RequestMapping(value="/catain_requestForm")

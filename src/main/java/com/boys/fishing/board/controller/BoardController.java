@@ -1,5 +1,7 @@
 package com.boys.fishing.board.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,13 +14,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.board.service.BoardService;
-import com.boys.fishing.user.service.UserService;
 
 @Controller
 public class BoardController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired BoardService service;
+	
+	@RequestMapping(value = "/someTalk")
+	public String someTalk(HttpSession session) {
+		logger.info("섬섬톡페이지 요청");
+		session.getAttribute("userId");
+		
+		return "someTalk";
+	}
+	
+	@RequestMapping(value = "someList")
+	public HashMap<String, Object> someList(){
+		logger.info("자유게시판 리스트 요청");
+		
+		return null;
+	}
+	
+	@RequestMapping(value = "infoList")
+	public HashMap<String, Object> infoList(){
+		logger.info("정보게시판 리스트 요청");
+		
+		return null;
+	}
+	
+	@RequestMapping(value = "revList")
+	public HashMap<String, Object> revList(){
+		logger.info("후기게시판 리스트 요청");
+		
+		return null;
+	}
 	
 	@RequestMapping(value = "/qna", method = RequestMethod.GET)
 	public ModelAndView QNA(Model model, HttpSession session) {

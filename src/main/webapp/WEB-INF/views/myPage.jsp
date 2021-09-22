@@ -1,30 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String userid = (String)session.getAttribute("userId"); %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% String captainYN = (String)session.getAttribute("captainYN"); %>
+<% System.out.println("캡틴옴?: "+captainYN); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style>
+	.entire{
+		text-align: center;
+		margin-top: 5%;
+		margin-right: 20%;
+		margin-bottom: 5%;
+		margin-left: 20%;
+	}
+	.user{
+		display: inline-block;
+		margin-right: 25px;
+	}
+	.captain{
+		display: inline-block;
+		margin-right: 25px;
+	}
+</style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
+<div class="entire">
 <h1>마이페이지</h1>
+<hr>
 <div class="user">
-<a href="myUserInfo">회원정보</a>
-<a href="pointPage">포인트</a>
-<a href="#">예약확인</a>
-<a href="catain_requestForm">선장등록 요청</a>
+	<div class="user">
+		<a href="myUserInfo"><img src="resources/defaultimg/user.png" width="50px"/>
+		 <br>마이페이지
+		 </a>
+	</div>
+	<div class="user">
+		<a href="pointPage"><img src="resources/defaultimg/point.png" width="50px"/>
+		<br>포인트페이지
+		</a>
+	</div>
+	<div class="user">
+		<a href="#"><img src="resources/defaultimg/calendar.png" width="50px"/>
+		<br>예약확인
+		</a>
+	</div>
+	<div class="user">
+		<a href="#"><img src="resources/defaultimg/captain.png" width="50px"/>
+		<br>선장신청
+		</a>
+	</div>
 </div>
-<c:if >
+<hr>
+<c:set var="captainYN" value = "<%=captainYN %>"/>
+<c:if test="${captainYN eq 'Y'}">
+<h1>선장페이지</h1>
+<hr>
 <div class="captain">
-<a href="#">배 정보 관리</a>
-<a href="#">스케쥴</a>
-<a href="#">운행 예약확인</a>
+	<div class="captain">
+		<a href="#"><img src="resources/defaultimg/ship.png" width="50px"/>
+		 <br>배정보 관리
+		 </a>
+	</div>
+	<div class="captain">
+		<a href="#"><img src="resources/defaultimg/clock.png" width="50px"/>
+		<br>스케쥴
+		</a>
+	</div>
+	<div class="captain">
+		<a href="#"><img src="resources/defaultimg/calendar.png" width="50px"/>
+		<br>운항예약확인
+		</a>
+	</div>
 </div>
+<hr>
 </c:if>
 <h4>자유게시판</h4>
-<table>
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -43,7 +104,7 @@
 </div>
 
 <h4>정보게시판</h4>
-<table>
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -61,7 +122,7 @@
 </div>
 
 <h4>후기게시판</h4>
-<table>
+<table class="table table-bordered">
 <thead>
 	<tr>
 		<th>글번호</th>
@@ -78,6 +139,7 @@
 <div class="my_div_page">
 </div>
 
+</div>
 </body>
 <script>
 
@@ -85,16 +147,14 @@
 var sumPage = 1;
 var infoPage = 1;
 var revPage = 1;
-var user = 'somefishing';
 
 sumListCall(sumPage);
 function sumListCall(sumPage) {
 	var param = {};
 	param.page = sumPage;
-	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'sumsumlist',
+		url : 'mp_sumsumlist',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {
@@ -148,10 +208,9 @@ infoListCall(infoPage);
 function infoListCall(infoPage) {
 	var param = {};
 	param.page = infoPage;
-	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'infoList',
+		url : 'mp_infoList',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {
@@ -205,10 +264,9 @@ revListCall(revPage);
 function revListCall(revPage) {
 	var param = {};
 	param.page = revPage;
-	param.user = user;
 	$.ajax({
 		type : 'get',
-		url : 'revList',
+		url : 'mp_revList',
 		data : param,
 		dataType : 'JSON',
 		success : function(data) {
