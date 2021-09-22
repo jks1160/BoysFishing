@@ -1,5 +1,6 @@
 package com.boys.fishing.user.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -237,6 +238,130 @@ public class UserService {
 		mav.setViewName(path);
 
 		return mav;
+	}
+	
+	public ModelAndView myUserInfoUpdateForm(String u_userid) { //영환
+		logger.info("회원정보 수정폼 서비스");
+		System.out.println("id : "+u_userid);
+		ModelAndView mav = new ModelAndView();
+		UserDTO dto = dao.myUserInfo(u_userid);
+		System.out.println("유저 이메일:"+dto.getU_useremail());
+		String email = dto.getU_useremail();
+		String emailname = email.substring(0,email.lastIndexOf("@"));
+		String emaildomain = email.substring(email.lastIndexOf("@")+1);
+		System.out.println(emailname+"/"+emaildomain);
+		mav.addObject("emailname",emailname);
+		mav.addObject("emaildomain",emaildomain);
+		mav.addObject("dto",dto);
+		mav.setViewName("myUserInfoUpdateForm");
+		
+		return mav;
+	}
+
+	public boolean nickcheck(String u_usernickname) { //영환
+		logger.info("닉네임 중복체크 서비스");
+		boolean overChk = false;
+		int isOverChk = dao.nickcheck(u_usernickname);
+		if(isOverChk == 0) {
+			overChk = true;
+		}
+		return overChk;
+	}
+
+	public ModelAndView userInfoUpdate(HashMap<String, String> params, String u_userid) { //영환
+		logger.info("회원정보 수정 요청 서비스");
+		params.get("emailname");
+		String useremail = params.get("emailname") + "@" + params.get("emaildomain");
+		System.out.println(useremail);
+		params.put("useremail", useremail);
+		params.put("u_userid", u_userid);
+		logger.info("수정 요청 : {}",params);
+		ModelAndView mav = new ModelAndView();
+		dao.userInfoUpdate(params);
+		UserDTO dto = dao.myUserInfo(u_userid);
+		mav.addObject("dto",dto);
+		mav.setViewName("myUserInfo");
+		return mav;
+	}
+
+	public ModelAndView PwUpdate(String newPw, String u_userid) { //영환
+		logger.info("비밀번호 변경 서비스");
+		ModelAndView mav = new ModelAndView();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String enc_pass = encoder.encode(newPw);
+		System.out.println(enc_pass);
+		int PwUpdate = dao.PwUpdate(enc_pass,u_userid);
+		if(PwUpdate>0) {
+			mav.addObject("msg","성공");
+			mav.setViewName("myUserInfoPwUpdate");
+		}else {
+			mav.addObject("msg","실패");
+			mav.setViewName("myUserInfoPwUpdate");
+		}
+		return mav;
+	}
+
+	public HashMap<String, String> fileUpdate(String u_userid, MultipartFile file) {
+		logger.info("프로필 이미지 수정");
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		int fileCheck = dao.fileCheck(u_userid);
+		if(fileCheck>0) {
+			UserDTO dto = dao.fileName(u_userid);
+			String fileName = dto.getUi_name();
+			System.out.println("파일이름"+fileName);
+			dao.fileDelete(u_userid);
+			
+			File delFile = new File("C:/upload/"+fileName);
+			
+			if(delFile.exists()) {
+				delFile.delete();
+			}
+		}
+		
+		String fileName = file.getOriginalFilename();//파일명추출
+		String newFileName = System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."));
+		System.out.println("파일이름:"+fileName+"/새파일이름:"+newFileName);
+		try {
+			 byte[] bytes = file.getBytes();
+
+			 Path filePath = Paths.get("C:/upload/"+newFileName); 
+			 Files.write(filePath, bytes); 
+
+			 String path = "/photo/"+newFileName;
+			 map.put("path", path);
+
+			 dao.fileUpdate(u_userid,newFileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	public boolean fileDel(String u_userid) { //영환
+		logger.info("프로필 이미지 삭제");
+		boolean fileDel = false;
+		int fileCheck = dao.fileCheck(u_userid);
+		if(fileCheck>0) {
+			UserDTO dto = dao.fileName(u_userid);
+			String fileName = dto.getUi_name();
+			System.out.println("파일이름"+fileName);
+			dao.fileDelete(u_userid);
+			
+			File delFile = new File("C:/upload/"+fileName);
+			
+			if(delFile.exists()) {
+				delFile.delete();
+				fileDel = true;
+			}
+		}
+		return fileDel;
+	}
+
+	public void userQuit(String u_userid) { //영환
+		logger.info("회원 탈퇴 요청");
+		dao.userQuit(u_userid);
+		
 	}
 
 }
