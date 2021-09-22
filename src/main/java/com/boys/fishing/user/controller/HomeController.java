@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -127,5 +128,12 @@ public class HomeController {
 	public String uploadForm() {
 		logger.info("파일업로드 폼 요청");
 		return "uploadForm";
+	}
+	@RequestMapping(value="/catain_request", method= RequestMethod.POST)
+	public ModelAndView catain_request(HttpSession session, MultipartFile filesname[]) {
+		logger.info("왔나?:{}", session.getAttribute("userinfo"));
+		logger.info("뭐냐이거:{}", filesname[0].getOriginalFilename());
+		
+		return null;
 	}
 }
