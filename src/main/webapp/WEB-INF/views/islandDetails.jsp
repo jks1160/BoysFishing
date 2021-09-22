@@ -34,7 +34,6 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ad015af81e6fe8681aaca4a1fd22948&libraries=services,clusterer,drawing"></script>
 <style>	
 
-<style>
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
