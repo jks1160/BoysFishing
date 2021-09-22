@@ -8,14 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +37,10 @@ public class UserService {
 	UserDAO dao;
 	@Autowired
 	ApisDAO apiDAO;
-
+	// 외우자 외우자 외우자 외우자!!
+	@Value("#{config['Globals.filePath']}")
+	String root;
+	
 	public ModelAndView myUserInfo(String u_userid) {
 		logger.info("회원조회 서비스");
 		System.out.println("id : " + u_userid);
@@ -174,5 +177,47 @@ public class UserService {
 		logger.info("카카오 테이블 조회");
 		return dao.lookUp(id);
 	}
+/** 조재현
+ *  선장 요청 메소드 
+ *  선장 요청 테이블과 사진 테이블에 들어간다.(트랜잭션)
+ * @param userId 유저의 아이디
+ * @param fileList 자격증 정보들 파일이다.
+ * @return
+ */
+	@Transactional
+	public ModelAndView captain_request(String userId, List<MultipartFile> fileList) {
+		logger.info("아이디 : {}", userId);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("captain_requestForm");
+		//선장 요청은 한번만 들어가면 된다.
+		int request_cap = dao.captain_request(userId);
+		
+		//파일 추출
+		for (MultipartFile files : fileList) {
+			//원본 파일 명
+			logger.info("파일명 :{} 업로드 시작",files.getOriginalFilename());
+			// 이름을 바꾸어서 저장 (원본 이름은 필요 없다.)
+			String newFileName = System.currentTimeMillis()+files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));			
+			
+			// 파일 다운로드
+			try {
+				byte[] bytes = files.getBytes(); // 바이트로 다운
+				Path filePath = Paths.get(root+newFileName); //경로 설정
+				Files.write(filePath, bytes); //파일 저장
+				// 저장 된 파일 호출 경로
+				String path = "/photo/" + newFileName;
+				int success = dao.captainPhoto(path,userId);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+		}
+		
+		return mav;
+	}
+
 
 }

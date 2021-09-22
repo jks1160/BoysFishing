@@ -55,7 +55,7 @@
 		</a>
 	</div>
 	<div class="user">
-		<a href="catain_requestForm"><img src="resources/defaultimg/captain.png" width="50px"/>
+		<a href="captain_requestForm"><img src="resources/defaultimg/captain.png" width="50px"/>
 		<br>선장신청
 		</a>
 	</div>

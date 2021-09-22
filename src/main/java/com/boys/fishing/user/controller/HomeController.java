@@ -1,6 +1,8 @@
 package com.boys.fishing.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
@@ -129,11 +131,16 @@ public class HomeController {
 		logger.info("파일업로드 폼 요청");
 		return "uploadForm";
 	}
-	@RequestMapping(value="/catain_request", method= RequestMethod.POST)
-	public ModelAndView catain_request(HttpSession session, MultipartFile filesname[]) {
+	@RequestMapping(value="/captain_request", method= RequestMethod.POST)
+	public ModelAndView captain_request(HttpSession session, MultipartHttpServletRequest multi) {
 		logger.info("왔나?:{}", session.getAttribute("userinfo"));
-		logger.info("뭐냐이거:{}", filesname[0].getOriginalFilename());
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userId = (String) map.get("u_userid");
 		
-		return null;
+		List<MultipartFile> fileList = multi.getFiles("filesname[]");
+		
+		logger.info("이젠 될까?: {}",fileList.size());
+		
+		return service.captain_request(userId,fileList);
 	}
 }

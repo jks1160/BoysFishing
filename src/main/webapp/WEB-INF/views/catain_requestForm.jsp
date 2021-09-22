@@ -51,7 +51,7 @@
 	</div>
 	<div class='container'>
 		<h4 class='text-dark font-weight-bold text-left' style='margin-left:25px'>자격 및 면허</h4>
-		<form action='catain_request' class="md-form form-inline" method="post" enctype="multipart/form-data">
+		<form action='captain_request' class="md-form form-inline" method="post" enctype="multipart/form-data">
 			<div class="file-field col-xs-6 col-md-4">
 				<div class="z-depth-1-half mb-4">
 					<img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
