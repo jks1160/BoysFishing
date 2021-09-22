@@ -1,6 +1,8 @@
 package com.boys.fishing.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -128,5 +131,17 @@ public class HomeController {
 	public String uploadForm() {
 		logger.info("파일업로드 폼 요청");
 		return "uploadForm";
+	}
+	@RequestMapping(value="/captain_request", method= RequestMethod.POST)
+	public ModelAndView captain_request(HttpSession session, MultipartHttpServletRequest multi) {
+		logger.info("왔나?:{}", session.getAttribute("userinfo"));
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userId = (String) map.get("u_userid");
+		
+		List<MultipartFile> fileList = multi.getFiles("filesname[]");
+		
+		logger.info("이젠 될까?: {}",fileList.size());
+		
+		return service.captain_request(userId,fileList);
 	}
 }

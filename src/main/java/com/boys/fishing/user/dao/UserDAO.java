@@ -87,6 +87,30 @@ public interface UserDAO {
 
 
 
+	int captain_request(String userId);
+
+
+
+
+
+
+
+	int captainPhoto(String path, String userId);
+
+
+
+
+
+
+
+	String captain_requestForm(String userId);
+
+
+
+
+
+
+
 
 
 
