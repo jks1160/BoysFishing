@@ -55,7 +55,7 @@
 		</a>
 	</div>
 	<div class="user">
-		<a href="#"><img src="resources/defaultimg/captain.png" width="50px"/>
+		<a href="captain_requestForm"><img src="resources/defaultimg/captain.png" width="50px"/>
 		<br>선장신청
 		</a>
 	</div>
@@ -314,6 +314,12 @@ function revPageList(list){
 		};
 		$(".my_div_page").empty();
 		$(".my_div_page").append(content);
+}
+// 선장 페이지 메세지
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+	location.href="./"
 }
 </script>
 </html>

@@ -7,7 +7,23 @@ import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.dto.UserDTO;
 
 public interface UserDAO {
-	UserDTO myUserInfo(String u_userid);
+UserDTO myUserInfo(String u_userid); //영환
+	
+	int nickcheck(String u_usernickname); //영환
+	
+	void userInfoUpdate(HashMap<String, String> params); //영환
+	
+	int PwUpdate(String enc_pass, String u_userid); //영환
+	
+	int fileCheck(String u_userid); //영환
+
+	void fileDelete(String u_userid); //영환
+
+	void fileUpdate(String u_userid, String newFileName); //영환
+
+	UserDTO fileName(String u_userid); //영환
+
+	void userQuit(String u_userid); //영환
 	
 	
 	
@@ -80,6 +96,30 @@ public interface UserDAO {
 
 
 	String captainYN(String userId);
+
+
+
+
+
+
+
+	int captain_request(String userId);
+
+
+
+
+
+
+
+	int captainPhoto(String path, String userId);
+
+
+
+
+
+
+
+	String captain_requestForm(String userId);
 
 
 

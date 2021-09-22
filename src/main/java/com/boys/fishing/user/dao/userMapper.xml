@@ -6,11 +6,43 @@
 >
 <mapper namespace="com.boys.fishing.user.dao.UserDAO">
 
-<select id="myUserInfo" parameterType="String" resultType="userInfo">
-	SELECT * FROM userInfo WHERE u_userid = #{u_userid}
+<select id="myUserInfo" parameterType="String" resultType="userInfo"> 
+	SELECT * FROM userInfo u left OUTER JOIN userImg i 
+	ON u.u_userid=i.ui_userid WHERE u.u_userid=#{u_userid}
 </select>
 
+<select id="nickcheck" parameterType="String" resultType="int">
+	SELECT COUNT(u_usernickname) FROM userInfo WHERE u_usernickname = #{u_usernickname}
+</select>
 
+<update id="userInfoUpdate" parameterType="hashmap">
+	UPDATE userInfo SET u_useremail= #{useremail}, u_userphonenum = #{userphonenum},
+						u_usernickname = #{nickname} WHERE u_userid = #{u_userid}
+</update>
+
+<update id="PwUpdate" parameterType="String">
+	UPDATE userInfo SET u_userpw = #{param1} WHERE u_userid = #{param2}
+</update>
+
+<select id="fileCheck" parameterType="String" resultType="int">
+	SELECT COUNT(ui_userid) FROM userImg WHERE ui_userid = #{u_userid}
+</select>
+
+<delete id="fileDelete" parameterType="String">
+	DELETE FROM userImg WHERE ui_userid=#{u_userid}
+</delete>
+
+<insert id="fileUpdate"  parameterType="String">
+	INSERT INTO userImg VALUES(#{param1},#{param2})
+</insert>
+
+<select id="fileName" parameterType="String" resultType="userInfo">
+	SELECT * FROM userImg WHERE ui_userid=#{u_userid}
+</select>
+
+<update id="userQuit" parameterType="String">
+	UPDATE userInfo SET U_userdelYN = 'Y' WHERE u_userid = #{u_userid}
+</update>
 
 
 
@@ -77,7 +109,6 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 
 
 
-
 <select id="overCheck" resultType="int">
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
 </select>
@@ -103,5 +134,21 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 <insert id="kakaoJoin" parameterType="userInfo">
 	INSERT INTO kakaoUser VALUES (#{u_userpw},#{u_userid},#{u_userphonenum},#{u_useremail})
 </insert>
+
+<!-- 선장 신청 페이지 들어갈 수 있는지 여부 -->
+<select id="captain_requestForm" parameterType="String" resultType="String">
+	SELECT cap_idysn FROM captain WHERE u_userid = #{param1}
+</select>
+
+
+<!-- 선장 요청 테이블 넣기 -->
+<insert id="captain_request" >
+	INSERT INTO captain VALUES(#{param1},'Y','S','없음')
+</insert>
+<!-- 선장 자격증 테이블에 사진 넣기 -->
+<insert id="captainPhoto" >
+	INSERT INTO license VALUES(#{param2},#{param1})
+</insert>
+
 
 </mapper>

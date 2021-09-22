@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- class path 는 classes 폴더를 의미 -->
@@ -13,6 +15,8 @@
 			</list>
 		</property>
 	</bean>
+	<!-- 해당 properties를 자바에서 읽겠다. -->
+	<util:properties id='config' location='classpath:/props/globals.properties'/>
 
 	<!-- Multipart File과 parameter를 받아주고, 기타 설정 -->
    	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

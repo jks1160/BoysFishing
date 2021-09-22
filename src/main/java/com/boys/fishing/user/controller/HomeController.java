@@ -1,6 +1,8 @@
 package com.boys.fishing.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -67,10 +70,7 @@ public class HomeController {
 	@RequestMapping(value="/myUserInfo", method = RequestMethod.GET)
 	public ModelAndView myUserInfo(HttpSession session) {
 		logger.info("회원정보조회 페이지 ");
-		//테스트 세션
-		String id = "somefishing";
-		session.setAttribute("loginId", id);
-		
+	
 		String u_userid = (String) session.getAttribute("loginId");
 		return service.myUserInfo(u_userid);
 	}	
@@ -127,5 +127,85 @@ public class HomeController {
 	public String uploadForm() {
 		logger.info("파일업로드 폼 요청");
 		return "uploadForm";
+	}
+	@RequestMapping(value="/captain_request", method= RequestMethod.POST)
+	public ModelAndView captain_request(HttpSession session, MultipartHttpServletRequest multi) {
+		logger.info("왔나?:{}", session.getAttribute("userinfo"));
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userId = (String) map.get("u_userid");
+		
+		List<MultipartFile> fileList = multi.getFiles("filesname[]");
+		
+		logger.info("이젠 될까?: {}",fileList.size());
+		
+		return service.captain_request(userId,fileList);
+	}
+	
+	@RequestMapping(value="/myUserInfoUpdateForm", method = RequestMethod.GET)
+	public ModelAndView myUserInfoUpdateForm(HttpSession session) {
+		logger.info("회원정보수정 페이지 ");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return service.myUserInfoUpdateForm(u_userid);
+	}
+	
+	@RequestMapping(value="/nickcheck", method = RequestMethod.POST)
+	public @ResponseBody boolean nickcheck(String u_usernickname) {
+		logger.info("닉네임 중복체크 ");
+
+		return service.nickcheck(u_usernickname);
+	}
+	
+	@RequestMapping(value="/userInfoUpdate", method = RequestMethod.POST)
+	public ModelAndView userInfoUpdate(@RequestParam HashMap<String, String> params, HttpSession session) { //영환
+		logger.info("회원정보수정 ");
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
+		
+		String u_userid = (String) session.getAttribute("loginId");
+		
+		logger.info("수정 요청 : {}",params);
+		return service.userInfoUpdate(params,u_userid);
+	}	
+	
+	@RequestMapping(value = "/myUserInfoPwUpdate")
+	public String myUserInfoPwUpdate(Model model) { //영환
+		return "myUserInfoPwUpdate";
+	}
+	
+	@RequestMapping(value = "/PwUpdate", method = RequestMethod.POST)
+	public ModelAndView PwUpdate(HttpSession session,@RequestParam String newPw) { //영환
+		logger.info("회원 비밀번호 변경 ");
+		String u_userid = (String) session.getAttribute("loginId");
+		System.out.println(u_userid+"/"+newPw);
+		
+
+		return service.PwUpdate(newPw,u_userid);
+	}
+	
+	@RequestMapping(value="/fileUpdate", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> fileUpdate(HttpSession session,MultipartFile file) { //영환
+		logger.info("프로필이미지 수정 ");
+
+		String u_userid = (String) session.getAttribute("loginId");
+		return service.fileUpdate(u_userid,file);
+	}
+	
+	@RequestMapping(value="/fileDel", method = RequestMethod.POST)
+	public @ResponseBody boolean fileDel(HttpSession session) { //영환
+		logger.info("프로필이미지 삭제 ");
+
+		String u_userid = (String) session.getAttribute("loginId");
+		return service.fileDel(u_userid);
+	}
+	
+	@RequestMapping(value="/userQuit", method = RequestMethod.GET)
+	public String userQuit(HttpSession session) { //영환
+		logger.info("회원탈퇴 ");
+		String u_userid = (String) session.getAttribute("loginId");
+		service.userQuit(u_userid);
+		session.invalidate(); //모든 세션정보 삭제
+		return "redirect:/";
 	}
 }
