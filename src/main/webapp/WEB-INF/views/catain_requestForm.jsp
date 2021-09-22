@@ -15,8 +15,43 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- 글꼴 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<style>
+* {
+	font-family: 'Do Hyeon', sans-serif;
+}
+.empty-box {
+	width: 40px;
+	height : 40px;
+	background-color: black;
+	display: inline;
+}
+</style>
 </head>
 <body>
-	<h1>캡틴 리퀘스트</h1>
+	<!-- 헤더  -->
+	<jsp:include page="header.jsp"></jsp:include>
+	
+	<!-- 선장 등록 요청 페이지 -->
+	<div class='container'>
+		<h2 class='text-dark font-weight-bold text-center' style="margin-top: 25px;"> 선장 등록 요청</h2>
+		<hr/>
+	</div>
+	<div class='container'>
+		<form>
+		<div class="form-group">
+		<h4 class='text-dark font-weight-bold text-left'>배 정보 입력 </h4>
+		<img src="/photo/1632279716197.png" width="280px" height="350px" style="display:block"/>
+		<div class="empty-box"></div>
+		<input type='file'>
+		</div>
+		</form>
+	</div>
+	
 </body>
 </html>
