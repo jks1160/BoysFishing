@@ -198,11 +198,12 @@
             success:function(data){
             	if(JSON.parse(data.idChvar)){
             		idChvar = JSON.parse(data.idChvar);
+            		$('#id').prop('readonly', true);
             	}
             	if(JSON.parse(data.nickChvar)){
             		nickChvar = JSON.parse(data.nickChvar);
+            		$("#nick").prop("readonly", true);
             	}
-            	console.log(JSON.parse(data.idChvar));
                	if(data.msg != ""){
                		alert(data.msg);
                	}
@@ -221,6 +222,7 @@
             alert("비밀번호가 일치 하지 않습니다.");
         }else{
             pwChvar = true;
+            $("input[type=password]").prop("readonly",true);
         }
 	});
 	

@@ -52,15 +52,15 @@ public class UserService {
 
 	public HashMap<String, String> overCheck(String col, String val) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		String msg = "일치하는 사용자가 없습니다.";
-		map.put("idChvar", "true");
-		map.put("nickChvar", "true");
-		if (dao.overCheck(col, val) > 0) {
-			msg = "일치하는 사용자가 있습니다.";
+		String msg = "일치하는 사용자가 있습니다.";
+		map.put("idChvar", "false");
+		map.put("nickChvar", "false");
+		if (dao.overCheck(col, val) == 0) {
+			msg = "일치하는 사용자가 없습니다.";
 			if (col.equals("U_userid")) {
-				map.put("idChvar", "false");
+				map.put("nickChvar", "true");
 			} else {
-				map.put("nickChvar", "false");
+				map.put("idChvar", "true");
 			}
 		}
 		map.put("msg", msg);
@@ -120,22 +120,23 @@ public class UserService {
 		String page = "login";
 		String msg = "로그인에 실패하였습니다. \\n아이디와 비밀번호를 확인해주세요.";
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-		if(map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
-			logger.info("블랙리스트 확인");
-			msg = "고객님 께서는 "+sdf.format(map.get("BL_REGDATE"))+"기준으로\\n 블랙리스트로 등록되어 "
-					+ "로그인이 제한됩니다.\\n 해지일은 "+sdf.format(map.get("BL_DISDATE"))+"일 입니다.";
-		}else {
-			if (encoder.matches(pw, map.get("U_USERPW"))) {	
-				Iterator<String> iteratorKey = map.keySet().iterator();
-				while (iteratorKey.hasNext()) {
-			        String key = iteratorKey.next();
-			        userInfo.put(key.toLowerCase(), map.get(key).toString());
-			    }
-				userInfo.remove("u_userpw");
-				page = "mainPage";
-				msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
-			}			
+		if(map != null) {			
+			if(map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
+				logger.info("블랙리스트 확인");
+				msg = "고객님 께서는 "+sdf.format(map.get("BL_REGDATE"))+"기준으로\\n 블랙리스트로 등록되어 "
+						+ "로그인이 제한됩니다.\\n 해지일은 "+sdf.format(map.get("BL_DISDATE"))+"일 입니다.";
+			}else {
+				if (encoder.matches(pw, map.get("U_USERPW"))) {	
+					Iterator<String> iteratorKey = map.keySet().iterator();
+					while (iteratorKey.hasNext()) {
+						String key = iteratorKey.next();
+						userInfo.put(key.toLowerCase(), map.get(key).toString());
+					}
+					userInfo.remove("u_userpw");
+					page = "mainPage";
+					msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
+				}			
+			}
 		}
 		session.setAttribute("userinfo", userInfo);
 		mav.addObject("msg", msg);
