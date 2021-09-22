@@ -40,6 +40,9 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 			logger.info("세션에 값 있당");
 			String userId = userInfo.get("u_userid");
 			String captainYN = myservice.captainYN(userId);
+			if(captainYN == null) {
+				captainYN = "N";
+			}
 			logger.info("선장여부는? "+captainYN);
 			if(captainYN.equals("Y") ) {
 				session.setAttribute("captainYN", captainYN);
