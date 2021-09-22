@@ -125,7 +125,7 @@ public class UserService {
 		String msg = "로그인에 실패하였습니다. \\n아이디와 비밀번호를 확인해주세요.";
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		if(map != null) {			
+		if(map != null) {		
 			if(map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
 				logger.info("블랙리스트 확인");
 				msg = "고객님 께서는 "+sdf.format(map.get("BL_REGDATE"))+"기준으로\\n 블랙리스트로 등록되어 "

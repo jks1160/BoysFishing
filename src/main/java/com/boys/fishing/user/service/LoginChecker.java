@@ -1,5 +1,7 @@
 package com.boys.fishing.user.service;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,15 +15,16 @@ public class LoginChecker extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("로그인 체크");
-	
-		//System.out.println(request.getSession().getAttribute("loginId"));
-		//System.out.println(request.getSession().getAttribute(""));
-		if(request.getSession().getAttribute("userInfo") != null) {
-			
-			return true;
+		boolean pass = false;
+		
+		if(request.getSession().getAttribute("userinfo") != null) {
+			pass = true;
+			return pass;
+		}else {
+			response.sendRedirect("/fishing/");
 		}
 		
-		return true;
+		return pass;
 	}
 
 	//컨트롤러 들어가고 뷰에 가기 직전

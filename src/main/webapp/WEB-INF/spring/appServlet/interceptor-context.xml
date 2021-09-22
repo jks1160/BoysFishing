@@ -11,7 +11,8 @@
 	<!-- bean에는 항상 특정 클래스가 들어간다. -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/*"/>
+			<mvc:mapping path="/QNAForm"/>
+			<mvc:mapping path="/someWriteForm"/>
 			<bean class="com.boys.fishing.user.service.LoginChecker" />
 		</mvc:interceptor>
 	</mvc:interceptors>

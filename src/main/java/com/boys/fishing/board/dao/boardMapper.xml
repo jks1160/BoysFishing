@@ -7,7 +7,7 @@
 <mapper namespace="com.boys.fishing.board.dao.BoardDAO">
 
 	<select id="qna" resultType="hashmap">
-		SELECT q.*, u.u_usernickname FROM qna q INNER JOIN userinfo u ON q.q_writer = u.u_userid
+		SELECT q.*, u.u_usernickname FROM qna q INNER JOIN userinfo u ON q.q_writer = u.u_userid ORDER BY q.q_num DESC
 	</select>
 	
 	<insert id="QNAwrite" parameterType="sumsum">

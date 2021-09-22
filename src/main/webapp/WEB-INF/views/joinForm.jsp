@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="icon" href="icon.png">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
 <title>j-query 강좌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -19,39 +24,45 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	<style type="text/css">
-		img{
-			border-radius:50%;
-			height:100px;
-			width:100px;
-		}
-	</style>
+<style type="text/css">
+img {
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+}
+
+* {
+	font-family: 'Do Hyeon', sans-serif;
+}
+</style>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container my-5">
 		<div class="row my-3">
 			<div class="col">
 				<h2>
 					회원가입 <small class="text-muted"><c:choose>
-						<c:when test="${kakaoid eq null}">(일반 회원)</c:when>
-						<c:otherwise>(카카오 회원)</c:otherwise>	
-					</c:choose></small>
+							<c:when test="${kakaoid eq null}">(일반 회원)</c:when>
+							<c:otherwise>(카카오 회원)</c:otherwise>
+						</c:choose></small>
 				</h2>
 			</div>
 		</div>
 		<hr>
-			<div class="row my-3">
-				<div class="col-2 offset-2">
-					<h5>프로필 사진 등록</h5>
-				</div>
-				<div class="col-2">
-					<input type="button" name="file" class="btn btn-outline-dark" onclick="imgUpload()" value="이미지 등록">
-				</div>
-				<div class="col-2 offset-2">
-					<img id="preprofile" src="resources/default.png">
-				</div>
+		<div class="row my-3">
+			<div class="col-2 offset-2">
+				<h5>프로필 사진 등록</h5>
 			</div>
-        <form class="validation-form" action="join" method="POST" novalidate>
+			<div class="col-2">
+				<input type="button" name="file" class="btn btn-outline-dark"
+					onclick="imgUpload()" value="이미지 등록">
+			</div>
+			<div class="col-2 offset-2">
+				<img id="preprofile" src="resources/default.png">
+			</div>
+		</div>
+		<form class="validation-form" action="join" method="POST" novalidate>
 			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="id">아이디 : </label>
@@ -59,7 +70,8 @@
 				<div class="col-5">
 					<input type="text" id="id" class="form-control" name="u_userid"
 						maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
-						<c:if test = "${empty kakaoid}">value="${kakaoid }"</c:if> required>
+						<c:if test = "${empty kakaoid}">value="${kakaoid }"</c:if>
+						required>
 					<div class="invalid-feedback">아이디를 입력해주세요.</div>
 				</div>
 				<div class="col-2">
@@ -130,16 +142,17 @@
 				</div>
 				<div class="col-5">
 					<input type="text" id="phone" name="U_userphonenum"
-						class="form-control" placeholder="'-'를 제외한 숫자로 입력해 주세요." required>
+						class="form-control" maxlength="13"
+						placeholder="'-'를 제외한 숫자로 입력해 주세요." required>
 					<div class="invalid-feedback">전화번호를 입력해주세요.</div>
-					<input type="text" id="fileName" name="fileName" 5value="" hidden>
+					<input type="text" id="fileName" name="fileName" value="" hidden>
 					<input type="text" id="kakaoid" name="u_kakaoYN" value="N" hidden>
 				</div>
 			</div>
 			<hr>
 			<div class="row my-3">
 				<div class="col-2 offset-9">
-					<button class="btn btn-outline-dark" >회원가입</button>
+					<button class="btn btn-outline-dark">회원가입</button>
 				</div>
 			</div>
 		</form>
