@@ -143,7 +143,7 @@ selectedMarker = null; // 클릭한 마커를 담을 변수
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = { 
     center: new kakao.maps.LatLng(37.711886226271055, 126.35332920975232), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+    level: 4 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -230,11 +230,17 @@ kakao.maps.event.addListener(marker, 'click', function() {
 
     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
-    console.log("섬 이름",$(this));
+    //console.log("섬 이름",$(this));
     var is_name = $(this).attr("Fb");
     var regex = /[\s\uFEFF\xA0]+$/gi;
     document.getElementById("text-zone").value = $(this).attr("Fb").replace(regex,"");
 	
+    // 이미 떠있던 창을 종료한다.
+    for(var i=0; i<infowindow.length; i++){
+    	infowindow[i].close();	
+    }
+    
+
     //클릭 시 해당 섬과 일치하는 경우 알람창을 띄운다.
     for(var i=0; i<infowindow.length; i++){
     	if(infowindow[i].cc == is_name){
@@ -259,9 +265,6 @@ var markerImage = new kakao.maps.MarkerImage(
     }
 );
 
-
-
-
 return markerImage;
 
 }
@@ -274,14 +277,12 @@ return markerImage;
 		var researcher = $(this).html();
 		// 정규표현식으로 띄어쓰기 맨 끝만 제거
 		var regex = /[\s\uFEFF\xA0]+$/gi;
-		console.log("선택한 섬 :", researcher);
 		document.getElementById("text-zone").value = researcher.replace(regex,"");
 	});
 	
 	// 검색
 	function reser_research(){
 		var r_rsc = document.getElementById("text-zone").value;
-		console.log(r_rsc);
 		$.ajax({
 			url: "reser/reser_research",
 			type : "GET",
@@ -323,7 +324,7 @@ return markerImage;
 	// 섬 상세보기
 	function detail_island() {
 		// 검색 결과를 선택하지 않으면...
-		console.log("으아아 " ,$(".pick_island").val());
+		//console.log("으아아 " ,$(".pick_island").val());
 		//오류 대폭 수정
 		if($(".pick_island").val() == null || $(".pick_island").val() == "" || $(".pick_data").val() ==null ){
 			alert("섬을 선택하세요");
