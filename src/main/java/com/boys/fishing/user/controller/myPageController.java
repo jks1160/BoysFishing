@@ -129,10 +129,14 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	 }
 	  
 	@RequestMapping(value="/captain_requestForm")
-	public String captain_requestForm(HttpSession session) {
-		logger.info("선장 요청 : {}",session.getAttribute("userInfo"));
+	public ModelAndView captain_requestForm(HttpSession session) {
+		logger.info("선장 요청 : {}",session.getAttribute("userinfo"));
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userId =(String)map.get("u_userid");
+		logger.info("유저 아이디 : {}",userId);
 		
-		return "catain_requestForm";
+		
+		return service.captain_requestForm(userId);
 	}
 	 
 	

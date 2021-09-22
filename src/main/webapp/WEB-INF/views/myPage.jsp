@@ -315,5 +315,11 @@ function revPageList(list){
 		$(".my_div_page").empty();
 		$(".my_div_page").append(content);
 }
+// 선장 페이지 메세지
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+	location.href="./"
+}
 </script>
 </html>

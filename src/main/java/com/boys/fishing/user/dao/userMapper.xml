@@ -103,6 +103,10 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 	INSERT INTO kakaoUser VALUES (#{u_userpw},#{u_userid},#{u_userphonenum},#{u_useremail})
 </insert>
 
+<!-- 선장 신청 페이지 들어갈 수 있는지 여부 -->
+<select id="captain_requestForm" parameterType="String" resultType="String">
+	SELECT cap_idysn FROM captain WHERE u_userid = #{param1}
+</select>
 
 
 <!-- 선장 요청 테이블 넣기 -->
@@ -113,5 +117,6 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 <insert id="captainPhoto" >
 	INSERT INTO license VALUES(#{param2},#{param1})
 </insert>
+
 
 </mapper>

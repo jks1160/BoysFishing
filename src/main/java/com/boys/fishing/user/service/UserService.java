@@ -40,7 +40,7 @@ public class UserService {
 	// 외우자 외우자 외우자 외우자!!
 	@Value("#{config['Globals.filePath']}")
 	String root;
-	
+
 	public ModelAndView myUserInfo(String u_userid) {
 		logger.info("회원조회 서비스");
 		System.out.println("id : " + u_userid);
@@ -92,7 +92,7 @@ public class UserService {
 		if (dto.getU_kakaoYN() == 'Y') {
 			logger.info("카카오 회원가입 dao 진입");
 			dto.setU_userpw(pw);
-			logger.info("pw : "+pw);
+			logger.info("pw : " + pw);
 			dao.kakaoJoin(dto);
 		}
 		return page;
@@ -117,28 +117,28 @@ public class UserService {
 	public ModelAndView login(String id, String pw, HttpSession session) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 		ModelAndView mav = new ModelAndView();
-		
+
 		HashMap<String, String> map = dao.login(id);
 		HashMap<String, String> userInfo = new HashMap<String, String>();
 		String page = "login";
 		String msg = "로그인에 실패하였습니다. \\n아이디와 비밀번호를 확인해주세요.";
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-		if(map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
+
+		if (map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
 			logger.info("블랙리스트 확인");
-			msg = "고객님 께서는 "+sdf.format(map.get("BL_REGDATE"))+"기준으로\\n 블랙리스트로 등록되어 "
-					+ "로그인이 제한됩니다.\\n 해지일은 "+sdf.format(map.get("BL_DISDATE"))+"일 입니다.";
-		}else {
-			if (encoder.matches(pw, map.get("U_USERPW"))) {	
+			msg = "고객님 께서는 " + sdf.format(map.get("BL_REGDATE")) + "기준으로\\n 블랙리스트로 등록되어 " + "로그인이 제한됩니다.\\n 해지일은 "
+					+ sdf.format(map.get("BL_DISDATE")) + "일 입니다.";
+		} else {
+			if (encoder.matches(pw, map.get("U_USERPW"))) {
 				Iterator<String> iteratorKey = map.keySet().iterator();
 				while (iteratorKey.hasNext()) {
-			        String key = iteratorKey.next();
-			        userInfo.put(key.toLowerCase(), map.get(key).toString());
-			    }
+					String key = iteratorKey.next();
+					userInfo.put(key.toLowerCase(), map.get(key).toString());
+				}
 				userInfo.remove("u_userpw");
 				page = "mainPage";
 				msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
-			}			
+			}
 		}
 		session.setAttribute("userinfo", userInfo);
 		mav.addObject("msg", msg);
@@ -177,47 +177,66 @@ public class UserService {
 		logger.info("카카오 테이블 조회");
 		return dao.lookUp(id);
 	}
-/** 조재현
- *  선장 요청 메소드 
- *  선장 요청 테이블과 사진 테이블에 들어간다.(트랜잭션)
- * @param userId 유저의 아이디
- * @param fileList 자격증 정보들 파일이다.
- * @return
- */
+
+	/**
+	 * 조재현 선장 요청 메소드 선장 요청 테이블과 사진 테이블에 들어간다.(트랜잭션)
+	 * 
+	 * @param userId   유저의 아이디
+	 * @param fileList 자격증 정보들 파일이다.
+	 * @return
+	 */
 	@Transactional
 	public ModelAndView captain_request(String userId, List<MultipartFile> fileList) {
 		logger.info("아이디 : {}", userId);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("captain_requestForm");
-		//선장 요청은 한번만 들어가면 된다.
+		mav.setViewName("redirect:/captain_requestForm");
+		// 선장 요청은 한번만 들어가면 된다.
 		int request_cap = dao.captain_request(userId);
-		
-		//파일 추출
+
+		// 파일 추출
 		for (MultipartFile files : fileList) {
-			//원본 파일 명
-			logger.info("파일명 :{} 업로드 시작",files.getOriginalFilename());
+			// 원본 파일 명
+			logger.info("파일명 :{} 업로드 시작", files.getOriginalFilename());
 			// 이름을 바꾸어서 저장 (원본 이름은 필요 없다.)
-			String newFileName = System.currentTimeMillis()+files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));			
-			
+			String newFileName = System.currentTimeMillis()
+					+ files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));
+
 			// 파일 다운로드
 			try {
 				byte[] bytes = files.getBytes(); // 바이트로 다운
-				Path filePath = Paths.get(root+newFileName); //경로 설정
-				Files.write(filePath, bytes); //파일 저장
+				Path filePath = Paths.get(root + newFileName); // 경로 설정
+				Files.write(filePath, bytes); // 파일 저장
 				// 저장 된 파일 호출 경로
 				String path = "/photo/" + newFileName;
-				int success = dao.captainPhoto(path,userId);
-				
-			}catch (Exception e) {
+				// db에 사진 넣기.
+				int success = dao.captainPhoto(path, userId);
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			
-			
+
 		}
-		
+
 		return mav;
 	}
 
+	public ModelAndView captain_requestForm(String userId) {
+		logger.info("선장 신청 페이지 요청 아이디: {}", userId);
+		ModelAndView mav = new ModelAndView();
+
+		String path = "captain_requestFrom";
+		logger.info("이것이 레전드 : {}", dao.captain_requestForm(userId));
+		// 해당 요청이 있는지 검사
+
+		if (dao.captain_requestForm(userId).equals("Y") || dao.captain_requestForm(userId).equals("S")) {
+			String msg = "이미 요청이 된 상태입니다.";
+			mav.addObject("msg", msg);
+			path = "myPage";
+		}
+
+		mav.setViewName(path);
+
+		return mav;
+	}
 
 }
