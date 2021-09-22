@@ -31,4 +31,12 @@
 		SELECT * FROM island WHERE i_num = #{param1}
 	</select>
 	
+	<delete id="todayweatherdel">
+	delete from todayweather
+	</delete>
+	
+	<delete id="weatherdel">
+	delete from weather
+	</delete>
+	
 </mapper>
