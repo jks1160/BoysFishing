@@ -29,9 +29,16 @@ public class BoardController {
 	@RequestMapping(value = "/someTalk")
 	public String someTalk(HttpSession session) {
 		logger.info("섬섬톡페이지 요청");
-		session.getAttribute("userId");
+		session.getAttribute("userinfo");
 		
 		return "someTalk";
+	}
+	@RequestMapping(value = "/someWriteForm")
+	public String someWriteForm(HttpSession session) {
+		logger.info("섬섬톡 글쓰기폼 요청");
+		
+		
+		return "someWriteForm";
 	}
 	
 	@RequestMapping(value = "someList")
