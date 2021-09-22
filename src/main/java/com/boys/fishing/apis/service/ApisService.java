@@ -63,11 +63,9 @@ public class ApisService {
 	    logger.info("RESULT :  {}",result);
 
 	    JSONObject jsonObject1 = jsonStringToJson(result);
-	    logger.info("이게 뭘까 : {} ", jsonObject1.get("features"));
 	    ArrayList<HashMap<String, Object>> list = jsonArray(jsonObject1.get("features"));
 	    
 
-	    logger.info("cnt 확인 : {} ",dao.islandcnt());
 	    if(dao.islandcnt()>1) {
 	    	map.put("island", "이미 데이터가 있습니다.");
 	    }else {
@@ -381,12 +379,45 @@ public class ApisService {
 			}
 			 
 		}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//익일 정보	
 	
-	
+		String url6 ="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=199&pageNo=2&dataType=JSON&base_date=20210922&base_time=0500&nx=55&ny=127";
+		ArrayList<String> urls6 = new ArrayList<String>();
+		urls6.add(url6);
+		String result6 = sendMsg(urls6, headers, param, "get");
+		JSONObject jsonObjectsix1 = jsonStringToJson(result6);
+		JSONObject jsonObjectsix2 = jsonStringToJson(jsonObjectsix1.get("response"));
+        JSONObject jsonObjectsix3 = jsonStringToJson(jsonObjectsix2.get("body"));
+        JSONObject jsonObjectsix4 = jsonStringToJson(jsonObjectsix3.get("items"));
+        ArrayList<HashMap<String, Object>> list5 = jsonArray(jsonObjectsix4.get("item"));
+        
+        String sky2 = (String) list5.get(138).get("fcstValue");//하늘상태
+		if(sky2.equals("0")) {
+			sky2="맑음";
+		}else if(sky2.equals("3")) {
+			sky2="구름많음";
+		}else if(sky2.equals("4")) {
+			sky2="흐림";
+		}		
+        String pty2 = (String) list5.get(139).get("fcstValue");//강수형태
+        if(pty2.equals("0")) {
+        	pty2="없음";
+		}else if(pty2.equals("1")) {
+			pty2="비";
+		}else if(pty2.equals("2")) {
+			pty2="비/눈";
+		}else if(pty2.equals("3")) {
+			pty2="눈";
+		}else if(pty2.equals("4")) {
+			pty2="소나기";
+		}        
+				
+		
         Connection con = null;
         PreparedStatement pstmt = null;
         String sql = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_wave,tw_temperL,tw_temperH,tw_amLowLevel,tw_amLowTime,tw_amHighLevel,tw_amHighTime,tw_pmLowLevel,tw_pmLowTime,tw_pmHighLevel,tw_pmHighTime) Values(sysdate,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        
+        String sql2 = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_temperL,tw_temperH) Values(sysdate+1,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?)";
            
 	         try {
 				Class.forName("net.sf.log4jdbc.DriverSpy");
@@ -394,7 +425,7 @@ public class ApisService {
 			    con.setAutoCommit(false);
 	            pstmt = con.prepareStatement(sql);	           
 	    	   
-	    	    pstmt.setString(1, temper+"°C");
+	    	    pstmt.setString(1, temper+"°C");//현재기온
 	            pstmt.setString(2, vec+"deg");//풍향
 	            pstmt.setString(3, wsd+"m/s");//풍속
             	pstmt.setString(4, sky);
@@ -412,9 +443,22 @@ public class ApisService {
             	pstmt.setString(16, tw_pmLowTime);
             	pstmt.setString(17, tw_pmHighLevel);
             	pstmt.setString(18, tw_pmHighTime);
-            	
-            	
-            	pstmt.executeUpdate();	            
+              	pstmt.executeUpdate();
+              	pstmt.close();
+              	
+              	pstmt = con.prepareStatement(sql2);	     
+              	pstmt.setString(1, String.valueOf(list5.get(133).get("fcstValue")+"°C"));//현재기온
+ 	            pstmt.setString(2, String.valueOf(list5.get(136).get("fcstValue")+"deg"));//풍향
+ 	            pstmt.setString(3, String.valueOf(list5.get(134).get("fcstValue")+"m/s"));//풍속
+             	pstmt.setString(4, sky2);//하늘상태
+             	pstmt.setString(5, pty2);//강수형태
+             	pstmt.setString(6, String.valueOf(list5.get(140).get("fcstValue")+"%"));//강수확률
+             	pstmt.setString(7, String.valueOf(list5.get(141).get("fcstValue")));//강수량
+             	pstmt.setString(8, String.valueOf(list5.get(77).get("fcstValue")+"°C"));//최저기온
+             	pstmt.setString(9, String.valueOf(list5.get(177).get("fcstValue")+"°C"));//최고기온
+             	
+            	pstmt.executeUpdate();
+              	pstmt.close();
 	            con.commit();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -472,12 +516,6 @@ public class ApisService {
        	ArrayList<HashMap<String, Object>> list3 = jsonArray(jsonObjectthree4.get("item"));
         logger.info("확인 용도 : {}",list3.get(0).get("wh3AAm"));
         
-        
-        
-        
-        
-		
-		
 		
 		Connection con = null;
 	    PreparedStatement pstmt = null;
