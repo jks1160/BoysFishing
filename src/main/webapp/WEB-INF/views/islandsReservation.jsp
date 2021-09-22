@@ -230,7 +230,7 @@ kakao.maps.event.addListener(marker, 'click', function() {
 
     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
-    console.log("섬 이름",$(this));
+    //console.log("섬 이름",$(this));
     var is_name = $(this).attr("Fb");
     var regex = /[\s\uFEFF\xA0]+$/gi;
     document.getElementById("text-zone").value = $(this).attr("Fb").replace(regex,"");
@@ -274,14 +274,12 @@ return markerImage;
 		var researcher = $(this).html();
 		// 정규표현식으로 띄어쓰기 맨 끝만 제거
 		var regex = /[\s\uFEFF\xA0]+$/gi;
-		console.log("선택한 섬 :", researcher);
 		document.getElementById("text-zone").value = researcher.replace(regex,"");
 	});
 	
 	// 검색
 	function reser_research(){
 		var r_rsc = document.getElementById("text-zone").value;
-		console.log(r_rsc);
 		$.ajax({
 			url: "reser/reser_research",
 			type : "GET",
@@ -323,7 +321,7 @@ return markerImage;
 	// 섬 상세보기
 	function detail_island() {
 		// 검색 결과를 선택하지 않으면...
-		console.log("으아아 " ,$(".pick_island").val());
+		//console.log("으아아 " ,$(".pick_island").val());
 		//오류 대폭 수정
 		if($(".pick_island").val() == null || $(".pick_island").val() == "" || $(".pick_data").val() ==null ){
 			alert("섬을 선택하세요");
