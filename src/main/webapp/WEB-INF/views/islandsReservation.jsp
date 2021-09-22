@@ -143,7 +143,7 @@ selectedMarker = null; // 클릭한 마커를 담을 변수
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = { 
     center: new kakao.maps.LatLng(37.711886226271055, 126.35332920975232), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+    level: 4 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -240,9 +240,7 @@ kakao.maps.event.addListener(marker, 'click', function() {
     	infowindow[i].close();	
     }
     
-    
-    
-    
+
     //클릭 시 해당 섬과 일치하는 경우 알람창을 띄운다.
     for(var i=0; i<infowindow.length; i++){
     	if(infowindow[i].cc == is_name){
@@ -266,9 +264,6 @@ var markerImage = new kakao.maps.MarkerImage(
         spriteSize: spriteImageSize // 스프라이트 이미지의 크기
     }
 );
-
-
-
 
 return markerImage;
 

@@ -14,7 +14,7 @@
 <a href="myUserInfo">회원정보</a>
 <a href="pointPage">포인트</a>
 <a href="#">예약확인</a>
-<a href="#">선장등록 요청</a>
+<a href="catain_requestForm">선장등록 요청</a>
 </div>
 <c:if >
 <div class="captain">
