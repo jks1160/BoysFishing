@@ -235,6 +235,14 @@ kakao.maps.event.addListener(marker, 'click', function() {
     var regex = /[\s\uFEFF\xA0]+$/gi;
     document.getElementById("text-zone").value = $(this).attr("Fb").replace(regex,"");
 	
+    // 이미 떠있던 창을 종료한다.
+    for(var i=0; i<infowindow.length; i++){
+    	infowindow[i].close();	
+    }
+    
+    
+    
+    
     //클릭 시 해당 섬과 일치하는 경우 알람창을 띄운다.
     for(var i=0; i<infowindow.length; i++){
     	if(infowindow[i].cc == is_name){
