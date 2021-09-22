@@ -36,6 +36,12 @@ public class ApisService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	ApisDAO dao;
+	
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    Calendar c1 = Calendar.getInstance();
+    String strToday = sdf.format(c1.getTime());
+  
 
 	/**
 	 * 이선우
@@ -239,12 +245,7 @@ public class ApisService {
 	}
 
 	public HashMap<String, Object> todayweatherinsert(HashMap<String,String> params) {
-		HashMap<String, Object>map = new HashMap<String, Object>();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        Calendar c1 = Calendar.getInstance();
-        String strToday = sdf.format(c1.getTime());
-        System.out.println("Today=" + strToday);
-        
+		HashMap<String, Object>map = new HashMap<String, Object>();        
         String url = "http://www.khoa.go.kr/oceangrid/grid/api/tideObsRecent/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&ObsCode=DT_0001&ResultType=json";
 		String param = null;
 		ArrayList<String> urls = new ArrayList<String>();
@@ -346,16 +347,16 @@ public class ApisService {
 		String tw_pmHighTime = "측정 안됨";//오후 만조 시간
 		
 		if(list4.get(0).get("hl_code").equals("고조")) {//오전만조높이,오전만조시간
-			tw_amHighLevel = (String) list4.get(0).get("tph_level"); //오전만조높이
+			tw_amHighLevel = (String) list4.get(0).get("tph_level")+"cm"; //오전만조높이
 			tw_amHighTime = (String) list4.get(0).get("tph_time").toString().substring(11);//오전 만조 시간
-			tw_amLowLevel = (String) list4.get(1).get("tph_level");//오전 간조 높이
+			tw_amLowLevel = (String) list4.get(1).get("tph_level")+"cm";//오전 간조 높이
 			tw_amLowTime = (String) list4.get(1).get("tph_time").toString().substring(11);//오전 간조 시간
 			
-			tw_pmHighLevel = (String) list4.get(2).get("tph_level");
+			tw_pmHighLevel = (String) list4.get(2).get("tph_level")+"cm";
 			tw_pmHighTime = (String) list4.get(2).get("tph_time").toString().substring(11);			
 			
 			if(list4.size()!=3) {
-				tw_pmLowLevel = (String) list4.get(3).get("tph_level");//오전 간조 높이
+				tw_pmLowLevel = (String) list4.get(3).get("tph_level")+"cm";//오전 간조 높이
 				tw_pmLowTime = (String) list4.get(3).get("tph_time").toString().substring(11);//오전 간조 시간
 			}else {				
 				tw_pmLowLevel = "측정 안됨";
@@ -363,16 +364,16 @@ public class ApisService {
 			}
 			
 		}else if(list4.get(0).get("hl_code").equals("저조")){//오전 간조 높이, 오전 간조 시간
-			tw_amLowLevel = (String) list4.get(0).get("tph_level");//오전 간조 높이
+			tw_amLowLevel = (String) list4.get(0).get("tph_level")+"cm";//오전 간조 높이
 			tw_amLowTime = (String) list4.get(0).get("tph_time").toString().substring(11);//오전 간조 시간
-			tw_amHighLevel = (String) list4.get(1).get("tph_level"); //오전만조높이
+			tw_amHighLevel = (String) list4.get(1).get("tph_level")+"cm"; //오전만조높이
 			tw_amHighTime = (String) list4.get(1).get("tph_time").toString().substring(11);//오전 만조 시간
 			
-			tw_pmLowLevel = (String) list4.get(2).get("tph_level");
+			tw_pmLowLevel = (String) list4.get(2).get("tph_level")+"cm";
 			tw_pmLowTime = (String) list4.get(2).get("tph_time").toString().substring(11);			
 			
 			if(list4.size()!=3) {
-				tw_pmHighLevel = (String) list4.get(3).get("tph_level");//오전 간조 높이
+				tw_pmHighLevel = (String) list4.get(3).get("tph_level")+"cm";//오전 간조 높이
 				tw_pmHighTime = (String) list4.get(3).get("tph_time").toString().substring(11);//오전 간조 시간
 			}else {
 				tw_pmHighLevel = "측정 안됨";
@@ -393,16 +394,16 @@ public class ApisService {
 			    con.setAutoCommit(false);
 	            pstmt = con.prepareStatement(sql);	           
 	    	   
-	    	    pstmt.setString(1, temper);
-	            pstmt.setString(2, vec);
-	            pstmt.setString(3, wsd);
+	    	    pstmt.setString(1, temper+"°C");
+	            pstmt.setString(2, vec+"deg");//풍향
+	            pstmt.setString(3, wsd+"m/s");//풍속
             	pstmt.setString(4, sky);
             	pstmt.setString(5, pty);
-            	pstmt.setString(6, pop);
+            	pstmt.setString(6, pop+"%");
             	pstmt.setString(7, pcp);
-            	pstmt.setString(8, wave);
-            	pstmt.setString(9, tmn);
-            	pstmt.setString(10, tmx);
+            	pstmt.setString(8, wave+"m");
+            	pstmt.setString(9, tmn+"°C");
+            	pstmt.setString(10, tmx+"°C");
             	pstmt.setString(11, tw_amLowLevel);
             	pstmt.setString(12, tw_amLowTime);
             	pstmt.setString(13, tw_amHighLevel);
@@ -431,6 +432,153 @@ public class ApisService {
 	        }
         map.put("suc", "업데이트 성공");
 		return map;
+	}
+
+	public HashMap<String, Object> weekendweatherinsert(HashMap<String, String> params) {
+		HashMap<String, Object>map = new HashMap<String, Object>();
+		String url = "http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&regId=11B00000&tmFc="+strToday+"0600";
+		String param = null;
+		ArrayList<String> urls = new ArrayList<String>();
+		urls.add(url);
+		
+		HashMap<String, String> headers = new HashMap<String, String>();
+	    headers.put("Content-type", "application/json");
+	    String result = sendMsg(urls, headers, param, "get");
+	    JSONObject jsonObject = jsonStringToJson(result);
+	    JSONObject jsonObject2 = jsonStringToJson(jsonObject.get("response"));
+        JSONObject jsonObject3 = jsonStringToJson(jsonObject2.get("body"));
+        JSONObject jsonObject4 = jsonStringToJson(jsonObject3.get("items"));
+        ArrayList<HashMap<String, Object>> list = jsonArray(jsonObject4.get("item"));
+		
+		 
+		String url2 = "http://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&regId=11B20201&tmFc="+strToday+"0600";
+		ArrayList<String> urls2 = new ArrayList<String>();
+		urls2.add(url2);
+		String result2 = sendMsg(urls2, headers, param, "get");
+		JSONObject jsonObjecttwo = jsonStringToJson(result2);
+		JSONObject jsonObjecttwo2 = jsonStringToJson(jsonObjecttwo.get("response"));
+	    JSONObject jsonObjecttwo3 = jsonStringToJson(jsonObjecttwo2.get("body"));
+	    JSONObject jsonObjecttwo4 = jsonStringToJson(jsonObjecttwo3.get("items"));
+	    ArrayList<HashMap<String, Object>> list2 = jsonArray(jsonObjecttwo4.get("item"));
+	    
+	    String url3 = "http://apis.data.go.kr/1360000/MidFcstInfoService/getMidSeaFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&regId=12A20000&tmFc="+strToday+"0600";
+		ArrayList<String> urls3 = new ArrayList<String>();
+		urls3.add(url3);
+		String result3 = sendMsg(urls3, headers, param, "get");
+		JSONObject jsonObjectthree = jsonStringToJson(result3);
+	    JSONObject jsonObjectthree2 = jsonStringToJson(jsonObjectthree.get("response"));
+	    JSONObject jsonObjectthree3 = jsonStringToJson(jsonObjectthree2.get("body"));
+	    JSONObject jsonObjectthree4 = jsonStringToJson(jsonObjectthree3.get("items"));
+       	ArrayList<HashMap<String, Object>> list3 = jsonArray(jsonObjectthree4.get("item"));
+        logger.info("확인 용도 : {}",list3.get(0).get("wh3AAm"));
+        
+        
+        
+        
+        
+		
+		
+		
+		Connection con = null;
+	    PreparedStatement pstmt = null;
+	    String sql = "insert into weather(w_date,w_amPOP,w_pmPOP,w_amSky,w_pmSky,w_temperL,w_temperH,w_amWaveLow,w_amWaveHigh,w_pmWaveLow,w_pmWaveHigh) values(SYSDATE+2,?,?,?,?,?,?,?,?,?,?)";
+	    String sql2 = "insert into weather(w_date,w_amPOP,w_pmPOP,w_amSky,w_pmSky,w_temperL,w_temperH,w_amWaveLow,w_amWaveHigh,w_pmWaveLow,w_pmWaveHigh) values(SYSDATE+3,?,?,?,?,?,?,?,?,?,?)";
+	    String sql3 = "insert into weather(w_date,w_amPOP,w_pmPOP,w_amSky,w_pmSky,w_temperL,w_temperH,w_amWaveLow,w_amWaveHigh,w_pmWaveLow,w_pmWaveHigh) values(SYSDATE+4,?,?,?,?,?,?,?,?,?,?)";
+	    String sql4 = "insert into weather(w_date,w_amPOP,w_pmPOP,w_amSky,w_pmSky,w_temperL,w_temperH,w_amWaveLow,w_amWaveHigh,w_pmWaveLow,w_pmWaveHigh) values(SYSDATE+5,?,?,?,?,?,?,?,?,?,?)";
+	    String sql5 = "insert into weather(w_date,w_amPOP,w_pmPOP,w_amSky,w_pmSky,w_temperL,w_temperH,w_amWaveLow,w_amWaveHigh,w_pmWaveLow,w_pmWaveHigh) values(SYSDATE+6,?,?,?,?,?,?,?,?,?,?)";
+	   
+	    
+	    try {
+			Class.forName("net.sf.log4jdbc.DriverSpy");
+			con = DriverManager.getConnection("jdbc:log4jdbc:oracle:thin:@61.78.121.242:1521:xe", "C##SEC_PRO4", "fish");
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(sql);	   
+            pstmt.setString(1, String.valueOf(list.get(0).get("rnSt3Am"))+"%");//3일뒤오전강수확률
+            pstmt.setString(2, String.valueOf(list.get(0).get("rnSt3Pm"))+"%");//3일뒤오후강수확률
+            pstmt.setString(3, String.valueOf(list.get(0).get("wf3Am")));
+            pstmt.setString(4, String.valueOf(list.get(0).get("wf3Pm")));
+            pstmt.setString(5, String.valueOf(list2.get(0).get("taMin3"))+"°C");
+            pstmt.setString(6, String.valueOf(list2.get(0).get("taMax3"))+"°C");
+            pstmt.setString(7, String.valueOf(list3.get(0).get("wh3AAm"))+"m");
+            pstmt.setString(8, String.valueOf(list3.get(0).get("wh3BAm"))+"m");
+            pstmt.setString(9, String.valueOf(list3.get(0).get("wh3APm"))+"m");
+            pstmt.setString(10, String.valueOf(list3.get(0).get("wh3BPm"))+"m");
+            pstmt.executeUpdate();	  
+            pstmt.close();
+            
+            pstmt = con.prepareStatement(sql2);	   
+            pstmt.setString(1, String.valueOf(list.get(0).get("rnSt4Am"))+"%");//3일뒤오전강수확률
+            pstmt.setString(2, String.valueOf(list.get(0).get("rnSt4Pm"))+"%");//3일뒤오후강수확률
+            pstmt.setString(3, String.valueOf(list.get(0).get("wf4Am")));
+            pstmt.setString(4, String.valueOf(list.get(0).get("wf4Pm")));
+            pstmt.setString(5, String.valueOf(list2.get(0).get("taMin4"))+"°C");
+            pstmt.setString(6, String.valueOf(list2.get(0).get("taMax4"))+"°C");
+            pstmt.setString(7, String.valueOf(list3.get(0).get("wh4AAm"))+"m");
+            pstmt.setString(8, String.valueOf(list3.get(0).get("wh4BAm"))+"m");
+            pstmt.setString(9, String.valueOf(list3.get(0).get("wh4APm"))+"m");
+            pstmt.setString(10, String.valueOf(list3.get(0).get("wh4BPm"))+"m");
+            pstmt.executeUpdate();
+            pstmt.close();
+            
+            pstmt = con.prepareStatement(sql3);	   
+            pstmt.setString(1, String.valueOf(list.get(0).get("rnSt5Am"))+"%");//3일뒤오전강수확률
+            pstmt.setString(2, String.valueOf(list.get(0).get("rnSt5Pm"))+"%");//3일뒤오후강수확률
+            pstmt.setString(3, String.valueOf(list.get(0).get("wf5Am")));
+            pstmt.setString(4, String.valueOf(list.get(0).get("wf5Pm")));
+            pstmt.setString(5, String.valueOf(list2.get(0).get("taMin5"))+"°C");
+            pstmt.setString(6, String.valueOf(list2.get(0).get("taMax5"))+"°C");
+            pstmt.setString(7, String.valueOf(list3.get(0).get("wh5AAm"))+"m");
+            pstmt.setString(8, String.valueOf(list3.get(0).get("wh5BAm"))+"m");
+            pstmt.setString(9, String.valueOf(list3.get(0).get("wh5APm"))+"m");
+            pstmt.setString(10, String.valueOf(list3.get(0).get("wh5BPm"))+"m");
+            pstmt.executeUpdate();
+            pstmt.close();
+    
+            pstmt = con.prepareStatement(sql4);	   
+            pstmt.setString(1, String.valueOf(list.get(0).get("rnSt6Am"))+"%");//3일뒤오전강수확률
+            pstmt.setString(2, String.valueOf(list.get(0).get("rnSt6Pm"))+"%");//3일뒤오후강수확률
+            pstmt.setString(3, String.valueOf(list.get(0).get("wf6Am")));
+            pstmt.setString(4, String.valueOf(list.get(0).get("wf6Pm")));
+            pstmt.setString(5, String.valueOf(list2.get(0).get("taMin6"))+"°C");
+            pstmt.setString(6, String.valueOf(list2.get(0).get("taMax6"))+"°C");
+            pstmt.setString(7, String.valueOf(list3.get(0).get("wh6AAm"))+"m");
+            pstmt.setString(8, String.valueOf(list3.get(0).get("wh6BAm"))+"m");
+            pstmt.setString(9, String.valueOf(list3.get(0).get("wh6APm"))+"m");
+            pstmt.setString(10, String.valueOf(list3.get(0).get("wh6BPm"))+"m");
+            pstmt.executeUpdate();
+            pstmt.close();
+            
+            pstmt = con.prepareStatement(sql5);	   
+            pstmt.setString(1, String.valueOf(list.get(0).get("rnSt7Am"))+"%");//3일뒤오전강수확률
+            pstmt.setString(2, String.valueOf(list.get(0).get("rnSt7Pm"))+"%");//3일뒤오후강수확률
+            pstmt.setString(3, String.valueOf(list.get(0).get("wf7Am")));
+            pstmt.setString(4, String.valueOf(list.get(0).get("wf7Pm")));
+            pstmt.setString(5, String.valueOf(list2.get(0).get("taMin7"))+"°C");
+            pstmt.setString(6, String.valueOf(list2.get(0).get("taMax7"))+"°C");
+            pstmt.setString(7, String.valueOf(list3.get(0).get("wh7AAm"))+"m");
+            pstmt.setString(8, String.valueOf(list3.get(0).get("wh7BAm"))+"m");
+            pstmt.setString(9, String.valueOf(list3.get(0).get("wh7APm"))+"m");
+            pstmt.setString(10, String.valueOf(list3.get(0).get("wh7BPm"))+"m");
+            pstmt.executeUpdate();
+            pstmt.close();            
+			
+			con.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+            if (pstmt != null) try {
+                pstmt.close();
+                pstmt = null;
+            } catch (SQLException ex) {
+            }
+            if (con != null) try {
+                con.close();
+                con = null;
+            } catch (SQLException ex) {
+            }
+        }
+                
+        return map;
 	}
 
 	

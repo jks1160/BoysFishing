@@ -6,7 +6,11 @@
 >
 <mapper namespace="com.boys.fishing.board.dao.BoardDAO">
 
-	<select id="qna" resultType="sumsum">
-		SELECT * FROM qna
+	<select id="qna" resultType="hashmap">
+		SELECT q.*, u.u_usernickname FROM qna q INNER JOIN userinfo u ON q.q_writer = u.u_userid
 	</select>
+	
+	<insert id="QNAwrite" parameterType="sumsum">
+		INSERT INTO qna VALUES (q_num_seq.NEXTVAL, #{q_writer}, #{q_subject}, #{q_content}, SYSDATE, 'N', #{q_blindYN}, '')
+	</insert>
 </mapper>

@@ -24,19 +24,19 @@
 			</div>
 		</div>
 		<hr>
-		<form action="QNAwrite" method="get">
+		<form action="QNAwrite" method="post">
 			<div class="row">
 				<div class="col-2">
 					<label for="usr"><b>QNA 제목 : </b></label>
 				</div>
 				<div class="col-7">
 					<div class="form-group">
-						<input type="text" class="form-control" id="usr" name="">
+						<input type="text" class="form-control" id="usr" name="q_subject">
 					</div>
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<select class="custom-select" name="">
+						<select class="custom-select" name="q_blindYN">
 							<option selected value="N">공개</option>
 							<option value="Y">비공개</option>
 						</select>
@@ -46,15 +46,16 @@
 			<div class="col-flout">
 				<div class="form-group">
 					<label for="comment">QNA 내용 :</label>
-					<textarea class="form-control border" rows="8" id="comment" style="resize: none"></textarea>
+					<textarea class="form-control border" rows="8" id="comment" name="q_content" style="resize: none"></textarea>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
 				<div class="col">
-					<button type="button" class="btn btn-outline-dark overCheck float-right" id="test">작성하기</button>
+					<button class="btn btn-outline-dark float-right">작성하기</button>
 				</div>
 			</div>
 		</form>
+	</div>
 </body>
 </html>
