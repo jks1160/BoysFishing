@@ -24,10 +24,11 @@ public class BoardService {
 	public ModelAndView qna() {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<HashMap<String, String>> qnaList = dao.qna();
-		for (HashMap<String, String> hashMap : qnaList) {
-			String regdate = hashMap.get("Q_REGDATE");
-			hashMap.replace("Q_REGDATE", regdate.substring(regdate.lastIndexOf(" ")));
-		}
+		/*
+		 * for (HashMap<String, String> hashMap : qnaList) { String regdate =
+		 * hashMap.get("Q_REGDATE"); hashMap.replace("Q_REGDATE",
+		 * regdate.substring(regdate.lastIndexOf(" "))); }
+		 */
 		mav.addObject("QNAList",qnaList);
 		mav.setViewName("QNA");
 		return mav;
