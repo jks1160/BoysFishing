@@ -61,7 +61,7 @@
 					<a class="nav-link active text-white" aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link active text-white" aria-current="page" href="#">섬섬톡</a>
+					<a class="nav-link active text-white" aria-current="page" href="someTalk">섬섬톡</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="qna">Q&A</a>
