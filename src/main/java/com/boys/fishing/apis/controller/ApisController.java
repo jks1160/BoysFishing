@@ -50,7 +50,15 @@ public class ApisController {
 	// 
 	@RequestMapping(value = "/todayweatherinsert")
 	public @ResponseBody HashMap<String, Object> todayweatherinsert(@RequestParam HashMap<String, String> params) {
-		logger.info("날씨 insert 요청");
+		logger.info("당일 날씨 insert 요청");
 		return service.todayweatherinsert(params);
+
+	}
+	
+	@RequestMapping(value = "/weekendweatherinsert")
+	public @ResponseBody HashMap<String, Object> weekendweatherinsert(@RequestParam HashMap<String, String> params) {
+		logger.info("일주일 날씨 insert 요청");
+		return service.weekendweatherinsert(params);
+		
 	}
 }

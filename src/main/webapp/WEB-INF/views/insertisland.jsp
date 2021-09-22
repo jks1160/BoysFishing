@@ -33,6 +33,7 @@
 			<input class="col-3 justify-content-md-center m-auto" type="button" onclick="islandinsert()" value="섬 db 업데이트">
 			<input class="col-3 justify-content-md-center m-auto" type="button" onclick="islanddelete()" value="섬 db 삭제">
 			<input class="col-3 justify-content-md-center m-auto" type="button" onclick="todayweatherinsert()" value="날씨 정보 업데이트">
+			<input class="col-3 justify-content-md-center m-auto" type="button" onclick="weekendweatherinsert()" value="일주일날씨 정보 업데이트">
 		</div>
 	</div>
 </body>
@@ -75,6 +76,20 @@ function todayweatherinsert(){
 		datatype:'json',
 		success:function(data){
 			alert(data.suc);
+		},
+		error:function(e){
+			console.log(e);
+		}
+	})
+}
+
+function weekendweatherinsert(){
+	$.ajax({
+		url:"weekendweatherinsert",
+		type:'get',
+		datatype:'json',
+		success:function(data){
+			console.log(data);
 		},
 		error:function(e){
 			console.log(e);
