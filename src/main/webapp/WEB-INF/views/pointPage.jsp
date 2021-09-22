@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% String id = (String)session.getAttribute("loginid"); %>
+<% String id = (String)session.getAttribute("userId"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,13 +16,18 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
 	.entire{
-		display : inline-block;
 		text-align: center;
+		margin-top: 5%;
+		margin-right: 20%;
+		margin-bottom: 5%;
+		margin-left: 20%;
 	}
 	.user{
 		display: inline-block;
 	}
-	
+	.p_history{
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -73,9 +78,8 @@
 			<div class="p_point_page">
 			</div>
 	</div>
+<button onclick="location.href='myPage'">뒤로가기</button>
 </div>
-
-<button onclick="history.back()">뒤로가기</button>
 </body>
 <script>
 function withdraw(form) { 

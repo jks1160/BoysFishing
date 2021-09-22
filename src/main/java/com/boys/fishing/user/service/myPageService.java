@@ -79,15 +79,18 @@ public class myPageService {
 		return map;
 	}
 
-	public ModelAndView point(String id) {
+	//회원 포인트 조회
+	public ModelAndView point(String userId) {
 		logger.info("회원 포인트조회 서비스");
 		ModelAndView mav = new ModelAndView();
-		int p_point = dao.point(id);
+		int p_point = dao.point(userId);
 		mav.addObject("point",p_point);
+		mav.addObject("loginId", userId);
 		mav.setViewName("pointPage");
 		return mav;
 	}
 
+	//회원 포인트 히스토리 조회
 	public HashMap<String, Object> pointHistoryPage(int page, String user) {
 		logger.info("회원 포인트히스토리 조회 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -107,6 +110,7 @@ public class myPageService {
 		return map;
 	}
 
+	//회원 포인트 충전
 	public void pointCharge(int p_charge, String user) {
 		int balance = 0;
 		int currBalance;
@@ -117,6 +121,7 @@ public class myPageService {
 		
 	}
 
+	//회원 포인트 출금
 	public void pointWithdraw(int p_withdraw, String user) {
 		int balance = 0;
 		int currBalance;
@@ -125,6 +130,14 @@ public class myPageService {
 		logger.info("balance: "+ balance + "p_charge: "+ p_withdraw + "user: " + user);
 		dao.pointWithdraw(balance, p_withdraw, user);
 		
+	}
+
+	//선장 여부 파악
+	public String captainYN(String userId) {
+		logger.info("선장 여부 파악 서비스 진입");
+		String captainYN = dao.captainYN(userId);
+		logger.info("yn여부: "+captainYN);
+		return captainYN;
 	}
 
 }

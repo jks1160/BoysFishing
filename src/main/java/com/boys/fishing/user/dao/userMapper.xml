@@ -17,7 +17,9 @@
 
 
 
-
+<select id="captainYN" resultType="String">
+select c.cap_idYSN FROM captain c, userInfo u WHERE c.u_userid = u.u_userid and u.u_userid = #{param1}
+</select>
 
 <select id="sumsumlist" resultType="sumsum">
 	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
@@ -47,6 +49,7 @@ select p_balance
 from(
    select *
    from point
+   where p_userid = #{param1}
    order by p_regdate DESC
 )
 where ROWNUM = 1

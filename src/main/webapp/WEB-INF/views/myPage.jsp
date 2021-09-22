@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String userid = (String)session.getAttribute("userId"); %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% String captainYN = (String)session.getAttribute("captainYN"); %>
+<% System.out.println("캡틴옴?: "+captainYN); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,14 +17,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
 	.entire{
-		display : inline-block;
 		text-align: center;
+		margin-top: 5%;
+		margin-right: 20%;
+		margin-bottom: 5%;
+		margin-left: 20%;
 	}
 	.user{
 		display: inline-block;
+		margin-right: 25px;
 	}
 	.captain{
 		display: inline-block;
+		margin-right: 25px;
 	}
 </style>
 </head>
@@ -33,47 +40,50 @@
 <hr>
 <div class="user">
 	<div class="user">
-		<a href="myUserInfo"><img src="resources/user.png" width="50px"/>
+		<a href="myUserInfo"><img src="resources/defaultimg/user.png" width="50px"/>
 		 <br>마이페이지
 		 </a>
 	</div>
 	<div class="user">
-		<a href="pointPage"><img src="resources/point.png" width="50px"/>
+		<a href="pointPage"><img src="resources/defaultimg/point.png" width="50px"/>
 		<br>포인트페이지
 		</a>
 	</div>
 	<div class="user">
-		<a href="#"><img src="resources/calendar.png" width="50px"/>
+		<a href="#"><img src="resources/defaultimg/calendar.png" width="50px"/>
 		<br>예약확인
 		</a>
 	</div>
 	<div class="user">
-		<a href="#"><img src="resources/captain.png" width="50px"/>
+		<a href="#"><img src="resources/defaultimg/captain.png" width="50px"/>
 		<br>선장신청
 		</a>
 	</div>
 </div>
 <hr>
+<c:set var="captainYN" value = "<%=captainYN %>"/>
+<c:if test="${captainYN eq 'Y'}">
 <h1>선장페이지</h1>
 <hr>
 <div class="captain">
 	<div class="captain">
-		<a href="#"><img src="resources/ship.png" width="50px"/>
+		<a href="#"><img src="resources/defaultimg/ship.png" width="50px"/>
 		 <br>배정보 관리
 		 </a>
 	</div>
 	<div class="captain">
-		<a href="#"><img src="resources/clock.png" width="50px"/>
+		<a href="#"><img src="resources/defaultimg/clock.png" width="50px"/>
 		<br>스케쥴
 		</a>
 	</div>
 	<div class="captain">
-		<a href="#"><img src="resources/calendar.png" width="50px"/>
+		<a href="#"><img src="resources/defaultimg/calendar.png" width="50px"/>
 		<br>운항예약확인
 		</a>
 	</div>
 </div>
 <hr>
+</c:if>
 <h4>자유게시판</h4>
 <table class="table table-bordered">
 <thead>
@@ -137,13 +147,11 @@
 var sumPage = 1;
 var infoPage = 1;
 var revPage = 1;
-var user = 'somefishing';
 
 sumListCall(sumPage);
 function sumListCall(sumPage) {
 	var param = {};
 	param.page = sumPage;
-	param.user = user;
 	$.ajax({
 		type : 'get',
 		url : 'mp_sumsumlist',
@@ -200,7 +208,6 @@ infoListCall(infoPage);
 function infoListCall(infoPage) {
 	var param = {};
 	param.page = infoPage;
-	param.user = user;
 	$.ajax({
 		type : 'get',
 		url : 'mp_infoList',
@@ -257,7 +264,6 @@ revListCall(revPage);
 function revListCall(revPage) {
 	var param = {};
 	param.page = revPage;
-	param.user = user;
 	$.ajax({
 		type : 'get',
 		url : 'mp_revList',
