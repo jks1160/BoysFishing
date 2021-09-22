@@ -35,6 +35,7 @@
 
 	</head>
 	<body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<h2>${dto.u_usernickname} 님의 회원정보</h2>
 	<div class="rounded float-start">
 	<c:choose> 
@@ -110,6 +111,7 @@
 			}
 			if($("#nickname").val()=='${dto.u_usernickname}'){
 				$("#overChk").attr("disabled",true);
+				overChk = true;
 			} 
 		});
 	})

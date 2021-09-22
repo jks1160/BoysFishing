@@ -47,7 +47,7 @@ public class UserService {
 		System.out.println("id : " + u_userid);
 		ModelAndView mav = new ModelAndView();
 		UserDTO dto = dao.myUserInfo(u_userid);
-		System.out.println("유저닉네임:" + dto.getU_usernickname());
+		System.out.println("유저닉네임:" + dto.getU_usernickname()+"프로필이미지:"+dto.getUi_name());
 		mav.addObject("dto", dto);
 		mav.setViewName("myUserInfo");
 
