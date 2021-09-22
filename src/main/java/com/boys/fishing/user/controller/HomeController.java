@@ -70,7 +70,9 @@ public class HomeController {
 	@RequestMapping(value="/myUserInfo", method = RequestMethod.GET)
 	public ModelAndView myUserInfo(HttpSession session) {
 		logger.info("회원정보조회 페이지 ");
-	
+		//테스트 세션
+		String id = "somefishing";
+		session.setAttribute("loginId", id);
 		String u_userid = (String) session.getAttribute("loginId");
 		return service.myUserInfo(u_userid);
 	}	
@@ -159,9 +161,7 @@ public class HomeController {
 	@RequestMapping(value="/userInfoUpdate", method = RequestMethod.POST)
 	public ModelAndView userInfoUpdate(@RequestParam HashMap<String, String> params, HttpSession session) { //영환
 		logger.info("회원정보수정 ");
-		//테스트 세션
-		String id = "somefishing";
-		session.setAttribute("loginId", id);
+		
 		
 		String u_userid = (String) session.getAttribute("loginId");
 		
@@ -208,4 +208,12 @@ public class HomeController {
 		session.invalidate(); //모든 세션정보 삭제
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/myUserReserve", method = RequestMethod.GET)
+	public String myUserReserve(HttpSession session) {
+		logger.info("회원정보조회 페이지 ");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return "myUserReserve";
+	}	
 }

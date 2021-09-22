@@ -11,10 +11,12 @@
 		<meta charset="UTF-8">
 		<title>MyUserInfoUpdate</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
 		<!-- 글꼴 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+		
 		<style>
 		* {
  	    font-family: 'Do Hyeon', sans-serif;
