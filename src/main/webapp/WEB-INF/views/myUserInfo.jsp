@@ -35,7 +35,18 @@
 
 	</head>
 	<body>
-	<h2>섬낚시장인 님의 회원정보</h2>
+	<jsp:include page="header.jsp"></jsp:include>
+	<h2>${dto.u_usernickname} 님의 회원정보</h2>
+	<div class="rounded float-start">
+ 	<c:choose> 
+		<c:when test="${dto.ui_name eq null}">
+		<img src="resources/defaultprofile.png" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
+		</c:when>
+		<c:otherwise>
+		<img src="/photo/${dto.ui_name}" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
+		</c:otherwise>
+	</c:choose>
+	</div>
 	<table>
 	<thead>
 			<tr>
@@ -60,11 +71,21 @@
 			<td>${dto.u_joindate}</td>
 		</tr>
 		<tr>
-			<td colspan="2"><button>수정하기</button>&nbsp;&nbsp;&nbsp;<button>탈퇴하기</button></td>
+			<td colspan="2">
+			<button type="button" onclick="location.href='./myUserInfoUpdateForm'">수정하기</button>
+			<button type="button" onclick="userQuit()">탈퇴하기</button>
 			
 		</tr>
 		</table>
 	</body>
 	<script>
+	
+	function userQuit(){
+		if(confirm("정말 탈퇴하시겠습니까?")){
+			 location.href="userQuit";
+		}else{
+			return;
+		}
+	}
 	</script>
 </html>

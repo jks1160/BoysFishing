@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
 <title>j-query 강좌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+   href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+   rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -15,8 +20,14 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<style type="text/css">
+* {
+   font-family: 'Do Hyeon', sans-serif;
+}
+</style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 		<div class="row">
 			<div class="col-5 mt-4">
