@@ -52,7 +52,7 @@
 	</div>
 	</body>
 	<script>
-	var checker = "${sessionScope.loginId}";
+	var checker = "${sessionScope.u_userid}";
 	console.log(checker);
 	
 	// 날짜 설정

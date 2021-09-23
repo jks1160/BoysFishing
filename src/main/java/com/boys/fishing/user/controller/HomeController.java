@@ -215,9 +215,13 @@ public class HomeController {
 	
 	@RequestMapping(value="/myUserReserve", method = RequestMethod.GET)
 	public String myUserReserve(HttpSession session) {
-		logger.info("예약확인페이지 ");
-	
-		String u_userid = (String) session.getAttribute("loginId");
+		
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String u_userid = (String)map.get("u_userid");
+		session.setAttribute("u_userid", u_userid);
+		
+		logger.info("예약확인페이지 요청 아이디: {}", u_userid);
+			
 		return "myUserReserve";
 	}	
 	
