@@ -194,5 +194,11 @@ public class myPageService {
 		return map;
 	}
 
+	public String captainWrite(String s_name, String op_startpoint, String op_starttime, String i_name,
+			String op_duringtime, String op_returntime, String op_price) {
+		
+		return dao.captainWrite(s_name, op_startpoint, op_starttime, i_name, op_duringtime, op_returntime, op_price);
+	}
+
 
 }
