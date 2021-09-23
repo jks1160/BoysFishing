@@ -197,7 +197,7 @@ function islandDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
-		content += "<option value='"+item.i_name+"'>"+item.i_name+"</option>"
+		content += "<option value='"+item.i_num+"'>"+item.i_name+"</option>"
 	});
 	$("#islandName").empty();
 	$("#islandName").append(content);
