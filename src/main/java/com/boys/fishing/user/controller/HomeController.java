@@ -63,6 +63,7 @@ public class HomeController {
 		logger.info("로그아웃 요청 ");
 		
 		session.removeAttribute("userinfo");
+		session.removeAttribute("captainYN");
 		
 		return "mainPage";
 	}
@@ -95,7 +96,11 @@ public class HomeController {
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
 	public String calendar(@ModelAttribute UserDTO dto, HttpSession session) {
 		logger.info("달력 테스트 ");
-		session.setAttribute("loginId","test_user1");
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("맵 : {}",map);
+		logger.info("아이디 : {}", map.get("u_userid"));
+		session.setAttribute("u_userid", map.get("u_userid"));
 		
 		
 		return "calendar";
@@ -138,7 +143,7 @@ public class HomeController {
 		
 		List<MultipartFile> fileList = multi.getFiles("filesname[]");
 		
-		logger.info("이젠 될까?: {}",fileList.size());
+		logger.info("등록된 사진의 수 : {}",fileList.size());
 		
 		return service.captain_request(userId,fileList);
 	}
@@ -211,9 +216,13 @@ public class HomeController {
 	
 	@RequestMapping(value="/myUserReserve", method = RequestMethod.GET)
 	public String myUserReserve(HttpSession session) {
-		logger.info("예약확인페이지 ");
-	
-		String u_userid = (String) session.getAttribute("loginId");
+		
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String u_userid = (String)map.get("u_userid");
+		session.setAttribute("u_userid", u_userid);
+		
+		logger.info("예약확인페이지 요청 아이디: {}", u_userid);
+			
 		return "myUserReserve";
 	}	
 	

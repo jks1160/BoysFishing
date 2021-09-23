@@ -16,7 +16,6 @@ public class LoginChecker extends HandlerInterceptorAdapter {
 			throws Exception {
 		System.out.println("로그인 체크");
 		boolean pass = false;
-		
 		if(request.getSession().getAttribute("userinfo") != null) {
 			pass = true;
 			return pass;

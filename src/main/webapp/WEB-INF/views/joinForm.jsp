@@ -203,6 +203,7 @@ img {
 	$(".overCheck").click(function(){
 		var name = $(this).parent().prev().children().first().attr('name');
 		var val = $(this).parent().prev().children().first().val();
+		if(val != ""){
         $.ajax({
             url:'overCheck',
             type:'POST',
@@ -210,10 +211,12 @@ img {
             dataType:'JSON',
             success:function(data){
             	if(JSON.parse(data.idChvar)){
+            		console.log("아이디 중복 확인");
             		idChvar = JSON.parse(data.idChvar);
             		$('#id').prop('readonly', true);
             	}
             	if(JSON.parse(data.nickChvar)){
+            		console.log("닉네임 중복 확인");
             		nickChvar = JSON.parse(data.nickChvar);
             		$("#nick").prop("readonly", true);
             	}
@@ -225,6 +228,9 @@ img {
 				console.log(e);
             }
         });
+		}else{
+			alert("값을 입력해 주세요");
+		}
 	});
 	
 	$("input[name=pwck]").focusout(function(){

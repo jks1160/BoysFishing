@@ -35,19 +35,19 @@
 	<form action="someWrite" method="GET">
 		<!-- 제목 -->
 		<div class="boox1">
-			<input type="text" class="form-control" id="subject" name="subject" placeholder="제목을 입력해주세요" required>
+			<input type="text" name="b_subject" placeholder="제목을 입력해주세요" required>
 		</div>
 		<div class="boox1">
-			<select name='category'>
+			<select name='b_code'>
 				  <option value='' selected>카테고리 선택</option>
-				  <option value='free'>자유게시판</option>
-				  <option value='info'>후기게시판</option>
-				  <option value='rev'>정보게시판</option>
+				  <option value='B001'>자유게시판</option>
+				  <option value='B002'>후기게시판</option>
+				  <option value='B003'>정보게시판</option>
 				</select>
 		</div>
 		<hr>
 		<div class="container">
-		  <textarea class="summernote" name="editordata"></textarea>    
+		  <textarea class="summernote" name="b_content"></textarea>    
 		</div>
 		<button>등록하기</button>
 	</form>

@@ -11,4 +11,6 @@ public interface BoardDAO {
 
 	int QNAwrite(SumsumDTO dto);
 
+	int someWrite(SumsumDTO dto);
+
 }

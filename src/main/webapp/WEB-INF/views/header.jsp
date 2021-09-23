@@ -75,11 +75,20 @@
 				  <li class="nav-item">
 					<a class="nav-link active text-white" aria-current="page" href="calendar">조재현(달력 작업중)</a>
 				  </li>	
-				  
 				  <li class="nav-item">
+				  <c:choose>
+				 
+			<c:when test="${empty sessionScope.userinfo}"></c:when>
+			<c:when test="${sessionScope.userinfo.u_manageryn eq 'N' }"></c:when>
+			
+			<c:when test="${sessionScope.userinfo.u_manageryn eq 'Y' }">
 				<a class="nav-link active text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">					
-					<span>관리자 메뉴</span>
+				<span>관리자 메뉴</span>
 				</a>
+			</c:when>	
+								
+			<c:otherwise></c:otherwise>
+			</c:choose>			
 				  </li>	
 				 </ul>	 												
 			  </div>
