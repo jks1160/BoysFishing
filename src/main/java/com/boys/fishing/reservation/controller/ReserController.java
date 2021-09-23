@@ -55,9 +55,12 @@ public class ReserController {
 	@RequestMapping(value="/user_reser",method=RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> user_reser(HttpSession session){
 		
-		logger.info("아이디 정보 : {}",session.getAttribute("loginId"));
-		String id = (String)session.getAttribute("loginId");
+		logger.info("아이디 정보 : {}",session.getAttribute("userinfo"));
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String id = (String)map.get("u_userid");
 		
+		logger.info("이제 진짜 세션 받아옴 : {} " ,id);
+
 		return service.user_reser(id);
 	}
 	

@@ -131,7 +131,32 @@ public class myPageService {
 		dao.pointWithdraw(balance, p_withdraw, user);
 		
 	}
+	
+	
+	
+	public ModelAndView captainScheduleWrite(String userId) {
+		logger.info("선장 스케쥴 등록 서비스 진입");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("shipName", dao.shipName(userId));
+		mav.setViewName("captainScheduleWrite");
+		
+		return mav;
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//선장 여부 파악
 	public String captainYN(String userId) {
 		logger.info("선장 여부 파악 서비스 진입");
@@ -139,5 +164,6 @@ public class myPageService {
 		logger.info("yn여부: "+captainYN);
 		return captainYN;
 	}
+
 
 }
