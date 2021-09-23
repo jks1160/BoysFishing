@@ -42,7 +42,7 @@ public class KakaoLogin {
 		String reqUrl = 
 				"https://kauth.kakao.com/oauth/authorize"
 				+ "?client_id=8b5c1dc8a514d8fc7e3ccc6c9602ecd4"
-				+ "&redirect_uri=http://localhost:8090/fishing/login/oauth_kakao"
+				+ "&redirect_uri=http://localhost:8080/fishing/login/oauth_kakao"
 				+ "&response_type=code";
 		return reqUrl;
 	}
