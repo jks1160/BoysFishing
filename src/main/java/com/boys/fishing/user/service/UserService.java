@@ -405,40 +405,11 @@ public class UserService {
 	 * @return 전송 결과 값 : void
 	 */
 	public void notice(String u_userid, String content, String code) {
-		logger.info("알림 삽입");
+		logger.info("일반 알림 삽입");
 		UserDTO dto = new UserDTO();
 		dto.setA_userid(u_userid);
 		dto.setA_code(code);
-		switch (code) {
-		case "A1_001":
-			dto.setA_path("");
-			break;
-		case "A1_002":
-			dto.setA_path("");
-			break;
-		case "A1_003":
-			dto.setA_path("");
-			break;
-		case "A1_004":
-			dto.setA_path("");
-			break;
-		case "A1_006":
-			dto.setA_path("");
-			break;
-		case "A2_001":
-			dto.setA_path("");
-			break;
-		case "A2_002":
-			dto.setA_path("");
-			break;
-		case "A2_003":
-			dto.setA_path("");
-			break;
-		case "A3_001":
-			dto.setA_path("");
-			break;
-		}
-
+		dto.setA_path("redirect:/myUserReserve");
 	}
 	public void notice(String u_userid, String content, String code, String num) {
 		
