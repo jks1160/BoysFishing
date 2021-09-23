@@ -2,15 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <html>
 	<head>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-		 rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-		 crossorigin="anonymous">
-		 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-		  integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
-		  crossorigin="anonymous"></script>
+
+
 		<meta charset="UTF-8">
-		<title>MyUserInfoUpdate</title>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<title>SOMEFISH</title>
+		
 		
 		<!-- 글꼴 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,52 +23,111 @@
 		padding: 5px 10px;
 		text-align: center;
 	}
-	    thead{
+	    thead td{
+	    width:300px;
 		font-weight:600;
 		text-align: center;
 		background-color: activecaption;
+		border: 1px solid black;
 	}
-	
+		
 		</style>
+
 
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
 
-
-	<div>
-	<table>
+<div class="container-lg mt-4">
+	<div class="container mx-auto">
+	<table class="mt-4">
 	<thead>
 			<tr>
-				<td>배 이름</td>
-				<td>값</td>
+				<td>아이디</td>
+				<td>신청시간</td>
+				
+				<td>신청 날짜</td>
+				<td>담당자</td>
 			</tr>
 	</thead>
-	    <tr>
-			<th>최소탑승인원</th>
-			<td></td>
-		</tr>
-		<tr>
-			<th>최대탑승인원</th>
-			<td></td>
-		</tr>
-		<tr>
-			<th>정박위치주소</th>
-			<td></td>
-		</tr>
-		<tr>
-			<th>장비 현황</th>
-			<td></td>
-		</tr>
-		<tr>
-			<th>편의시설 현황</th>
-			<td></td>
-		</tr>	
-	
+		
+			<tbody id="list" >
+
+
+			</tbody>	
+			<tr>
+				<td colspan="6">
+					<!-- 페이징이 표시될 부분 
+					class="container position-relative top-50 start-50 translate-middle mx-auto" 
+					-->
+					<div class="container row" >
+						<nav class="container col-auto mt-3" aria-lable="Page navigation"  style="text-align: center;">
+							<ul class="pagination" id="pagination"></ul>
+						</nav>
+					</div>
+				</td>
+			</tr>			
 		</table>
 		</div>
+		<input type="hidden" value="5" id="pagePerNum"/>
+</div>
 	</body>
 	<script>
+	var currPage = 1;
+	listCall(currPage);
+	
+	$("#pagePerNum").change(function(){
+		//페이징 초기화
+		$("#pagination").twbsPagination('destroy');
+		listCall(currPage);
+	});
+	
+	function listCall(page){		
+		//{pagePerNum}/{page}
+		var reqUrl = '/fishing/manage/captainlist/'+$("#pagePerNum").val()+'/'+page;
+		console.log('request url : '+reqUrl);
+		console.log(page+" page 가져오기");		
+		$.ajax({
+			url:reqUrl,
+			type:'get',
+			dataType:'json',
+			success:function(data){
+				console.log(data);
+				listPrint(data.list);//리스트 그리기
+				currPage = data.currPage;
+				//페이징 처리
+				$("#pagination").twbsPagination({
+					startPage: data.currPage,//시작페이지
+					totalPages: data.pages,  //총 페이지 갯수
+					visiblePages:5, //보여줄 페이지 갯수
+					onPageClick: function(e,page){
+						//console.log(e,page);
+						listCall(page);
+					}
+				});				
+			},
+			error:function(error){
+				console.log(error);
+			}			
+		});		
+	}
+	function listPrint(list){
+		var content = "";
+		
+		for(var i=0; i<list.length; i++){
+			content +="<tr>";
+			content += "<td><a href='#'>"+list[i].u_userid+"</a></td>";			
+			content += "<td>"+list[i].cap_idYSN+"</td>";			
+			content += "<td>"+list[i].cap_requestTime+"</td>";
+			content += "<td>"+list[i].cap_manager+"</td>";
+			content +="</tr>";
+		}
+		$("#list").empty();
+		$("#list").append(content);
+		
+	}
+	
+	
 	
 	</script>
 </html>
