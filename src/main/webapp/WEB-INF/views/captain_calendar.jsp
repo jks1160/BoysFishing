@@ -100,13 +100,12 @@
 			editable : true, // 에디터 가능한지 
 			selectable : true, //선택 가능한지
 			dateClick : function(e) {
+				console.log("이벤트 ",e);
 				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
 				if (Number(e.date) > Number(today)) {
 					console.log(e);
-					
-					
-					
-					window.open("./captainWriteForm","_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
+
+					window.open("./captainWriteForm?op_date="+e.dateStr,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
 					
 					//풀 캘린더 소환
 					calendar.render();
@@ -153,8 +152,11 @@
 						console.log("에러났습니다.", e);
 					} // ajax error end
 				});// ajax end  
-			}// events:function end */ 
-
+			},// events:function end */ 
+		eventClick: function(e){
+			console.log("이벤트 ", e);
+		}
+			
 		});// full Calendar end 
 
 		calendar.render();
