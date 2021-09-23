@@ -177,9 +177,13 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value="/captainWrite")
 	public String captainWrite(@ModelAttribute ReserDTO reser ) {
-		
+		logger.info("캡틴 라이트 진입");
 		
 		logger.info("Test: {}", reser.getI_num());
+		logger.info("Test: {}", reser.getS_num());
+		logger.info("Test: {}", reser.getOp_date());
+		
+		
 		/*
 		 * String op_date = httpServletRequest.getParameter("op_date"); String s_num =
 		 * httpServletRequest.getParameter("s_num"); String op_startpoint =
@@ -194,7 +198,8 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		 * logger.info(i_num); logger.info(op_duringtime); logger.info(op_returntime);
 		 * logger.info(op_price);
 		 */
-		return null;
+		
+		return myservice.captainWrite(reser);
 	}
 	
 	
