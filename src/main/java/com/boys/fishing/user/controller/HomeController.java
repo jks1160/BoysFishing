@@ -96,7 +96,11 @@ public class HomeController {
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
 	public String calendar(@ModelAttribute UserDTO dto, HttpSession session) {
 		logger.info("달력 테스트 ");
-		session.setAttribute("loginId","test_user1");
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("맵 : {}",map);
+		logger.info("아이디 : {}", map.get("u_userid"));
+		session.setAttribute("u_userid", map.get("u_userid"));
 		
 		
 		return "calendar";
@@ -139,7 +143,7 @@ public class HomeController {
 		
 		List<MultipartFile> fileList = multi.getFiles("filesname[]");
 		
-		logger.info("이젠 될까?: {}",fileList.size());
+		logger.info("등록된 사진의 수 : {}",fileList.size());
 		
 		return service.captain_request(userId,fileList);
 	}
@@ -206,15 +210,43 @@ public class HomeController {
 		logger.info("회원탈퇴 ");
 		String u_userid = (String) session.getAttribute("loginId");
 		service.userQuit(u_userid);
-		session.invalidate(); //모든 세션정보 삭제
+		session.removeAttribute("userinfo"); //모든 세션정보 삭제
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/myUserReserve", method = RequestMethod.GET)
 	public String myUserReserve(HttpSession session) {
-		logger.info("회원정보조회 페이지 ");
+		
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String u_userid = (String)map.get("u_userid");
+		session.setAttribute("u_userid", u_userid);
+		
+		logger.info("예약확인페이지 요청 아이디: {}", u_userid);
+			
+		return "myUserReserve";
+	}	
+	
+	@RequestMapping(value="/myReserveDetail", method = RequestMethod.GET)
+	public String myReserveDetail(HttpSession session) {
+		logger.info("예약확인 상세보기 ");
 	
 		String u_userid = (String) session.getAttribute("loginId");
-		return "myUserReserve";
+		return "myReserveDetail";
+	}	
+	
+	@RequestMapping(value="/shipList", method = RequestMethod.GET)
+	public String shipList(HttpSession session) {
+		logger.info("배 리스트보기");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return "shipList";
+	}	
+	
+	@RequestMapping(value="/shipJoin", method = RequestMethod.GET)
+	public String shipJoin(HttpSession session) {
+		logger.info("배 등록하기");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return "shipJoin";
 	}	
 }

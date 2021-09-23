@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.apis.dao.ApisDAO;
@@ -42,8 +41,7 @@ public class ApisService {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     Calendar c1 = Calendar.getInstance();
     String strToday = sdf.format(c1.getTime());
-    int strtomorrow = Integer.parseInt(strToday)+1;
-    
+  
 
 	/**
 	 * 이선우
@@ -51,7 +49,6 @@ public class ApisService {
 	 * @param params
 	 * @return
 	 */
-    @Transactional
 	public HashMap<String, Object> apiCalls(HashMap<String,String> params) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		System.out.println("서비스 진입");
@@ -230,8 +227,9 @@ public class ApisService {
         }
         return arr;
     }
-    @Transactional
+    
 	public HashMap<String,Object> islanddel() {
+		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object>map = new HashMap<String, Object>();
 		String msg = "삭제에 실패하였습니다.";
 		if(dao.islanddel()>0) {
@@ -243,9 +241,8 @@ public class ApisService {
 		
 		return map;
 	}
-	@Transactional
+
 	public HashMap<String, Object> todayweatherinsert(HashMap<String,String> params) {
-		dao.todayweatherdel();
 		HashMap<String, Object>map = new HashMap<String, Object>();        
         String url = "http://www.khoa.go.kr/oceangrid/grid/api/tideObsRecent/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&ObsCode=DT_0001&ResultType=json";
 		String param = null;
@@ -385,7 +382,7 @@ public class ApisService {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //익일 정보	
 	
-		String url6 ="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=199&pageNo=2&dataType=JSON&base_date="+strToday+"&base_time=0500&nx=55&ny=127";
+		String url6 ="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=199&pageNo=2&dataType=JSON&base_date=20210922&base_time=0500&nx=55&ny=127";
 		ArrayList<String> urls6 = new ArrayList<String>();
 		urls6.add(url6);
 		String result6 = sendMsg(urls6, headers, param, "get");
@@ -415,66 +412,12 @@ public class ApisService {
 		}else if(pty2.equals("4")) {
 			pty2="소나기";
 		}        
-        
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		String url7 ="http://www.khoa.go.kr/oceangrid/grid/api/tideObsPreTab/search.do?ServiceKey=so1KXS22diIuizQAlbrIQ==&ObsCode=DT_0001&Date="+strtomorrow+"&ResultType=json";
-		ArrayList<String> urls7 = new ArrayList<String>();
-		urls7.add(url7);
-		String result7 = sendMsg(urls7, headers, param, "get");
-		JSONObject jsonObjectseven = jsonStringToJson(result7);
-		JSONObject jsonObjectseven2 = jsonStringToJson(jsonObjectseven.get("result"));
-		ArrayList<HashMap<String, Object>> list6 = jsonArray(jsonObjectseven2.get("data"));
-		
-		String tw_amLowLevel2 = "측정 안됨"; //오전간조높이
-		String tw_amHighLevel2 = "측정 안됨"; //오전만조높이
-		String tw_amLowTime2 = "측정 안됨";//오전 간조 시간
-		String tw_amHighTime2 = "측정 안됨";//오전 만조 시간
-		String tw_pmLowLevel2 = "측정 안됨";//오후 간조 높이
-		String tw_pmHighLevel2 = "측정 안됨";//오후 만조 높이
-		String tw_pmLowTime2 = "측정 안됨"; //오후 간조 시간
-		String tw_pmHighTime2 = "측정 안됨";//오후 만조 시간
-			
-		
-		if(list6.get(0).get("hl_code").equals("고조")) {//오전만조높이,오전만조시간
-			tw_amHighLevel2 = (String) list6.get(0).get("tph_level")+"cm"; //오전만조높이
-			tw_amHighTime2 = (String) list6.get(0).get("tph_time").toString().substring(11);//오전 만조 시간
-			tw_amLowLevel2 = (String) list6.get(1).get("tph_level")+"cm";//오전 간조 높이
-			tw_amLowTime2 = (String) list6.get(1).get("tph_time").toString().substring(11);//오전 간조 시간
-			
-			tw_pmHighLevel2 = (String) list6.get(2).get("tph_level")+"cm";
-			tw_pmHighTime2 = (String) list6.get(2).get("tph_time").toString().substring(11);			
-			
-			if(list6.size()!=3) {
-				tw_pmLowLevel2 = (String) list6.get(3).get("tph_level")+"cm";//오전 간조 높이
-				tw_pmLowTime2 = (String) list6.get(3).get("tph_time").toString().substring(11);//오전 간조 시간
-			}else {				
-				tw_pmLowLevel2 = "측정 안됨";
-				tw_pmLowTime2 = "측정 안됨";
-			}
-		}else if(list6.get(0).get("hl_code").equals("저조")){//오전 간조 높이, 오전 간조 시간
-			tw_amLowLevel2 = (String) list6.get(0).get("tph_level")+"cm";//오전 간조 높이
-			tw_amLowTime2 = (String) list6.get(0).get("tph_time").toString().substring(11);//오전 간조 시간
-			tw_amHighLevel2 = (String) list6.get(1).get("tph_level")+"cm"; //오전만조높이
-			tw_amHighTime2 = (String) list6.get(1).get("tph_time").toString().substring(11);//오전 만조 시간
-			
-			tw_pmLowLevel2 = (String) list6.get(2).get("tph_level")+"cm";
-			tw_pmLowTime2 = (String) list6.get(2).get("tph_time").toString().substring(11);			
-			
-			if(list6.size()!=3) {
-				tw_pmHighLevel2 = (String) list6.get(3).get("tph_level")+"cm";//오전 간조 높이
-				tw_pmHighTime2 = (String) list6.get(3).get("tph_time").toString().substring(11);//오전 간조 시간
-			}else {
-				tw_pmHighLevel2 = "측정 안됨";
-				tw_pmHighTime2 = "측정 안됨";				
-			}
-			 
-		}
+				
 		
         Connection con = null;
         PreparedStatement pstmt = null;
         String sql = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_wave,tw_temperL,tw_temperH,tw_amLowLevel,tw_amLowTime,tw_amHighLevel,tw_amHighTime,tw_pmLowLevel,tw_pmLowTime,tw_pmHighLevel,tw_pmHighTime) Values(sysdate,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        String sql2 = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_wave,tw_temperL,tw_temperH,tw_amLowLevel,tw_amLowTime,tw_amHighLevel,tw_amHighTime,tw_pmLowLevel,tw_pmLowTime,tw_pmHighLevel,tw_pmHighTime) Values(sysdate+1,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql2 = "Insert Into todayweather(tw_date,tw_time,tw_temper,tw_vec,tw_wsd,tw_sky,tw_pty,tw_pop,tw_pcp,tw_temperL,tw_temperH) Values(sysdate+1,to_char(sysdate,'hh24:mi'),?,?,?,?,?,?,?,?,?)";
            
 	         try {
 				Class.forName("net.sf.log4jdbc.DriverSpy");
@@ -511,17 +454,8 @@ public class ApisService {
              	pstmt.setString(5, pty2);//강수형태
              	pstmt.setString(6, String.valueOf(list5.get(140).get("fcstValue")+"%"));//강수확률
              	pstmt.setString(7, String.valueOf(list5.get(141).get("fcstValue")));//강수량
-             	pstmt.setString(8, String.valueOf(list2.get(79).get("wave_height")+"m"));//파고
-             	pstmt.setString(9, String.valueOf(list5.get(77).get("fcstValue")+"°C"));//최저기온
-             	pstmt.setString(10, String.valueOf(list5.get(177).get("fcstValue")+"°C"));//최고기온
-             	pstmt.setString(11, tw_amLowLevel2);
-            	pstmt.setString(12, tw_amLowTime2);
-            	pstmt.setString(13, tw_amHighLevel2);
-            	pstmt.setString(14, tw_amHighTime2);
-            	pstmt.setString(15, tw_pmLowLevel2);
-            	pstmt.setString(16, tw_pmLowTime2);
-            	pstmt.setString(17, tw_pmHighLevel2);
-            	pstmt.setString(18, tw_pmHighTime2);
+             	pstmt.setString(8, String.valueOf(list5.get(77).get("fcstValue")+"°C"));//최저기온
+             	pstmt.setString(9, String.valueOf(list5.get(177).get("fcstValue")+"°C"));//최고기온
              	
             	pstmt.executeUpdate();
               	pstmt.close();
@@ -543,9 +477,8 @@ public class ApisService {
         map.put("suc", "업데이트 성공");
 		return map;
 	}
-	@Transactional
+
 	public HashMap<String, Object> weekendweatherinsert(HashMap<String, String> params) {
-		dao.weatherdel();
 		HashMap<String, Object>map = new HashMap<String, Object>();
 		String url = "http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=aRrhNJkloo%2F8IhvjldPa3sCw8ndEp0rL3DEbV0q5DlQu4w%2BFHu2u%2FwOWaDcC8%2Fs5hsyxhQaP6bgNp%2FdEl7OCVQ%3D%3D&numOfRows=10&pageNo=1&dataType=json&regId=11B00000&tmFc="+strToday+"0600";
 		String param = null;
@@ -581,7 +514,7 @@ public class ApisService {
 	    JSONObject jsonObjectthree3 = jsonStringToJson(jsonObjectthree2.get("body"));
 	    JSONObject jsonObjectthree4 = jsonStringToJson(jsonObjectthree3.get("items"));
        	ArrayList<HashMap<String, Object>> list3 = jsonArray(jsonObjectthree4.get("item"));
-        
+        logger.info("확인 용도 : {}",list3.get(0).get("wh3AAm"));
         
 		
 		Connection con = null;

@@ -5,6 +5,12 @@
 <html>
 <head>
 <meta charset='utf-8' />
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 <script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
 <script src='resources/fullcalendar-5.9.0/calendar.js'></script>
 <link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
@@ -24,8 +30,8 @@
 <script>
 
 // 아이디 가져오기
-var checker = "${sessionScope.loginId}";
-console.log(checker);
+var checker = "${sessionScope.u_userid}";
+console.log("아이디 가져오기" , checker);
 
 // 날짜 설정
 var today = new Date();
