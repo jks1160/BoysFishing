@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.boys.fishing.apis.dao.ApisDAO;
+import com.boys.fishing.apis.dto.IslandDTO;
 import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.dao.UserDAO;
@@ -19,7 +21,7 @@ public class myPageService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired UserDAO dao;
-	
+	@Autowired ApisDAO apiDAO; 
 	//자유게시판 글리스트
 	public HashMap<String,Object> sumsumlist(int page, String user) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -168,11 +170,28 @@ public class myPageService {
 		return captainYN;
 	}
 
-	public ArrayList<ReserDTO> startPoint(int shipNum) {
+	public HashMap<String, Object> startPoint(int shipNum) {
 		logger.info("배 이름 서비스 진입");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<ReserDTO> startPoint = new ArrayList<ReserDTO>();
+		startPoint = dao.startPoint(shipNum);
+		for(ReserDTO i : startPoint) {
+			System.out.println(i);
+		}
+		map.put("list", startPoint);
 		
+		return map;
+	}
+
+	public HashMap<String, Object> islandName( ) {
+		logger.info("섬 이름 서비스 진입");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<IslandDTO> islandName = new ArrayList<IslandDTO>();
+		islandName = apiDAO.islandsList();
 		
-		return dao.startPoint(shipNum);
+		map.put("list", islandName);
+		
+		return map;
 	}
 
 

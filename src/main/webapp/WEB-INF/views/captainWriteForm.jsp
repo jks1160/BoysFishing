@@ -29,40 +29,56 @@
 
 
 
-
-<select id = "shipName" onchange="chageShopSelect()">
+<div>
+<select id = "shipName" onchange="chageShopSelect1()">
 	<option>선택</option>
 	<c:forEach var="name" items="${shipName}">
 	<option value="${name.s_num}">${name.s_name}</option>
 </c:forEach>
 </select>
+</div>
+<div>
+<select id = "startPoint" onchange="chageShopSelect2()">
 
-<select id = "startPoint">
-	<option>선택</option>
 </select>
-
-<select id = "island">
-	<option>선택</option>
+</div>
+<div>
+<select id = "islandName" onchange="chageShopSelect3()">
+	
 </select>
-
+</div>
 </body>
 
 <script>
 //선택했을 때 값 가져오기
-function chageShopSelect(){
+function chageShopSelect1(){
 	var shipSelect = document.getElementById("shipName");
 	var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
 	console.log(selectValue);
-	
+	selectValue = parseInt(selectValue);
 	//배 이름을 받아오면 출항지를 뿌리는 함수 출력
 	startPoint(selectValue);
 }
+function chageShopSelect2(){
+	var shipSelect = document.getElementById("startPoint");
+	var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
+	console.log(selectValue);
+	//배 이름을 받아오면 출항지를 뿌리는 함수 출력
+	islandName(selectValue);
+}
+function chageShopSelect3(){
+	var shipSelect = document.getElementById("islandName");
+	var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
+	console.log(selectValue);
+	//배 이름을 받아오면 출항지를 뿌리는 함수 출력
+	islandName(selectValue);
+}
 
 
-function startPoint(shipName) {
+function startPoint(shipNum) {
 	console.log("여기옴?");
 	var param = {};
-	param.shipName = shipName;
+	param.shipNum = shipNum;
 	$.ajax({
 		type : 'get',
 		url : 'startPoint',
@@ -70,7 +86,7 @@ function startPoint(shipName) {
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
-			sumsumDrawList(data);
+			startPointDrawList(data)
 		},
 		error : function(e) {
 			console.log(e);
@@ -83,13 +99,42 @@ function startPointDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
-		var date = new Date(item.b_regdate);
-		content += "<option>선택</option>";
-		content += "</tr>";
+		content += "<option value='"+item.i_num+"'>"+item.op_startpoint+"</option>"
 	});
 	$("#startPoint").empty();
 	$("#startPoint").append(content);
-	console.log("자유게시판");
+	
+	
+}
+
+function islandName(shipNum) {
+	console.log("여기옴?");
+	var param = {};
+	param.shipNum = shipNum;
+	$.ajax({
+		type : 'get',
+		url : 'islandName',
+		data : param,
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			islandDrawList(data)
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+function islandDrawList(list) {
+	console.log(list);
+	var content = "";
+	list.list.forEach(function(item, idx) {
+		console.log(item, idx);
+		content += "<option>"+item.i_name+"</option>"
+	});
+	$("#islandName").empty();
+	$("#islandName").append(content);
 }
 </script>
 </html>
