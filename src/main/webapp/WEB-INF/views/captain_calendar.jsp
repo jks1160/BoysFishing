@@ -119,12 +119,12 @@
 						//성공 했는지 확인
 						console.log("성공 데이터 : ", data);
 						// 받은 데이터 중 my_list 부분을 가져온다.
-						data.my_list.forEach(function(myReser) {
-							var get_year = new Date(myReser.ri_date)
-									.getFullYear();
-							var get_month = new Date(myReser.ri_date)
-									.getMonth() + 1;
-							var get_day = new Date(myReser.ri_date).getDate();
+						data.operList.forEach(function(myReser) {
+							var get_year = new Date(myReser.op_date).getFullYear();
+							
+							var get_month = new Date(myReser.op_date).getMonth() + 1;
+									
+							var get_day = new Date(myReser.op_date).getDate();
 
 							if (get_month < 10) {
 								get_month = "0" + get_month;
@@ -138,7 +138,8 @@
 							console.log("스타트데이 : ", reserDate);
 							my_reser.push({
 								start : reserDate,
-								title : "예약"
+								color : "#FFCCE5",
+								display : 'background'
 							});
 						}); // forEach end
 
