@@ -140,7 +140,7 @@ public class myPageService {
 		
 		ModelAndView mav = new ModelAndView();
 		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
-		shipName = dao.shipName(userId);
+		shipName = dao.shipNamee(userId);
 		mav.addObject("shipName", shipName);
 		mav.setViewName("captainWriteForm");
 		logger.info("여기는 문제없징?");

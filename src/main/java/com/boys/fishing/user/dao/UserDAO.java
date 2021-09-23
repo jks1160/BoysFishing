@@ -122,7 +122,7 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	String captain_requestForm(String userId);
 
-	ArrayList<ReserDTO> shipName(String userId);
+	ArrayList<ReserDTO> shipNamee(String userId);
 
 	ArrayList<ReserDTO> startPoint(int shipNum);
 
