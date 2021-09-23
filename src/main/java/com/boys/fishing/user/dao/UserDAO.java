@@ -123,6 +123,8 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	String shipName(String userId);
 
+	int check_cap(String userId);
+
 
 
 

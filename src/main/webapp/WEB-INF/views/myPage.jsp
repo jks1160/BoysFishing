@@ -328,7 +328,7 @@ function revPageList(list){
 var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
-	location.href="./"
+	location.href="./myPage"
 }
 </script>
 </html>
