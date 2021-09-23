@@ -123,7 +123,12 @@ public class ReserService {
 
 	public HashMap<String, Object> captain_reser(String capId) {
 
-		logger.info("선장 레저 진입 서비스");
+		logger.info("선장 레저 진입 서비스 : {}" , capId);
+		
+		//String s_num = reserDAO.ship
+		
+		
+		
 		return null;
 	}
 
