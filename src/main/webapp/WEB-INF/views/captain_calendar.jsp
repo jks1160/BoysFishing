@@ -102,7 +102,7 @@
 			dateClick : function(e) {
 				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
 				if (Number(e.date) > Number(today)) {
-					alert("브라보");
+					console.log(e);
 				}
 			},
 			events : function(info, successCallback, failureCallback) {
