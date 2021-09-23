@@ -29,7 +29,7 @@ public class ApisController {
 
 	@RequestMapping(value = "/insertisland", method = RequestMethod.GET)
 	public String home(Model model) {
-		
+
 		return "insertisland";
 	}
 
