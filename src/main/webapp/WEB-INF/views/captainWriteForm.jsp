@@ -23,7 +23,7 @@
 
 <body>
 
-<form action="captainWrite" method="GET">
+<form action="captainWrite" method="GET" id='capForm'>
 	<div>
 		<input type="text" value= "${op_date}" name = "op_date" />
 	</div>
@@ -64,11 +64,17 @@
 	<div>
 		<input type="number" name = "op_price" required/>
 	</div>
-	<button>저장하기</button>
+	<button type='submit' class='btn btn-primary' onclick ='return formSubmit()' >저장하기</button>
 </form>
 </body>
 
 <script>
+function formSubmit(){	
+	alert("저장 되었습니다!");
+	window.close();
+}
+
+
 //키 입력 못하게 막기
 function filterNumber(event){
 	event.preventDefault(); 
