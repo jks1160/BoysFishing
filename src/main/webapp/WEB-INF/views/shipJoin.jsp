@@ -38,7 +38,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<h2>${sessionScope.loginId} 님의 배 정보 등록</h2>
+	<h2>${sessionScope.userinfo.u_usernickname} 님의 배 정보 등록</h2>
 	<div class="rounded float-start">
 	<c:choose> 
 		<c:when test="${dto.ui_name eq null}">
@@ -113,7 +113,7 @@
 			커피포트<input type="checkbox" name="s_equipment" value="커피포트"/>
 			구명조끼<input type="checkbox" name="s_equipment" value="구명조끼"/>
 			난방<input type="checkbox" name="s_equipment" value="난방"/>
-			구명밧줄<input type="checkbox" name="s_equipment" value="구명밧줄"/>
+			구명밧줄<input type="checkbox" name="s_equipment" value="쏘나"/>
 			</td>
 		</tr>
 		<tr>

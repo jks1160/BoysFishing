@@ -34,7 +34,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<h2>${sessionScope.loginId} 님의 배 정보</h2>
+	<h2>${sessionScope.userinfo.u_usernickname} 님의 배 정보</h2>
 	<div class="rounded float-start">
 		<img src="/photo/${dto.si_name }" id="profileImg" class="rounded" alt="배 이미지" style="width: 200px;">
 	</div>

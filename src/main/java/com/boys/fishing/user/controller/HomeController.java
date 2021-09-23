@@ -71,10 +71,9 @@ public class HomeController {
 	@RequestMapping(value="/myUserInfo", method = RequestMethod.GET)
 	public ModelAndView myUserInfo(HttpSession session) {
 		logger.info("회원정보조회 페이지 ");
-		//테스트 세션
-		String id = "somefishing";
-		session.setAttribute("loginId", id);
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return service.myUserInfo(u_userid);
 	}	
 	
@@ -152,7 +151,9 @@ public class HomeController {
 	public ModelAndView myUserInfoUpdateForm(HttpSession session) {
 		logger.info("회원정보수정 페이지 ");
 	
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return service.myUserInfoUpdateForm(u_userid);
 	}
 	
@@ -167,8 +168,9 @@ public class HomeController {
 	public ModelAndView userInfoUpdate(@RequestParam HashMap<String, String> params, HttpSession session) { //영환
 		logger.info("회원정보수정 ");
 		
-		
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		
 		logger.info("수정 요청 : {}",params);
 		return service.userInfoUpdate(params,u_userid);
@@ -182,10 +184,11 @@ public class HomeController {
 	@RequestMapping(value = "/PwUpdate", method = RequestMethod.POST)
 	public ModelAndView PwUpdate(HttpSession session,@RequestParam String newPw) { //영환
 		logger.info("회원 비밀번호 변경 ");
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		System.out.println(u_userid+"/"+newPw);
 		
-
 		return service.PwUpdate(newPw,u_userid);
 	}
 	
@@ -193,7 +196,9 @@ public class HomeController {
 	public @ResponseBody HashMap<String, String> fileUpdate(HttpSession session,MultipartFile file) { //영환
 		logger.info("프로필이미지 수정 ");
 
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return service.fileUpdate(u_userid,file);
 	}
 	
@@ -201,21 +206,25 @@ public class HomeController {
 	public @ResponseBody boolean fileDel(HttpSession session) { //영환
 		logger.info("프로필이미지 삭제 ");
 
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return service.fileDel(u_userid);
 	}
 	
 	@RequestMapping(value="/userQuit", method = RequestMethod.GET)
 	public String userQuit(HttpSession session) { //영환
 		logger.info("회원탈퇴 ");
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		service.userQuit(u_userid);
 		session.removeAttribute("userinfo"); //모든 세션정보 삭제
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/myUserReserve", method = RequestMethod.GET)
-	public String myUserReserve(HttpSession session) {
+	public String myUserReserve(HttpSession session) { //영환
 		
 		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
 		String u_userid = (String)map.get("u_userid");
@@ -227,26 +236,32 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/myReserveDetail", method = RequestMethod.GET)
-	public String myReserveDetail(HttpSession session) {
+	public String myReserveDetail(HttpSession session) { //영환
 		logger.info("예약확인 상세보기 ");
 	
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return "myReserveDetail";
 	}	
 	
 	@RequestMapping(value="/shipList", method = RequestMethod.GET)
-	public ModelAndView shipList(HttpSession session) {
+	public ModelAndView shipList(HttpSession session) { //영환
 		logger.info("배 리스트보기");
 	
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return service.shipList(u_userid);
 	}	
 	
 	@RequestMapping(value="/shipJoin", method = RequestMethod.GET)
-	public String shipJoin(HttpSession session) {
+	public String shipJoin(HttpSession session) { //영환
 		logger.info("배 등록하기");
 	
-		String u_userid = (String) session.getAttribute("loginId");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
 		return "shipJoin";
 	}	
 }

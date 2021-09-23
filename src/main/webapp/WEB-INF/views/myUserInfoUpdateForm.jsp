@@ -38,7 +38,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<h2>${dto.u_usernickname} 님의 회원정보</h2>
+	<h2>${sessionScope.userinfo.u_usernickname} 님의 회원정보</h2>
 	<div class="rounded float-start">
 	<c:choose> 
 		<c:when test="${dto.ui_name eq null}">
