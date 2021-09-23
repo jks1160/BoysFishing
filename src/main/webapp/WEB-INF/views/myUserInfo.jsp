@@ -36,14 +36,14 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<h2>${dto.u_usernickname} 님의 회원정보</h2>
+	<h2>${sessionScope.userinfo.u_usernickname} 님의 회원정보</h2>
 	<div class="rounded float-start">
- 	<c:choose> 
+		<c:choose> 
 		<c:when test="${dto.ui_name eq null}">
-		<img src="resources/defaultprofile.png" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
+		<img src="resources/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 		</c:when>
 		<c:otherwise>
-		<img src="/photo/${dto.ui_name}" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
+		<img src="/photo/${dto.ui_name}" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 		</c:otherwise>
 	</c:choose>
 	</div>

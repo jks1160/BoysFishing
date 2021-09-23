@@ -44,7 +44,9 @@
 	UPDATE userInfo SET U_userdelYN = 'Y' WHERE u_userid = #{u_userid}
 </update>
 
-
+<select id="shipList" parameterType="String" resultType="reser">
+	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{u_userid}
+</select>
 
 
 <!-- 마이페이지 메인 -->

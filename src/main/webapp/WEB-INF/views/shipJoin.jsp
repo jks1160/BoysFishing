@@ -38,7 +38,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<h2>${dto.u_usernickname} 님의 배 정보 등록</h2>
+	<h2>${sessionScope.userinfo.u_usernickname} 님의 배 정보 등록</h2>
 	<div class="rounded float-start">
 	<c:choose> 
 		<c:when test="${dto.ui_name eq null}">
@@ -51,13 +51,14 @@
  	
 	<div style="margin: 20px 50px;">
  	<form id="fileUpload">
-	<input type="file" name="file" id="fileinput" onchange="uploadFile()">
-	<button type="button" id="fileUpdate">수정</button>
+	<input type="file" hidden="hidden}"" name="file" id="fileinput" onchange="uploadFile()">
+	<button type="button" id="fileUpdate">등록</button>
 	<button type="button" id="fileDelete">삭제</button>
 	</form>
 	</div>
+	
 	</div>
-	<form action="userInfoUpdate" name="userInfoUpdate" method="POST">
+	<form action="shipJoin" name="shipJoin" method="POST">
 	<table>
 	<thead>
 			<tr>
@@ -66,34 +67,58 @@
 			</tr>
 	</thead>
 	    <tr>
-			<th>핸드폰번호</th>
-			<td><input type="text" name="userphonenum" id="userphonenum" value="${dto.u_userphonenum}"/></td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td><input type="text" name="emailname" id="emailname" value="${emailname }"/>
-			<label>@</label>
-			<select name="emaildomain" id="emaildomain">
-				<option value="naver.com">naver.com</option>
-				<option value="hanmail.net">hanmail.net</option>
-				<option value="gmail.com">gmail.com</option>
-			</select></td>
-		</tr>
-		<tr>
-			<th>닉네임</th>
+			<th>배이름</th>
 			<td>
-			<input maxlength="20" name="nickname" id="nickname" type="text" value="${dto.u_usernickname}"/>
-			<button type="button" disabled="disabled" id="overChk">중복확인</button></td>
+			<input type="text" name="s_name" id="s_name" value=""/>
+			</td>
+		</tr>
+
+		<tr>
+			<th>최소탑승인원</th>
+			<td>
+			<input name="s_minpassenger" id="s_minpassenger" type="text" value=""/>
+			</td>
 		</tr>
 		<tr>
-			<th>가입날짜</th>
-			<td>${dto.u_joindate}</td>
+			<th>최대탑승인원</th>
+			<td>
+			<input name="s_minpassenger" id="s_minpassenger" type="text" value=""/>
+			</td>
+		</tr>
+		<tr>
+			<th>정박위치주소</th>
+			<td>
+			<input name="s_address" id="s_address" type="text" value=""/>
+			<button type="button" id="address">주소 검색</button></td>
+		</tr>
+		<tr>
+			<th>장비현황</th>
+			<td>
+			안내방송<input type="checkbox" name="s_equipment" value="안내방송"/>
+			플로터<input type="checkbox" name="s_equipment" value="플로터"/>
+			무전기<input type="checkbox" name="s_equipment" value="무전기"/>
+			레이더<input type="checkbox" name="s_equipment" value="레이더"/>
+			쏘나<input type="checkbox" name="s_equipment" value="쏘나"/>
+			</td>
+		</tr>
+		<tr>
+			<th>편의시설 현황</th>
+			<td>
+			에어컨<input type="checkbox" name="s_equipment" value="에어컨"/>
+			TV<input type="checkbox" name="s_equipment" value="TV"/>
+			화장실<input type="checkbox" name="s_equipment" value="화장실"/>
+			주차장<input type="checkbox" name="s_equipment" value="주차장"/>
+			휴게실<input type="checkbox" name="s_equipment" value="휴게실"/>
+			냉장고<input type="checkbox" name="s_equipment" value="냉장고"/>
+			커피포트<input type="checkbox" name="s_equipment" value="커피포트"/>
+			구명조끼<input type="checkbox" name="s_equipment" value="구명조끼"/>
+			난방<input type="checkbox" name="s_equipment" value="난방"/>
+			구명밧줄<input type="checkbox" name="s_equipment" value="쏘나"/>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-			<button type="button" id="submitBtn" onclick="checkfield()">저장하기</button>
-			<button type="button" onclick="PwUpdate()">비밀번호 변경</button>
-			<button type="button" onclick="location.href='./myUserInfo'">회원정보</button>
+			<button type="button" id="submitBtn" onclick="">저장하기</button>
 			</td>
 			
 		</tr>
@@ -101,131 +126,7 @@
 		</form>
 	</body>
 	<script>
-	$("#emaildomain").val("${emaildomain}").prop("selected",true);
-	overChk = true;
-	$(function(){
-		$("#nickname").on('input',function(){
-			overChk = false;
-			if($("#nickname").val()==''){
-				$("#overChk").attr("disabled",true);
-			}else{
-				$("#overChk").attr("disabled",false);
-			}
-			if($("#nickname").val()=='${dto.u_usernickname}'){
-				$("#overChk").attr("disabled",true);
-				overChk = true;
-			} 
-		});
-	})
-	
-	$("#overChk").click(function(){
-		var u_usernickname = $("input[id=nickname]").val();
-		var space = /\s/g; 
-		var hangleChk = /([^가-힣a-z\x20])/i; //모음,자음만 사용불가
-		var nickChk = /[가-힣A-Za-z0-9]{1,20}/; //영문 숫자 한글만 허용
-		var nickChkresult = nickChk.test(u_usernickname);
-		var hangleChkresult = u_usernickname.match(hangleChk);
-		console.log(u_usernickname);
-	
-		if(u_usernickname ==""){
-			alert("닉네임을 입력해주세요.");
-			$("#nickname").focus();
-			return;
-		}else if(!u_usernickname.length>20){
-			alert("닉네임은 20자 이하로 입력해주세요.");
-			$("#nickname").focus();
-			return;
-		}else if(!nickChkresult){
-			alert("영문,숫자,한글만 사용 가능합니다.");
-			$("#nickname").focus();
-			return;
-		}else if(u_usernickname.match(space)){
-			  alert("공백은 사용할 수 없습니다.");
-			  return;
-		}else if(hangleChkresult){
-			 alert("모음/자음만 사용할 수 없습니다.");
-			  return;
-		}
-	
-		 $.ajax({
-			url:'nickcheck',
-			type:'POST',
-			data:{'u_usernickname':u_usernickname},
-			dataType:'JSON',
-			success:function(data){
-				console.log("중복여부  :"+data);
-				
-				if(data){
-				alert("사용 가능한 닉네임 입니다.");
-				overChk = true;
-				$("#overChk").attr("disabled",true);
-				}else{
-				alert("이미 사용중인 닉네임 입니다.");
-				overChk = false;
-				}
-			},
-			error:function(e){
-				console.log(e);
-			}	
-		}); 
-	})	
-	
-	function checkfield(){
-		var userphonenum = $("#userphonenum").val();
-		var emailname = $("#emailname").val();
-		var phoneChk = /^010\d{4}\d{4}$/; //핸드폰양식
-		var emailChk = /^[a-zA-Z0-9]+$/; //영문 숫자만 허용
-		var space = /\s/g; //공백체크
-		
-		var phoneChkresult = phoneChk.test($("#userphonenum").val());
-		var emailChkresult = emailChk.test($("#emailname").val());
-		console.log(phoneChkresult);
-		console.log(emailChkresult);
-		
-	if(userphonenum ==""){
-		alert("핸드폰번호를 입력해주세요.");
-		$("#userphonenum").focus();
-		return;
-	}else if(emailname==""){
-		alert("이메일을 입력해주세요.");
-		$("#emailname").focus();
-		return;
-	}else if(!userphonenum.length==11){
-		alert("핸드폰번호는 11자리로 입력해주세요.");
-		$("#userphonenum").focus();
-		return;
-	}else if(emailname.length>15){
-		alert("이메일은 15자 이하로 입력해주세요.");
-		$("#emailname").focus();
-		return;
-	}else if(!phoneChkresult){
-		alert("핸드폰 양식으로 입력해 주세요 ex(01012345678)");
-		$("#emailname").focus();
-		return;
-	}else if(!emailChkresult){
-		alert("영문,숫자만 사용 가능합니다.");
-		$("#emailname").focus();
-		return;
-	}else if(emailname.match(space)){
-		  alert("공백은 사용할 수 없습니다.");
-		  return;
-	}
-	
-	if(overChk){
-		$("form").submit();
-	  }else{
-		alert("닉네임 중복체크를 해주세요");
-	  }
-	}
-	
-	function PwUpdate(){
-		var url="myUserInfoPwUpdate"
-		window.open(url,"","width=600,height=400,left=1000,top=100");
-	}
-	
-	
-	// 프로필 이미지 수정
-	$("#fileinput").hide(); //input 버튼 숨기기
+$("#fileinput").hide(); //input 버튼 숨기기
 	
 	$(function(){
 	    $('#fileUpdate').on('click', function(){
