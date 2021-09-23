@@ -35,8 +35,9 @@
 
 	<jsp:include page="header.jsp"></jsp:include>
 
+	
 </body>
 <script type="text/javascript">
-	console.log("${sessionScope.userinfo.u_usernickname}");
+	
 </script>
 </html>
