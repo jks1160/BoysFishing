@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,16 @@ public class BoardController {
 		
 		
 		return "someWriteForm";
+	}
+	
+	@RequestMapping(value = "/someWrite")
+	public String someWrite(@ModelAttribute SumsumDTO dto, HttpSession session) {
+		logger.info("섬섬톡 글쓰고 요청");
+		HashMap<String, String> userinfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		dto.setB_userid(userinfo.get("u_userid"));
+		
+		
+		return service.someWrite(dto);
 	}
 	
 	@RequestMapping(value = "someList")

@@ -13,4 +13,10 @@
 	<insert id="QNAwrite" parameterType="sumsum">
 		INSERT INTO qna VALUES (q_num_seq.NEXTVAL, #{q_writer}, #{q_subject}, #{q_content}, SYSDATE, 'N', #{q_blindYN}, '')
 	</insert>
+	
+	
+	
+	<insert id="someWrite" parameterType="sumsum">
+		INSERT INTO board VALUES(b_num_seq.NEXTVAL, '우럭', #{b_subject}, #{b_content}, SYSDATE, #{b_userid}, #{b_code}, '')
+	</insert>
 </mapper>

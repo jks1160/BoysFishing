@@ -42,5 +42,18 @@ public class BoardService {
 		attr.addFlashAttribute("msg",msg);
 		return page;
 	}
+
+	
+	
+	//섬섬톡 글쓰기
+	public String someWrite(SumsumDTO dto) {
+		logger.info("글쓰기 서비스 진입");
+		String page = "redirect:/someWriteForm";
+		if(dao.someWrite(dto)>0) {
+			page = "redirect:/someTalk";
+			return page;
+		}
+		return page;
+	}
 	
 }
