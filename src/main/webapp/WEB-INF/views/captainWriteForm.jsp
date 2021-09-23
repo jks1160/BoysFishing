@@ -23,7 +23,11 @@
 
 <body>
 
+<<<<<<< HEAD
 <form action="captainWrite" method="GET" id='capForm'>
+=======
+<form action="captainWrite" id = "frm" method="GET">
+>>>>>>> 7ef58f1598dd6f24f196451e1aed94e26fd8dc9e
 	<div>
 		<input type="text" value= "${op_date}" name = "op_date" />
 	</div>
@@ -65,17 +69,18 @@
 		<input type="number" name = "op_price" required/>
 	</div>
 	<input type=button class='btn btn-primary' onclick ='return formSubmit()' value='저장하기' >
+
 </form>
 </body>
 
 <script>
+
 function formSubmit(){
 	$("#capForm").submit(function(e){
 		window.close();
 	});
 
 }
-
 
 //키 입력 못하게 막기
 function filterNumber(event){
@@ -176,7 +181,7 @@ function startPointDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
-		content += "<option value='"+item.i_num+"'>"+item.op_startpoint+"</option>"
+		content += "<option value='"+item.s_address+"'>"+item.s_address+"</option>"
 	});
 	$("#startPoint").empty();
 	$("#startPoint").append(content);
