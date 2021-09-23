@@ -64,14 +64,16 @@
 	<div>
 		<input type="number" name = "op_price" required/>
 	</div>
-	<button type='submit' class='btn btn-primary' onclick ='return formSubmit()' >저장하기</button>
+	<input type=button class='btn btn-primary' onclick ='return formSubmit()' value='저장하기' >
 </form>
 </body>
 
 <script>
-function formSubmit(){	
-	alert("저장 되었습니다!");
-	window.close();
+function formSubmit(){
+	$("#capForm").submit(function(e){
+		window.close();
+	});
+
 }
 
 
