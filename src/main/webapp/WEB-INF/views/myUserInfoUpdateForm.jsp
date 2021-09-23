@@ -92,7 +92,7 @@
 		<tr>
 			<td colspan="2">
 			<button type="button" id="submitBtn" onclick="checkfield()">저장하기</button>
-			<button type="button" onclick="PwUpdate()">비밀번호 변경</button>
+			<button type="button" id="pwChange" onclick="PwUpdate()">비밀번호 변경</button>
 			<button type="button" onclick="location.href='./myUserInfo'">회원정보</button>
 			</td>
 			
@@ -102,6 +102,9 @@
 	</body>
 	<script>
 	$("#emaildomain").val("${emaildomain}").prop("selected",true);
+	if("${dto.u_kakaoYN}" == 'Y'){
+		$("#pwChange").attr("hidden",true);
+	}
 	overChk = true;
 	$(function(){
 		$("#nickname").on('input',function(){
