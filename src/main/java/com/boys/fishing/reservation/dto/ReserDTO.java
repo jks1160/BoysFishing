@@ -22,6 +22,7 @@ public class ReserDTO {
 	private String ri_cancelreason; //취소 사유
 	//운행 범위
 	private int s_num; // 배 번호
+	// i_num 무인도 번호는 예약정보에 있습니다.
 	private String op_startpoint; // 출항지
 	private String op_starttime; // 출항시간
 	private String op_duringtime; // 소요 시간

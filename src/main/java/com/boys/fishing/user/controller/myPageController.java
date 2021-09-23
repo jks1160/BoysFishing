@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.service.UserService;
 import com.boys.fishing.user.service.myPageService;
+import com.google.gson.Gson;
 
 @Controller
 public class myPageController {
@@ -144,8 +145,9 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.captainScheduleWrite(userId);
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/startPoint")
-	public ArrayList<ReserDTO> startPoint(int shipNum){
+	public HashMap<String, Object> startPoint(int shipNum){
 		logger.info("출항지 출력 요청");
 		
 		return myservice.startPoint(shipNum);
@@ -157,6 +159,15 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		return "captain_calendar";
 	}
+	@ResponseBody
+	@RequestMapping(value="/islandName")
+	public HashMap<String, Object> islandName(){
+		logger.info("섬 출력 요청");
+		
+		return myservice.islandName();
+		
+	}
+	
 	
 	
 	
