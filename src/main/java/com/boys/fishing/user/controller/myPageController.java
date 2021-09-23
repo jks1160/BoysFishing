@@ -131,7 +131,11 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.infoList(page, userId); 
 	 }
 	  
-	
+	/** 한준성
+	 * 선장 스케줄 등록 
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/captainWriteForm")
 	public ModelAndView captainScheduleWrite(HttpSession session) {
 		logger.info("선장 스케쥴 등록 요청");
@@ -147,7 +151,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.startPoint(shipNum);
 	}
 	
-	
+	@RequestMapping(value="/captain_calendar", method=RequestMethod.GET)
+	public String captain_calendar() {
+		logger.info("캡팀 캘린더 보기 요청");
+		
+		return "captain_calendar";
+	}
 	
 	
 	

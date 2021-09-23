@@ -121,4 +121,10 @@ public class ReserService {
 		return map;
 	}
 
+	public HashMap<String, Object> captain_reser(String capId) {
+
+		logger.info("선장 레저 진입 서비스");
+		return null;
+	}
+
 }
