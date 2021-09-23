@@ -3,8 +3,10 @@ package com.boys.fishing.user.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,10 +173,25 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/captainWrite")
-	public ModelAndView captainWrite() {
+	public String captainWrite(HttpServletRequest httpServletRequest) {
 		ModelAndView mav = new ModelAndView();
+		String s_name = httpServletRequest.getParameter("s_name");
+		String op_startpoint = httpServletRequest.getParameter("op_startpoint");
+		String op_starttime = httpServletRequest.getParameter("op_starttime");
+		String I_name = httpServletRequest.getParameter("I_name");
+		String op_duringtime = httpServletRequest.getParameter("op_duringtime");
+		String op_returntime = httpServletRequest.getParameter("op_returntime");
+		String op_price = httpServletRequest.getParameter("op_price");
 		
-		return mav;
+		logger.info(s_name);
+		logger.info(op_startpoint);
+		logger.info(op_starttime);
+		logger.info(I_name);
+		logger.info(op_duringtime);
+		logger.info(op_returntime);
+		logger.info(op_price);
+		
+		return myservice.captainWrite(s_name,op_startpoint,op_starttime,I_name,op_duringtime,op_returntime,op_price);
 	}
 	
 	

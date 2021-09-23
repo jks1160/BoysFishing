@@ -22,12 +22,11 @@
 </head>
 
 <body>
-<jsp:include page="header.jsp"></jsp:include>
 
 <form action="captainWrite" method="GET">
 
 	<div>
-		<select id = "shipName" onchange="chageShopSelect1()">
+		<select id = "shipName" name = "s_name" onchange="chageShopSelect1()">
 			<option>선택</option>
 			<c:forEach var="name" items="${shipName}">
 			<option value="${name.s_num}">${name.s_name}</option>
@@ -36,27 +35,31 @@
 	</div>
 	
 	<div>
-		<select id = "startPoint" onchange="chageShopSelect2()">
+		<select id = "startPoint" name = "op_startpoint" onchange="chageShopSelect2()">
 		
 		</select>
 	</div>
 	
 	<div>
-		<select id = "islandName" onchange="chageShopSelect3()">
+		<select id = "islandName" name = "I_name" onchange="chageShopSelect3()">
 			
 		</select>
 	</div>
 	
 	<div>
-		<input type="time"  required/>
+		<input type="time" id = "startTime" name = "op_starttime" required/>
 	</div>
 	
 	<div>
-		<input type="number" min="1", max="12" onkeydown="filterNumber(event);" required/>
+		<input type="number"  id = "changeTime" name = "op_duringtime" min="10" max="180" step="10" onkeydown="filterNumber(event)" required/>
 	</div>
 	
 	<div>
-		<input type="time" required/>
+		<input type="time" id = "returnTime"  name = "op_returntime" required/>
+	</div>
+	
+	<div>
+		<input type="number" name = "op_price" required/>
 	</div>
 	<button>저장하기</button>
 </form>
@@ -65,9 +68,56 @@
 <script>
 //키 입력 못하게 막기
 function filterNumber(event){
-	event.preventDefault(); 1
+	event.preventDefault(); 
 }
 
+$(function(){
+    $("#changeTime").on('input',function(){
+      var changeTime = document.getElementById("changeTime").value; 
+      console.log(changeTime);
+      returnTime(changeTime);
+    });
+ })
+ 
+ $(function(){
+    $("#startTime").on('input',function(){
+    	document.getElementById("changeTime").value = 0;
+    	document.getElementById("returnTime").value = 0;
+    });
+ })
+ 
+function returnTime(changeTime){
+	var startTime = document.getElementById("startTime").value;
+	startTime_str = startTime.split(":");
+	var hour = startTime_str[0];
+	var min = startTime_str[1];
+	
+	console.log(startTime_str);
+	console.log(startTime_str[1]);
+	console.log(parseInt(min) + parseInt(changeTime));
+	var a = parseInt(startTime_str[1]) + parseInt(changeTime);
+	console.log(parseInt(a/60));
+	console.log(parseInt(a%60));
+	hour = startTime_str[0];
+	min = a;
+	if(parseInt(a/60) >0 ){
+		hour = parseInt(startTime_str[0]) + parseInt(a/60);
+		min = parseInt(a%60);
+		if(hour<10){
+			hour = "0"+hour;
+		}
+		if(min<10){
+			min = "0"+min;
+		}
+		if(hour >= 24){
+			hour = hour - 1;
+			document.getElementById("changeTime").value = 0;
+			alert("24시간이 넘었습니다!");
+		}
+	}
+	console.log(hour +":"+ min);
+	document.getElementById("returnTime").value = hour +":"+ min;
+}
 
 //선택했을 때 값 가져오기
 function chageShopSelect1(){
@@ -88,13 +138,7 @@ function chageShopSelect2(){
 	$("#islandName").empty();
 	islandName();
 }
-function chageShopSelect3(){
-	var shipSelect = document.getElementById("islandName");
-	var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
-	console.log(selectValue);
-	//배 이름을 받아오면 출항지를 뿌리는 함수 출력
-	islandName(selectValue);
-}
+
 
 
 function startPoint(shipNum) {
