@@ -105,6 +105,12 @@ AS rnum, p_content, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{p
 SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 </select>
 
+<select id="shipName" resultType="String">
+SELECT s.s_name FROM ship s WHERE s.u_userid = #{param1}
+</select>
+
+
+
 
 
 

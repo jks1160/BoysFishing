@@ -128,6 +128,31 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.infoList(page, userId); 
 	 }
 	  
+	
+	@RequestMapping(value="/captainScheduleWrite")
+	public ModelAndView captainScheduleWrite(HttpSession session) {
+		logger.info("선장 스케쥴 등록 요청");
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		return myservice.captainScheduleWrite(userId);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/captain_requestForm")
 	public ModelAndView captain_requestForm(HttpSession session) {
 		logger.info("선장 요청 : {}",session.getAttribute("userinfo"));

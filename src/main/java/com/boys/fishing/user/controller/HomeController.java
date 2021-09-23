@@ -63,6 +63,7 @@ public class HomeController {
 		logger.info("로그아웃 요청 ");
 		
 		session.removeAttribute("userinfo");
+		session.removeAttribute("captainYN");
 		
 		return "mainPage";
 	}

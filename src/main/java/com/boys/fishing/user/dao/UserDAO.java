@@ -121,6 +121,8 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	String captain_requestForm(String userId);
 
+	String shipName(String userId);
+
 
 
 
