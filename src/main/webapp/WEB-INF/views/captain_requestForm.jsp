@@ -69,7 +69,7 @@
 					<!-- 사진 이름 올라가는 공간 -->
 			</div>
 			
-			<button class='btn btn-primary'>등록</button>
+			<button class='btn btn-primary' disabled='true' id='submits'>등록</button>
 			<input type='button' class='btn btn-primary' value='뒤로가기' onclick="location.href='/fishing/myPage'">
 		</form>
 	</div>
@@ -111,6 +111,7 @@ const inputMultiImage = document.getElementById("test"); // 인풋 파일 요소
 // 사진이 변경 됐을 때 반응하도록
 inputMultiImage.addEventListener("change", function(e){
 	readMultiImage(e.target);
+	document.getElementById("submits").disabled=false;
 	readImage(e.target);
 });
 

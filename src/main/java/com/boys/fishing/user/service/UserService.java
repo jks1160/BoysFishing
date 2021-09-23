@@ -194,7 +194,7 @@ public class UserService {
 	public ModelAndView captain_request(String userId, List<MultipartFile> fileList) {
 		logger.info("아이디 : {}", userId);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/captain_requestForm");
+		mav.setViewName("myPage");
 		// 선장 요청은 한번만 들어가면 된다.
 		int request_cap = dao.captain_request(userId);
 
