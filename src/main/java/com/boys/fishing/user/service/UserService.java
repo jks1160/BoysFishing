@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.apis.dao.ApisDAO;
 import com.boys.fishing.apis.dto.IslandDTO;
+import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.dao.UserDAO;
 import com.boys.fishing.user.dto.UserDTO;
 
@@ -194,7 +195,7 @@ public class UserService {
 	public ModelAndView captain_request(String userId, List<MultipartFile> fileList) {
 		logger.info("아이디 : {}", userId);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/captain_requestForm");
+		mav.setViewName("myPage");
 		// 선장 요청은 한번만 들어가면 된다.
 		int request_cap = dao.captain_request(userId);
 
@@ -376,6 +377,15 @@ public class UserService {
 		logger.info("회원 탈퇴 요청");
 		dao.userQuit(u_userid);
 		
+	}
+
+	public ModelAndView shipList(String u_userid) {
+		logger.info("배 리스트");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("shipList");
+		ReserDTO dto =  dao.shipList(u_userid);
+		mav.addObject("dto",dto);
+		return mav;
 	}
 
 }

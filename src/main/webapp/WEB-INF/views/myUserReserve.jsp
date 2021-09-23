@@ -43,7 +43,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<div class="head"><h2>${sessionScope.u_userid} 님의 예약정보</h2></div>
+	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 예약정보</h2></div>
 	<input type="text" hidden="hidden" id="date"/>
 	<div id='calendar'></div>
 	

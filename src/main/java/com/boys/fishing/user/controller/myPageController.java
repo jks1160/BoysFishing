@@ -1,5 +1,6 @@
 package com.boys.fishing.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.service.UserService;
 import com.boys.fishing.user.service.myPageService;
 
@@ -130,7 +132,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	 }
 	  
 	
-	@RequestMapping(value="/captainScheduleWrite")
+	@RequestMapping(value="/captainWriteForm")
 	public ModelAndView captainScheduleWrite(HttpSession session) {
 		logger.info("선장 스케쥴 등록 요청");
 		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
@@ -138,8 +140,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.captainScheduleWrite(userId);
 	}
 	
-	
-	
+	@RequestMapping(value="/startPoint")
+	public ArrayList<ReserDTO> startPoint(int shipNum){
+		logger.info("출항지 출력 요청");
+		
+		return myservice.startPoint(shipNum);
+	}
 	
 	
 	

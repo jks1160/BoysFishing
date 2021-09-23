@@ -44,38 +44,44 @@
 	UPDATE userInfo SET U_userdelYN = 'Y' WHERE u_userid = #{u_userid}
 </update>
 
+<select id="shipList" parameterType="String" resultType="reser">
+	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{u_userid}
+</select>
 
 
-
-
-
+<!-- 마이페이지 메인 -->
+<!-- 선장 여부 파악 -->
 <select id="captainYN" resultType="String">
 select c.cap_idYSN FROM captain c, userInfo u WHERE c.u_userid = u.u_userid and u.u_userid = #{param1}
 </select>
 
+<!-- 자유게시판 리스트 데이터 가져오기-->
 <select id="sumsumlist" resultType="sumsum">
 	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
 AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{param2} AND b_code = 'B001') WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
+<!-- 정보게시판 리스트 데이터 가져오기 -->
 <select id="infoList" resultType="sumsum">
 	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
 AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{param2} AND b_code = 'B003') WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
+<!-- 후기게시판 리스트 데이터 가져오기 -->
 <select id="revList" resultType="sumsum">
 	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_num DESC) 
 AS rnum, b_num, b_userid, b_subject, b_regdate FROM board WHERE b_userid = #{param2} AND b_code = 'B002') WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
+<!-- 페이징처리를 위한 전체페이지 확인 -->
 <select id="totalPage" resultType="int">
 SELECT COUNT(b_num) FROM board WHERE b_userid = #{param1} AND b_code = #{param2}
 </select>
 
 
 
-
-
+<!-- 회원 포인트 -->
+<!-- 회원 잔여포인트 확인 -->
 <select id="point" resultType="int">
 select p_balance
 from(
@@ -87,28 +93,38 @@ from(
 where ROWNUM = 1
 </select>
 
+<!-- 포인트 충전 -->
 <insert id="pointCharge">
 INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{param3}, 'PNT_001', #{param3}, #{param2}, #{param1})
 </insert>
 
+<!-- 포인트 출금 -->
 <insert id="pointWithdraw">
 INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{param3}, 'PNT_002', #{param3}, #{param2}, #{param1})
 </insert>
 
-
+<!-- 포인트 히스토리 -->
 <select id="pointHistoryList" resultType="userInfo">
 select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY p_regdate DESC)
 AS rnum, p_content, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{param2}) WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
+<!-- 포인트 히스토리 페이징처리를 위한 포인트 히스토리 전체페이지 확인 -->
 <select id="totalPageP" resultType="int">
 SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 </select>
 
-<select id="shipName" resultType="String">
-SELECT s.s_name FROM ship s WHERE s.u_userid = #{param1}
+
+<!-- 선장 스케쥴 -->
+<!-- 배 이름  -->
+<select id="shipName" resultType="reser">
+SELECT s.s_num, s.s_name FROM ship s WHERE s.u_userid = #{param1}
 </select>
 
+<!-- 출항지 -->
+<select id="startPoint" resultType="reser">
+SELECT o.op_startpoint FROM operrange o WHERE s_num = #{param1}
+</select>
 
 
 
