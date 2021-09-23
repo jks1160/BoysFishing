@@ -42,6 +42,13 @@ div.card{
 	overflow: hidden;
     text-overflow: ellipsis;
 }
+a.content{
+    display: block;
+    color:black;
+}
+.table{
+    text-align: center;
+}
 </style>
 <body>
 
@@ -59,52 +66,164 @@ div.card{
                 <div class="card">
                     <img src="resources/default.png" class="card-img-top border" alt="...">
 	                    <div class="card-body">
-                    	<a href="/" style="{display:block;{color:black}">
+                    	<a class="content" href="/">
 		                      <b class="card-title border">Card title</b>
 		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col mt-5 mb-2">
+                <h2>인기 섬 리스트</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col mx-1 border">
+                <div class="card">
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-1 border">
+                <div class="card">
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-1 border">
+                <div class="card">
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-1 border">
+                <div class="card">
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mx-1 border">
+                <div class="card">
+                    <img src="resources/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a class="content" href="/">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col mt-5 mb-2">
+                <h2>공지사항</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row my-3">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                      </tr>
+                      <tr>
+                        <td>Mary</td>
+                        <td>Moe</td>
+                        <td>mary@example.com</td>
+                      </tr>
+                      <tr>
+                        <td>July</td>
+                        <td>Dooley</td>
+                        <td>july@example.com</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class=col>
+                
             </div>
         </div>
     </div>
