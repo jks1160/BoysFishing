@@ -28,7 +28,7 @@
 <body>
 
 
-
+<form action="captainWrite" method="GET">
 <div>
 <select id = "shipName" onchange="chageShopSelect1()">
 	<option>선택</option>
@@ -47,6 +47,8 @@
 	
 </select>
 </div>
+
+</form>
 </body>
 
 <script>
@@ -58,13 +60,16 @@ function chageShopSelect1(){
 	selectValue = parseInt(selectValue);
 	//배 이름을 받아오면 출항지를 뿌리는 함수 출력
 	startPoint(selectValue);
+	$("#islandName").empty();
+	islandName();
 }
 function chageShopSelect2(){
 	var shipSelect = document.getElementById("startPoint");
 	var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
 	console.log(selectValue);
 	//배 이름을 받아오면 출항지를 뿌리는 함수 출력
-	islandName(selectValue);
+	$("#islandName").empty();
+	islandName();
 }
 function chageShopSelect3(){
 	var shipSelect = document.getElementById("islandName");
@@ -107,14 +112,11 @@ function startPointDrawList(list) {
 	
 }
 
-function islandName(shipNum) {
+function islandName() {
 	console.log("여기옴?");
-	var param = {};
-	param.shipNum = shipNum;
 	$.ajax({
 		type : 'get',
 		url : 'islandName',
-		data : param,
 		dataType : 'JSON',
 		success : function(data) {
 			console.log(data);
@@ -131,7 +133,7 @@ function islandDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
-		content += "<option>"+item.i_name+"</option>"
+		content += "<option value='"+item.i_name+"'>"+item.i_name+"</option>"
 	});
 	$("#islandName").empty();
 	$("#islandName").append(content);
