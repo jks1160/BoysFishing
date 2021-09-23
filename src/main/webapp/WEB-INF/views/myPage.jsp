@@ -81,7 +81,7 @@
 		 </a>
 	</div>
 	<div class="captain">
-		<a href="#"><img src="resources/defaultimg/clock.png" width="50px"/>
+		<a href="captain_calendar"><img src="resources/defaultimg/clock.png" width="50px"/>
 		<br>스케쥴
 		</a>
 	</div>
