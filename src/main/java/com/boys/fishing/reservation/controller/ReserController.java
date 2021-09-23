@@ -52,6 +52,7 @@ public class ReserController {
 		
 		return service.findShip(find_ship);
 	}
+	// 유저의 예약 정보를 가져오는 기능
 	@RequestMapping(value="/user_reser",method=RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> user_reser(HttpSession session){
 		
@@ -63,5 +64,17 @@ public class ReserController {
 
 		return service.user_reser(id);
 	}
+	// 선장의 예약 정보를 가져오는 기능
+	@RequestMapping(value="/captain_reser", method=RequestMethod.POST)
+	public @ResponseBody HashMap<String,Object> captain_reser(HttpSession session){
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String capId = (String)map.get("u_userid");
+		
+		
+		
+		return service.captain_reser(capId);
+	}
+	
+	
 	
 }
