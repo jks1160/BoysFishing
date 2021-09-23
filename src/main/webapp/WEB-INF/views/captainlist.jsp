@@ -38,8 +38,9 @@
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
 
-<div class="container-lg mt-4">
-	<div class="container mx-auto">
+<div class="container mt-4">
+	<div class="container justify-content-center">
+	<p class="text-center" style="font-size:40px;">선장 신청내역</p>
 	<table class="mt-4">
 	<thead>
 			<tr>
@@ -116,7 +117,7 @@
 		
 		for(var i=0; i<list.length; i++){
 			content +="<tr>";
-			content += "<td><a href='#'>"+list[i].u_userid+"</a></td>";			
+			content += "<td><a href='/fishing/manage/capreq_detail?u_userid="+list[i].u_userid+"'>"+list[i].u_userid+"</a></td>";			
 			content += "<td>"+list[i].cap_idYSN+"</td>";			
 			content += "<td>"+list[i].cap_requestTime+"</td>";
 			content += "<td>"+list[i].cap_manager+"</td>";
