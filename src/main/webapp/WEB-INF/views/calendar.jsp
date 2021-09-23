@@ -11,8 +11,6 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
 <script src='resources/fullcalendar-5.9.0/calendar.js'></script>
 <link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
@@ -32,7 +30,7 @@
 <script>
 
 // 아이디 가져오기
-var checker = "${sessionScope.userid.u_userid}";
+var checker = "${sessionScope.u_userid}";
 console.log("아이디 가져오기" , checker);
 
 // 날짜 설정

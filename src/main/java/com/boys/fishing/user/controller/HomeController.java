@@ -99,7 +99,7 @@ public class HomeController {
 		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
 		logger.info("맵 : {}",map);
 		logger.info("아이디 : {}", map.get("u_userid"));
-		
+		session.setAttribute("u_userid", map.get("u_userid"));
 		
 		
 		return "calendar";
@@ -142,7 +142,7 @@ public class HomeController {
 		
 		List<MultipartFile> fileList = multi.getFiles("filesname[]");
 		
-		logger.info("이젠 될까?: {}",fileList.size());
+		logger.info("등록된 사진의 수 : {}",fileList.size());
 		
 		return service.captain_request(userId,fileList);
 	}
