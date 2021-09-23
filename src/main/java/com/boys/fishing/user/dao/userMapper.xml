@@ -169,6 +169,10 @@ SELECT s.s_name FROM ship s WHERE s.u_userid = #{param1}
 <insert id="captainPhoto" >
 	INSERT INTO license VALUES(#{param2},#{param1})
 </insert>
+<!-- 선장 테이블에 있는지 확인 -->
+<select id="check_cap" resultType="int">
+	SELECT count(u_userid) FROM captain WHERE u_userid = #{param1}	
+</select>
 
 
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.service.UserService;
@@ -159,14 +160,14 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@RequestMapping(value="/captain_requestForm")
-	public ModelAndView captain_requestForm(HttpSession session) {
+	public ModelAndView captain_requestForm(HttpSession session, RedirectAttributes redirect) {
 		logger.info("선장 요청 : {}",session.getAttribute("userinfo"));
 		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
 		String userId =(String)map.get("u_userid");
 		logger.info("유저 아이디 : {}",userId);
 		
 		
-		return service.captain_requestForm(userId);
+		return service.captain_requestForm(userId,redirect);
 	}
 	 
 	

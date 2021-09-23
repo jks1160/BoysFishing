@@ -50,26 +50,24 @@ img {
 			</div>
 		</div>
 		<hr>
+		<form class="validation-form" action="join" method="POST" enctype="multipart/form-data">
 		<div class="row my-3">
 			<div class="col-2 offset-2">
 				<h5>프로필 사진 등록</h5>
 			</div>
 			<div class="col-2">
-				<input type="button" name="file" class="btn btn-outline-dark"
-					onclick="imgUpload()" value="이미지 등록">
+				<input type="file" id="profileImg" name="file" class="btn btn-outline-dark" value="이미지 등록">
 			</div>
 			<div class="col-2 offset-2">
 				<img id="preprofile" src="resources/default.png">
 			</div>
 		</div>
-		<form class="validation-form" action="join" method="POST" novalidate>
 			<div class="row my-3 kakaodel">
 				<div class="col-2 offset-2">
 					<label for="id">아이디 : </label>
 				</div>
 				<div class="col-5">
-					<input type="text" id="id" class="form-control" name="u_userid"
-						maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
+					<input type="text" id="id" class="form-control" name="u_userid" -maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
 						<c:if test = "${empty kakaoid}">value="${kakaoid }"</c:if>
 						required>
 					<div class="invalid-feedback">아이디를 입력해주세요.</div>
@@ -176,10 +174,6 @@ img {
     	idChvar = true;
     }
     
-    function imgUpload(){
-    	window.open('uploadForm', 'file upload', 'width=400, height=100');
-    }
-    
     function join(){
     	$('.validation-form').submit();
     }
@@ -203,6 +197,7 @@ img {
 	$(".overCheck").click(function(){
 		var name = $(this).parent().prev().children().first().attr('name');
 		var val = $(this).parent().prev().children().first().val();
+		if(val != ""){
         $.ajax({
             url:'overCheck',
             type:'POST',
@@ -210,10 +205,12 @@ img {
             dataType:'JSON',
             success:function(data){
             	if(JSON.parse(data.idChvar)){
+            		console.log("아이디 중복 확인");
             		idChvar = JSON.parse(data.idChvar);
             		$('#id').prop('readonly', true);
             	}
             	if(JSON.parse(data.nickChvar)){
+            		console.log("닉네임 중복 확인");
             		nickChvar = JSON.parse(data.nickChvar);
             		$("#nick").prop("readonly", true);
             	}
@@ -225,14 +222,14 @@ img {
 				console.log(e);
             }
         });
+		}else{
+			alert("값을 입력해 주세요");
+		}
 	});
 	
 	$("input[name=pwck]").focusout(function(){
-		if($("input[name=u_userpw]").val() != $("input[name=pwck]").val()){
-			console.log($("input[name=pwck]").val());
-			console.log($("input[name=u_userpw]").val());
-			console.log(document.querySelector("select").value);
-            alert("비밀번호가 일치 하지 않습니다.");
+		if($("input[name=u_userpw]").val() != $("input[name=pwck]").val() || $("input[name=pwck]").val()==""){
+            alert("비밀번호가 공란이거나 일치 하지 않습니다.");
         }else{
             pwChvar = true;
             $("input[type=password]").prop("readonly",true);
@@ -273,5 +270,30 @@ img {
 			$(obj).val(str.replace(/[~!@#$%^&*()_+|<>?:;{}`\-\=\\\,.'"\[\]/0-9]/gi,""));
 		}
 	}    
+	
+	///////사진 선택시 미리보기 변경/////////
+	function readImage(input) {
+	    // 인풋 태그에 파일이 있는 경우
+	    if(input.files && input.files[0]) {
+	        // 이미지 파일인지 검사 (생략)
+	        // FileReader 인스턴스 생성
+	        const reader = new FileReader();
+	        // 이미지가 로드가 된 경우
+	        reader.onload = e => {
+	            const previewImage = document.getElementById("preprofile");
+	            previewImage.src = e.target.result;
+	        };
+	        // reader가 이미지 읽도록 하기
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	};
+
+	const inputMultiImage = document.getElementById("profileImg"); // 인풋 파일 요소 담기
+
+	// 사진이 변경 됐을 때 반응하도록
+	inputMultiImage.addEventListener("change", function(e){
+		readImage(e.target);
+	});
+
     </script>
 </html>

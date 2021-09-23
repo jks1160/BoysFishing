@@ -57,22 +57,24 @@ public class UserService {
 	public HashMap<String, String> overCheck(String col, String val) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String msg = "일치하는 사용자가 있습니다.";
-		map.put("idChvar", "false");
-		map.put("nickChvar", "false");
+		String idChvar = "false";
+		String nickChvar = "false";
 		if (dao.overCheck(col, val) == 0) {
 			msg = "일치하는 사용자가 없습니다.";
-			if (col.equals("U_userid")) {
-				map.put("nickChvar", "true");
+			if (col.equals("u_userid")) {
+				idChvar = "true";
 			} else {
-				map.put("idChvar", "true");
+				nickChvar = "true";
 			}
 		}
 		map.put("msg", msg);
+		map.put("idChvar", idChvar);
+		map.put("nickChvar", nickChvar);
 		return map;
 	}
 
 	@Transactional
-	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
+	public String join(UserDTO dto, RedirectAttributes attr, MultipartFile file) {
 		logger.info("kakaoYN : " + dto.getU_kakaoYN());
 		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -86,8 +88,9 @@ public class UserService {
 		} else {
 			attr.addFlashAttribute("msg", "다시 시도해주세요.");
 		}
-
-		if (fileName != "") {
+		
+		String fileName = fileUpload(file, attr);
+		if (fileName.isEmpty() || fileName== null) {
 			dao.userProfile(dto.getU_userid(), fileName);
 		}
 		if (dto.getU_kakaoYN() == 'Y') {
@@ -102,7 +105,6 @@ public class UserService {
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
 
 		String fileName = file.getOriginalFilename();
-		logger.info(fileName);
 		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
 		try {
 			byte[] bytes = file.getBytes();
@@ -111,8 +113,8 @@ public class UserService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		attr.addFlashAttribute("fileName", fileName);
-		return "redirect:/uploadForm";
+
+		return fileName;
 	}
 
 	public ModelAndView login(String id, String pw, HttpSession session) {
@@ -192,7 +194,7 @@ public class UserService {
 	public ModelAndView captain_request(String userId, List<MultipartFile> fileList) {
 		logger.info("아이디 : {}", userId);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/captain_requestForm");
+		mav.setViewName("myPage");
 		// 선장 요청은 한번만 들어가면 된다.
 		int request_cap = dao.captain_request(userId);
 
@@ -223,19 +225,29 @@ public class UserService {
 		return mav;
 	}
 
-	public ModelAndView captain_requestForm(String userId) {
+	/** 선장 요청 폼 진입 여부
+	 * 
+	 * @param userId
+	 * @param redirect 
+	 * @return
+	 */
+	public ModelAndView captain_requestForm(String userId, RedirectAttributes redirect) {
 		logger.info("선장 신청 페이지 요청 아이디: {}", userId);
 		ModelAndView mav = new ModelAndView();
 
-		String path = "captain_requestFrom";
+		String path = "captain_requestForm";
 		logger.info("이것이 레전드 : {}", dao.captain_requestForm(userId));
-		// 해당 요청이 있는지 검사
-
-		if (dao.captain_requestForm(userId).equals("Y") || dao.captain_requestForm(userId).equals("S")) {
-			String msg = "이미 요청이 된 상태입니다.";
-			mav.addObject("msg", msg);
-			path = "myPage";
+		
+		if(dao.check_cap(userId) >0) { //선장 요청했는지 확인
+			// 해당 요청이 있는지 검사
+			if (dao.captain_requestForm(userId).equals("Y") || dao.captain_requestForm(userId).equals("S")) {
+				String msg = "이미 요청이 된 상태입니다.";
+				redirect.addFlashAttribute("msg",msg);
+				path = "redirect:/myPage";
+			}			
 		}
+		
+		
 
 		mav.setViewName(path);
 
