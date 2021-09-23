@@ -67,7 +67,7 @@
 <hr>
 <div class="captain">
 	<div class="captain">
-		<a href="#"><img src="resources/defaultimg/ship.png" width="50px"/>
+		<a href="shipList"><img src="resources/defaultimg/ship.png" width="50px"/>
 		 <br>배정보 관리
 		 </a>
 	</div>
