@@ -195,11 +195,21 @@ public class myPageService {
 		
 		return map;
 	}
+	
 
-	public String captainWrite(String s_num, String op_startpoint, String op_starttime, String i_num,
-			String op_duringtime, String op_returntime, String op_price, String op_date) {
-		
-		return dao.captainWrite(op_date,s_num, op_startpoint, op_starttime, i_num, op_duringtime, op_returntime, op_price);
+	/** 한준성
+	 *  선장 스케줄 등록 메소드
+	 *  
+	 *  
+	 * @param reser ReserDTO 의 값들입니다.
+	 * @return 없음
+	 */
+		public String captainWrite(ReserDTO reser) {
+			logger.info("서비스 진입 : {}", reser);
+			int success = dao.captainWrite(reser);
+			System.out.println("성공 "+success);
+			
+		return null;
 	}
 
 
