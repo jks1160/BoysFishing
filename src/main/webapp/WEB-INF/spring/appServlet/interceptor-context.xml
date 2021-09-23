@@ -16,5 +16,13 @@
 			<bean class="com.boys.fishing.user.service.LoginChecker" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/manage/*"/>
+			<bean class="com.boys.fishing.manage.service.ManageChecker" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 
 </beans>
