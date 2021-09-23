@@ -229,8 +229,8 @@ public class UserService {
 
 		String path = "captain_requestFrom";
 		logger.info("이것이 레전드 : {}", dao.captain_requestForm(userId));
+		
 		// 해당 요청이 있는지 검사
-
 		if (dao.captain_requestForm(userId).equals("Y") || dao.captain_requestForm(userId).equals("S")) {
 			String msg = "이미 요청이 된 상태입니다.";
 			mav.addObject("msg", msg);
