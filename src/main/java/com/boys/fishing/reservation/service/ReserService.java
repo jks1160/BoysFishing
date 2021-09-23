@@ -129,7 +129,7 @@ public class ReserService {
 
 		logger.info("선장 레저 진입 서비스 : {}" , capId);
 		
-		ArrayList<ReserDTO> list = userDAO.shipNamee(capId);
+		ArrayList<ReserDTO> list = reserDAO.captain_reser(capId);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("operList", list);
