@@ -210,10 +210,12 @@ img {
             dataType:'JSON',
             success:function(data){
             	if(JSON.parse(data.idChvar)){
+            		console.log("아이디 중복 확인");
             		idChvar = JSON.parse(data.idChvar);
             		$('#id').prop('readonly', true);
             	}
             	if(JSON.parse(data.nickChvar)){
+            		console.log("닉네임 중복 확인");
             		nickChvar = JSON.parse(data.nickChvar);
             		$("#nick").prop("readonly", true);
             	}

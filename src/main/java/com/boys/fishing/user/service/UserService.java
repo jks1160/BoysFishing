@@ -57,17 +57,19 @@ public class UserService {
 	public HashMap<String, String> overCheck(String col, String val) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		String msg = "일치하는 사용자가 있습니다.";
-		map.put("idChvar", "false");
-		map.put("nickChvar", "false");
+		String idChvar = "false";
+		String nickChvar = "false";
 		if (dao.overCheck(col, val) == 0) {
 			msg = "일치하는 사용자가 없습니다.";
-			if (col.equals("U_userid")) {
-				map.put("nickChvar", "true");
+			if (col.equals("u_userid")) {
+				idChvar = "true";
 			} else {
-				map.put("idChvar", "true");
+				nickChvar = "true";
 			}
 		}
 		map.put("msg", msg);
+		map.put("idChvar", idChvar);
+		map.put("nickChvar", nickChvar);
 		return map;
 	}
 
