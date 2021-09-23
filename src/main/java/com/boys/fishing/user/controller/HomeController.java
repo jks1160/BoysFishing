@@ -205,15 +205,39 @@ public class HomeController {
 		logger.info("회원탈퇴 ");
 		String u_userid = (String) session.getAttribute("loginId");
 		service.userQuit(u_userid);
-		session.invalidate(); //모든 세션정보 삭제
+		session.removeAttribute("userinfo"); //모든 세션정보 삭제
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/myUserReserve", method = RequestMethod.GET)
 	public String myUserReserve(HttpSession session) {
-		logger.info("회원정보조회 페이지 ");
+		logger.info("예약확인페이지 ");
 	
 		String u_userid = (String) session.getAttribute("loginId");
 		return "myUserReserve";
+	}	
+	
+	@RequestMapping(value="/myReserveDetail", method = RequestMethod.GET)
+	public String myReserveDetail(HttpSession session) {
+		logger.info("예약확인 상세보기 ");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return "myReserveDetail";
+	}	
+	
+	@RequestMapping(value="/shipList", method = RequestMethod.GET)
+	public String shipList(HttpSession session) {
+		logger.info("배 리스트보기");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return "shipList";
+	}	
+	
+	@RequestMapping(value="/shipJoin", method = RequestMethod.GET)
+	public String shipJoin(HttpSession session) {
+		logger.info("배 등록하기");
+	
+		String u_userid = (String) session.getAttribute("loginId");
+		return "shipJoin";
 	}	
 }
