@@ -74,7 +74,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public String join(UserDTO dto, String fileName, RedirectAttributes attr) {
+	public String join(UserDTO dto, RedirectAttributes attr, MultipartFile file) {
 		logger.info("kakaoYN : " + dto.getU_kakaoYN());
 		String pw = dto.getU_userpw();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -88,8 +88,9 @@ public class UserService {
 		} else {
 			attr.addFlashAttribute("msg", "다시 시도해주세요.");
 		}
-
-		if (fileName != "") {
+		
+		String fileName = fileUpload(file, attr);
+		if (fileName.isEmpty() || fileName== null) {
 			dao.userProfile(dto.getU_userid(), fileName);
 		}
 		if (dto.getU_kakaoYN() == 'Y') {
@@ -104,7 +105,6 @@ public class UserService {
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
 
 		String fileName = file.getOriginalFilename();
-		logger.info(fileName);
 		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
 		try {
 			byte[] bytes = file.getBytes();
@@ -113,8 +113,8 @@ public class UserService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		attr.addFlashAttribute("fileName", fileName);
-		return "redirect:/uploadForm";
+
+		return fileName;
 	}
 
 	public ModelAndView login(String id, String pw, HttpSession session) {
