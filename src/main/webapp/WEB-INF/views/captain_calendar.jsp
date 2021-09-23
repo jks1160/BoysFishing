@@ -103,6 +103,9 @@
 				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
 				if (Number(e.date) > Number(today)) {
 					console.log(e);
+					
+					//풀 캘린더 소환
+					calendar.render();
 				}
 			},
 			events : function(info, successCallback, failureCallback) {

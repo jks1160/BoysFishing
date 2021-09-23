@@ -13,6 +13,7 @@ import com.boys.fishing.apis.dao.ApisDAO;
 import com.boys.fishing.apis.dto.IslandDTO;
 import com.boys.fishing.reservation.dao.ReserDAO;
 import com.boys.fishing.reservation.dto.ReserDTO;
+import com.boys.fishing.user.dao.UserDAO;
 
 @Service
 public class ReserService {
@@ -22,7 +23,10 @@ public class ReserService {
 	ReserDAO reserDAO;
 	@Autowired
 	ApisDAO apiDAO;
-
+	@Autowired
+	UserDAO userDAO;
+	
+	
 	/**
 	 * 조재현 섬들을 검색하여 뿌려주기 위한 메소드
 	 * 
@@ -125,11 +129,13 @@ public class ReserService {
 
 		logger.info("선장 레저 진입 서비스 : {}" , capId);
 		
-		//String s_num = reserDAO.ship
+		ArrayList<ReserDTO> list = userDAO.shipNamee(capId);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("operList", list);
 		
 		
-		
-		return null;
+		return map;
 	}
 
 }

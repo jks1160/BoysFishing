@@ -159,6 +159,8 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		return "captain_calendar";
 	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/islandName")
 	public HashMap<String, Object> islandName(){
