@@ -117,7 +117,7 @@ SELECT COUNT(p_userid) FROM point WHERE p_userid = #{param1}
 
 <!-- 선장 스케쥴 -->
 <!-- 배 이름  -->
-<select id="shipName" resultType="reser">
+<select id="shipNamee" resultType="reser">
 SELECT s.s_num, s.s_name FROM ship s WHERE s.u_userid = #{param1}
 </select>
 
