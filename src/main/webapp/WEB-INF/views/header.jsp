@@ -38,7 +38,7 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<b class="nav-link active text-white">"${sessionScope.userinfo.u_userid }" 님</b>
-				  			<a class="nav-link active text-white" href="logOut">로그아웃</a>
+				  			<a class="nav-link active text-white" href="/fishing/logOut">로그아웃</a>
 						</c:otherwise>
 					</c:choose>
 				  </li>
@@ -105,7 +105,7 @@
 				      	<a class="nav-link active text-white" aria-current="page" href="#">회원정보</a>
 				    </div>
 				    <div class="col-6 lg-6">
-				     	<a class="nav-link active text-white" aria-current="page" href="#">선장관리</a>
+				     	<a class="nav-link active text-white" aria-current="page" href="/fishing/manage/captainlist">선장관리</a>
 				    </div>
 				     <div class="col-6 lg-6">
 				     	<a class="nav-link active text-white" aria-current="page" href="#">신고관리</a>

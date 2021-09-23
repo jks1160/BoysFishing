@@ -90,8 +90,11 @@ public class UserService {
 			attr.addFlashAttribute("msg", "다시 시도해주세요.");
 		}
 		
-		String fileName = fileUpload(file, attr);
-		if (fileName.isEmpty() || fileName== null) {
+		String fileName = file.getOriginalFilename();
+		logger.info("fileName : "+fileName);
+		if (!fileName.isEmpty() || !fileName.equals("")) {
+			logger.info("파일 등록 진입");
+			fileName = fileUpload(file, attr);
 			dao.userProfile(dto.getU_userid(), fileName);
 		}
 		if (dto.getU_kakaoYN() == 'Y') {
@@ -104,7 +107,7 @@ public class UserService {
 	}
 
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
-
+		
 		String fileName = file.getOriginalFilename();
 		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
 		try {
