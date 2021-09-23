@@ -23,7 +23,7 @@
 
 <body>
 
-<form action="captainWrite" method="GET">
+<form action="captainWrite" id = "frm" method="GET">
 	<div>
 		<input type="text" value= "${op_date}" name = "op_date" />
 	</div>
@@ -64,11 +64,12 @@
 	<div>
 		<input type="number" name = "op_price" required/>
 	</div>
-	<button>저장하기</button>
+	<input type="button" onclick="submitt()" value="저장하기"></button>
 </form>
 </body>
 
 <script>
+
 //키 입력 못하게 막기
 function filterNumber(event){
 	event.preventDefault(); 
@@ -168,7 +169,7 @@ function startPointDrawList(list) {
 	var content = "";
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
-		content += "<option value='"+item.i_num+"'>"+item.op_startpoint+"</option>"
+		content += "<option value='"+item.s_address+"'>"+item.s_address+"</option>"
 	});
 	$("#startPoint").empty();
 	$("#startPoint").append(content);

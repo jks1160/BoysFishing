@@ -123,7 +123,7 @@ SELECT * FROM ship s WHERE s.u_userid = #{param1}
 
 <!-- 출항지 -->
 <select id="startPoint" resultType="reser">
-SELECT * FROM operrange o WHERE s_num = #{param1}
+SELECT * FROM ship  WHERE s_num = #{param1}
 </select>
 
 <!-- 선장 스케쥴 등록하기 -->
