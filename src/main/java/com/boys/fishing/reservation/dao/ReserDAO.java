@@ -13,6 +13,8 @@ public interface ReserDAO {
 
 	IslandDTO detail_island(String choice);
 
+	ArrayList<ReserDTO> captain_reser(String capId);
+
 
 	
 

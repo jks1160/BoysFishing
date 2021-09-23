@@ -6,7 +6,7 @@
 >
 <mapper namespace="com.boys.fishing.reservation.dao.ReserDAO">
 
-	
+	<!-- 배 편 찾기 -->
 	<select id="findShip" resultType="reser" >
 		SELECT * FROM operrange op LEFT OUTER JOIN ship s ON (op.s_num = s.s_num)
 		LEFT OUTER JOIN shipIMG simg ON (op.s_num = simg.s_num)
@@ -17,9 +17,17 @@
 		SELECT ri_num, ri_userid, ri_code, s_num, ri_date FROM reserINFO
 		WHERE ri_userid = #{param1}
 	</select>
-	
+	<!-- 섬의 상세정보를 가져온다. -->
 	<select id="detail_island" resultType="apis" parameterType="String">
 		SELECT * FROM island WHERE i_num = #{param1}
 	</select>
+	
+	<!-- 선장의 스케줄 -->
+	<select id="captain_reser" resultType='reser'>
+	SELECT op.s_num, op.i_num, op.op_startpoint, op.op_starttime, op.op_duringtime, 
+op.op_returntime, op.op_date, op.op_date FROM operrange op LEFT OUTER JOIN ship s 
+ON (op.s_num = s.s_num) WHERE u_userid=#{param1}
+	</select>
+
 
 </mapper>
