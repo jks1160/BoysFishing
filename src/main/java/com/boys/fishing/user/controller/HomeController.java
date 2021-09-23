@@ -226,11 +226,11 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/shipList", method = RequestMethod.GET)
-	public String shipList(HttpSession session) {
+	public ModelAndView shipList(HttpSession session) {
 		logger.info("배 리스트보기");
 	
 		String u_userid = (String) session.getAttribute("loginId");
-		return "shipList";
+		return service.shipList(u_userid);
 	}	
 	
 	@RequestMapping(value="/shipJoin", method = RequestMethod.GET)
