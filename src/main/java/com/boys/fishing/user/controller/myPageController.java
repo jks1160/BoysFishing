@@ -158,6 +158,13 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 	}
 	
+	@RequestMapping(value="/captainWrite")
+	public ModelAndView captainWrite() {
+		ModelAndView mav = new ModelAndView();
+		
+		return mav;
+	}
+	
 	
 	
 	

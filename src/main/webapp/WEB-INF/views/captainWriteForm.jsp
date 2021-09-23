@@ -7,11 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,33 +20,55 @@
 }
 </style>
 </head>
-<body>
 
+<body>
+<jsp:include page="header.jsp"></jsp:include>
 
 <form action="captainWrite" method="GET">
-<div>
-<select id = "shipName" onchange="chageShopSelect1()">
-	<option>선택</option>
-	<c:forEach var="name" items="${shipName}">
-	<option value="${name.s_num}">${name.s_name}</option>
-</c:forEach>
-</select>
-</div>
-<div>
-<select id = "startPoint" onchange="chageShopSelect2()">
 
-</select>
-</div>
-<div>
-<select id = "islandName" onchange="chageShopSelect3()">
+	<div>
+		<select id = "shipName" onchange="chageShopSelect1()">
+			<option>선택</option>
+			<c:forEach var="name" items="${shipName}">
+			<option value="${name.s_num}">${name.s_name}</option>
+		</c:forEach>
+		</select>
+	</div>
 	
-</select>
-</div>
-
+	<div>
+		<select id = "startPoint" onchange="chageShopSelect2()">
+		
+		</select>
+	</div>
+	
+	<div>
+		<select id = "islandName" onchange="chageShopSelect3()">
+			
+		</select>
+	</div>
+	
+	<div>
+		<input type="time"  required/>
+	</div>
+	
+	<div>
+		<input type="number" min="1", max="12" onkeydown="filterNumber(event);" required/>
+	</div>
+	
+	<div>
+		<input type="time" required/>
+	</div>
+	<button>저장하기</button>
 </form>
 </body>
 
 <script>
+//키 입력 못하게 막기
+function filterNumber(event){
+	event.preventDefault(); 1
+}
+
+
 //선택했을 때 값 가져오기
 function chageShopSelect1(){
 	var shipSelect = document.getElementById("shipName");
