@@ -203,6 +203,7 @@ img {
 	$(".overCheck").click(function(){
 		var name = $(this).parent().prev().children().first().attr('name');
 		var val = $(this).parent().prev().children().first().val();
+		if(val != ""){
         $.ajax({
             url:'overCheck',
             type:'POST',
@@ -227,6 +228,9 @@ img {
 				console.log(e);
             }
         });
+		}else{
+			alert("값을 입력해 주세요");
+		}
 	});
 	
 	$("input[name=pwck]").focusout(function(){
