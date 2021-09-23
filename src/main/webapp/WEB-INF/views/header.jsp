@@ -41,8 +41,7 @@
 								</c:otherwise>
 							</c:choose></li>
 					</ul>
-					<a class="navbar-brand" href="#"> <svg
-							xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+					<a class="navbar-brand" href="#"> <svg	xmlns="http://www.w3.org/2000/svg" width="36" height="36"
 							fill="currentColor" class="bi bi-bell" style="color: white"
 							viewBox="0 0 16 16">
 					  <path
@@ -54,12 +53,12 @@
 			</div>
 		</div>
 	</nav>
-	<nav class="navbar navbar-expand-sm container-row "
+	<nav class="navbar navbar-expand-sm container-row" 
 		style="background-color: cornflowerblue; height: 30px;">
-		<div class="mx-auto top-50 start-50 translate-middle"
+		<div class="mx-auto"
 			id="menu">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto ">
+				<ul class="navbar-nav ">
 					<li class="nav-item"><a class="nav-link active text-white"
 						aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
 					</li>
@@ -79,15 +78,11 @@
 							<c:when test="${sessionScope.userinfo.u_manageryn eq 'N' }"></c:when>
 
 							<c:when test="${sessionScope.userinfo.u_manageryn eq 'Y' }">
-								<a class="nav-link active text-white" type="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#navbarToggleExternalContent"
-									aria-controls="navbarToggleExternalContent"
-									aria-expanded="false" aria-label="Toggle navigation"> <span>관리자
-										메뉴</span>
-								</a>
+<a class="nav-link active text-white" type="button"	data-bs-toggle="collapse"
+data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+	aria-expanded="false" aria-label="Toggle navigation"> 
+	<span>관리자 메뉴</span></a>
 							</c:when>
-
 							<c:otherwise></c:otherwise>
 						</c:choose></li>
 				</ul>
@@ -95,6 +90,7 @@
 		</div>
 
 	</nav>
+
 
 
 	<div class="collapse" id="navbarToggleExternalContent">
