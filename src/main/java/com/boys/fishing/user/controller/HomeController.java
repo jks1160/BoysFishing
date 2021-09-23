@@ -258,4 +258,14 @@ public class HomeController {
 		String u_userid = (String) map.get("u_userid");
 		return "shipJoin";
 	}	
+	
+	@RequestMapping(value="/jusoPopup")
+	public String jusoPopup(HttpSession session) { //영환
+		logger.info("도로명 주소 팝업");
+	
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
+		return "jusoPopup";
+	}	
 }
