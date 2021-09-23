@@ -54,8 +54,7 @@
 		<form action='captain_request' class="md-form form-inline" method="post" enctype="multipart/form-data">
 			<div class="file-field col-xs-6 col-md-4">
 				<div class="z-depth-1-half mb-4">
-					<img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
-						class="img-fluid" width="280px" height="350px" id="preview-image">
+					<img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" width="280px" height="350px" id="preview-image">
 				</div>
 				<div class="d-flex justify-content-left">
 					<div class="btn btn-mdb-color btn-rounded float-left">
