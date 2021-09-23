@@ -126,8 +126,10 @@ SELECT * FROM ship s WHERE s.u_userid = #{param1}
 SELECT * FROM operrange o WHERE s_num = #{param1}
 </select>
 
-
-
+<!-- 선장 스케쥴 등록하기 -->
+<insert id="captainWrite" parameterType="String">
+INSERT INTO operrange(op_date,s_num,op_startpoint,op_starttime,i_num,op_duringtime,op_returntime,op_price) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6},#{param7},#{param8})
+</insert>
 
 
 

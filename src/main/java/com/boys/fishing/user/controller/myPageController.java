@@ -1,5 +1,6 @@
 package com.boys.fishing.user.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -140,11 +142,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	 * @return
 	 */
 	@RequestMapping(value="/captainWriteForm")
-	public ModelAndView captainScheduleWrite(HttpSession session) {
+	public ModelAndView captainScheduleWrite(HttpSession session, @RequestParam Date op_date) {
 		logger.info("선장 스케쥴 등록 요청");
+		logger.info("학인 : {}", op_date);
 		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		String userId = userInfo.get("u_userid");
-		return myservice.captainScheduleWrite(userId);
+		return myservice.captainScheduleWrite(userId,op_date);
 	}
 	
 	@ResponseBody
@@ -173,25 +176,25 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/captainWrite")
-	public String captainWrite(HttpServletRequest httpServletRequest) {
-		ModelAndView mav = new ModelAndView();
-		String s_name = httpServletRequest.getParameter("s_name");
-		String op_startpoint = httpServletRequest.getParameter("op_startpoint");
-		String op_starttime = httpServletRequest.getParameter("op_starttime");
-		String I_name = httpServletRequest.getParameter("I_name");
-		String op_duringtime = httpServletRequest.getParameter("op_duringtime");
-		String op_returntime = httpServletRequest.getParameter("op_returntime");
-		String op_price = httpServletRequest.getParameter("op_price");
+	public String captainWrite(@ModelAttribute ReserDTO reser ) {
 		
-		logger.info(s_name);
-		logger.info(op_startpoint);
-		logger.info(op_starttime);
-		logger.info(I_name);
-		logger.info(op_duringtime);
-		logger.info(op_returntime);
-		logger.info(op_price);
 		
-		return myservice.captainWrite(s_name,op_startpoint,op_starttime,I_name,op_duringtime,op_returntime,op_price);
+		logger.info("Test: {}", reser.getI_num());
+		/*
+		 * String op_date = httpServletRequest.getParameter("op_date"); String s_num =
+		 * httpServletRequest.getParameter("s_num"); String op_startpoint =
+		 * httpServletRequest.getParameter("op_startpoint"); String op_starttime =
+		 * httpServletRequest.getParameter("op_starttime"); String i_num =
+		 * httpServletRequest.getParameter("i_num"); String op_duringtime =
+		 * httpServletRequest.getParameter("op_duringtime"); String op_returntime =
+		 * httpServletRequest.getParameter("op_returntime"); String op_price =
+		 * httpServletRequest.getParameter("op_price");
+		 * 
+		 * logger.info(s_num); logger.info(op_startpoint); logger.info(op_starttime);
+		 * logger.info(i_num); logger.info(op_duringtime); logger.info(op_returntime);
+		 * logger.info(op_price);
+		 */
+		return null;
 	}
 	
 	

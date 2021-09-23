@@ -1,5 +1,6 @@
 package com.boys.fishing.user.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -137,13 +138,14 @@ public class myPageService {
 	
 	
 	
-	public ModelAndView captainScheduleWrite(String userId) {
+	public ModelAndView captainScheduleWrite(String userId, Date op_date) {
 		logger.info("선장 스케쥴 등록 서비스 진입");
 		
 		ModelAndView mav = new ModelAndView();
 		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
 		shipName = dao.shipNamee(userId);
 		mav.addObject("shipName", shipName);
+		mav.addObject("op_date", op_date);
 		mav.setViewName("captainWriteForm");
 		logger.info("여기는 문제없징?");
 		return mav;
@@ -194,10 +196,10 @@ public class myPageService {
 		return map;
 	}
 
-	public String captainWrite(String s_name, String op_startpoint, String op_starttime, String i_name,
-			String op_duringtime, String op_returntime, String op_price) {
+	public String captainWrite(String s_num, String op_startpoint, String op_starttime, String i_num,
+			String op_duringtime, String op_returntime, String op_price, String op_date) {
 		
-		return dao.captainWrite(s_name, op_startpoint, op_starttime, i_name, op_duringtime, op_returntime, op_price);
+		return dao.captainWrite(op_date,s_num, op_startpoint, op_starttime, i_num, op_duringtime, op_returntime, op_price);
 	}
 
 

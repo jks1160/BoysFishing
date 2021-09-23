@@ -24,9 +24,12 @@
 <body>
 
 <form action="captainWrite" method="GET">
-
 	<div>
-		<select id = "shipName" name = "s_name" onchange="chageShopSelect1()">
+		<input type="text" value= "${op_date}" name = "op_date" />
+	</div>
+	
+	<div>
+		<select id = "shipName" name = "s_num" onchange="chageShopSelect1()">
 			<option>선택</option>
 			<c:forEach var="name" items="${shipName}">
 			<option value="${name.s_num}">${name.s_name}</option>
@@ -41,7 +44,7 @@
 	</div>
 	
 	<div>
-		<select id = "islandName" name = "I_name" onchange="chageShopSelect3()">
+		<select id = "islandName" name = "i_num" onchange="chageShopSelect3()">
 			
 		</select>
 	</div>

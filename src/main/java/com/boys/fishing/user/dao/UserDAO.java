@@ -128,7 +128,7 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	ArrayList<ReserDTO> islandName(int shipNum);
 	
-	String captainWrite(String s_name, String op_startpoint, String op_starttime, String i_name,
+	String captainWrite(String op_date, String s_num, String op_startpoint, String op_starttime, String i_num,
 			String op_duringtime, String op_returntime, String op_price);
 	
 	ReserDTO shipList(String u_userid); //영환
