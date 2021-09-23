@@ -1,6 +1,5 @@
 package com.boys.fishing.user.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -114,7 +113,6 @@ public class HomeController {
 			col = elem.getKey();
 			val = elem.getValue();
 		}
-		
 		return service.overCheck(col, val);
 	}
 	
