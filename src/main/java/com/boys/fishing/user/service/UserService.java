@@ -228,21 +228,22 @@ public class UserService {
 	/** 선장 요청 폼 진입 여부
 	 * 
 	 * @param userId
+	 * @param redirect 
 	 * @return
 	 */
-	public ModelAndView captain_requestForm(String userId) {
+	public ModelAndView captain_requestForm(String userId, RedirectAttributes redirect) {
 		logger.info("선장 신청 페이지 요청 아이디: {}", userId);
 		ModelAndView mav = new ModelAndView();
 
-		String path = "/fishing/captain_requestFrom";
+		String path = "captain_requestForm";
 		logger.info("이것이 레전드 : {}", dao.captain_requestForm(userId));
 		
-		if(dao.check_cap(userId) >0) {
+		if(dao.check_cap(userId) >0) { //선장 요청했는지 확인
 			// 해당 요청이 있는지 검사
 			if (dao.captain_requestForm(userId).equals("Y") || dao.captain_requestForm(userId).equals("S")) {
 				String msg = "이미 요청이 된 상태입니다.";
-				mav.addObject("msg", msg);
-				path = "myPage";
+				redirect.addFlashAttribute("msg",msg);
+				path = "redirect:/myPage";
 			}			
 		}
 		
