@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.board.dto.SumsumDTO;
+import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.dao.UserDAO;
 import com.boys.fishing.user.dto.UserDTO;
 
@@ -138,9 +139,11 @@ public class myPageService {
 		logger.info("선장 스케쥴 등록 서비스 진입");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("shipName", dao.shipName(userId));
-		mav.setViewName("captainScheduleWrite");
-		
+		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
+		shipName = dao.shipName(userId);
+		mav.addObject("shipName", shipName);
+		mav.setViewName("captainWriteForm");
+		logger.info("여기는 문제없징?");
 		return mav;
 	}
 
@@ -163,6 +166,13 @@ public class myPageService {
 		String captainYN = dao.captainYN(userId);
 		logger.info("yn여부: "+captainYN);
 		return captainYN;
+	}
+
+	public ArrayList<ReserDTO> startPoint(String shipName) {
+		logger.info("배 이름 서비스 진입");
+		
+		
+		return dao.startPoint(shipName);
 	}
 
 

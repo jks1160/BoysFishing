@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.boys.fishing.board.dto.SumsumDTO;
+import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.dto.UserDTO;
 
 public interface UserDAO {
@@ -121,7 +122,9 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	String captain_requestForm(String userId);
 
-	String shipName(String userId);
+	ArrayList<ReserDTO> shipName(String userId);
+
+	ArrayList<ReserDTO> startPoint(String shipName);
 
 
 
