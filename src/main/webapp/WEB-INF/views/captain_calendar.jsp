@@ -104,6 +104,8 @@
 				if (Number(e.date) > Number(today)) {
 					console.log(e);
 					
+					window.open("./captainWriteForm","_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
+					
 					//풀 캘린더 소환
 					calendar.render();
 				}
