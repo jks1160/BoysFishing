@@ -95,7 +95,11 @@ public class HomeController {
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
 	public String calendar(@ModelAttribute UserDTO dto, HttpSession session) {
 		logger.info("달력 테스트 ");
-		session.setAttribute("loginId","test_user1");
+		
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("맵 : {}",map);
+		logger.info("아이디 : {}", map.get("u_userid"));
+		
 		
 		
 		return "calendar";
