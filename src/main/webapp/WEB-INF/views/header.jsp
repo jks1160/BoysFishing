@@ -1,6 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<meta name="viewport" content="width=device-width, initail-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+	
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<style type="text/css">
+* {
+	font-family: 'Do Hyeon', sans-serif;
+}
+div.card{
+    height: 35vh;
+}
+.card-img-top{
+    height: 20vh;
+}
+.card-text{
+    height: 9vh; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-title{
+	height:5vh;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
 
 <div>
 	<nav class="navbar navbar-expand-lg navbar-light "
@@ -41,8 +79,7 @@
 								</c:otherwise>
 							</c:choose></li>
 					</ul>
-					<a class="navbar-brand" href="#"> <svg
-							xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+					<a class="navbar-brand" href="#"> <svg	xmlns="http://www.w3.org/2000/svg" width="36" height="36"
 							fill="currentColor" class="bi bi-bell" style="color: white"
 							viewBox="0 0 16 16">
 					  <path
@@ -54,12 +91,12 @@
 			</div>
 		</div>
 	</nav>
-	<nav class="navbar navbar-expand-sm container-row "
+	<nav class="navbar navbar-expand-sm container-row" 
 		style="background-color: cornflowerblue; height: 30px;">
-		<div class="mx-auto top-50 start-50 translate-middle"
+		<div class="mx-auto"
 			id="menu">
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto ">
+				<ul class="navbar-nav ">
 					<li class="nav-item"><a class="nav-link active text-white"
 						aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
 					</li>
@@ -79,15 +116,11 @@
 							<c:when test="${sessionScope.userinfo.u_manageryn eq 'N' }"></c:when>
 
 							<c:when test="${sessionScope.userinfo.u_manageryn eq 'Y' }">
-								<a class="nav-link active text-white" type="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#navbarToggleExternalContent"
-									aria-controls="navbarToggleExternalContent"
-									aria-expanded="false" aria-label="Toggle navigation"> <span>관리자
-										메뉴</span>
-								</a>
+<a class="nav-link active text-white" type="button"	data-bs-toggle="collapse"
+data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+	aria-expanded="false" aria-label="Toggle navigation"> 
+	<span>관리자 메뉴</span></a>
 							</c:when>
-
 							<c:otherwise></c:otherwise>
 						</c:choose></li>
 				</ul>
@@ -95,6 +128,7 @@
 		</div>
 
 	</nav>
+
 
 
 	<div class="collapse" id="navbarToggleExternalContent">

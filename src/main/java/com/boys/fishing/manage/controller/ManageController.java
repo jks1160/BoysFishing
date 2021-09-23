@@ -23,6 +23,7 @@ public class ManageController {
 	public ModelAndView detail_island(@RequestParam HashMap<String, String> params) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("선장 정보 요청 : {}", params);
+		
 		mav.setViewName("captainlist");
 		return mav;
 	}
