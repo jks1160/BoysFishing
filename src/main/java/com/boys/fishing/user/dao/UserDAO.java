@@ -124,7 +124,7 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	ArrayList<ReserDTO> shipName(String userId);
 
-	ArrayList<ReserDTO> startPoint(String shipName);
+	ArrayList<ReserDTO> startPoint(int shipNum);
 
 	int check_cap(String userId);
 

@@ -168,11 +168,11 @@ public class myPageService {
 		return captainYN;
 	}
 
-	public ArrayList<ReserDTO> startPoint(String shipName) {
+	public ArrayList<ReserDTO> startPoint(int shipNum) {
 		logger.info("배 이름 서비스 진입");
 		
 		
-		return dao.startPoint(shipName);
+		return dao.startPoint(shipNum);
 	}
 
 

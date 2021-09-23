@@ -140,10 +140,11 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.captainScheduleWrite(userId);
 	}
 	
-	public ArrayList<ReserDTO> startPoint(String shipName){
+	@RequestMapping(value="/startPoint")
+	public ArrayList<ReserDTO> startPoint(int shipNum){
 		logger.info("출항지 출력 요청");
 		
-		return myservice.startPoint(shipName);
+		return myservice.startPoint(shipNum);
 	}
 	
 	

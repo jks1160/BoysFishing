@@ -33,7 +33,7 @@
 <select id = "shipName" onchange="chageShopSelect()">
 	<option>선택</option>
 	<c:forEach var="name" items="${shipName}">
-	<option value="${name.s_name}">${name.s_name}</option>
+	<option value="${name.s_num}">${name.s_name}</option>
 </c:forEach>
 </select>
 
@@ -60,6 +60,7 @@ function chageShopSelect(){
 
 
 function startPoint(shipName) {
+	console.log("여기옴?");
 	var param = {};
 	param.shipName = shipName;
 	$.ajax({
@@ -86,8 +87,8 @@ function startPointDrawList(list) {
 		content += "<option>선택</option>";
 		content += "</tr>";
 	});
-	$(".my_free_cont").empty();
-	$(".my_free_cont").append(content);
+	$("#startPoint").empty();
+	$("#startPoint").append(content);
 	console.log("자유게시판");
 }
 </script>
