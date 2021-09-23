@@ -1,5 +1,6 @@
 package com.boys.fishing.user.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -137,13 +138,14 @@ public class myPageService {
 	
 	
 	
-	public ModelAndView captainScheduleWrite(String userId) {
+	public ModelAndView captainScheduleWrite(String userId, Date op_date) {
 		logger.info("선장 스케쥴 등록 서비스 진입");
 		
 		ModelAndView mav = new ModelAndView();
 		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
 		shipName = dao.shipNamee(userId);
 		mav.addObject("shipName", shipName);
+		mav.addObject("op_date", op_date);
 		mav.setViewName("captainWriteForm");
 		logger.info("여기는 문제없징?");
 		return mav;
@@ -192,6 +194,22 @@ public class myPageService {
 		map.put("list", islandName);
 		
 		return map;
+	}
+	
+
+	/** 한준성
+	 *  선장 스케줄 등록 메소드
+	 *  
+	 *  
+	 * @param reser ReserDTO 의 값들입니다.
+	 * @return 없음
+	 */
+		public String captainWrite(ReserDTO reser) {
+			logger.info("서비스 진입 : {}", reser);
+			int success = dao.captainWrite(reser);
+			System.out.println("성공 "+success);
+			
+		return null;
 	}
 
 

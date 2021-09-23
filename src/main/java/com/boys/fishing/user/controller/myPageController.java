@@ -1,15 +1,19 @@
 package com.boys.fishing.user.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -138,11 +142,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	 * @return
 	 */
 	@RequestMapping(value="/captainWriteForm")
-	public ModelAndView captainScheduleWrite(HttpSession session) {
+	public ModelAndView captainScheduleWrite(HttpSession session, @RequestParam Date op_date) {
 		logger.info("선장 스케쥴 등록 요청");
+		logger.info("학인 : {}", op_date);
 		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		String userId = userInfo.get("u_userid");
-		return myservice.captainScheduleWrite(userId);
+		return myservice.captainScheduleWrite(userId,op_date);
 	}
 	
 	@ResponseBody
@@ -168,6 +173,33 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		return myservice.islandName();
 		
+	}
+	
+	@RequestMapping(value="/captainWrite")
+	public String captainWrite(@ModelAttribute ReserDTO reser ) {
+		logger.info("캡틴 라이트 진입");
+		
+		logger.info("Test: {}", reser.getI_num());
+		logger.info("Test: {}", reser.getS_num());
+		logger.info("Test: {}", reser.getOp_date());
+		
+		
+		/*
+		 * String op_date = httpServletRequest.getParameter("op_date"); String s_num =
+		 * httpServletRequest.getParameter("s_num"); String op_startpoint =
+		 * httpServletRequest.getParameter("op_startpoint"); String op_starttime =
+		 * httpServletRequest.getParameter("op_starttime"); String i_num =
+		 * httpServletRequest.getParameter("i_num"); String op_duringtime =
+		 * httpServletRequest.getParameter("op_duringtime"); String op_returntime =
+		 * httpServletRequest.getParameter("op_returntime"); String op_price =
+		 * httpServletRequest.getParameter("op_price");
+		 * 
+		 * logger.info(s_num); logger.info(op_startpoint); logger.info(op_starttime);
+		 * logger.info(i_num); logger.info(op_duringtime); logger.info(op_returntime);
+		 * logger.info(op_price);
+		 */
+		
+		return myservice.captainWrite(reser);
 	}
 	
 	
