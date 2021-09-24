@@ -249,23 +249,49 @@ public class HomeController {
 		return service.shipList(u_userid);
 	}	
 	
-	@RequestMapping(value="/shipJoin", method = RequestMethod.GET)
-	public String shipJoin(HttpSession session) { //영환
+	@RequestMapping(value="/shipJoinForm", method = RequestMethod.GET)
+	public String shipJoinForm(HttpSession session) { //영환
 		logger.info("배 등록하기");
-	
-		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
-		logger.info("아이디 : {}", map.get("u_userid"));
-		String u_userid = (String) map.get("u_userid");
-		return "shipJoin";
+		System.out.println(session.getAttribute("newFileName"));
+		if(session.getAttribute("newFileName")!=null) {
+			service.shipFileDelete(session);
+			session.removeAttribute("newFileName");
+		}
+		System.out.println(session.getAttribute("newFileName"));
+		return "shipJoinForm";
 	}	
 	
-	@RequestMapping(value="/jusoPopup")
-	public String jusoPopup(HttpSession session) { //영환
-		logger.info("도로명 주소 팝업");
+	@RequestMapping(value="/shipFileUpdate", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> shipFileUpdate(HttpSession session,MultipartFile file) { //영환
+		logger.info("배 이미지 업로드 ");
+		if(session.getAttribute("newFileName")!=null) {
+			service.shipFileDelete(session);
+		}
+		return service.shipFileUpdate(session,file);
+	}
 	
+	@RequestMapping(value="/shipFileDelete", method = RequestMethod.POST)
+	public @ResponseBody boolean shipFileDelete(HttpSession session) { //영환
+		logger.info("배 이미지 삭제");
+		boolean del = false;
+		System.out.println(session.getAttribute("newFileName"));
+		if(session.getAttribute("newFileName")!=null) {
+			service.shipFileDelete(session);
+			session.removeAttribute("newFileName");
+			del = true;
+		}
+		System.out.println(session.getAttribute("newFileName"));
+		return del;
+	}	
+	
+	@RequestMapping(value="/shipJoin", method = RequestMethod.POST)
+	public ModelAndView shipJoin(HttpSession session,@RequestParam HashMap<String, String> params) { //영환
+		logger.info("배 등록하기");
+		System.out.println(session.getAttribute("newFileName"));
+		String newFileName = (String) session.getAttribute("newFileName");
 		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
 		logger.info("아이디 : {}", map.get("u_userid"));
 		String u_userid = (String) map.get("u_userid");
-		return "jusoPopup";
+		return service.shipJoin(newFileName,params,u_userid);
 	}	
 }

@@ -103,20 +103,12 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<h2>${sessionScope.userinfo.u_usernickname} 님의 배 정보 등록</h2>
 	<div class="rounded float-start">
-	<c:choose> 
-		<c:when test="${dto.ui_name eq null}">
-		<img src="resources/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
-		</c:when>
-		<c:otherwise>
-		<img src="/photo/${dto.ui_name}" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
-		</c:otherwise>
-	</c:choose>
- 	
+		<img src="resources/defaultimg/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 	<div style="margin: 20px 50px;">
  	<form id="fileUpload">
 	<input type="file" hidden="hidden" name="file" id="fileinput" onchange="uploadFile()">
 	<button type="button" id="fileUpdate">등록</button>
-	<button type="button" id="fileDelete">삭제</button>
+	<button type="button" id="fileDelete" onclick="shipFileDelete()">삭제</button>
 	</form>
 	</div>
 	
@@ -145,44 +137,44 @@
 		<tr>
 			<th>최대탑승인원</th>
 			<td>
-			<input style="width:300px;" name="s_minpassenger" id="s_minpassenger" type="text" value=""/>
+			<input style="width:300px;" name="s_maxpassenger" id="s_maxpassenger" type="text" value=""/>
 			</td>
 		</tr>
 		<tr>
 			<th>정박위치주소</th>
 			<td>
 			<input style="width:300px;" name="s_address" id="s_address" type="text" readonly="readonly"/>
-			<input type="text" id="s_addressDetail" placeholder="상세주소를 입력해주세요">
+			<input type="text" name="s_addressDetail" id="s_addressDetail" placeholder="상세주소를 입력해주세요">
 			<button type="button" id="address" onclick="sample4_execDaumPostcode()">주소 검색</button></td>
 		</tr>
 		<tr>
 			<th>장비현황</th>
 			<td>
-			안내방송<input type="checkbox" name="s_equipment" value="안내방송"/>
-			플로터<input type="checkbox" name="s_equipment" value="플로터"/>
-			무전기<input type="checkbox" name="s_equipment" value="무전기"/>
-			레이더<input type="checkbox" name="s_equipment" value="레이더"/>
-			쏘나<input type="checkbox" name="s_equipment" value="쏘나"/>
+			안내방송<input type="checkbox" id="equipment" name="e_1" value="안내방송"/>
+			플로터<input type="checkbox" id="equipment" name="e_2" value="플로터"/>
+			무전기<input type="checkbox" id="equipment" name="e_3" value="무전기"/>
+			레이더<input type="checkbox" id="equipment" name="e_4" value="레이더"/>
+			쏘나<input type="checkbox" id="equipment" name="e_5" value="쏘나"/>
 			</td>
 		</tr>
 		<tr>
 			<th>편의시설 현황</th>
 			<td>
-			에어컨<input type="checkbox" name="s_equipment" value="에어컨"/>
-			TV<input type="checkbox" name="s_equipment" value="TV"/>
-			화장실<input type="checkbox" name="s_equipment" value="화장실"/>
-			주차장<input type="checkbox" name="s_equipment" value="주차장"/>
-			휴게실<input type="checkbox" name="s_equipment" value="휴게실"/>
-			냉장고<input type="checkbox" name="s_equipment" value="냉장고"/>
-			커피포트<input type="checkbox" name="s_equipment" value="커피포트"/>
-			구명조끼<input type="checkbox" name="s_equipment" value="구명조끼"/>
-			난방<input type="checkbox" name="s_equipment" value="난방"/>
-			구명밧줄<input type="checkbox" name="s_equipment" value="쏘나"/>
+			에어컨<input type="checkbox" name="" value="에어컨"/>
+			TV<input type="checkbox" id="convenient" name="c_1" value="TV"/>
+			화장실<input type="checkbox" id="convenient" name="c_2" value="화장실"/>
+			주차장<input type="checkbox" id="convenient" name="c_3" value="주차장"/>
+			휴게실<input type="checkbox" id="convenient" name="c_4" value="휴게실"/>
+			냉장고<input type="checkbox" id="convenient" name="c_5" value="냉장고"/>
+			커피포트<input type="checkbox" id="convenient" name="c_6" value="커피포트"/>
+			구명조끼<input type="checkbox" id="convenient" name="c_7" value="구명조끼"/>
+			난방<input type="checkbox" id="convenient" name="c_8" value="난방"/>
+			구명밧줄<input type="checkbox" id="convenient" name="c_9" value="쏘나"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-			<button type="button" id="submitBtn" onclick="">저장하기</button>
+			<button type="submit" id="submitBtn" onclick="">저장하기</button>
 			</td>
 			
 		</tr>
@@ -197,29 +189,19 @@
 	</body>
 	<script>
 
-	
-$("#fileinput").hide(); //input 버튼 숨기기
-	
 	$(function(){
 	    $('#fileUpdate').on('click', function(){
 	    	$("#fileinput").click();
 	    });
 	});
 	
-	$(function(){
-	    $('#fileDelete').on('click', function(){
-	    	fileDel();
-	    });
-	});
-
-
 	function uploadFile(){
-		console.log("프로필이미지 업데이트");
+		console.log("배이미지 업데이트");
 		var form = $('#fileUpload')[0];
 	    var formData = new FormData(form);
 
 		 $.ajax({
-				url:'fileUpdate',
+				url:'shipFileUpdate',
 				type:'POST',
 				data:formData,
 				dataType:'JSON',
@@ -237,28 +219,53 @@ $("#fileinput").hide(); //input 버튼 숨기기
 			}); 
 	}
 	
-	function fileDel(){
-		console.log("프로필이미지삭제");
+	$(document).on("submit", "form", function(event){
+		window.onbeforeunload = null;
+	});
+
+	
+	window.onbeforeunload = function() {
+		console.log("실행?");
+		shipFileDelete();
+	}
+	
+	function shipFileDelete(){
 		 $.ajax({
-				url:'fileDel',
+				url:'shipFileDelete',
 				type:'POST',
 				data:{},
 				dataType:'JSON',
 				success:function(data){
-					console.log("성공");
+					console.log("shipFileDelete 실행");
 					console.log(data);
 					if(data){
-					$("#profileImg").attr("src","resources/defaultprofile.png");	
+					$("#profileImg").attr("src","resources/defaultimg/defaultprofile.png");	
 					}else{
-						alert("등록된 프로필 이미지가 없습니다.");
+						
 					}
 				},
 				error:function(e){
 					console.log("실패");
 					console.log(e);
 				}	
-			}); 
+			});
 	}
+	
+	    var equipment = [];     // 배열 초기화
+	    $("input[name='equipment']:checked").each(function(i) {
+	    	equipment.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+	    })
+	    	$("#s_equipment").val(equipment);
+	    
+	    var convenient = [];     // 배열 초기화
+	    $("input[name='convenient']:checked").each(function(i) {
+	    	convenient.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+	    })
+	    	$("#s_convenient").val(convenient);
+
+
+
+	
 	</script>
 </html>
 

@@ -136,6 +136,8 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int captainWrite(ReserDTO reser);
 
+	void shipJoin(HashMap<String, String> params);
+
 
 
 
