@@ -137,8 +137,14 @@
 							my_reser.push({
 								title : myReser.I_NAME,
 								start : reserDate,
-								color : "#FFCCE5"
-								
+								color : "#FFCCE5",
+								extendedProps: {
+							        op_date: reserDate,
+							        s_num : myReser.S_NUM,
+							        i_num : myReser.I_NUM,
+							        op_startTime : myReser.OP_STARTTIME
+							      }
+							     
 							});
 						}); // forEach end
 
@@ -150,12 +156,23 @@
 				});// ajax end  
 			},// events:function end */ 
 		eventClick: function(e){
-			console.log("이벤트 ", e);
+			console.log("이벤트 ", e.event.extendedProps);
+			var inum = e.event.extendedProps.i_num;
+			var opdate = e.event.extendedProps.op_date;
+			var opstart = e.event.extendedProps.op_startTime;
+			var snum = e.event.extendedProps.s_num;
+			console.log("씨발" , inum , opdate, opstart, snum);
+			window.open("/fishing/reser/cap_check_res?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
+			
+
 		},
-		views :{
+		views :{ // 이벤트 맥시멈 제한(보이는거)
 			timeGrid: {
 				dayMaxEventRows: 3
 			}
+		},
+		eventDidMount: function(info){
+			//console.log(info.event.extendedProps);
 		}
 			
 		});// full Calendar end 
