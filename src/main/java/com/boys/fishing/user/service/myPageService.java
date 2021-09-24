@@ -253,6 +253,7 @@ public class myPageService {
 			ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
 			shipName = dao.shipNamee(userId);
 			mav.addObject("shipName", shipName);
+			mav.addObject("date", date);
 			mav.setViewName("captainScheduleDetail");
 			logger.info("여기는 문제없징?");
 			return mav;

@@ -20,6 +20,7 @@
 </style>
 </head>
 <body>
+<h1>${date}</h1>
 <h3>스케쥴 상세보기</h3>
 <button onclick="waiting()">대기중</button>
 <button onclick="decide()">확정예약</button>
@@ -58,6 +59,8 @@ function decide(){
 	console.log("여기옴?");
 	var param = {};
 	var wait = 'RI002';
+	var date = "${date}";
+	param.date = date;
 	param.wait = wait; 
 	$.ajax({
 		type : 'get',
