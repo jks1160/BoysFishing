@@ -81,7 +81,7 @@
 		</a>
 	</div>
 	<div class="captain">
-		<a href="captainShedule"><img src="resources/defaultimg/calendar.png" width="50px"/>
+		<a href="captainSchedule"><img src="resources/defaultimg/calendar.png" width="50px"/>
 		<br>운항예약확인
 		</a>
 	</div>

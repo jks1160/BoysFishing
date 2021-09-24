@@ -423,4 +423,96 @@ public class UserService {
 		dao.notice(dto);
 	}
 
+	public ModelAndView captainSchedule(String u_userid) {
+
+		ArrayList<ReserDTO> List = dao.captainSchedule(u_userid);
+		logger.info("start day : "+List.get(0).getRi_starttime());
+		for (ReserDTO reserDTO : List) {
+			
+			
+	
+		}
+		return null;
+	}
+
+	public HashMap<String, String> shipFileUpdate(HttpSession session, MultipartFile file) {
+		logger.info("배 이미지 업로드");
+		HashMap<String, String> map = new HashMap<String, String>();
+			
+		String fileName = file.getOriginalFilename();//파일명추출
+		String newFileName = System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."));
+		System.out.println("파일이름:"+fileName+"/새파일이름:"+newFileName);
+		try {
+			 byte[] bytes = file.getBytes();
+
+			 Path filePath = Paths.get("C:/upload/"+newFileName); 
+			 Files.write(filePath, bytes); 
+
+			 String path = "/photo/"+newFileName;
+			 map.put("path", path);
+			 session.setAttribute("newFileName", newFileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	public void shipFileDelete(HttpSession session) {
+		logger.info("배 이미지 제거");
+		
+			System.out.println("파일이름"+session.getAttribute("newFileName"));		
+			File delFile = new File("C:/upload/"+session.getAttribute("newFileName"));
+			
+			if(delFile.exists()) {
+				delFile.delete();
+			}
+		
+}
+
+	public ModelAndView shipJoin(String newFileName, HashMap<String, String> params, String u_userid) {
+		logger.info("배 등록");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("shipList");
+		String address = params.get("s_address") + " " +params.get("s_addressDetail");
+		
+		//장비
+		String equipment = "";
+		for(int i=0; i < 6; i++) {
+			String e = "e_"+i;
+			String ee = params.get(e);
+			if(ee != null) {
+				String eee = params.get(e)+","; 
+				equipment += eee; 
+				
+			}
+		}
+		equipment = equipment.substring(0,equipment.length()-1);
+		
+		//편의시설
+		String convenient = "";
+		for(int i=0; i < 11; i++) {
+			String c = "c_"+i;
+			String cc = params.get(c);
+			if(cc != null) {
+				String ccc = params.get(c)+","; 
+				convenient += ccc; 
+				
+			}
+		}
+		convenient = convenient.substring(0,convenient.length()-1);
+		
+		logger.info("장비 :"+equipment);
+		logger.info("편의시설 :"+convenient);
+		logger.info("주소 :"+address);
+		logger.info("params {}", params);
+		params.put("newFileName", newFileName);
+		params.put("u_userid", u_userid);
+		params.put("address", address);
+		params.put("equipment", equipment);
+		params.put("convenient", convenient);
+		dao.shipJoin(params);
+		return mav;
+	}
+	
+	
 }

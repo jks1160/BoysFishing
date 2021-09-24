@@ -40,7 +40,7 @@
 	<div class="rounded float-start">
 		<c:choose> 
 		<c:when test="${dto.ui_name eq null}">
-		<img src="resources/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
+		<img src="resources/defaultimg/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 		</c:when>
 		<c:otherwise>
 		<img src="/photo/${dto.ui_name}" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
