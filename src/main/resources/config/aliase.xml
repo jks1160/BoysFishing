@@ -19,5 +19,6 @@
 		<package name="com.boys.fishing.board.dto"/>
 		<package name="com.boys.fishing.apis.dto"/>
 		<package name="com.boys.fishing.reservation.dto"/>	
+		<package name="com.boys.fishing.manage.dto"/>
 	</typeAliases>
 </configuration>

@@ -48,7 +48,7 @@ public class UserService {
 		System.out.println("id : " + u_userid);
 		ModelAndView mav = new ModelAndView();
 		UserDTO dto = dao.myUserInfo(u_userid);
-		System.out.println("유저닉네임:" + dto.getU_usernickname() + "프로필이미지:" + dto.getUi_name());
+		System.out.println("유저닉네임:" + dto.getU_usernickname()+"프로필이미지:"+dto.getUi_name());
 		mav.addObject("dto", dto);
 		mav.setViewName("myUserInfo");
 
@@ -89,9 +89,9 @@ public class UserService {
 		} else {
 			attr.addFlashAttribute("msg", "다시 시도해주세요.");
 		}
-
+		
 		String fileName = file.getOriginalFilename();
-		logger.info("fileName : " + fileName);
+		logger.info("fileName : "+fileName);
 		if (!fileName.isEmpty() || !fileName.equals("")) {
 			logger.info("파일 등록 진입");
 			fileName = fileUpload(file, attr);
@@ -107,7 +107,7 @@ public class UserService {
 	}
 
 	public String fileUpload(MultipartFile file, RedirectAttributes attr) {
-
+		
 		String fileName = file.getOriginalFilename();
 		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
 		try {
@@ -131,13 +131,13 @@ public class UserService {
 		String msg = "로그인에 실패하였습니다. \\n아이디와 비밀번호를 확인해주세요.";
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		if (map != null) {
-			if (map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
+		if(map != null) {		
+			if(map.get("BL_CODE") != null && map.get("BL_CODE").equals("BL003")) {
 				logger.info("블랙리스트 확인");
-				msg = "고객님 께서는 " + sdf.format(map.get("BL_REGDATE")) + "기준으로\\n 블랙리스트로 등록되어 " + "로그인이 제한됩니다.\\n 해지일은 "
-						+ sdf.format(map.get("BL_DISDATE")) + "일 입니다.";
-			} else {
-				if (encoder.matches(pw, map.get("U_USERPW"))) {
+				msg = "고객님 께서는 "+sdf.format(map.get("BL_REGDATE"))+"기준으로\\n 블랙리스트로 등록되어 "
+						+ "로그인이 제한됩니다.\\n 해지일은 "+sdf.format(map.get("BL_DISDATE"))+"일 입니다.";
+			}else {
+				if (encoder.matches(pw, map.get("U_USERPW"))) {	
 					Iterator<String> iteratorKey = map.keySet().iterator();
 					while (iteratorKey.hasNext()) {
 						String key = iteratorKey.next();
@@ -146,7 +146,7 @@ public class UserService {
 					userInfo.remove("u_userpw");
 					page = "mainPage";
 					msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
-				}
+				}			
 			}
 		}
 		session.setAttribute("userinfo", userInfo);
@@ -229,11 +229,10 @@ public class UserService {
 		return mav;
 	}
 
-	/**
-	 * 선장 요청 폼 진입 여부
+	/** 선장 요청 폼 진입 여부
 	 * 
 	 * @param userId
-	 * @param redirect
+	 * @param redirect 
 	 * @return
 	 */
 	public ModelAndView captain_requestForm(String userId, RedirectAttributes redirect) {
@@ -242,77 +241,79 @@ public class UserService {
 
 		String path = "captain_requestForm";
 		logger.info("이것이 레전드 : {}", dao.captain_requestForm(userId));
-
-		if (dao.check_cap(userId) > 0) { // 선장 요청했는지 확인
+		
+		if(dao.check_cap(userId) >0) { //선장 요청했는지 확인
 			// 해당 요청이 있는지 검사
 			if (dao.captain_requestForm(userId).equals("Y") || dao.captain_requestForm(userId).equals("S")) {
 				String msg = "이미 요청이 된 상태입니다.";
-				redirect.addFlashAttribute("msg", msg);
+				redirect.addFlashAttribute("msg",msg);
 				path = "redirect:/myPage";
-			}
+			}			
 		}
+		
+		
 
 		mav.setViewName(path);
 
 		return mav;
 	}
-
-	public ModelAndView myUserInfoUpdateForm(String u_userid) { // 영환
+	
+	public ModelAndView myUserInfoUpdateForm(String u_userid) { //영환
 		logger.info("회원정보 수정폼 서비스");
-		System.out.println("id : " + u_userid);
+		System.out.println("id : "+u_userid);
 		ModelAndView mav = new ModelAndView();
 		UserDTO dto = dao.myUserInfo(u_userid);
-		System.out.println("유저 이메일:" + dto.getU_useremail());
+		System.out.println("유저 이메일:"+dto.getU_useremail());
 		String email = dto.getU_useremail();
-		String emailname = email.substring(0, email.lastIndexOf("@"));
-		String emaildomain = email.substring(email.lastIndexOf("@") + 1);
-		System.out.println(emailname + "/" + emaildomain);
-		mav.addObject("emailname", emailname);
-		mav.addObject("emaildomain", emaildomain);
-		mav.addObject("dto", dto);
+		String emailname = email.substring(0,email.lastIndexOf("@"));
+		String emaildomain = email.substring(email.lastIndexOf("@")+1);
+		System.out.println(emailname+"/"+emaildomain);
+		mav.addObject("emailname",emailname);
+		mav.addObject("emaildomain",emaildomain);
+		mav.addObject("dto",dto);
 		mav.setViewName("myUserInfoUpdateForm");
-
+		
 		return mav;
 	}
 
-	public boolean nickcheck(String u_usernickname) { // 영환
+	public boolean nickcheck(String u_usernickname) { //영환
 		logger.info("닉네임 중복체크 서비스");
 		boolean overChk = false;
 		int isOverChk = dao.nickcheck(u_usernickname);
-		if (isOverChk == 0) {
+		if(isOverChk == 0) {
 			overChk = true;
 		}
 		return overChk;
 	}
 
-	public ModelAndView userInfoUpdate(HashMap<String, String> params, String u_userid) { // 영환
+	public ModelAndView userInfoUpdate(HashMap<String, String> params, String u_userid) { //영환
 		logger.info("회원정보 수정 요청 서비스");
 		params.get("emailname");
 		String useremail = params.get("emailname") + "@" + params.get("emaildomain");
 		System.out.println(useremail);
 		params.put("useremail", useremail);
 		params.put("u_userid", u_userid);
-		logger.info("수정 요청 : {}", params);
+		logger.info("수정 요청 : {}",params);
 		ModelAndView mav = new ModelAndView();
 		dao.userInfoUpdate(params);
 		UserDTO dto = dao.myUserInfo(u_userid);
-		mav.addObject("dto", dto);
+		mav.addObject("dto",dto);
 		mav.setViewName("myUserInfo");
 		return mav;
 	}
 
-	public ModelAndView PwUpdate(String newPw, String u_userid) { // 영환
+	public ModelAndView PwUpdate(String newPw, String u_userid) { //영환
 		logger.info("비밀번호 변경 서비스");
 		ModelAndView mav = new ModelAndView();
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String enc_pass = encoder.encode(newPw);
 		System.out.println(enc_pass);
-		int PwUpdate = dao.PwUpdate(enc_pass, u_userid);
-		if (PwUpdate > 0) {
-			mav.addObject("msg", "성공");
+		int PwUpdate = dao.PwUpdate(enc_pass,u_userid);
+		if(PwUpdate>0) {
+			mav.addObject("msg","성공");
 			mav.setViewName("myUserInfoPwUpdate");
-		} else {
-			mav.addObject("msg", "실패");
+		}else {
+			mav.addObject("msg","실패");
 			mav.setViewName("myUserInfoPwUpdate");
 		}
 		return mav;
@@ -321,53 +322,53 @@ public class UserService {
 	public HashMap<String, String> fileUpdate(String u_userid, MultipartFile file) {
 		logger.info("프로필 이미지 수정");
 		HashMap<String, String> map = new HashMap<String, String>();
-
+		
 		int fileCheck = dao.fileCheck(u_userid);
-		if (fileCheck > 0) {
+		if(fileCheck>0) {
 			UserDTO dto = dao.fileName(u_userid);
 			String fileName = dto.getUi_name();
-			System.out.println("파일이름" + fileName);
+			System.out.println("파일이름"+fileName);
 			dao.fileDelete(u_userid);
-
-			File delFile = new File("C:/upload/" + fileName);
-
-			if (delFile.exists()) {
+			
+			File delFile = new File("C:/upload/"+fileName);
+			
+			if(delFile.exists()) {
 				delFile.delete();
 			}
 		}
-
-		String fileName = file.getOriginalFilename();// 파일명추출
-		String newFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
-		System.out.println("파일이름:" + fileName + "/새파일이름:" + newFileName);
+		
+		String fileName = file.getOriginalFilename();//파일명추출
+		String newFileName = System.currentTimeMillis()+fileName.substring(fileName.lastIndexOf("."));
+		System.out.println("파일이름:"+fileName+"/새파일이름:"+newFileName);
 		try {
-			byte[] bytes = file.getBytes();
+			 byte[] bytes = file.getBytes();
 
-			Path filePath = Paths.get("C:/upload/" + newFileName);
-			Files.write(filePath, bytes);
+			 Path filePath = Paths.get("C:/upload/"+newFileName); 
+			 Files.write(filePath, bytes); 
 
-			String path = "/photo/" + newFileName;
-			map.put("path", path);
+			 String path = "/photo/"+newFileName;
+			 map.put("path", path);
 
-			dao.fileUpdate(u_userid, newFileName);
+			 dao.fileUpdate(u_userid,newFileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
 
-	public boolean fileDel(String u_userid) { // 영환
+	public boolean fileDel(String u_userid) { //영환
 		logger.info("프로필 이미지 삭제");
 		boolean fileDel = false;
 		int fileCheck = dao.fileCheck(u_userid);
-		if (fileCheck > 0) {
+		if(fileCheck>0) {
 			UserDTO dto = dao.fileName(u_userid);
 			String fileName = dto.getUi_name();
-			System.out.println("파일이름" + fileName);
+			System.out.println("파일이름"+fileName);
 			dao.fileDelete(u_userid);
-
-			File delFile = new File("C:/upload/" + fileName);
-
-			if (delFile.exists()) {
+			
+			File delFile = new File("C:/upload/"+fileName);
+			
+			if(delFile.exists()) {
 				delFile.delete();
 				fileDel = true;
 			}
@@ -375,18 +376,18 @@ public class UserService {
 		return fileDel;
 	}
 
-	public void userQuit(String u_userid) { // 영환
+	public void userQuit(String u_userid) { //영환
 		logger.info("회원 탈퇴 요청");
 		dao.userQuit(u_userid);
-
+		
 	}
 
 	public ModelAndView shipList(String u_userid) {
 		logger.info("배 리스트");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shipList");
-		ReserDTO dto = dao.shipList(u_userid);
-		mav.addObject("dto", dto);
+		ReserDTO dto =  dao.shipList(u_userid);
+		mav.addObject("dto",dto);
 		return mav;
 	}
 
@@ -405,43 +406,14 @@ public class UserService {
 	 * @return 전송 결과 값 : void
 	 */
 	public void notice(String u_userid, String content, String code) {
-		logger.info("알림 삽입");
+		logger.info("일반 알림 삽입");
 		UserDTO dto = new UserDTO();
 		dto.setA_userid(u_userid);
 		dto.setA_code(code);
-		switch (code) {
-		case "A1_001":
-			dto.setA_path("");
-			break;
-		case "A1_002":
-			dto.setA_path("");
-			break;
-		case "A1_003":
-			dto.setA_path("");
-			break;
-		case "A1_004":
-			dto.setA_path("");
-			break;
-		case "A1_006":
-			dto.setA_path("");
-			break;
-		case "A2_001":
-			dto.setA_path("");
-			break;
-		case "A2_002":
-			dto.setA_path("");
-			break;
-		case "A2_003":
-			dto.setA_path("");
-			break;
-		case "A3_001":
-			dto.setA_path("");
-			break;
-		}
-
+		dto.setA_path("redirect:/myUserReserve");
 	}
 	public void notice(String u_userid, String content, String code, String num) {
 		
 	}
-	
+
 }

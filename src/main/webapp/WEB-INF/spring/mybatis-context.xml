@@ -18,6 +18,7 @@
 				<value>classpath:com/boys/fishing/board/dao/*.xml</value>
 				<value>classpath:com/boys/fishing/reservation/dao/*.xml</value>
 				<value>classpath:com/boys/fishing/apis/dao/*.xml</value>
+				<value>classpath:com/boys/fishing/manage/dao/*.xml</value>
 			</list>
 		</property>
 		<property name="configLocation"
@@ -34,4 +35,6 @@
 		base-package="com.boys.fishing.reservation.dao" />
 	<mybatis-spring:scan
 		base-package="com.boys.fishing.apis.dao" />
+	<mybatis-spring:scan
+		base-package="com.boys.fishing.manage.dao" />
 </beans>

@@ -1,43 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<meta name="viewport" content="width=device-width, initail-scale=1.0">
+
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
-	rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../resources/js/jquery.twbsPagination.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
 <style type="text/css">
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
-div.card{
-    height: 35vh;
-}
-.card-img-top{
-    height: 20vh;
-}
-.card-text{
-    height: 9vh; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.card-title{
-	height:5vh;
-	overflow: hidden;
-    text-overflow: ellipsis;
-}
 </style>
-
 <div>
 	<nav class="navbar navbar-expand-lg navbar-light "
 		style="background-color: cornflowerblue;">
@@ -129,7 +112,7 @@ data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExterna
 
 
 
-	<div class="collapse" id="navbarToggleExternalContent">
+	<div class="collapse opacity-50" id="navbarToggleExternalContent">
 		<div class="bg-primary p-2">
 			<div class="container">
 				<div class="row">
