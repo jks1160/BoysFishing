@@ -48,7 +48,7 @@ div.card{
         <div class="row">
             <div class="col mx-1 border">
                 <div class="card">
-                    <img src="resources/default.png" class="card-img-top border" alt="...">
+                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
 	                    <div class="card-body">
                     	<a href="/" style="{display:block;{color:black}">
 		                      <b class="card-title border">Card title</b>

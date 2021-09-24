@@ -21,9 +21,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+
 <style>
 body, html {
 	height: 100%;
@@ -41,7 +39,7 @@ body, html {
 	<div class="container my-5">
 		<div class="row align-items-center">
 			<div class="col-md-6 mb-3">
-				<img src="resources/logo.png" class="img-fluid" alt="image">
+				<img src="./resources/defaultimg/logo.png" class="img-fluid" alt="image">
 			</div>
 			<div class="col-md-6">
 				<h3 class="signin-text mb-3">로그인</h3>
