@@ -40,6 +40,9 @@
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
+	body{
+	margin-bottom:100px;
+	}
 </style>
 </head>
 <body>
@@ -53,15 +56,16 @@
 		<hr />
 	</div>
 	<div class='container'>
-		<div id="map" style="width: 500px; height: 400px; float: left"
+		<div id="map" style="width: 100%; height: 400px; float: left"
 			class='container'></div>
-		<div class="select-zone row"
-			style='background-color: rgb(126, 210, 248); width: 620px; float: left;'>
+		
+		<div class="select-zone row m-auto"
+			style='background-color: rgb(126, 210, 248); width: 100%; float: left;'>
 			<div class="col lg-5 text-center"
 				style='display: inline; margin-left: 20px'>
 				<h2 class='text-center' style='display: inline;'>섬 리스트</h2>
 				<!-- 이곳에 섬 리스트 출력 -->
-				<div class="list-group"
+				<div class="list-group m-auto"
 					style='overflow-y: scroll; max-height: 350px;' id='islands'>
 					<!-- 섬 리스트 출력 부분 -->
 					<c:if test="${island_list ne null }">
@@ -70,36 +74,42 @@
 							</a>
 						</c:forEach>
 					</c:if>
-
+					
 
 				</div>
+					<h1></h1>
 			</div>
 
-			<div
-				style='min-height: 400px; border-right: 2px solid gray; display: inline'></div>
-			<div style='display: inline' class="col lg-6 text-center">
-				<h2 class='text-center' style='display: inline;'>섬 이름 검색하기</h2>
+			
+			<div style='display: inline;' class="col lg-6 text-center">
+				<h2 class='text-center ' style='display: inline;'>섬 이름 검색하기</h2>
+				
 				<form action='reser/detail_island' method='GET' name='research_form'>
-					<input type='text' class='form-control' id='text-zone'
+					<input type='text' class='form-control mt-3 mb-3' id='text-zone'
 						placeholder='섬 이름 검색' name='searchData' />
-					<button type='button' class='btn btn-dark'
+					
+						
+					<button type='button' class='btn btn-dark  mb-3'
 						onclick='reser_research()'>검색</button>
 
 
-
+			<h2 class='text-center' >검색 결과</h2>
 					<div class='list-group result_list'
 						style='overflow-y: scroll; max-height: 248px;' id='result'>
+						
 						<!-- 검색 결과 -->
 						<a class="list-group-item list-group-item-action pick_data">검색
 							결과</a>
 					</div>
-					<button type='button' class='btn btn-dark'
+					<button type='button' class='btn btn-dark mt-3 mb-3'
 						onclick='detail_island()'>섬 상세보기</button>
 				</form>
 			</div>
 
 		</div>
 	</div>
+	<div class="container mt-4 " style="overflow:auto;"></div>
+		<hr />
 </body>
 <script>
 
@@ -298,7 +308,7 @@ return markerImage;
 				}else{
 					data.findData.forEach(function(item){
 						// 여러개가 나오기 때문에 += 으로 해야한다.
-						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"'>"+item.i_name+"</a>";
+						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"' >"+item.i_name+"</a>";
 
 					})
 					$(".result_list").empty();
@@ -316,7 +326,7 @@ return markerImage;
 		var me = $(this);
 		$(".pick_data").css("background-color","white");
 		$(this).css("background-color","#FFDEE9");
-		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' readonly/>";
+		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' hidden='hidden' readonly/>";
 		$(".pick_island").remove();
 		$("#result").append(context);
 	});

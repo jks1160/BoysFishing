@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="icon.png">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
-<title>j-query 강좌</title>
+<title>SOMEFISH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -48,7 +48,7 @@ div.card{
         <div class="row">
             <div class="col mx-1 border">
                 <div class="card">
-                    <img src="resources/default.png" class="card-img-top border" alt="...">
+                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
 	                    <div class="card-body">
                     	<a href="/" style="{display:block;{color:black}">
 		                      <b class="card-title border">Card title</b>

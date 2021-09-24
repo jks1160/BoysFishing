@@ -8,14 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.reservation.service.ReserService;
 
 @Controller
@@ -102,5 +100,19 @@ public class ReserController {
 		
 		
 		return service.captain_sche_detail(params);
+	}
+	
+	/** 조재현
+	 * 유저 배편 예약하기 진입 컨트롤러
+	 * @return
+	 */
+	@RequestMapping(value="/userReservation")
+	public ModelAndView userReservation(@RequestParam HashMap<String, Object> params) {
+		
+		logger.info("섬 번호 : {}, 배 번호: {}",params.get("i_num"), params.get("s_num"));
+		
+		
+		
+		return service.userReservation(params);
 	}
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SOMEFISH</title>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -44,7 +44,7 @@
 		<hr />
 	</div>
 	<div class='container'>
-		<h4 class='text-dark font-weight-bold' style='display:inline'>&nbsp; ${islandName } 배편  &nbsp; <span style='font-size:small'><a class='' >섬 리스트로 돌아가기</a></span></h4>
+		<h4 class='text-dark font-weight-bold' style='display:inline'>&nbsp; ${islandName } 배편  &nbsp; <span style='font-size:small'><a href='/fishing/islandsReservation' >섬 리스트로 돌아가기</a></span></h4>
 		
 		<div class = 'list-group result_list'>
 			<!-- 배 편 리스트 -->
@@ -67,7 +67,11 @@
 							<p style="margin:0px">보유 장비 : ${item.s_equipment }</p>
 							<p style="margin:0px">편의 시설 : ${item.s_convenient } </p>
 							<h5 >인당 배 값 : ${item.op_price }</h5>
-							<a class= 'btn btn-primary' style="float:right">예약하기</a>
+							<form action="userReservation">
+								<input type='text' value='${item.i_num }' name='i_num' hidden='hidden'/>
+								<input type='text' value='${item.s_num }' name='s_num' hidden='hidden'/>
+							<button class= 'btn btn-primary' style="float:right">예약하기</button>
+							</form>
 							</div>
 						</c:forEach>
 					</c:when>
@@ -91,29 +95,6 @@
 	</span>
 </body>
 <script>
-//리모컨
-$(document).scroll(function(){
 
-	var con = $("#remoCon");
-
-	var position = $(window).scrollTop();
-
-	
-
-	if(position > 250){ con.fadeIn(500); }
-
-	else if(position < 250){ con.fadeOut(500); }
-
- });
-
- $("#remoCon").click(function(){
-	$("html, body").animate({scrollTop: 0}, 1000);
- });
-var i = 10
- while(i>0){
-	 i--;
-	 console.log("${list[0].s_num}");
- }
- 
 </script>
 </html>

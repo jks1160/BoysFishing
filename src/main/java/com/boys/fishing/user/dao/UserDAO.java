@@ -131,14 +131,14 @@ UserDTO myUserInfo(String u_userid); //영환
 		
 	ArrayList<ReserDTO> shipList(String u_userid); //영환
 
-	String shipName(String userId);
+	String shipName(String userId); 
 
 	int check_cap(String userId);
 
 	int captainWrite(ReserDTO reser);
 
 
-	void shipJoin(HashMap<String, String> params);
+	int shipJoin(ReserDTO dto); //영환
 
 	int notice(UserDTO dto);
 
@@ -150,6 +150,10 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int reserDecide(String num);
 	ReserDTO shipListDetail(String u_userid, String s_name);
+
+	void shipImg(HashMap<String, String> params); //영환
+
+	void shipImgInsert(HashMap<String, String> params); //영환
 
 	
 

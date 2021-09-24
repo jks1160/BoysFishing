@@ -9,9 +9,9 @@
 
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 풀 캘린더 -->
-<script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
-<script src='resources/fullcalendar-5.9.0/calendar.js'></script>
-<link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
+<script src='../resources/fullcalendar-5.9.0/lib/main.js'></script>
+<script src='../resources/fullcalendar-5.9.0/calendar.js'></script>
+<link href='../resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -43,7 +43,7 @@
 	<!-- 선장 등록 요청 페이지 -->
 	<div class='container'>
 		<h2 class='text-dark font-weight-bold text-center'
-			style="margin-top: 25px;">선장 스케줄</h2>
+			style="margin-top: 25px;">${sessionScope.userinfo.u_usernickname} 님의 스케줄</h2>
 		<hr />
 		<!-- 맵 부분 -->
 		<div id='calendar'></div>
@@ -53,7 +53,7 @@
 </body>
 <script>
 	// 아이디 가져오기
-	var checker = "${sessionScope.u_userid}";
+	var checker = "${sessionScope.userinfo.u_userid}";
 	console.log("아이디 가져오기", checker);
 
 	// 날짜 설정
