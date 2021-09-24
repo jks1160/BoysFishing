@@ -22,20 +22,25 @@
 		SELECT * FROM island WHERE i_num = #{param1}
 	</select>
 	
-	
 	<!-- 선장의 스케줄 -->
-<!-- 	<select id="captain_reser" resultType='reser'>
-	SELECT op.s_num, op.i_num, op.op_startpoint, op.op_starttime, op.op_duringtime, 
-op.op_returntime, op.op_date, op.op_date FROM operrange op LEFT OUTER JOIN ship s 
-ON (op.s_num = s.s_num) WHERE u_userid=#{param1}
-	</select> -->
-		<!-- 선장의 스케줄 -->
 	<select id="captain_reser" resultType='hashmap'>
 	SELECT op.s_num, op.i_num, op.op_startpoint, op.op_starttime, op.op_duringtime, i.i_name,
 op.op_returntime, op.op_date, op.op_date FROM operrange op LEFT OUTER JOIN ship s 
 ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u_userid=#{param1}
 	</select>
-	
-
+	<!-- 선장 스케줄 업데이트 -->
+	<update id="updateCapSche" parameterType="HashMap">
+		UPDATE operrange
+		<set>
+			s_num = #{s_num},
+			op_starttime = #{op_starttime},
+			i_num = #{i_num},
+			op_startpoint = #{op_startpoint},
+			op_duringtime = #{op_duringtime},
+			op_returntime = #{op_returntime},
+			op_price = #{op_price}
+		</set>
+		WHERE s_num = #{ori_s_num} AND i_num=#{ori_i_num} AND op_starttime = #{ori_op_starttime} AND op_date = #{ori_op_date}
+	</update>
 
 </mapper>

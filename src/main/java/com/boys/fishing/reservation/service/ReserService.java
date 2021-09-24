@@ -25,8 +25,7 @@ public class ReserService {
 	ApisDAO apiDAO;
 	@Autowired
 	UserDAO userDAO;
-	
-	
+
 	/**
 	 * 조재현 섬들을 검색하여 뿌려주기 위한 메소드
 	 * 
@@ -86,17 +85,17 @@ public class ReserService {
 		mav.addObject("list", list);
 		mav.setViewName("shipDetails");
 
-		for(int i=0; i<list.size(); i++) {
-			logger.info("배 번호 : {} ",list.get(i).getS_num());
-			logger.info("배 이름 : {}",list.get(i).getS_name());
-			logger.info("최대 탑승 인원 : {}",list.get(i).getS_maxpassenger());
-			logger.info("최소 탑승 인원 : {}",list.get(i).getS_minpassenger());
+		for (int i = 0; i < list.size(); i++) {
+			logger.info("배 번호 : {} ", list.get(i).getS_num());
+			logger.info("배 이름 : {}", list.get(i).getS_name());
+			logger.info("최대 탑승 인원 : {}", list.get(i).getS_maxpassenger());
+			logger.info("최소 탑승 인원 : {}", list.get(i).getS_minpassenger());
 			logger.info("출발지 : {}", list.get(i).getS_address());
-			logger.info("보유 장비 : {}",list.get(i).getS_equipment());
-			logger.info("편의 시설 : {}",list.get(i).getS_convenient());
-			logger.info("인당 배 값 : {}",list.get(i).getOp_price());
-			logger.info("이미지 이름 : {}" ,list.get(i).getSi_name());
-			logger.info("이미지 경로  : {}",list.get(i).getS_img());
+			logger.info("보유 장비 : {}", list.get(i).getS_equipment());
+			logger.info("편의 시설 : {}", list.get(i).getS_convenient());
+			logger.info("인당 배 값 : {}", list.get(i).getOp_price());
+			logger.info("이미지 이름 : {}", list.get(i).getSi_name());
+			logger.info("이미지 경로  : {}", list.get(i).getS_img());
 		}
 
 		// 배 정보 페이지 완성 시 보내면 된다.
@@ -127,19 +126,50 @@ public class ReserService {
 
 	public HashMap<String, Object> captain_reser(String capId) {
 
-		logger.info("선장 레저 진입 서비스 : {}" , capId);
-		
-		// 섬 이름 때문에 HashMap으로 변경 
-		ArrayList<HashMap<String,Object>> list = reserDAO.captain_reser(capId);
-		
+		logger.info("선장 레저 진입 서비스 : {}", capId);
+
+		// 섬 이름 때문에 HashMap으로 변경
+		ArrayList<HashMap<String, Object>> list = reserDAO.captain_reser(capId);
+
 		/*
 		 * for (HashMap<String, Object> reser : list) { System.out.println("테스트 : " +
 		 * reser.get("I_NUM")); }
 		 */
-		
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("operList", list);
+
+		return map;
+	}
+
+	public ModelAndView cap_check_res(HashMap<String, Object> params, String id) {
+		logger.info("선장 스케줄 상세보기 서비스 진입 : {}", id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reser", params);
+		mav.addObject("id", id);
+
+		mav.setViewName("cap_check_res");
+
+		return mav;
+	}
+
+	/**
+	 * 조재현
+	 * 선장 스케줄 업데이트 서비스
+	 * @param params
+	 * @return
+	 */
+
+	public HashMap<String, Object> captain_sche_detail(HashMap<String, Object> params) {
+		logger.info("선장 업데이트 : {}",params);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("operList", list);
+		int success = reserDAO.updateCapSche(params);
+		
+		//int success = reserDAO.upDateSchedul(params.get)
+		
+		//map.put("Success", success);
 		
 		
 		return map;

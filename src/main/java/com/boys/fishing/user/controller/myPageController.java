@@ -1,6 +1,7 @@
 package com.boys.fishing.user.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -149,6 +150,24 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		String userId = userInfo.get("u_userid");
 		return myservice.captainScheduleWrite(userId,op_date);
 	}
+	/** 조재현
+	 * 선장 스케줄 상세보기 -> 변경
+	 * 
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping(value="/captainUpdateForm")
+	public ModelAndView captainUpdateForm(HttpSession session, @RequestParam HashMap<String, String> params) {
+		logger.info("선장 스케쥴 등록 요청");
+		logger.info("학인 : {}", params.get("op_date"));
+
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		
+		
+		return myservice.captainScheduleUpdate(userId, params);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/startPoint")
