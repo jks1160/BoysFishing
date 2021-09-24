@@ -388,7 +388,7 @@ public class UserService {
 		ModelAndView mav = new ModelAndView();
 		list =  dao.shipList(u_userid);
 		String path = "shipList";
-		if(list == null) {
+		if(list.size()==0) {
 			rttr.addFlashAttribute("msg","등록된 배 정보가 없습니다. 먼저 등록을 진행해 주세요.");
 			path = "redirect:/shipJoinForm";	
 		}
