@@ -23,11 +23,8 @@
 
 <body>
 
-<<<<<<< HEAD
 <form action="captainWrite" method="GET" id='capForm'>
-=======
-<form action="captainWrite" id = "frm" method="GET">
->>>>>>> 7ef58f1598dd6f24f196451e1aed94e26fd8dc9e
+
 	<div>
 		<input type="text" value= "${op_date}" name = "op_date" />
 	</div>
@@ -68,7 +65,7 @@
 	<div>
 		<input type="number" name = "op_price" required/>
 	</div>
-	<input type=button class='btn btn-primary' onclick ='return formSubmit()' value='저장하기' >
+	<input type=button class='btn btn-primary' onclick ='formSubmit()' value='저장하기' >
 
 </form>
 </body>
