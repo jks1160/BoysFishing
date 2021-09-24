@@ -2,6 +2,10 @@ package com.boys.fishing.manage.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +42,45 @@ public class ManageController {
 	@RequestMapping(value="/captainlist/{pagePerNum}/{page}")
 	public @ResponseBody HashMap<String , Object> list(@PathVariable int pagePerNum,@PathVariable int page){
 	logger.info("page :{}",page);
-	HashMap<String, Object> map = service.list(page,pagePerNum);
+	HashMap<String, Object> map = service.list(page,pagePerNum);//u_userid
 		return map;
+	}
+	
+	@RequestMapping(value = "/capreq_detail")
+	public ModelAndView capreq_detail(@RequestParam String u_userid) {
+		logger.info("u_userid : "+u_userid);				
+		return service.capreq_detail(u_userid);
+	}
+	
+	@RequestMapping(value = "/capreq_update")
+	public String capreq_update(@RequestParam String u_userid, HttpSession session, HttpServletRequest req) {
+		HashMap<String,Object> map2 = (HashMap<String, Object>) req.getSession().getAttribute("userinfo");
+		HashMap<String, String> map = new HashMap<String, String>();
+		String cap_manager =  (String) map2.get("u_userid");
+
+		map.put("cap_manager", cap_manager);
+		map.put("u_userid", u_userid);
+		service.capreq_update(map);
+		
+		return "redirect:/manage/captainlist";
+
+	}
+	
+	@RequestMapping(value = "/capreq_reject")
+	public String capreq_reject(@RequestParam HashMap<String, String> params, HttpSession session, HttpServletRequest req) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String,Object> map2 = (HashMap<String, Object>) req.getSession().getAttribute("userinfo");
+		String cap_manager =  (String) map2.get("u_userid");
+		String cap_cancelreason = req.getParameter("cap_cancelreason");
+
+		map.put("cap_manager", cap_manager);
+		map.put("cap_cancelreason", cap_cancelreason);
+		map.put("u_userid", params.get("u_userid"));
+		service.capreq_reject(map);
+		//service.capreq_update(map);
+		//"redirect:/manage/captainlist"
+		return "redirect:/manage/captainlist";
+
 	}
 	
 }

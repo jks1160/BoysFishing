@@ -11,7 +11,7 @@ public class ManageDTO {
 	private String cap_cancelreason;
 	private String cap_requestTime;
 	private String cap_manager;
-
+	private String L_name;
 	
 	public String getU_userid() {
 		return u_userid;
@@ -48,5 +48,11 @@ public class ManageDTO {
 	}
 	public void setCap_manager(String cap_manager) {
 		this.cap_manager = cap_manager;
+	}
+	public String getL_name() {
+		return L_name;
+	}
+	public void setL_name(String l_name) {
+		L_name = l_name;
 	}
 }
