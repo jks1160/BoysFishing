@@ -161,7 +161,7 @@
 			var opdate = e.event.extendedProps.op_date;
 			var opstart = e.event.extendedProps.op_startTime;
 			var snum = e.event.extendedProps.s_num;
-			console.log("씨발" , inum , opdate, opstart, snum);
+			
 			window.open("/fishing/reser/cap_check_res?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
 			
 
