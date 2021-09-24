@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,54 +26,93 @@
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
+.entire{
+	
+		margin-top: 5%;
+		margin-right: 30%;
+		margin-bottom: 5%;
+		margin-left: 30%;
+}
+input{
+	
+}
 </style>
 </head>
 
 <body>
-
+<div class="entire">
 <form id = "frm" method="GET">
-	<div>
-		<input type="text" value= "${op_date}" name = "op_date" />
-	</div>
+	<table class="table-bordered">
+	<tr>
+		<td>오늘 날짜</td>
+		<td><input type="text" value= "${op_date}" name = "op_date" /></td>
+	</tr>
 	
-	<div>
-		<select id = "shipName" name = "s_num" onchange="chageShopSelect1()">
-			<option>선택</option>
-			<c:forEach var="name" items="${shipName}">
-			<option value="${name.s_num}">${name.s_name}</option>
-		</c:forEach>
-		</select>
-	</div>
+	<tr>
+		<td>배 이름</td>
+		<td>
+			<select id = "shipName" name = "s_num" onchange="chageShopSelect1()">
+				<option>선택</option>
+				<c:forEach var="name" items="${shipName}">
+				<option value="${name.s_num}">${name.s_name}</option>
+			</c:forEach>
+			</select>
+		</td>
+	</tr>
 	
-	<div>
-		<select id = "startPoint" name = "op_startpoint" onchange="chageShopSelect2()">
-		
-		</select>
-	</div>
-	
-	<div>
-		<select id = "islandName" name = "i_num">
+	<tr>
+		<td>출항지</td>
+		<td>
+			<select id = "startPoint" name = "op_startpoint" onchange="chageShopSelect2()">
 			
-		</select>
-	</div>
+			</select>
+		</td>
+	</tr>
 	
-	<div>
-		<input type="time" id = "startTime" name = "op_starttime" required/>
-	</div>
+	<tr>
+		<td>목적지</td>
+		<td>
+			<select id = "islandName" name = "i_num">
+				
+			</select>
+		</td>
+	</tr>
 	
-	<div>
-		<input type="number"  id = "changeTime" name = "op_duringtime" min="10" max="180" step="10" onkeydown="filterNumber(event)" required/>
-	</div>
+	<tr>
+		<td>출항시간</td>
+		<td>
+			<input type="time" id = "startTime" name = "op_starttime" required/>
+		</td>
+	</tr>
 	
-	<div>
-		<input type="time" id = "returnTime"  name = "op_returntime" required/>
-	</div>
+	<tr>
+		<td>소요시간</td>
+		<td>
+			<input type="number"  id = "changeTime" name = "op_duringtime" min="10" max="180" step="10" onkeydown="filterNumber(event)" required/>
+		</td>
+	</tr>
 	
-	<div>
-		<input type="number" name = "op_price" required/>
-	</div>
-	<input type="button" onclick="captainWrite();" value="저장하기"/>
+	<tr>
+	<td>회항시간</td>
+		<td>
+			<input type="time" id = "returnTime"  name = "op_returntime" readonly required/>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>운항비용</td>
+		<td>
+			<input type="number" name = "op_price" step="1000" required/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" onclick="captainWrite();" value="저장하기"/>
+		</td>
+	</tr>
+	</table>
 </form>
+</div>
 </body>
 
 <script>
