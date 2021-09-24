@@ -112,6 +112,9 @@ var O_nuel = year+'-'+month+'-'+date;
       },
       eventClick:function(event){
     	  console.log("이벤트 클릭");
+    	  const today = new Date(event.event._instance.range.start);
+    	  var day = today.toISOString();
+    	  location.href="/fishing/captainScheduleDetail?date="+day.substr(0,10);
       },// events:function end */ 
      
        
