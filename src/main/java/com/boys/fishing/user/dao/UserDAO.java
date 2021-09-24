@@ -1,5 +1,6 @@
 package com.boys.fishing.user.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -137,6 +138,10 @@ UserDTO myUserInfo(String u_userid); //영환
 	int captainWrite(ReserDTO reser);
 
 	int notice(UserDTO dto);
+
+	ArrayList<ReserDTO> captainScheduleDetail(String userId, Date date);
+
+	ArrayList<ReserDTO> reserDetail(int shipNum);
 
 
 
