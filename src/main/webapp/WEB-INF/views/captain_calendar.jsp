@@ -91,6 +91,7 @@
 			locale : "ko", //한글 설정
 			editable : true, // 에디터 가능한지 
 			selectable : true, //선택 가능한지
+			dayMaxEventRows: true,
 			dateClick : function(e) {
 				console.log("이벤트 ",e);
 				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
@@ -150,6 +151,11 @@
 			},// events:function end */ 
 		eventClick: function(e){
 			console.log("이벤트 ", e);
+		},
+		views :{
+			timeGrid: {
+				dayMaxEventRows: 3
+			}
 		}
 			
 		});// full Calendar end 
