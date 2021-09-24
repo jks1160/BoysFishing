@@ -68,9 +68,8 @@ public class ReserController {
 	@RequestMapping(value="/captain_reser", method=RequestMethod.POST)
 	public @ResponseBody HashMap<String,Object> captain_reser(HttpSession session){
 		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		
 		String capId = (String)map.get("u_userid");
-		
-		
 		
 		return service.captain_reser(capId);
 	}

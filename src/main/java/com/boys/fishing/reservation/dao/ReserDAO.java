@@ -1,6 +1,7 @@
 package com.boys.fishing.reservation.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.boys.fishing.apis.dto.IslandDTO;
 import com.boys.fishing.reservation.dto.ReserDTO;
@@ -13,7 +14,7 @@ public interface ReserDAO {
 
 	IslandDTO detail_island(String choice);
 
-	ArrayList<ReserDTO> captain_reser(String capId);
+	ArrayList<HashMap<String, Object>> captain_reser(String capId);
 
 
 	

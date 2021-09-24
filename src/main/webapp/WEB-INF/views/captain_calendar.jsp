@@ -123,11 +123,13 @@
 						console.log("성공 데이터 : ", data);
 						// 받은 데이터 중 my_list 부분을 가져온다.
 						data.operList.forEach(function(myReser) {
-							var get_year = new Date(myReser.op_date).getFullYear();
+							console.log(myReser);
 							
-							var get_month = new Date(myReser.op_date).getMonth() + 1;
+							var get_year = new Date(myReser.OP_DATE).getFullYear();
+							
+							var get_month = new Date(myReser.OP_DATE).getMonth() + 1;
 									
-							var get_day = new Date(myReser.op_date).getDate();
+							var get_day = new Date(myReser.OP_DATE).getDate();
 
 							if (get_month < 10) {
 								get_month = "0" + get_month;
@@ -137,12 +139,13 @@
 							}
 							var reserDate = get_year + "-" + get_month + "-"
 									+ get_day;
-
+							
 							console.log("스타트데이 : ", reserDate);
 							my_reser.push({
+								title : myReser.I_NAME,
 								start : reserDate,
-								color : "#FFCCE5",
-								display : 'background'
+								color : "#FFCCE5"
+								
 							});
 						}); // forEach end
 
