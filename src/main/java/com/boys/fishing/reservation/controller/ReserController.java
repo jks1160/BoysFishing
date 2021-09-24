@@ -73,7 +73,12 @@ public class ReserController {
 		
 		return service.captain_reser(capId);
 	}
-	
+	@RequestMapping(value="/cap_check_res", method=RequestMethod.GET)
+	public String cap_check_res() {
+		logger.info("인마어리ㅏㄴㅁ어리ㅏㄴ멍리ㅏㅓㄴㅁ이ㅏㄹ");
+		
+		return "cap_check_res";
+	}
 	
 	
 }

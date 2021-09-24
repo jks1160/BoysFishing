@@ -48,6 +48,13 @@
 	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{u_userid}
 </select>
 
+<insert id="shipJoin" parameterType="hashmap">
+	INSERT INTO ship (s_num,u_userid,s_name,s_minpassenger,s_maxpassenger,s_img,s_equipment,s_convenient,s_address)
+	 VALUES(S_NUM_SEQ.nextval,#{u_userid},#{s_name},#{s_minpassenger},#{s_maxpassenger},'N',#{equipment},#{convenient},#{address})
+</insert>
+
+
+
 
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->
