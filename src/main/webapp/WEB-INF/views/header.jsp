@@ -82,15 +82,15 @@
 						aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
 					</li>
 					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="someTalk">섬섬톡</a></li>
+						aria-current="page" href="/fishing/someTalk">섬섬톡</a></li>
 					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="qna">Q&A</a></li>
+						aria-current="page" href="/fishing/qna">Q&A</a></li>
 					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="myPage">마이페이지</a></li>
+						aria-current="page" href="/fishing/myPage">마이페이지</a></li>
 					<li class="nav-item"><a class="nav-link active text-white"
 						aria-current="page" href="#">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="calendar">조재현(달력 작업중)</a></li>
+						aria-current="page" href="/fishing/calendar">조재현(달력 작업중)</a></li>
 					<li class="nav-item"><c:choose>
 
 							<c:when test="${empty sessionScope.userinfo}"></c:when>
@@ -140,7 +140,7 @@ data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExterna
 					</div>
 					<div class="col-6 lg-6">
 						<a class="nav-link active text-white" aria-current="page"
-							href="insertisland">섬 관리</a>
+							href="/fishing/insertisland">섬 관리</a>
 					</div>
 				</div>
 			</div>
