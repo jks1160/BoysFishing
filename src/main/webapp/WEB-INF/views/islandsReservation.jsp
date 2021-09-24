@@ -308,7 +308,7 @@ return markerImage;
 				}else{
 					data.findData.forEach(function(item){
 						// 여러개가 나오기 때문에 += 으로 해야한다.
-						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"'>"+item.i_name+"</a>";
+						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"' >"+item.i_name+"</a>";
 
 					})
 					$(".result_list").empty();
@@ -326,7 +326,7 @@ return markerImage;
 		var me = $(this);
 		$(".pick_data").css("background-color","white");
 		$(this).css("background-color","#FFDEE9");
-		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' readonly/>";
+		var context = "<input type='text' class='form-control pick_island' value='"+this.id+"'  name='choice' hidden='hidden' readonly/>";
 		$(".pick_island").remove();
 		$("#result").append(context);
 	});
