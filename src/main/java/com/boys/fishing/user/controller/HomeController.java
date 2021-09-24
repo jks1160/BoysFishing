@@ -240,13 +240,13 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/shipList", method = RequestMethod.GET)
-	public ModelAndView shipList(HttpSession session) { //영환
+	public ModelAndView shipList(HttpSession session,RedirectAttributes rttr) { //영환
 		logger.info("배 리스트보기");
 	
 		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
 		logger.info("아이디 : {}", map.get("u_userid"));
 		String u_userid = (String) map.get("u_userid");
-		return service.shipList(u_userid);
+		return service.shipList(u_userid,rttr);
 	}	
 	
 	@RequestMapping(value="/shipJoinForm", method = RequestMethod.GET)

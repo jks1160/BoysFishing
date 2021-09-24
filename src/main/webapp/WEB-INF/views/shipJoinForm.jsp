@@ -188,7 +188,11 @@
 		</div>
 	</body>
 	<script>
-
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+	
 	$(function(){
 	    $('#fileUpdate').on('click', function(){
 	    	$("#fileinput").click();

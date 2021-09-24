@@ -382,13 +382,18 @@ public class UserService {
 		
 	}
 
-	public ModelAndView shipList(String u_userid) {
+	public ModelAndView shipList(String u_userid, RedirectAttributes rttr) {
 		logger.info("배 리스트");
 		ArrayList<ReserDTO> list = new ArrayList<ReserDTO>();
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("shipList");
 		list =  dao.shipList(u_userid);
+		String path = "shipList";
+		if(list == null) {
+			rttr.addFlashAttribute("msg","등록된 배 정보가 없습니다. 먼저 등록을 진행해 주세요.");
+			path = "redirect:/shipJoinForm";	
+		}
 		mav.addObject("list",list);
+		mav.setViewName(path);			
 		return mav;
 	}
 
@@ -508,6 +513,11 @@ public class UserService {
 		logger.info("배 정보 불러오기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ReserDTO dto = dao.shipListDetail(u_userid,s_name);
+		if(dto.getSi_name() != null) {
+			String path = "/photo/" + dto.getSi_name();
+			map.put("path", path);
+		}
+		
 		map.put("dto", dto);
 		return map;
 	}
