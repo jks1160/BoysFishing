@@ -40,7 +40,7 @@
 	</div>
 	
 	<div>
-	<button type="button" onclick="location.href='shipJoin'">등록하기</button>
+	<button type="button" onclick="location.href='shipJoinForm'">등록하기</button>
 	<select>
 		<option>${dto.s_name }</option>
 	</select>

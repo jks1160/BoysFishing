@@ -91,6 +91,7 @@
 			locale : "ko", //한글 설정
 			editable : true, // 에디터 가능한지 
 			selectable : true, //선택 가능한지
+			dayMaxEventRows: true,
 			dateClick : function(e) {
 				console.log("이벤트 ",e);
 				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
@@ -136,8 +137,14 @@
 							my_reser.push({
 								title : myReser.I_NAME,
 								start : reserDate,
-								color : "#FFCCE5"
-								
+								color : "#FFCCE5",
+								extendedProps: {
+							        op_date: reserDate,
+							        s_num : myReser.S_NUM,
+							        i_num : myReser.I_NUM,
+							        op_startTime : myReser.OP_STARTTIME
+							      }
+							     
 							});
 						}); // forEach end
 
@@ -149,7 +156,23 @@
 				});// ajax end  
 			},// events:function end */ 
 		eventClick: function(e){
-			console.log("이벤트 ", e);
+			console.log("이벤트 ", e.event.extendedProps);
+			var inum = e.event.extendedProps.i_num;
+			var opdate = e.event.extendedProps.op_date;
+			var opstart = e.event.extendedProps.op_startTime;
+			var snum = e.event.extendedProps.s_num;
+			
+			window.open("/fishing/reser/cap_check_res?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
+			
+
+		},
+		views :{ // 이벤트 맥시멈 제한(보이는거)
+			timeGrid: {
+				dayMaxEventRows: 3
+			}
+		},
+		eventDidMount: function(info){
+			//console.log(info.event.extendedProps);
 		}
 			
 		});// full Calendar end 
