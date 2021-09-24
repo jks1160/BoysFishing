@@ -176,7 +176,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/captainWrite")
-	public String captainWrite(@ModelAttribute ReserDTO reser ) {
+	public @ResponseBody String captainWrite(@ModelAttribute ReserDTO reser ) {
 		logger.info("캡틴 라이트 진입");
 		
 		logger.info("Test: {}", reser.getI_num());
