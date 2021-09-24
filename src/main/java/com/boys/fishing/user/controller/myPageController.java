@@ -203,11 +203,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/reserDetail")
-	public HashMap<String, Object> reserDetail(int shipNum) {
-		logger.info("배 넘버당 예약 내역 요청");
-		
-		return myservice.reserDetail(shipNum);
+	@RequestMapping(value="/reserWait")
+	public HashMap<String, Object> reserWait(HttpSession session, String wait) {
+		logger.info("배 넘버당 예약 대기중 내역 요청");
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		return myservice.reserWait(userId, wait);
 	}
 	
 	

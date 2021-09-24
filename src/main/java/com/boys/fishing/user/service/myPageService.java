@@ -238,11 +238,11 @@ public class myPageService {
 			return mav;
 		}			
 		
-	public HashMap<String, Object> reserDetail(int shipNum) {
+	public HashMap<String, Object> reserWait(String userId, String wait) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<ReserDTO> ScheduleDetail = new ArrayList<ReserDTO>();
-		ScheduleDetail = dao.reserDetail(shipNum);
-		map.put("list", ScheduleDetail);
+		ArrayList<ReserDTO> waitScheduleDetail = new ArrayList<ReserDTO>();
+		waitScheduleDetail = dao.reserWait(userId, wait);
+		map.put("list", waitScheduleDetail);
 		return map;
 	}
 
