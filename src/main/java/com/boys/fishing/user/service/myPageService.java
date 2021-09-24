@@ -209,7 +209,7 @@ public class myPageService {
 			int success = dao.captainWrite(reser);
 			System.out.println("성공 "+success);
 			
-		return null;
+		return String.valueOf(success);
 	}
 
 

@@ -23,7 +23,7 @@
 
 <body>
 
-<form action="captainWrite" id = "frm" method="GET">
+<form id = "frm" method="GET">
 	<div>
 		<input type="text" value= "${op_date}" name = "op_date" />
 	</div>
@@ -44,7 +44,7 @@
 	</div>
 	
 	<div>
-		<select id = "islandName" name = "i_num" onchange="chageShopSelect3()">
+		<select id = "islandName" name = "i_num">
 			
 		</select>
 	</div>
@@ -64,11 +64,29 @@
 	<div>
 		<input type="number" name = "op_price" required/>
 	</div>
-	<input type="button" onclick="submitt()" value="저장하기"></button>
+	<input type="button" onclick="captainWrite();" value="저장하기"/>
 </form>
 </body>
 
 <script>
+function captainWrite(){
+	console.log("여기옴?");
+	$.ajax({
+		type : 'get',
+		url : 'captainWrite',
+		data : $("#frm").serialize(),
+		success : function(data){
+			console.log("성공 여부 " , data);
+			console.log("여기옴? 석세스");
+			alert("저장이 완료되었습니다.");
+			window.close();
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+	
+}
 
 //키 입력 못하게 막기
 function filterNumber(event){
