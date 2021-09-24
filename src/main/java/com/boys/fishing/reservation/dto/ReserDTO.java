@@ -20,6 +20,7 @@ public class ReserDTO {
 	private Date ri_date; // 날짜
 	private String ri_code; // 예약 상태 코드
 	private String ri_cancelreason; //취소 사유
+	private int ri_pay; //결제 금액
 	//운행 범위
 	private int s_num; // 배 번호
 	// i_num 무인도 번호는 예약정보에 있습니다.
@@ -211,6 +212,12 @@ public class ReserDTO {
 	}
 	public void setSi_name(String si_name) {
 		this.si_name = si_name;
+	}
+	public int getRi_pay() {
+		return ri_pay;
+	}
+	public void setRi_pay(int ri_pay) {
+		this.ri_pay = ri_pay;
 	}
 	
 	

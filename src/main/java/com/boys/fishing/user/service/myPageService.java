@@ -211,7 +211,6 @@ public class myPageService {
 			
 		return String.valueOf(success);
 	}
-
 		/** 조재현
 		 *  선장 업데이트 폼 소환
 		 * @param userId
@@ -233,5 +232,52 @@ public class myPageService {
 		return mav;
 	}
 
+	/* 이게 진짜
+	public ModelAndView captainScheduleDetail(String userId, Date op_date) {
+		//운행관리 예약관리 디테일폼 이동
+		ModelAndView mav = new ModelAndView();
+		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
+		shipName = dao.shipNamee(userId);
+		mav.addObject("shipName", shipName);
+		mav.addObject("op_date", op_date);
+		mav.setViewName("captainScheduleDetail");
+		logger.info("여기는 문제없징?");
+		return mav;
+	}	
+	
+	*/
+		
+		public ModelAndView captainScheduleDetail(String userId) {
+			//운행관리 예약관리 디테일폼 이동
+			ModelAndView mav = new ModelAndView();
+			ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
+			shipName = dao.shipNamee(userId);
+			mav.addObject("shipName", shipName);
+			mav.setViewName("captainScheduleDetail");
+			logger.info("여기는 문제없징?");
+			return mav;
+		}			
+		
+	public HashMap<String, Object> reserDetail(int shipNum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<ReserDTO> ScheduleDetail = new ArrayList<ReserDTO>();
+		ScheduleDetail = dao.reserDetail(shipNum);
+		map.put("list", ScheduleDetail);
+		return map;
+	}
+		
+		
+	public ArrayList<HashMap<String, String>> captainScheduleList(String userid) {
+			
+		ArrayList<HashMap<String, String>> reserList = dao.captainScheduleList(userid);
+			
+		return reserList;
+	}
 
+		
+		
+		
+		
+		
+		
 }

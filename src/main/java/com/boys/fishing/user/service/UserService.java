@@ -384,10 +384,11 @@ public class UserService {
 
 	public ModelAndView shipList(String u_userid) {
 		logger.info("배 리스트");
+		ArrayList<ReserDTO> list = new ArrayList<ReserDTO>();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shipList");
-		ReserDTO dto =  dao.shipList(u_userid);
-		mav.addObject("dto",dto);
+		list =  dao.shipList(u_userid);
+		mav.addObject("list",list);
 		return mav;
 	}
 
@@ -423,17 +424,6 @@ public class UserService {
 		dao.notice(dto);
 	}
 
-	public ModelAndView captainSchedule(String u_userid) {
-
-		ArrayList<ReserDTO> List = dao.captainSchedule(u_userid);
-		logger.info("start day : "+List.get(0).getRi_starttime());
-		for (ReserDTO reserDTO : List) {
-			
-			
-	
-		}
-		return null;
-	}
 
 	public HashMap<String, String> shipFileUpdate(HttpSession session, MultipartFile file) {
 		logger.info("배 이미지 업로드");

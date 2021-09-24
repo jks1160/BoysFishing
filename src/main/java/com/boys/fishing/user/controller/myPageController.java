@@ -191,37 +191,43 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		logger.info("섬 출력 요청");
 		
 		return myservice.islandName();
-		
 	}
 	
+	@ResponseBody 
 	@RequestMapping(value="/captainWrite")
-	public @ResponseBody String captainWrite(@ModelAttribute ReserDTO reser ) {
+	public String captainWrite(@ModelAttribute ReserDTO reser ) {
 		logger.info("캡틴 라이트 진입");
-		
-		logger.info("Test: {}", reser.getI_num());
-		logger.info("Test: {}", reser.getS_num());
-		logger.info("Test: {}", reser.getOp_date());
-		
-		
-		/*
-		 * String op_date = httpServletRequest.getParameter("op_date"); String s_num =
-		 * httpServletRequest.getParameter("s_num"); String op_startpoint =
-		 * httpServletRequest.getParameter("op_startpoint"); String op_starttime =
-		 * httpServletRequest.getParameter("op_starttime"); String i_num =
-		 * httpServletRequest.getParameter("i_num"); String op_duringtime =
-		 * httpServletRequest.getParameter("op_duringtime"); String op_returntime =
-		 * httpServletRequest.getParameter("op_returntime"); String op_price =
-		 * httpServletRequest.getParameter("op_price");
-		 * 
-		 * logger.info(s_num); logger.info(op_startpoint); logger.info(op_starttime);
-		 * logger.info(i_num); logger.info(op_duringtime); logger.info(op_returntime);
-		 * logger.info(op_price);
-		 */
 		
 		return myservice.captainWrite(reser);
 	}
 	
+	/* 이게진짜
+	@RequestMapping(value="/captainScheduleDetail")
+	public ModelAndView captainScheduleDetail(HttpSession session, @RequestParam Date op_date) {
+		logger.info("선장 운항 요청 페이지 이동");
+		logger.info("학인 : {}", op_date);
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		return myservice.captainScheduleDetail(userId,op_date);
+	}
+	*/
+	@RequestMapping(value="/captainScheduleDetail")
+	public ModelAndView captainScheduleDetail(HttpSession session) {
+		logger.info("선장 운항 요청 페이지 이동");
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		return myservice.captainScheduleDetail(userId);
+	}
 	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/reserDetail")
+	public HashMap<String, Object> reserDetail(int shipNum) {
+		logger.info("배 넘버당 예약 내역 요청");
+		
+		return myservice.reserDetail(shipNum);
+	}
 	
 	
 	
@@ -245,11 +251,19 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	 
 	@RequestMapping(value="/captainSchedule", method=RequestMethod.GET)
-	public ModelAndView captainShedule(HttpSession session) {
-		logger.info("캡틴 예약일정 확인");
-		HashMap<String, Object> userinfo = (HashMap<String, Object>) session.getAttribute("userinfo");
-		logger.info((String)userinfo.get("u_userid"));
-		return service.captainSchedule((String)userinfo.get("u_userid"));
+	public String captainShedule(HttpSession session) {
+		logger.info("캡틴 예약일정 폼 요청");
+
+		return "captainSchedule";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/captainScheduleList")
+	public ArrayList<HashMap<String, String>> captainScheduleList(HttpSession session) {
+		logger.info("선장 예약정보 조회 요청");
+		HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userid = (String)userInfo.get("u_userid");
+		return myservice.captainScheduleList(userid);
 	}
 	
 }
