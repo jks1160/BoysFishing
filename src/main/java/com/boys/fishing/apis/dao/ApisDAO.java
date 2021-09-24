@@ -18,5 +18,9 @@ public interface ApisDAO {
 
 	IslandDTO getIslandName(String find_ship);
 
+	void todayweatherdel();
+
+	void weatherdel();
+
 
 }

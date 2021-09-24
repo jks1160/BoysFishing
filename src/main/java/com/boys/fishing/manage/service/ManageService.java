@@ -48,7 +48,11 @@ public class ManageService {
 	public ModelAndView capreq_detail(String u_userid) {
 		ModelAndView mav = new ModelAndView();
 		ManageDTO dto = dao.capreq_detail(u_userid);
+		ManageDTO dtoimg = dao.capreq_detailimg(u_userid);
+		
 		mav.addObject("bbs",dto);
+		mav.addObject("img",dtoimg);
+		
 		mav.setViewName("capreq_detail");
 		return mav;
 	}

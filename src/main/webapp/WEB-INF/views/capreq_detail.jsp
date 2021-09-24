@@ -24,12 +24,24 @@
 		text-align: center;
 	}
 	    thead td{
-	    width:300px;
+	    width:500px;
 		font-weight:600;
 		text-align: center;
-		background-color: activecaption;
 		border: 1px solid black;
 	}
+		thead th{
+		background-color:activecaption;
+		width:500px;
+		font-weight:600;
+		text-align: center;
+		border: 1px solid black;
+		}
+		
+		img{
+		width:400px;
+		height:200px;
+		
+		}
 		
 		</style>
 
@@ -44,27 +56,39 @@
 	
 	<thead>
 			<tr>
-				<td>선장 아이디</td>
-				<td>라이센스 여부</td>
-				
-				<td>진행 상태</td>
-				<td>신청 날짜</td>
-				<td>거절 사유</td>
+				<th>선장 아이디</th>
+				<td>${bbs.u_userid}</td>
 			</tr>
+			
+			<tr>
+				<th>라이센스 여부</th>
+				<td>${bbs.cap_licenseYN}</td>
+			</tr>
+			
+			<tr>
+				<th>진행 상태</th>
+				<td>${bbs.cap_idYSN}</td>
+			</tr>
+			
+			<tr>
+				<th>신청 날짜</th>
+				<td>${bbs.cap_requestTime}</td>
+			</tr>			
+			
+			<tr>
+				<th>거절 사유</th>
+				<td><input type="text" id="cap_cancelreason" name="cap_cancelreason" style="width:100%;" value=""></td>
+			</tr>
+			
+			<tr>
+				<th>라이센스 이미지</th>
+				<td><img src="${img.l_name}"></td>
+			</tr>
+				
+						
 	</thead>
 		
-			<tbody id="list" >
-				<tr>
-					<td>${bbs.u_userid}</td>
-					<td>${bbs.cap_licenseYN}</td>
-					
-					<td>${bbs.cap_idYSN}</td>
-					<td>${bbs.cap_requestTime}</td>
-					<td><input type="text" id="cap_cancelreason" name="cap_cancelreason" value=""></td>
-				</tr>
-				
-			</tbody>	
-
+		
 			</table>
 				
 					<div class = "container">
