@@ -19,6 +19,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <title>Insert title here</title>
 <style type="text/css">
 * {
@@ -65,7 +66,11 @@
 									<td>${dto.Q_REGDATE}</td>
 								</tr>
 								<tr>
-									<td colspan="6" class="hiddenRow"><div id="demo2${dto.Q_NUM }" class="accordian-body collapse">${dto.Q_CONTENT}</div></td>
+									<td colspan="6" class="hiddenRow">
+										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1"><b>Q : ${dto.Q_CONTENT}</b></div>
+										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1" <c:if test="${dto.Q_ANSWERCON eq null}">hidden</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;A:    ${dto.Q_ANSWERCON }</div>
+										<hr>
+									</td>
 								</tr>
 							</tbody>
 						</c:forEach>

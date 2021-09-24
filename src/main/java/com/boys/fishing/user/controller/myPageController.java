@@ -225,5 +225,11 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return service.captain_requestForm(userId,redirect);
 	}
 	 
+	@RequestMapping(value="/captainShedule", method=RequestMethod.GET)
+	public String captainShedule() {
+		logger.info("캡틴 예약일정 확인");
+		
+		return "captainShedule";
+	}
 	
 }
