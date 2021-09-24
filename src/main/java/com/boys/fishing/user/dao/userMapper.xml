@@ -172,8 +172,9 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 
 
 <!-- 선장 요청 테이블 넣기 -->
-<insert id="captain_request" >
-	INSERT INTO captain VALUES(#{param1},'Y','S','없음')
+
+<insert id="captain_request">
+	INSERT INTO captain(u_userid,cap_licenseyn,cap_idysn,cap_cancelreason,cap_requesttime,cap_manager) VALUES(#{param1},'N','S','없음',SYSDATE,'none')
 </insert>
 <!-- 선장 자격증 테이블에 사진 넣기 -->
 <insert id="captainPhoto" >
@@ -184,5 +185,14 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	SELECT count(u_userid) FROM captain WHERE u_userid = #{param1}	
 </select>
 
+<insert id="notice" parameterType="userinfo" >
+	INSERT INTO alarm 
+	<if test="a_pathnum.equals('')">VALUES(a_num_seq.NEXTVAL,#{u_userid},SYSDATE,'',#{a_content},'N','N',#{a_path},#{a_code}, '')</if>
+	<if test="!a_pathnum.equals('')">VALUES(a_num_seq.NEXTVAL,#{u_userid},SYSDATE,'',#{a_content},'N','N',#{a_path},#{a_code}, #{a_pathnum)</if>
+</insert>
+
+<select id="captainSchedule" resultType="reser">
+	SELECT s.u_userid, orr.* FROM ship s INNER JOIN operrange orr ON (s.s_num = orr.s_num) WHERE s.u_userid = #{param1}
+</select>
 
 </mapper>

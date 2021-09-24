@@ -45,10 +45,12 @@ public class UserDTO {
 	private String a_userid; // 아이디
 	private Date a_regdate; // 알람 날짜
 	private Date a_checkdate; // 알람 확인 날짜
+	private String a_content; // 알람 내용 
 	private char a_readYN; // 읽음 여부
 	private char a_delYN; // 삭제 여부
 	private String a_path; // 알람 경로
 	private String a_code; // 알람 코드
+	private int a_pathnum; // 알람 게시글 번호
 	// 블랙 리스트
 	private int bl_num;// 블랙리스트 번호
 	private String bl_userid; // 아이디
@@ -293,6 +295,18 @@ public class UserDTO {
 	}
 	public void setBl_disdate(Date bl_disdate) {
 		this.bl_disdate = bl_disdate;
+	}
+	public String getA_content() {
+		return a_content;
+	}
+	public void setA_content(String a_content) {
+		this.a_content = a_content;
+	}
+	public int getA_pathnum() {
+		return a_pathnum;
+	}
+	public void setA_pathnum(int a_pathnum) {
+		this.a_pathnum = a_pathnum;
 	}
 	
 	

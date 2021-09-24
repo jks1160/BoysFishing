@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.manage.dao.ManageDAO;
 import com.boys.fishing.manage.dto.ManageDTO;
@@ -42,6 +43,29 @@ public class ManageService {
 		map.put("pages", pages);
 		
 		return map;
+	}
+
+	public ModelAndView capreq_detail(String u_userid) {
+		ModelAndView mav = new ModelAndView();
+		ManageDTO dto = dao.capreq_detail(u_userid);
+		ManageDTO dtoimg = dao.capreq_detailimg(u_userid);
+		
+		mav.addObject("bbs",dto);
+		mav.addObject("img",dtoimg);
+		
+		mav.setViewName("capreq_detail");
+		return mav;
+	}
+
+
+	public void capreq_update(HashMap<String, String> map) {
+		int suc = dao.capreq_update(map);
+		logger.info("수정 성공 여부 :{}",suc);		
+	}
+
+	public void capreq_reject(HashMap<String, String> map) {
+		int suc = dao.capreq_reject(map);
+		logger.info("거절 성공 여부 :{}",suc);	
 	}
 	
 }

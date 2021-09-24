@@ -7,14 +7,44 @@
 <mapper namespace="com.boys.fishing.manage.dao.ManageDAO">
 
 	<!-- cap요청 리스트 불러오기 -->
-	<select id="capRequestList" resultType="manageDTO">
+	<select id="capRequestList" resultType="manageDTO" >
 	select u_userid,cap_licenseYN,cap_idYSN,cap_cancelreason,cap_requestTime,cap_manager
 	From(select ROW_NUMBER() OVER(order by u_userid desc)rnum,u_userid,cap_licenseYN,cap_idYSN,cap_cancelreason,cap_requestTime,cap_manager from captain where cap_idysn='S' or cap_idysn='N')
-	where rnum between ${param1} and ${param2}
+	where rnum between ${param1} and ${param2} order by cap_requesttime desc
 	</select>
 	
 	<select id="allCount" resultType="int">
-		SELECT COUNT(u_userid) FROM captain where cap_idysn='S' or cap_idysn='N'
+		SELECT COUNT(u_userid) FROM captain where cap_idysn='S' or cap_idysn='N' order by cap_requesttime desc
 	</select>
+
+	<select id="capreq_detail" resultType="manageDTO" parameterType="String">
+		select * from captain where u_userid = #{u_userid}
+	</select>
+	
+	<select id="capreq_detailimg" resultType="manageDTO" parameterType="String">
+		SELECT L_name FROM license WHERE u_userid = #{u_userid} and rownum=1 order by L_name asc
+	</select>
+	
+	<update id="capreq_update" parameterType="hashmap">
+		update captain
+		<set>
+			cap_idysn = 'Y',
+			cap_licenseyn = 'Y',
+			cap_manager =#{cap_manager},
+			cap_cancelreason ='없음'			
+		</set>
+		 where u_userid=#{u_userid}
+	</update>
+
+	<update id="capreq_reject" parameterType="hashmap">
+		update captain
+		<set>
+			cap_idysn = 'N',
+			cap_licenseyn = 'N',
+			cap_cancelreason =#{cap_cancelreason},	
+			cap_manager =#{cap_manager}				
+		</set>
+		 where u_userid=#{u_userid}
+	</update>
 
 </mapper>

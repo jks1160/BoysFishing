@@ -6,13 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 풀 캘린더 -->
@@ -41,7 +34,6 @@
 <style>
 * {
 	font-family: 'Do Hyeon', sans-serif;
-	font-size: '12px'
 }
 </style>
 </head>
@@ -99,6 +91,7 @@
 			locale : "ko", //한글 설정
 			editable : true, // 에디터 가능한지 
 			selectable : true, //선택 가능한지
+			dayMaxEventRows: true,
 			dateClick : function(e) {
 				console.log("이벤트 ",e);
 				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
@@ -123,11 +116,13 @@
 						console.log("성공 데이터 : ", data);
 						// 받은 데이터 중 my_list 부분을 가져온다.
 						data.operList.forEach(function(myReser) {
-							var get_year = new Date(myReser.op_date).getFullYear();
+							console.log(myReser);
 							
-							var get_month = new Date(myReser.op_date).getMonth() + 1;
+							var get_year = new Date(myReser.OP_DATE).getFullYear();
+							
+							var get_month = new Date(myReser.OP_DATE).getMonth() + 1;
 									
-							var get_day = new Date(myReser.op_date).getDate();
+							var get_day = new Date(myReser.OP_DATE).getDate();
 
 							if (get_month < 10) {
 								get_month = "0" + get_month;
@@ -137,12 +132,13 @@
 							}
 							var reserDate = get_year + "-" + get_month + "-"
 									+ get_day;
-
+							
 							console.log("스타트데이 : ", reserDate);
 							my_reser.push({
+								title : myReser.I_NAME,
 								start : reserDate,
-								color : "#FFCCE5",
-								display : 'background'
+								color : "#FFCCE5"
+								
 							});
 						}); // forEach end
 
@@ -155,6 +151,11 @@
 			},// events:function end */ 
 		eventClick: function(e){
 			console.log("이벤트 ", e);
+		},
+		views :{
+			timeGrid: {
+				dayMaxEventRows: 3
+			}
 		}
 			
 		});// full Calendar end 

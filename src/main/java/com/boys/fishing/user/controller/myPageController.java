@@ -176,7 +176,7 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/captainWrite")
-	public String captainWrite(@ModelAttribute ReserDTO reser ) {
+	public @ResponseBody String captainWrite(@ModelAttribute ReserDTO reser ) {
 		logger.info("캡틴 라이트 진입");
 		
 		logger.info("Test: {}", reser.getI_num());
@@ -225,5 +225,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return service.captain_requestForm(userId,redirect);
 	}
 	 
+	@RequestMapping(value="/captainSchedule", method=RequestMethod.GET)
+	public ModelAndView captainShedule(HttpSession session) {
+		logger.info("캡틴 예약일정 확인");
+		HashMap<String, Object> userinfo = (HashMap<String, Object>) session.getAttribute("userinfo");
+		logger.info((String)userinfo.get("u_userid"));
+		return service.captainSchedule((String)userinfo.get("u_userid"));
+	}
 	
 }
