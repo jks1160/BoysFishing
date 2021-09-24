@@ -140,6 +140,15 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 </insert>
 
 
+<!-- 운항 확인 디테일 뿌려주기 아직 미정미정미정미정미정미정미정미정미정미정미정
+<select id="captainScheduleDetail">
+	SELECT r.RI_num, r.RI_userid, r.I_num, r.RI_code, r.s_num, r.RI_startpoint, r.RI_starttime, r.RI_duringtime, r.RI_returntime, r.RI_people, r.RI_startturnYN, r.RI_date, r.RI_cancelreason 
+	FROM reserINFO r, ship s WHERE s.snum = r.s_num AND r.RI_date = #{param1} 
+</select>
+ -->
+<select id="reserDetail" resultType="reser">
+	SELECT * FROM reserInfo WHERE s_num = #{param1}
+</select>
 
 <select id="overCheck" resultType="int">
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
