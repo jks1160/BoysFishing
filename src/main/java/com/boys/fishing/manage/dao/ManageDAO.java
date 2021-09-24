@@ -21,4 +21,6 @@ public interface ManageDAO {
 
 	int capreq_reject(HashMap<String, String> map);
 
+	ManageDTO capreq_detailimg(String u_userid);
+
 }

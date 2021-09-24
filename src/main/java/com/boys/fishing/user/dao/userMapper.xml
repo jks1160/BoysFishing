@@ -167,8 +167,8 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 
 
 <!-- 선장 요청 테이블 넣기 -->
-<insert id="captain_request" >
-	INSERT INTO captain VALUES(#{param1},'Y','S','없음')
+<insert id="captain_request">
+	INSERT INTO captain(u_userid,cap_licenseyn,cap_idysn,cap_cancelreason,cap_requesttime,cap_manager) VALUES(#{param1},'N','S','없음',SYSDATE,'none')
 </insert>
 <!-- 선장 자격증 테이블에 사진 넣기 -->
 <insert id="captainPhoto" >
