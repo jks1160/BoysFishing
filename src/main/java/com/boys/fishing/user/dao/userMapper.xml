@@ -206,8 +206,9 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	<if test="!a_pathnum.equals('')">VALUES(a_num_seq.NEXTVAL,#{u_userid},SYSDATE,'',#{a_content},'N','N',#{a_path},#{a_code}, #{a_pathnum)</if>
 </insert>
 
-<select id="captainSchedule" resultType="reser">
-	SELECT s.u_userid, orr.* FROM ship s INNER JOIN operrange orr ON (s.s_num = orr.s_num) WHERE s.u_userid = #{param1}
+<select id="captainScheduleList" resultType="hashmap">
+	SELECT DISTINCT TO_CHAR(sub.ri_date, 'yyyy-mm-dd') AS end FROM 
+	(SELECT s.*,ri.* FROM ship s INNER JOIN reserinfo ri ON (s.s_num = ri.s_num) WHERE s.u_userid =#{param1}) sub
 </select>
 
 </mapper>

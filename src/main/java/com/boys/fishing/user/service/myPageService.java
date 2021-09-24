@@ -211,6 +211,26 @@ public class myPageService {
 			
 		return String.valueOf(success);
 	}
+		/** 조재현
+		 *  선장 업데이트 폼 소환
+		 * @param userId
+		 * @param params
+		 * @return
+		 */
+	public ModelAndView captainScheduleUpdate(String userId, HashMap<String, String> params) {
+		logger.info("스케줄 업데이트 진입 : {}" , userId);
+		ModelAndView mav =  new ModelAndView();
+		
+		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
+		shipName = dao.shipNamee(userId);
+		
+		logger.info("파람스 :{} ",params);
+		mav.addObject("reser",params);
+		mav.addObject("shipName",shipName);
+		mav.setViewName("captainUpdateForm");
+		
+		return mav;
+	}
 
 	/* 이게 진짜
 	public ModelAndView captainScheduleDetail(String userId, Date op_date) {
@@ -245,8 +265,19 @@ public class myPageService {
 		map.put("list", ScheduleDetail);
 		return map;
 	}
+		
+		
+	public ArrayList<HashMap<String, String>> captainScheduleList(String userid) {
+			
+		ArrayList<HashMap<String, String>> reserList = dao.captainScheduleList(userid);
+			
+		return reserList;
+	}
 
-	
-
-
+		
+		
+		
+		
+		
+		
 }

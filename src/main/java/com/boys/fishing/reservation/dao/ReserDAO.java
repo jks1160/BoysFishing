@@ -16,6 +16,8 @@ public interface ReserDAO {
 
 	ArrayList<HashMap<String, Object>> captain_reser(String capId);
 
+	int updateCapSche(HashMap<String, Object> params);
+
 
 	
 

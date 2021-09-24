@@ -424,17 +424,6 @@ public class UserService {
 		dao.notice(dto);
 	}
 
-	public ModelAndView captainSchedule(String u_userid) {
-
-		ArrayList<ReserDTO> List = dao.captainSchedule(u_userid);
-		logger.info("start day : "+List.get(0).getRi_starttime());
-		for (ReserDTO reserDTO : List) {
-			
-			
-	
-		}
-		return null;
-	}
 
 	public HashMap<String, String> shipFileUpdate(HttpSession session, MultipartFile file) { //영환
 		logger.info("배 이미지 업로드");

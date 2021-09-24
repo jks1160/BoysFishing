@@ -1,6 +1,7 @@
 package com.boys.fishing.user.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -149,6 +150,24 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		String userId = userInfo.get("u_userid");
 		return myservice.captainScheduleWrite(userId,op_date);
 	}
+	/** 조재현
+	 * 선장 스케줄 상세보기 -> 변경
+	 * 
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping(value="/captainUpdateForm")
+	public ModelAndView captainUpdateForm(HttpSession session, @RequestParam HashMap<String, String> params) {
+		logger.info("선장 스케쥴 등록 요청");
+		logger.info("학인 : {}", params.get("op_date"));
+
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		
+		
+		return myservice.captainScheduleUpdate(userId, params);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/startPoint")
@@ -232,11 +251,19 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	 
 	@RequestMapping(value="/captainSchedule", method=RequestMethod.GET)
-	public ModelAndView captainShedule(HttpSession session) {
-		logger.info("캡틴 예약일정 확인");
-		HashMap<String, Object> userinfo = (HashMap<String, Object>) session.getAttribute("userinfo");
-		logger.info((String)userinfo.get("u_userid"));
-		return service.captainSchedule((String)userinfo.get("u_userid"));
+	public String captainShedule(HttpSession session) {
+		logger.info("캡틴 예약일정 폼 요청");
+
+		return "captainSchedule";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/captainScheduleList")
+	public ArrayList<HashMap<String, String>> captainScheduleList(HttpSession session) {
+		logger.info("선장 예약정보 조회 요청");
+		HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userid = (String)userInfo.get("u_userid");
+		return myservice.captainScheduleList(userid);
 	}
 	
 }
