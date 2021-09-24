@@ -128,7 +128,7 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	ArrayList<ReserDTO> islandName(int shipNum);
 		
-	ReserDTO shipList(String u_userid); //영환
+	ArrayList<ReserDTO> shipList(String u_userid); //영환
 
 	String shipName(String userId);
 

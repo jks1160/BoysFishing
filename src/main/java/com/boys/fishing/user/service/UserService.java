@@ -384,10 +384,11 @@ public class UserService {
 
 	public ModelAndView shipList(String u_userid) {
 		logger.info("배 리스트");
+		ArrayList<ReserDTO> list = new ArrayList<ReserDTO>();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shipList");
-		ReserDTO dto =  dao.shipList(u_userid);
-		mav.addObject("dto",dto);
+		list =  dao.shipList(u_userid);
+		mav.addObject("list",list);
 		return mav;
 	}
 
