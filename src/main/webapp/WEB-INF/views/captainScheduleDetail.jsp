@@ -17,20 +17,48 @@
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
+.entire{
+		margin-top : 5%;
+		margin-right: 30%;
+		margin-bottom: 5%;
+		margin-left: 30%;
+		text-align : center;
+}
 </style>
 </head>
 <body>
-<h1>${date}</h1>
-<h3>스케쥴 상세보기</h3>
-<button onclick="waiting()">대기중</button>
-<button onclick="decide()">확정예약</button>
-
-<div id="reserDetail">
-
-</div>
-
+<jsp:include page="header.jsp"></jsp:include>
+	<div class="entire">
+	<h3>스케쥴 상세보기</h3>
+	<button onclick="waiting()">대기중</button>
+	<button onclick="decide()">확정예약</button>
+	<button onclick="location.href='captainSchedule'" >뒤로가기</button>
+		<div id="reserDetail">
+	
+		</div>
+	</div>
 </body>
 <script>
+//예약 확정하기
+function decideButton(number){
+	console.log("예약확정간다?");
+	var param = {};
+	param.num = number;
+	$.ajax({
+		type : 'get',
+		url : 'reserDecide',
+		data : param,
+		success : function(data){
+			console.log(data);
+			window.location.reload();
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
+
+
 //대기중
 function waiting(){
 	console.log("여기옴?");
@@ -96,7 +124,7 @@ function waitDetailDrawList(list) {
 		content += "<tr><td>소요시간</td><td>"+item.ri_duringtime+"</td></tr>";
 		content += "<tr><td>인원수</td><td>"+item.ri_people+"</td></tr>";
 		content += "<tr><td>결제금액</td><td>"+item.ri_pay+"</td></tr>";
-		
+		content += "<tr><td colspan='2'><button onclick='decideButton("+item.ri_num+")'>확정하기</button></td>"
 		content +="</table>"
 	});
 	$("#reserDetail").empty();

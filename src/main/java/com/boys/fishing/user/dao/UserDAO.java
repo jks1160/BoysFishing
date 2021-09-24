@@ -148,6 +148,8 @@ UserDTO myUserInfo(String u_userid); //영환
 	ArrayList<ReserDTO> reserWait(String userId, String wait, String date); //예약 대기중 리스트
 	ArrayList<ReserDTO> captainSchedule(String u_userid);
 
+	int reserDecide(String num);
+
 	
 
 

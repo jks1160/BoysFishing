@@ -233,7 +233,12 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.reserWait(userId, wait, date);
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="/reserDecide")
+	public String reserDecide(String num) {
+		logger.info("예약번호: {}",num);
+		return myservice.reserDecide(num);
+	}
 	
 	
 	

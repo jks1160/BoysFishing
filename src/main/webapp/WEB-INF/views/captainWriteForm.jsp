@@ -27,14 +27,10 @@
 	font-family: 'Do Hyeon', sans-serif;
 }
 .entire{
-	
 		margin-top: 5%;
 		margin-right: 30%;
 		margin-bottom: 5%;
 		margin-left: 30%;
-}
-input{
-	
 }
 </style>
 </head>

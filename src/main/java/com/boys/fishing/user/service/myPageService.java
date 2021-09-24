@@ -275,6 +275,13 @@ public class myPageService {
 		return reserList;
 	}
 
+	public String reserDecide(String num) {
+		logger.info("예약확정 서비스 진입");
+		int success;
+		success = dao.reserDecide(num);
+		return String.valueOf(success);
+	}
+
 		
 		
 		

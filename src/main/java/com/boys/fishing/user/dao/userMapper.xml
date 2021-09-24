@@ -153,6 +153,13 @@ FROM reserInfo r, island i, ship s
 WHERE s.s_num = r.s_num and i.i_num = r.i_num and s.u_userid in(#{param1}) and ri_code=#{param2} and TO_CHAR(ri_date, 'yyyy-mm-dd') = #{param3}
 </select>
 
+<!-- 예약확정 -->
+<update id="reserDecide">
+UPDATE reserInfo set ri_code = 'RI002' WHERE ri_num = #{param1}
+</update>
+
+
+
 <select id="overCheck" resultType="int">
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
 </select>
