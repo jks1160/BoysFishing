@@ -45,13 +45,17 @@
 </update>
 
 <select id="shipList" parameterType="String" resultType="reser">
-	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{u_userid}
+	SELECT s_name FROM ship WHERE u_userid=#{u_userid} ORDER BY s_name
 </select>
 
 <insert id="shipJoin" parameterType="hashmap">
 	INSERT INTO ship (s_num,u_userid,s_name,s_minpassenger,s_maxpassenger,s_img,s_equipment,s_convenient,s_address)
 	 VALUES(S_NUM_SEQ.nextval,#{u_userid},#{s_name},#{s_minpassenger},#{s_maxpassenger},'N',#{equipment},#{convenient},#{address})
 </insert>
+
+<select id="shipListDetail" parameterType="String" resultType="reser">
+	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{param1} AND s_name=#{param2}
+</select>
 
 
 
@@ -146,9 +150,19 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	FROM reserINFO r, ship s WHERE s.snum = r.s_num AND r.RI_date = #{param1} 
 </select>
  -->
-<select id="reserDetail" resultType="reser">
-	SELECT * FROM reserInfo WHERE s_num = #{param1}
+<select id="reserWait" resultType="reser">
+SELECT s.s_name, r.ri_num, r.ri_userid, i.i_name, r.ri_startpoint, r.ri_starttime, r.ri_returntime,
+r.ri_duringtime, r.ri_people, r.ri_pay, r.ri_code
+FROM reserInfo r, island i, ship s  
+WHERE s.s_num = r.s_num and i.i_num = r.i_num and s.u_userid in(#{param1}) and ri_code=#{param2} and TO_CHAR(ri_date, 'yyyy-mm-dd') = #{param3}
 </select>
+
+<!-- 예약확정 -->
+<update id="reserDecide">
+UPDATE reserInfo set ri_code = 'RI002' WHERE ri_num = #{param1}
+</update>
+
+
 
 <select id="overCheck" resultType="int">
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}
