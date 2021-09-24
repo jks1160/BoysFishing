@@ -69,14 +69,10 @@ var O_nuel = year+'-'+month+'-'+date;
       locale: "ko", //한글 설정
       editable: true, // 에디터 가능한지 
       selectable: true, //선택 가능한지
-      dateClick: function(e){
-    	  if(Number(e.date) > Number(today)){
-    		alert("브라보");  
-    	  }
-      },
-       events: function(info, successCallback, failureCallback){
+      dateClick: false,
+      events: function(info, successCallback, failureCallback){
     	   $.ajax({
-				url:'./reser/user_reser',
+				url:'/fishing/captainScheduleList',
 				type: 'POST',
 				dataType :"JSON",
 				success : function(data) {
@@ -85,10 +81,10 @@ var O_nuel = year+'-'+month+'-'+date;
 					//성공 했는지 확인
 					console.log("성공 데이터 : " ,data);
 					// 받은 데이터 중 my_list 부분을 가져온다.
-					data.my_list.forEach(function(myReser){
-						var get_year = new Date(myReser.ri_date).getFullYear();
-						var get_month = new Date(myReser.ri_date).getMonth()+1;
-						var get_day = new Date(myReser.ri_date).getDate();
+					data.forEach(function(myReser){
+						var get_year = new Date(myReser.END).getFullYear();
+						var get_month = new Date(myReser.END).getMonth()+1;
+						var get_day = new Date(myReser.END).getDate();
 
 						if(get_month <10){
 							get_month = "0"+get_month;
@@ -102,7 +98,7 @@ var O_nuel = year+'-'+month+'-'+date;
 						console.log("스타트데이 : " , reserDate);
 						my_reser.push({
 							start : reserDate,
-							title : "예약"
+							title : "예약 확인"
 						});
 					}); // forEach end
 					
@@ -113,7 +109,10 @@ var O_nuel = year+'-'+month+'-'+date;
 				console.log("에러났습니다." ,e);
 				} // ajax error end
     	  });// ajax end  
-      }// events:function end */ 
+      },
+      eventClick:function(event){
+    	  console.log("이벤트 클릭");
+      },// events:function end */ 
      
        
     });// full Calendar end 

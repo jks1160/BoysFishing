@@ -138,7 +138,7 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int notice(UserDTO dto);
 
-	ArrayList<ReserDTO> captainSchedule(String u_userid);
+	ArrayList<HashMap<String, String>> captainScheduleList(String userid);
 
 
 

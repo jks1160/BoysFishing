@@ -213,4 +213,22 @@ public class myPageService {
 	}
 
 
+		
+		
+		
+		
+		
+	public ArrayList<HashMap<String, String>> captainScheduleList(String userid) {
+			
+		ArrayList<HashMap<String, String>> reserList = dao.captainScheduleList(userid);
+			
+		return reserList;
+	}
+
+		
+		
+		
+		
+		
+		
 }

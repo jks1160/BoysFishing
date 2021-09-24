@@ -226,11 +226,19 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	 
 	@RequestMapping(value="/captainSchedule", method=RequestMethod.GET)
-	public ModelAndView captainShedule(HttpSession session) {
-		logger.info("캡틴 예약일정 확인");
-		HashMap<String, Object> userinfo = (HashMap<String, Object>) session.getAttribute("userinfo");
-		logger.info((String)userinfo.get("u_userid"));
-		return service.captainSchedule((String)userinfo.get("u_userid"));
+	public String captainShedule(HttpSession session) {
+		logger.info("캡틴 예약일정 폼 요청");
+
+		return "captainSchedule";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/captainScheduleList")
+	public ArrayList<HashMap<String, String>> captainScheduleList(HttpSession session) {
+		logger.info("선장 예약정보 조회 요청");
+		HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userid = (String)userInfo.get("u_userid");
+		return myservice.captainScheduleList(userid);
 	}
 	
 }
