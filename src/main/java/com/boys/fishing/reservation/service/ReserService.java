@@ -129,18 +129,15 @@ public class ReserService {
 
 		logger.info("선장 레저 진입 서비스 : {}" , capId);
 		
-		
-		
-		// 리스트 뽑아오고
-		/* ArrayList<ReserDTO> list = reserDAO.captain_reser(capId); */
+		// 섬 이름 때문에 HashMap으로 변경 
 		ArrayList<HashMap<String,Object>> list = reserDAO.captain_reser(capId);
-		for (HashMap<String, Object> reser : list) {
-			System.out.println("테스트 : " + reser.get("I_NUM"));
-		}
 		
+		/*
+		 * for (HashMap<String, Object> reser : list) { System.out.println("테스트 : " +
+		 * reser.get("I_NUM")); }
+		 */
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
 		
 		map.put("operList", list);
 		
