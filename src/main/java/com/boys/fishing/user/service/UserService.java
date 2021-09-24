@@ -425,7 +425,7 @@ public class UserService {
 	}
 
 
-	public HashMap<String, String> shipFileUpdate(HttpSession session, MultipartFile file) {
+	public HashMap<String, String> shipFileUpdate(HttpSession session, MultipartFile file) { //영환
 		logger.info("배 이미지 업로드");
 		HashMap<String, String> map = new HashMap<String, String>();
 			
@@ -459,7 +459,7 @@ public class UserService {
 		
 }
 
-	public ModelAndView shipJoin(String newFileName, HashMap<String, String> params, String u_userid) {
+	public ModelAndView shipJoin(String newFileName, HashMap<String, String> params, String u_userid) { //영환
 		logger.info("배 등록");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shipList");
@@ -502,6 +502,14 @@ public class UserService {
 		params.put("convenient", convenient);
 		dao.shipJoin(params);
 		return mav;
+	}
+
+	public HashMap<String, Object> shipListDetail(String u_userid, String s_name) { //영환
+		logger.info("배 정보 불러오기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ReserDTO dto = dao.shipListDetail(u_userid,s_name);
+		map.put("dto", dto);
+		return map;
 	}
 	
 	

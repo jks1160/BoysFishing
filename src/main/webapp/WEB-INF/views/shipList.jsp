@@ -35,14 +35,17 @@
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<h2>${sessionScope.userinfo.u_usernickname} 님의 배 정보</h2>
+	
 	<div class="rounded float-start">
-		<img src="/photo/${dto.si_name }" id="profileImg" class="rounded" alt="배 이미지" style="width: 200px;">
+		<img id="profileImg" class="rounded" alt="배 이미지" style="width: 200px;">
 	</div>
 	
 	<div>
 	<button type="button" onclick="location.href='shipJoinForm'">등록하기</button>
-	<select>
-		<option>${dto.s_name }</option>
+	<select onchange="select(this)" id="shipNameOption">
+	<c:forEach items="${list}" var="shipName">
+		<option id="shipName">${shipName.s_name }</option>
+	</c:forEach>
 	</select>
 	</div>
 	<div>
@@ -50,27 +53,27 @@
 	<table>
 		<tr>
 			<th>배 이름</th>
-			<td>${dto.s_name }</td>
+			<td id="s_name"></td>
 		</tr>
 	    <tr>
 			<th>최소탑승인원</th>
-			<td>${dto.s_minpassenger }</td>
+			<td id="s_minpassenger"></td>
 		</tr>
 		<tr>
 			<th>최대탑승인원</th>
-			<td>${dto.s_maxpassenger }</td>
+			<td id="s_maxpassenger"></td>
 		</tr>
 		<tr>
 			<th>정박위치주소</th>
-			<td>${dto.s_address }</td>
+			<td id="s_address"></td>
 		</tr>
 		<tr>
 			<th>장비 현황</th>
-			<td>${dto.s_equipment }</td>
+			<td id="s_equipment"></td>
 		</tr>
 		<tr>
 			<th>편의시설 현황</th>
-			<td>${dto.s_convenient }</td>
+			<td id="s_convenient"></td>
 		</tr>	
 		<tr>
 			<td colspan="2">
@@ -80,9 +83,58 @@
 		</tr>
 		</table>
 		</div>
+		
 	</body>
 	<script>
 
+	window.onload = function(){
+		var s_name = $("#shipName").val();
+
+		$.ajax({
+			url:'shipListDetail',
+			type:'POST',
+			data:{'s_name':s_name},
+			dataType:'JSON',
+			success:function(data){
+				$("#s_name").html(data.dto.s_name);
+				$("#s_minpassenger").html(data.dto.s_minpassenger);
+				$("#s_maxpassenger").html(data.dto.s_maxpassenger);
+				$("#s_address").html(data.dto.s_address);
+				$("#s_equipment").html(data.dto.s_equipment);
+				$("#s_convenient").html(data.dto.s_convenient);
+				//$("#si_name").attr("scr",/)
+			},
+			error:function(e){
+				console.log(e);
+			}	
+		}); 
+		
+	}
+
+
+	function select(obj){
+		console.log(obj.value);
+		
+		$.ajax({
+			url:'shipListDetail',
+			type:'POST',
+			data:{'s_name':obj.value},
+			dataType:'JSON',
+			success:function(data){
+				$("#s_name").html(data.dto.s_name);
+				$("#s_minpassenger").html(data.dto.s_minpassenger);
+				$("#s_maxpassenger").html(data.dto.s_maxpassenger);
+				$("#s_address").html(data.dto.s_address);
+				$("#s_equipment").html(data.dto.s_equipment);
+				$("#s_convenient").html(data.dto.s_convenient);
+				//$("#si_name").attr("scr",/)
+			},
+			error:function(e){
+				console.log(e);
+			}	
+		}); 
+	}
+	
 	</script>
 </html>
 
