@@ -35,6 +35,8 @@ function waiting(){
 	console.log("여기옴?");
 	var param = {};
 	var wait = 'RI001';
+	var date = "${date}";
+	param.date = date;
 	param.wait = wait; 
 	$.ajax({
 		type : 'get',

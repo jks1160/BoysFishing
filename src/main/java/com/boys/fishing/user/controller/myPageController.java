@@ -193,22 +193,25 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	*/
 	@RequestMapping(value="/captainScheduleDetail")
-	public ModelAndView captainScheduleDetail(HttpSession session) {
+	public ModelAndView captainScheduleDetail(HttpSession session, @RequestParam String date) {
 		logger.info("선장 운항 요청 페이지 이동");
+		logger.info("데이트 : {}",date);
 		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		String userId = userInfo.get("u_userid");
-		return myservice.captainScheduleDetail(userId);
+		return myservice.captainScheduleDetail(userId,date);
 	}
 	
 	
 	
 	@ResponseBody
 	@RequestMapping(value="/reserWait")
-	public HashMap<String, Object> reserWait(HttpSession session, String wait) {
+	public HashMap<String, Object> reserWait(HttpSession session, String wait, String date) {
 		logger.info("배 넘버당 예약 대기중 내역 요청");
+		logger.info(wait);
+		logger.info(date);
 		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		String userId = userInfo.get("u_userid");
-		return myservice.reserWait(userId, wait);
+		return myservice.reserWait(userId, wait, date);
 	}
 	
 	

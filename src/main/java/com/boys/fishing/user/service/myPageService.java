@@ -227,7 +227,7 @@ public class myPageService {
 	
 	*/
 		
-		public ModelAndView captainScheduleDetail(String userId) {
+		public ModelAndView captainScheduleDetail(String userId, String date) {
 			//운행관리 예약관리 디테일폼 이동
 			ModelAndView mav = new ModelAndView();
 			ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
@@ -238,10 +238,10 @@ public class myPageService {
 			return mav;
 		}			
 		
-	public HashMap<String, Object> reserWait(String userId, String wait) {
+	public HashMap<String, Object> reserWait(String userId, String wait, String date) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<ReserDTO> waitScheduleDetail = new ArrayList<ReserDTO>();
-		waitScheduleDetail = dao.reserWait(userId, wait);
+		waitScheduleDetail = dao.reserWait(userId, wait, date);
 		map.put("list", waitScheduleDetail);
 		return map;
 	}
