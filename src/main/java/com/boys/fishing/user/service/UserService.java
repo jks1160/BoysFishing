@@ -400,9 +400,7 @@ public class UserService {
 	 *                 A1_003 : 댓글알람 A1_004 : 대댓글알람 A1_006 : Q&A알람
 	 * 
 	 *                 - 선장 A2_001 : 예약신청알람 A2_002 : 예약취소알람 A2_003 : 선장인증알람
-	 * 
-	 *                 -관리자 A3_001 : 1:1문의신청알람
-	 * @param num : String 글번호가 필요한 경우 입력
+	 * @param num : Number 글번호가 필요한 경우 입력
 	 * @return 전송 결과 값 : void
 	 */
 	public void notice(String u_userid, String content, String code) {
@@ -410,10 +408,19 @@ public class UserService {
 		UserDTO dto = new UserDTO();
 		dto.setA_userid(u_userid);
 		dto.setA_code(code);
+		dto.setA_content(content);
 		dto.setA_path("redirect:/myUserReserve");
+		dao.notice(dto);
 	}
-	public void notice(String u_userid, String content, String code, String num) {
-		
+	public void notice(String u_userid, String content, String code, int num) {
+		logger.info("글 관련 알림 삽입");
+		UserDTO dto = new UserDTO();
+		dto.setA_userid(u_userid);
+		dto.setA_code(code);
+		dto.setA_content(content);
+		dto.setA_pathnum(num);
+		dto.setA_path("redirect:/");
+		dao.notice(dto);
 	}
 
 }

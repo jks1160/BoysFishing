@@ -179,5 +179,10 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	SELECT count(u_userid) FROM captain WHERE u_userid = #{param1}	
 </select>
 
+<insert id="notice" parameterType="userinfo" >
+	INSERT INTO alarm 
+	<if test="a_pathnum.equals('')">VALUES(a_num_seq.NEXTVAL,#{u_userid},SYSDATE,'',#{a_content},'N','N',#{a_path},#{a_code}, '')</if>
+	<if test="!a_pathnum.equals('')">VALUES(a_num_seq.NEXTVAL,#{u_userid},SYSDATE,'',#{a_content},'N','N',#{a_path},#{a_code}, #{a_pathnum)</if>
+</insert>
 
 </mapper>
