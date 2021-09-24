@@ -294,4 +294,13 @@ public class HomeController {
 		String u_userid = (String) map.get("u_userid");
 		return service.shipJoin(newFileName,params,u_userid);
 	}	
+	
+	@RequestMapping(value="/shipListDetail", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> shipListDetail(HttpSession session,@RequestParam String s_name) { //영환
+		logger.info("배 정보 리스트 상세보기");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
+		return service.shipListDetail(u_userid,s_name);
+	}	
 }

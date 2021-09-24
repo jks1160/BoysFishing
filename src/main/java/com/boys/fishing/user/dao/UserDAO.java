@@ -146,6 +146,8 @@ UserDTO myUserInfo(String u_userid); //영환
 	ArrayList<ReserDTO> reserDetail(int shipNum);
 	ArrayList<ReserDTO> captainSchedule(String u_userid);
 
+	ReserDTO shipListDetail(String u_userid, String s_name);
+
 	
 
 
