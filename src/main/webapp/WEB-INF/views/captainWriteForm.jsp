@@ -53,7 +53,7 @@ input{
 	<table class="table-bordered">
 	<tr>
 		<td>오늘 날짜</td>
-		<td><input type="text" value= "${op_date}" name = "op_date" /></td>
+		<td><input type="text" value= "${op_date}" name = "op_date" readonly/></td>
 	</tr>
 >>>>>>> 833fc054104aa72330470c43174fa612a9cd01be
 	
