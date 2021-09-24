@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="icon.png">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
-<title>j-query 강좌</title>
+<title>SOMEFISH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -36,7 +36,7 @@ body, html {
 
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<div class="container my-5">
+	<div class="container my-5" >
 		<div class="row align-items-center">
 			<div class="col-md-6 mb-3">
 				<img src="./resources/defaultimg/logo.png" class="img-fluid" alt="image">
