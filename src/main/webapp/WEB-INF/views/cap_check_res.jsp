@@ -13,8 +13,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- 글꼴 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<style>
+* {
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+</style>
 </head>
 <body>
-	<h1>시발</h1>
+	
+	<div class='container'>
+		<h4 class='text-center'>나의 스케줄</h4>
+		<hr/>
+		<div>
+			<h3>${op_date} 스케줄</h3>
+		</div>
+	</div>
+	
 </body>
+<script>
+var test = "${op_date}";
+console.log(test);
+</script>
+
 </html>
