@@ -40,14 +40,6 @@ input{
 </head>
 
 <body>
-<<<<<<< HEAD
-
-<form action="captainWrite" method="GET" id='capForm'>
-
-	<div>
-		<input type="text" value= "${op_date}" name = "op_date" />
-	</div>
-=======
 <div class="entire">
 <form id = "frm" method="GET">
 	<table class="table-bordered">
@@ -55,7 +47,6 @@ input{
 		<td>오늘 날짜</td>
 		<td><input type="text" value= "${op_date}" name = "op_date" readonly/></td>
 	</tr>
->>>>>>> 833fc054104aa72330470c43174fa612a9cd01be
 	
 	<tr>
 		<td>배 이름</td>
@@ -107,14 +98,6 @@ input{
 			<input type="time" id = "returnTime"  name = "op_returntime" readonly required/>
 		</td>
 	</tr>
-	
-<<<<<<< HEAD
-	<div>
-		<input type="number" name = "op_price" required/>
-	</div>
-	<input type=button class='btn btn-primary' onclick ='formSubmit()' value='저장하기' >
-
-=======
 	<tr>
 		<td>운항비용</td>
 		<td>
@@ -127,7 +110,6 @@ input{
 		</td>
 	</tr>
 	</table>
->>>>>>> 833fc054104aa72330470c43174fa612a9cd01be
 </form>
 </div>
 </body>
@@ -143,6 +125,7 @@ function captainWrite(){
 			console.log("성공 여부 " , data);
 			console.log("여기옴? 석세스");
 			alert("저장이 완료되었습니다.");
+			opener.document.location.reload();
 			window.close();
 		},
 		error : function(e){
@@ -150,13 +133,6 @@ function captainWrite(){
 		}
 	});
 	
-}
-
-function formSubmit(){
-	$("#capForm").submit(function(e){
-		window.close();
-	});
-
 }
 
 //키 입력 못하게 막기
