@@ -142,7 +142,11 @@
 							        op_date: reserDate,
 							        s_num : myReser.S_NUM,
 							        i_num : myReser.I_NUM,
-							        op_startTime : myReser.OP_STARTTIME
+							        i_name : myReser.I_NAME,
+							        op_startTime : myReser.OP_STARTTIME,
+							        op_duringTime : myReser.OP_DURINGTIME,
+							        op_startPoint : myReser.OP_STARTPOINT,
+							        op_returnTime : myReser.OP_RETURNTIME
 							      }
 							     
 							});
@@ -158,11 +162,16 @@
 		eventClick: function(e){
 			console.log("이벤트 ", e.event.extendedProps);
 			var inum = e.event.extendedProps.i_num;
+			var iname = e.event.extendedProps.i_name;
 			var opdate = e.event.extendedProps.op_date;
 			var opstart = e.event.extendedProps.op_startTime;
 			var snum = e.event.extendedProps.s_num;
+			//후우
+			var opduring = e.event.extendedProps.op_duringTime;
+			var ssp = e.event.extendedProps.op_startPoint;
+			var rtm = e.event.extendedProps.op_returnTime;
 			
-			window.open("/fishing/reser/cap_check_res?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
+			window.open("/fishing/reser/cap_check_res?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum+"&i_name="+iname+"&op_duringtime="+opduring+"&op_startpoint="+ssp+"&op_returntime="+rtm,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
 			
 
 		},
