@@ -150,9 +150,9 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	FROM reserINFO r, ship s WHERE s.snum = r.s_num AND r.RI_date = #{param1} 
 </select>
  -->
-<select id="reserWait" resultType="reser">
+<select id="reserWait" resultType="HashMap">
 SELECT s.s_name, r.ri_num, r.ri_userid, i.i_name, r.ri_startpoint, r.ri_starttime, r.ri_returntime,
-r.ri_duringtime, r.ri_people, r.ri_pay, r.ri_code
+r.ri_duringtime, r.ri_people, r.ri_pay, r.ri_code, i.i_name
 FROM reserInfo r, island i, ship s  
 WHERE s.s_num = r.s_num and i.i_num = r.i_num and s.u_userid in(#{param1}) and ri_code=#{param2} and TO_CHAR(ri_date, 'yyyy-mm-dd') = #{param3}
 </select>
