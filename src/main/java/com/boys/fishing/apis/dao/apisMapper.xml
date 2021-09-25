@@ -29,4 +29,43 @@
 
 <delete id="weatherdel">delete from weather </delete>
 
+<!-- 오늘 날씨 -->
+<select id="todayweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, todayweather.* FROM todayweather order by tw_date asc) WHERE NUM BETWEEN 1 AND 1
+</select>
+<!-- 내일 날씨 -->
+<select id="tomorrowweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, todayweather.* FROM todayweather order by tw_date asc) WHERE NUM BETWEEN 2 AND 2
+</select>
+
+<!-- 3일 뒤 날씨 -->
+<select id="thirddayweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, weather.* FROM weather order by w_date asc) WHERE NUM BETWEEN 1 AND 1
+</select>
+
+<!-- 4일 뒤 날씨 -->
+<select id="fouthdayweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, weather.* FROM weather order by w_date asc) WHERE NUM BETWEEN 2 AND 2
+</select>
+
+<!-- 5일 뒤 날씨 -->
+<select id="fifthdayweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, weather.* FROM weather order by w_date asc) WHERE NUM BETWEEN 3 AND 3
+</select>
+
+<!-- 6일 뒤 날씨 -->
+<select id="sixthdayweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, weather.* FROM weather order by w_date asc) WHERE NUM BETWEEN 4 AND 4
+</select>
+
+<!-- 7일 뒤 날씨 -->
+<select id="seventhdayweatherlist" resultType="hashmap">
+SELECT * FROM (SELECT ROWNUM AS NUM, weather.* FROM weather order by w_date asc) WHERE NUM BETWEEN 5 AND 5
+</select>
+
+
+
+
+
+
 </mapper>
