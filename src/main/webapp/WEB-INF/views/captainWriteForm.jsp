@@ -97,7 +97,7 @@
 	<tr>
 		<td>운항비용</td>
 		<td>
-			<input type="number" name = "op_price" step="1000" required/>
+			<input id = "payment" type="number" name = "op_price" step="1000" min = "0" max = "2000000" required/>
 		</td>
 	</tr>
 	<tr>
@@ -111,6 +111,18 @@
 </body>
 
 <script>
+//운항비용 경고 표시하기
+$(document).ready(function(){
+	$('#payment').focusout(function(){
+		console.log("여기옴?");
+		var a = document.getElementById('payment').value;
+		if(a<=0 || a>2000000){
+			alert("비용이 0보다 크거나 이백만원을 넘었습니다.");
+			document.getElementById('payment').value = "";
+		}
+	});
+})
+
 function captainWrite(){
 	console.log("여기옴?");
 	$.ajax({

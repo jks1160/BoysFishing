@@ -118,9 +118,19 @@ public class ReserController {
 	public ModelAndView userReservation(@RequestParam HashMap<String, Object> params) {
 		
 		logger.info("섬 번호 : {}, 배 번호: {}",params.get("i_num"), params.get("s_num"));
-		
-		
-		
+
 		return service.userReservation(params);
+	}
+	/** 조재현
+	 *  예약 가능한 날짜를 뿌려주는 AJAX
+	 * @return
+	 */
+	@RequestMapping(value="/show_ship_sch", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> show_ship_sch(@RequestParam HashMap<String, Object> params){
+		
+		logger.info(" 여기는 에이잭스 섬 번호 : {}, 배 번호: {}",params.get("i_num"), params.get("s_num"));
+		
+		
+		return service.show_List(params);
 	}
 }

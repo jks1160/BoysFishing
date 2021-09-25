@@ -103,6 +103,7 @@ public class UserService {
 			logger.info("pw : " + pw);
 			dao.kakaoJoin(dto);
 		}
+		dao.pointSet(dto.getU_userid());
 		return page;
 	}
 

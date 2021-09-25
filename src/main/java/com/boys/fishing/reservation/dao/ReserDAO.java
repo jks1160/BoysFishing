@@ -18,6 +18,8 @@ public interface ReserDAO {
 
 	int updateCapSche(HashMap<String, Object> params);
 
+	ArrayList<HashMap<String, Object>> choice_reser(String s_num, String i_num);
+
 
 	
 
