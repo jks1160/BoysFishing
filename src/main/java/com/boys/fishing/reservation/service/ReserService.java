@@ -223,20 +223,22 @@ public class ReserService {
 		
 		logger.info("섬 배편 예약하기 서비스 요청 아이디: {}, 데이터 : {}" , id, params);
 		mav.addObject("reser",params);
-		
+		mav.addObject("id",id);
 		mav.setViewName("userReserVation");
 		
 		return mav;
 	}
 
-	public ModelAndView RealReser(HashMap<String, Object> params, String id) {
+	public HashMap<String, Object> RealReser(HashMap<String, Object> params, String id) {
 		ModelAndView mav = new ModelAndView();
 		
 		logger.info("예약 아이디: {}",id);
 		logger.info("데이터 : {}", params);
 		
-		
-		return null;
+		int success = reserDAO.RealReser(params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		return map;
 	}
 
 }

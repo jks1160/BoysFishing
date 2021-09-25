@@ -153,7 +153,7 @@ public class ReserController {
 	 * @return
 	 */
 	@RequestMapping(value="/RealReser", method = RequestMethod.POST)
-	public ModelAndView RealReser(@RequestParam HashMap<String, Object> params, HttpSession session) {
+	public @ResponseBody HashMap<String, Object> RealReser(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		
 		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
 		String id =(String) map.get("u_userid");

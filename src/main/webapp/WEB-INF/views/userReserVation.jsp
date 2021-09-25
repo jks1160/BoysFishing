@@ -33,7 +33,6 @@
 		<hr/>
 		<div>
 			<h6>날짜 : ${reser.op_date} </h6>
-			<form action='/RealReser' method='GET'>
 			<table>
 				<tr>
 					<td>목적지 : ${reser.i_name }
@@ -68,13 +67,65 @@
 						<input type='text' hidden='hidden' value="${reser.op_price}" name='op_price'/>
 					</td>
 				</tr>
+				<tr>
+					<td>탑승 인원  : <input type='text' name='ri_people' id='people'/></td>
+				</tr>
+				<tr>
+					<td>
+						<input type='radio' name='ri_start' value='Y' id='sr' /> 출항
+						<input type='radio' name='ri_start' value='N' id='sr' /> 입항
+					</td>
+				</tr>
 			</table>
-			<button class='btn btn-primary'>예약하기</button>
+			<button class='btn btn-primary' onclick="RealReser()">예약하기</button>
 			<input type='button' class = 'btn btn-primary' value='종료' onclick='window.close()'/>
-			</form>
-			
+
 		</div>
 	</div>
 	
 </body>
+<script>
+function RealReser(){ //예약 신청하기 function
+	var people = document.getElementById("people").value;
+	var sr =document.getElementsByName('ri_start');
+	var pick;
+	sr.forEach(function(node){
+		if(node.checked){
+			pick = node.value;
+		}
+	});
+	console.log(people);
+	$.ajax({
+		url: "RealReser",
+		type : "POST",
+		data : {
+			"ri_userid" : "${id}",
+			"i_num" : "${reser.i_num}",
+			"s_num" : "${reser.s_num}",
+			"ri_startpoint" : "${reser.op_startpoint}",
+			"ri_starttime" : "${reser.op_starttime}",
+			"ri_duringtime" : "${reser.op_starttime}",
+			"ri_returntime" : "${reser.op_returntime}",
+			"ri_people" : people,
+			"ri_startreturnYN" : pick,
+			"ri_date" : "${reser.op_date}",
+			"op_price" : "${reser.op_price}"
+		},
+		dataType : "JSON",
+		success : function(data){
+			
+			console.log("성공 ", data);
+			alert("예약 되었습니다!");
+			opener.document.location.reload();
+			window.close();
+		},
+		error : function(e){
+			console.log("에러입니다 :",e);
+		}
+	});
+}
+
+
+
+</script>
 </html>

@@ -20,6 +20,8 @@ public interface ReserDAO {
 
 	ArrayList<HashMap<String, Object>> choice_reser(String s_num, String i_num);
 
+	int RealReser(HashMap<String, Object> params);
+
 
 	
 

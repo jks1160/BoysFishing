@@ -49,4 +49,8 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 		ON (s.s_num = op.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num)
 		WHERE op.i_num=#{param2} AND op.s_num = #{param1} AND op.op_date > SYSDATE
 	</select>
+	<!-- 예약하기 -->
+	<insert id="RealReser" parameterType="hashMap">
+		INSERT INTO reserinfo VALUES (ri_num_seq.NEXTVAL,#{ri_userid},#{i_num},'RI001',#{s_num},#{ri_startpoint},#{ri_starttime},#{ri_duringtime},#{ri_returntime},#{ri_people},#{ri_startreturnYN},#{ri_date},'없음',#{op_price}*#{ri_people},SYSDATE) 
+	</insert>
 </mapper>
