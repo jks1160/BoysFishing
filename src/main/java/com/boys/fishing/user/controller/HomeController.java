@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -230,13 +231,10 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/myReserveDetail", method = RequestMethod.GET)
-	public String myReserveDetail(HttpSession session) { //영환
+	public ModelAndView myReserveDetail(@RequestParam String ri_num) { //영환
 		logger.info("예약확인 상세보기 ");
 	
-		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
-		logger.info("아이디 : {}", map.get("u_userid"));
-		String u_userid = (String) map.get("u_userid");
-		return "myReserveDetail";
+		return service.myReserveDetail(ri_num);
 	}	
 	
 	@RequestMapping(value="/shipList", method = RequestMethod.GET)

@@ -65,6 +65,11 @@
 	INSERT INTO shipimg VALUES (#{s_num},#{newFileName})
 </insert>
 
+<select id="myReserveDetail" parameterType="String" resultType="hashmap" >
+	SELECT * FROM reserinfo LEFT OUTER JOIN island i ON( i.i_num = reserinfo.i_num) WHERE ri_num=#{params}
+</select>
+
+
 
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->
