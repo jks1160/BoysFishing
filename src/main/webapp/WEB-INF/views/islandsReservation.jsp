@@ -46,10 +46,9 @@
 </style>
 </head>
 <body>
-
-
 	<jsp:include page="header.jsp"></jsp:include>
-
+	<jsp:include page="calendar.jsp"></jsp:include>
+	
 	<div class='container'>
 		<h2 class='text-dark font-weight-bold' style="margin-top: 25px;">섬
 			정보 / 예약하기</h2>

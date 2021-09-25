@@ -34,7 +34,6 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-
 <div class="entire">
 	<img src="resources/user.png"  width="50px"/> <div class="user">${loginId}님의 포인트 정보</div>
 	<br><br>
@@ -139,6 +138,13 @@ function withdraw(form) {
 var code;
 var p_page = 1;
 pointListCall(p_page);
+
+$("#pagePerNum").change(function(){
+	//페이징 초기화
+	$("#pagination").twbsPagination('destroy');
+	pointlistCall(p_page);
+});
+
 function pointListCall(p_page) {
 	var param = {};
 	param.page = p_page;
@@ -150,14 +156,15 @@ function pointListCall(p_page) {
 		success : function(data) {
 			console.log(data);
 			pointDrawList(data);
-			currPage = data.currPage;
+			p_page = data.currPage;
+			console.log("twbs전까지옴?");
 			$("#pagination").twbsPagination({
 				startPage: data.currPage,//시작페이지
 				totalPages: data.totalPage,  //총 페이지 갯수
 				visiblePages:5, //보여줄 페이지 갯수
 				onPageClick: function(e,page){
 					//console.log(e,page);
-					pointlistCall(page);
+					pointListCall(page);
 				}
 			});	
 		},
