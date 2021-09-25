@@ -67,7 +67,7 @@
                 <div class="card-body">
                   <h4 class="col -8 card-title text-truncate"><b>${dto.b_subject }</b></h4>
                   <p class="col-8 card-text text-truncate">${dto.b_content }</p>
-                  <a href="#">상세보기</a><b style="float:right;">&nbsp;대상어종 : ${dto.fish }</b><i class="fas fa-fish" style="float:right;"></i>
+                  <a href="#">상세보기</a><b class="mx-2" style="float:right;">대상어종 : ${dto.fish }</b><i class="fas fa-fish" style="float:right;"></i>
                 </div>
             </div>
         </div>
