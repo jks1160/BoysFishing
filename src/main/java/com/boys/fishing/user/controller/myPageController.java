@@ -263,10 +263,13 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	 
 	@RequestMapping(value="/captainSchedule", method=RequestMethod.GET)
-	public String captainShedule(HttpSession session) {
+	public ModelAndView captainShedule(HttpSession session) {
 		logger.info("캡틴 예약일정 폼 요청");
-
-		return "captainSchedule";
+		
+		HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String userid = (String)userInfo.get("u_userid");
+		
+		return myservice.captainSchedule(userid);
 	}
 	
 	@ResponseBody
@@ -276,6 +279,15 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		HashMap<String, Object> userInfo = (HashMap<String, Object>) session.getAttribute("userinfo");
 		String userid = (String)userInfo.get("u_userid");
 		return myservice.captainScheduleList(userid);
+	}
+	
+	
+	//선장 운항예약 히스토리(예약확정만)
+	@ResponseBody
+	@RequestMapping(value="/reserHistory")
+	public ArrayList<HashMap<String, Object>> reserHistory(int shipNum){
+		logger.info("선장 운항예약 히스토리 요청");
+		return myservice.reserHistory(shipNum);
 	}
 	
 }

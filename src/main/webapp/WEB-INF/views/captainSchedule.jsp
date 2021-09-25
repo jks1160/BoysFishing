@@ -5,12 +5,6 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
 <script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
 <script src='resources/fullcalendar-5.9.0/calendar.js'></script>
 <link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
@@ -123,6 +117,69 @@ var O_nuel = year+'-'+month+'-'+date;
     calendar.render();
   });
 
+ function chageShopSelect1(){
+		var shipSelect = document.getElementById("shipName");
+		var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
+		console.log("배넘버: ",selectValue);
+		selectValue = parseInt(selectValue);
+		//배 이름을 받아오면 출항지를 뿌리는 함수 출력
+		reserHistory(selectValue);
+	}
+
+	function reserHistory(shipNum){
+		console.log("여기옴?");
+		var param = {};
+		param.shipNum = shipNum;
+		$.ajax({
+			type : 'get',
+			url : 'reserHistory',
+			data : param,
+			dataType : 'JSON',
+			success : function(data) {
+				console.log(data);
+				if(data.length > 0){
+					reserHitoryFormDraw();
+					reserHistoryDrawList(data)
+				}else{
+					$("#reserHistory").empty();
+					$("#tableDraw").empty();
+				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
+
+	function reserHitoryFormDraw(){
+		var content = "";
+		content += "<table><thead>";
+		content += "<tr><th>예약자 닉네임</th><th>무인도 이름</th><th>운행날짜</th><th>인원수</th><th>결제 금액</th><th>예약 날짜</th></tr>";
+		content += "</thead><tbody id='reserHistory'></tbody></table>";
+		$("#tableDraw").empty();
+		$("#tableDraw").append(content);
+	}
+	
+	function reserHistoryDrawList(list) {
+		console.log(list);
+		var content = "";
+		
+		list.forEach(function(item, idx) {
+			console.log(item, idx);
+			var date = new Date(item.OP_DATE);
+			content += "<tr>";
+			content += "<td>"+item.U_USERNICKNAME+"</td>";
+			content += "<td>"+item.I_NAME+"</td>";
+			content += "<td>"+date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() +"</td>";
+			content += "<td>"+item.RI_PEOPLE+"</td>";
+			content += "<td>"+item.RI_PAY+"</td>";
+			content += "<td>"+item.RI_RESERDATE+"</td></tr>";
+		});
+		$("#reserHistory").empty();
+		$("#reserHistory").append(content);
+	}
+
+
 </script>
 <style>
 
@@ -137,6 +194,15 @@ var O_nuel = year+'-'+month+'-'+date;
     max-width: 1100px;
     margin: 0 auto;
   }
+  
+  .entire{
+  		text-align: center;
+		margin-top: 5%;
+		margin-right: 20%;
+		margin-bottom: 5%;
+		margin-left: 20%;
+  }
+  
 
 </style>
 </head>
@@ -150,8 +216,27 @@ var O_nuel = year+'-'+month+'-'+date;
 	<button>확인</button>
 	<button>취소</button>
 </div>
+
+<div class="entire">
+	<hr>
+	<h3>예약 확정 히스토리</h3>
+		<select id = "shipName" name = "s_num" onchange="chageShopSelect1()">
+			<option>선택</option>
+			<c:forEach var="name" items="${shipName}">
+			<option value="${name.s_num}">${name.s_name}</option>
+			</c:forEach>
+		</select>
+	<div id = "tableDraw">
+	
+	</div>
+</div>
+
+
+
 </body>
 <script>
+
+
 /* 
 })
  */

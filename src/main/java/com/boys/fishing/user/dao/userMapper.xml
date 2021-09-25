@@ -155,12 +155,14 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 </insert>
 
 
-<!-- 운항 확인 디테일 뿌려주기 아직 미정미정미정미정미정미정미정미정미정미정미정
-<select id="captainScheduleDetail">
-	SELECT r.RI_num, r.RI_userid, r.I_num, r.RI_code, r.s_num, r.RI_startpoint, r.RI_starttime, r.RI_duringtime, r.RI_returntime, r.RI_people, r.RI_startturnYN, r.RI_date, r.RI_cancelreason 
-	FROM reserINFO r, ship s WHERE s.snum = r.s_num AND r.RI_date = #{param1} 
+<!-- 선장 운항 확정 히스토리 뿌리기 -->
+<select id="reserHistory" resultType="hashmap">
+SELECT u.u_usernickname, i.I_name, o.op_date, r.RI_people, r.RI_pay, r.RI_reserdate
+FROM reserINFO r, operrange o, island i, userInfo u
+WHERE r.s_num = #{param1} AND r.RI_code = 'RI002' AND o.I_num = r.I_num AND o.I_num = i.I_num AND u.U_userid = r.RI_userid
+ORDER BY o.op_date DESC
 </select>
- -->
+
 <select id="reserWait" resultType="HashMap">
 SELECT s.s_name, r.ri_num, r.ri_userid, i.i_name, r.ri_startpoint, r.ri_starttime, r.ri_returntime,
 r.ri_duringtime, r.ri_people, r.ri_pay, r.ri_code, i.i_name
