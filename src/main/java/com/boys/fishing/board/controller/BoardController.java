@@ -1,5 +1,6 @@
 package com.boys.fishing.board.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,11 +31,25 @@ public class BoardController {
 	@Autowired BoardService service;
 	
 	@RequestMapping(value = "/someTalk")
-	public String someTalk(HttpSession session) {
+	public ModelAndView someTalk(@RequestParam(required = false) String selec) {
 		logger.info("섬섬톡페이지 요청");
-		session.getAttribute("userinfo");
-		
-		return "someTalk";
+		logger.info("cate : "+selec);
+		if(selec == null) {
+			selec = "B001";
+		}
+		String title = "";
+		switch (selec) {
+		case "B001":
+			title = "자유게시판";
+			break;
+		case "B002":
+			title = "후기게시판";
+			break;
+		case "B003":
+			title = "정보게시판";
+			break;
+		}
+		return service.someTalkList(selec).addObject("selec",title);
 	}
 	@RequestMapping(value = "/someWriteForm")
 	public String someWriteForm(HttpSession session) {
@@ -93,4 +110,15 @@ public class BoardController {
 
 		return service.QNAwrite(dto,attr);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }

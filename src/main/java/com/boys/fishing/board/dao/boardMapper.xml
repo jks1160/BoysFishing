@@ -19,4 +19,11 @@
 	<insert id="someWrite" parameterType="sumsum">
 		INSERT INTO board VALUES(b_num_seq.NEXTVAL, '우럭', #{b_subject}, #{b_content}, SYSDATE, #{b_userid}, #{b_code}, '')
 	</insert>
+	
+	
+	<select id="someTalkList" resultType="sumsum">
+		SELECT b.*, u.u_usernickname, bi.bi_name FROM board b 
+		INNER JOIN userinfo u ON u.u_userid = b.b_userid
+		LEFT OUTER JOIN boardimg bi ON b.b_num = bi.bi_num WHERE b.b_code = #{param1} AND b_blindyn = 'N' AND u.u_userdelyn = 'N' ORDER BY b.b_num DESC
+	</select>
 </mapper>

@@ -28,6 +28,12 @@
 		padding: 5px 10px;
 		text-align: center;
 	}
+		th{
+		width: 200px;
+		}
+		td{
+		height: 30px; 
+		}
 	    thead{
 		font-weight:600;
 		text-align: center;
@@ -44,7 +50,12 @@
  		 margin-top: 50px;
  		 margin-bottom:50px;
  		 text-align: center;
- 		 }
+ 	}
+ 		 img {
+ 		 width: 200px;
+ 		 height: 200px;
+		 object-fit: contain;
+		}
 	
 		</style>
 

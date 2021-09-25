@@ -1,164 +1,215 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8' />
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<script src='resources/fullcalendar-5.9.0/lib/main.js'></script>
-<script src='resources/fullcalendar-5.9.0/calendar.js'></script>
-<link href='resources/fullcalendar-5.9.0/lib/main.css' rel='stylesheet' />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src='resources/js/bPopup.js'></script>
+<meta charset="UTF-8">
+<title>SOMEFISH</title>
+
+
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
 	rel="stylesheet">
+
 <style>
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
-</style>
-<script>
 
-// 아이디 가져오기
-var checker = "${sessionScope.u_userid}";
-console.log("아이디 가져오기" , checker);
-
-// 날짜 설정
-var today = new Date();
-console.log('투데이',today);
-var year = today.getFullYear();//년도
-var month = today.getMonth() + 1; // 월
-var date = today.getDate(); //날짜
-
-if(month <10){
-	month = "0"+month;
-}
-if(date <10){
-	date = "0"+date;
+table, td, th {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px 10px;
+	text-align: center;
 }
 
+thead td {
 
-console.log("year",year );
-console.log("months", month);
-console.log("date",date);
-//오늘 날짜
-var O_nuel = year+'-'+month+'-'+date;
+	font-weight: 600;
+	text-align: center;
+	background-color: activecaption;
+	border: 1px solid black;
+}
 
-// fullCalendar 영역
- document.addEventListener('DOMContentLoaded', function() {
- var calendarEl = document.getElementById('calendar');
- var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: { //헤더
-        left: 'prev,next today',
-        center: 'title',
-        right: ''
-      },
-      initialDate: O_nuel, //오늘의 날짜
-      navLinks: false, // can click day/week names to navigate views
-      businessHours: true, // display business hours
-      locale: "ko", //한글 설정
-      editable: true, // 에디터 가능한지 
-      selectable: true, //선택 가능한지
-      dateClick: function(e){
-    	  if(Number(e.date) > Number(today)){
-    		alert("브라보");  
-    	  }
-      },
-       events: function(info, successCallback, failureCallback){
-    	   $.ajax({
-				url:'./reser/user_reser',
-				type: 'POST',
-				dataType :"JSON",
-				success : function(data) {
-					// fullCalendar에 넣을 이벤트를 받아 줄 리스트
-					var my_reser = [];
-					//성공 했는지 확인
-					console.log("성공 데이터 : " ,data);
-					// 받은 데이터 중 my_list 부분을 가져온다.
-					data.my_list.forEach(function(myReser){
-						var get_year = new Date(myReser.ri_date).getFullYear();
-						var get_month = new Date(myReser.ri_date).getMonth()+1;
-						var get_day = new Date(myReser.ri_date).getDate();
+#tableone th{
+	width:200px;
+	font-size:15px;
+}
+#tableone thead td{
+	width:500px;
 
-						if(get_month <10){
-							get_month = "0"+get_month;
-						}
-						if(get_day <10){
-							get_day = "0"+get_day;
-						}
-						var reserDate = get_year+"-"+get_month+"-"+get_day;
-						
-						
-						console.log("스타트데이 : " , reserDate);
-						my_reser.push({
-							start : reserDate,
-							title : "예약"
-						});
-					}); // forEach end
-					
+}
 
-					console.log(successCallback(my_reser));
-				}, // ajax success end
-				error : function(e){
-				console.log("에러났습니다." ,e);
-				} // ajax error end
-    	  });// ajax end  
-      }// events:function end */ 
-     
-       
-    });// full Calendar end 
+#tabletwo th{
+	width:170px;
+	font-size:10px;
+}
 
-    calendar.render();
-  });
-
-</script>
-<style>
-
-  body {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-
-  #calendar {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+img{
+	width : 100px;
+}
 
 </style>
+
+
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
- 	<div id='calendar'></div>
 
-<div class='pop' hidden='hidden' style='width:100px; height:100px;'>
-	<!-- 이 부분에 일정이 나온다. -->
-	<h2> 팝업 테스트 </h2>
-	<button>확인</button>
-	<button>취소</button>
-</div>
+
+	<div class="container mt-4">
+		<div class="container justify-content-center">
+			<h2 class='text-dark font-weight-bold ' style="margin-top: 25px; display:inline; ">날씨 정보 확인</h2><input type="button" class=" btn btn-primary"style="margin-left: 15px;"onclick="location.href='/fishing/weekendweather'" value="이번주 날씨 보러가기">
+		<hr />
+			<table class="mt-4 m-auto" id="tableone">
+				<thead id="headlist">
+			
+				</thead>
+
+				<tbody id="list" style="height: 20px;">
+					
+					
+
+				</tbody>
+					
+			</table>
+	
+			<!-- 
+			<table class="mt-4 m-auto" id="tableone">
+				<thead>
+					<tr>
+						<th></th>
+						<td>신청시간</td>
+						<td>신청 날짜</td>
+						<td>담당자</td>
+						<td>신청 날짜</td>
+						<td>신청 날짜</td>
+					</tr>
+				</thead>		
+			
+				<tbody>
+					<tr>
+						<td>첫날</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>		
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>		
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>	
+						
+				</tbody>		
+			</table>
+				 -->
+		</div>
+			
+
+	</div>
+	
 </body>
 <script>
-/* 
-})
- */
-/* $(".pop").bPopup({
-	modalClose: false,
-    opacity: 0.6,
-    positionStyle: 'fixed', //'fixed' or 'absolute'
-    folow: [false, false]
-}); */
+
+	$.ajax({
+		url: "calendar_call",
+		type : "GET",
+		data : {
+			
+		},
+		dataType : "JSON",
+		success : function(data){
+			console.log(data.today);
+			var contenthead="";
+	contenthead +=	"<tr>";
+	contenthead +=	"<th></th>";
+	
+	contenthead +=		"<td>"+data.today.TW_DATE+"</td>";
+	contenthead +=		"<td>"+data.tomor.TW_DATE+"</td>";
+	contenthead +=		"<td>"+data.third.W_DATE+"</td>";
+	contenthead +=		"<td>"+data.fouth.W_DATE+"</td>";
+	contenthead +=		"<td>"+data.fifth.W_DATE+"</td>";
+	contenthead +=		"<td>"+data.sixth.W_DATE+"</td>";
+	contenthead +=		"<td>"+data.seventh.W_DATE+"</td>";
+	contenthead +=	"</tr>";
+		$("#headlist").empty();
+		$("#headlist").append(contenthead);
+	
+	var content="";
+		content +=	"<tr>";
+		content +=	"<th>현재 날씨</th>";
+		content +=		"<td>"+data.today.TW_SKY+"</td>";
+		content +=		"<td>"+data.tomor.TW_SKY+"</td>";
+		content +=		"<td>"+data.third.W_PMSKY+"</td>";
+		content +=		"<td>"+data.fouth.W_PMSKY+"</td>";
+		content +=		"<td>"+data.fifth.W_PMSKY+"</td>";
+		content +=		"<td>"+data.sixth.W_PMSKY+"</td>";
+		content +=		"<td>"+data.seventh.W_PMSKY+"</td>";
+		content +=	"</tr>";	
+	
+		content +=	"<tr>";
+		content +=	"<th>최고/최저 기온</th>";
+		content +=		"<td>"+data.today.TW_TEMPERL+" / "+data.today.TW_TEMPERH+"</td>";
+		content +=		"<td>"+data.tomor.TW_TEMPERL+" / "+data.today.TW_TEMPERH+"</td>";
+		content +=		"<td>"+data.third.W_TEMPERL+" / "+data.third.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.fouth.W_TEMPERL+" / "+data.fouth.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.fifth.W_TEMPERL+" / "+data.fifth.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.sixth.W_TEMPERL+" / "+data.sixth.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.seventh.W_TEMPERL+" / "+data.seventh.W_TEMPERH+"</td>";		
+		content +=	"</tr>";		
+		
+	
+	$("#list").empty();
+	$("#list").append(content);
+	
+			},
+		error : function(e) {
+			console.log("오류 발생 ", e);
+		}
+	});	
 
 
 </script>

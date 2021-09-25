@@ -3,6 +3,8 @@ package com.boys.fishing.reservation.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -212,6 +214,31 @@ public class ReserService {
 		
 		
 		return Reser_List;
+	}
+
+	public ModelAndView userReser_Vation(HashMap<String, Object> params, HttpSession session) {
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		ModelAndView mav = new ModelAndView();
+		String id =(String) map.get("u_userid");
+		
+		logger.info("섬 배편 예약하기 서비스 요청 아이디: {}, 데이터 : {}" , id, params);
+		mav.addObject("reser",params);
+		mav.addObject("id",id);
+		mav.setViewName("userReserVation");
+		
+		return mav;
+	}
+
+	public HashMap<String, Object> RealReser(HashMap<String, Object> params, String id) {
+		ModelAndView mav = new ModelAndView();
+		
+		logger.info("예약 아이디: {}",id);
+		logger.info("데이터 : {}", params);
+		
+		int success = reserDAO.RealReser(params);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		return map;
 	}
 
 }

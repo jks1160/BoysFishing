@@ -27,16 +27,20 @@
 		table, td ,th{
 		border: 1px solid black;
 		border-collapse: collapse;
-		padding: 5px 10px;
 		text-align: center;
 	}
+		th{
+		width: 200px;
+		}
+		td{
+		height: 30px; 
+		}
 	    thead{
 		font-weight:600;
 		text-align: center;
 		background-color: activecaption;
 	}
 		.entire{
-		text-align: center;
 		margin-top: 5%;
 		margin-right: 20%;
 		margin-bottom: 5%;
@@ -47,6 +51,11 @@
  		 margin-bottom:50px;
  		 text-align: center;
  		 }
+ 		 img {
+ 		 width: 200px;
+ 		 height: 200px;
+		 object-fit: contain;
+		}
 	
 		</style>
 
@@ -64,15 +73,15 @@
 		<img src="/photo/${dto.ui_name}" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 		</c:otherwise>
 	</c:choose>
- 	
-	<div style="margin: 20px 50px;">
- 	<form id="fileUpload">
+ 	</div>
+	<div style="padding-top:170px; padding-right: 400px">
+ 	<form style="margin-bottom: 0px" id="fileUpload">
 	<input type="file" name="file" id="fileinput" onchange="uploadFile()">
 	<button type="button" id="fileUpdate">수정</button>
 	<button type="button" id="fileDelete">삭제</button>
 	</form>
 	</div>
-	</div>
+	
 	<form action="userInfoUpdate" name="userInfoUpdate" method="POST">
 	<table class="table table-bordered">
 	<thead>

@@ -464,7 +464,7 @@ public class UserService {
 			}
 		
 }
-
+	@Transactional
 	public ModelAndView shipJoin(String newFileName, HashMap<String, String> params, String u_userid) { //영환
 		logger.info("배 등록");
 		ModelAndView mav = new ModelAndView();

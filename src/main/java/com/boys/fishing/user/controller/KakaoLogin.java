@@ -97,7 +97,7 @@ public class KakaoLogin {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=8b5c1dc8a514d8fc7e3ccc6c9602ecd4");  //본인이 발급받은 key
-            sb.append("&redirect_uri=http://localhost:8090/fishing/login/oauth_kakao");     // 본인이 설정해 놓은 경로
+            sb.append("&redirect_uri=http://localhost:8080/fishing/login/oauth_kakao");     // 본인이 설정해 놓은 경로
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
