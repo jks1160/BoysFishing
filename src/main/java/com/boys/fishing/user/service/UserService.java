@@ -103,6 +103,7 @@ public class UserService {
 			logger.info("pw : " + pw);
 			dao.kakaoJoin(dto);
 		}
+		dao.pointSet(dto.getU_userid());
 		return page;
 	}
 
@@ -539,6 +540,18 @@ public class UserService {
 		
 		map.put("dto", dto);
 		return map;
+	}
+
+	public ModelAndView myReserveDetail(String ri_num) { //영환
+		logger.info("예약 상세보기 서비스");
+		String page = "myReserveDetail";
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map = dao.myReserveDetail(ri_num); //해당 회원의 예약정보
+		mav.addObject("map",map);
+		mav.setViewName(page);
+		
+		return mav;
 	}
 	
 	

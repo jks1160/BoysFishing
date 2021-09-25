@@ -93,9 +93,10 @@
 	      locale: "ko", //한글 설정
 	      editable: true, // 에디터 가능한지 
 	      selectable: true, //선택 가능한지
+	      dayMaxEventRows: true,
 	      dateClick: function(e){
 	    	  
-	    	  location.href="myReserveDetail";
+	    	  
 	    	  
 	      },
 	       events: function(info, successCallback, failureCallback){
@@ -121,24 +122,50 @@
 								get_day = "0"+get_day;
 							}
 							var reserDate = get_year+"-"+get_month+"-"+get_day;
-							
+							var reserYN = myReser.ri_startreturnYN;
+							var color = "";
+							var startreturn = "";
+							if(reserYN =='Y'){
+								startreturn = "출항 예약";
+								color ="#1979f7";
+							}else{
+								startreturn = "회항 예약";
+								color="#fc176b";
+							}
 							
 							console.log("스타트데이 : " , reserDate);
+							console.log("예약번호 :"+ myReser.ri_num);
 							my_reser.push({
 								start : reserDate,
-								title : "예약"
+								title : startreturn,
+								color : color,
+								extendedProps: {
+								        ri_num : myReser.ri_num
+								      }
 							});
 						}); // forEach end
 						
-
 						console.log(successCallback(my_reser));
 					}, // ajax success end
 					error : function(e){
 					console.log("에러났습니다." ,e);
 					} // ajax error end
 	    	  });// ajax end  
-	      }// events:function end */ 
-	     
+	      },
+	      eventClick:function(event){
+	    	  console.log("이벤트 클릭");
+	    	  const today = new Date(event.event._instance.range.start);
+	    	  var day = today.toISOString();
+	    	  var ri_num = event.event.extendedProps.ri_num;
+	    	  console.log("예약번호 :"+ ri_num);
+	    	  //location.href="/fishing/captainScheduleDetail?date="+day.substr(0,10);
+	    	  location.href="myReserveDetail?ri_num="+ri_num;
+	      },// events:function end */ 
+	      views :{ // 이벤트 맥시멈 제한(보이는거)
+				timeGrid: {
+					dayMaxEventRows: 1
+				}
+			}
 	       
 	    });// full Calendar end 
 

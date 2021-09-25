@@ -151,9 +151,18 @@ UserDTO myUserInfo(String u_userid); //영환
 	int reserDecide(String num);
 	ReserDTO shipListDetail(String u_userid, String s_name);
 
+
+	int pointSet(String u_userid);
+
 	void shipImg(HashMap<String, String> params); //영환
 
 	void shipImgInsert(HashMap<String, String> params); //영환
+
+	HashMap<String, Object> myReserveDetail(String ri_num); //영환
+
+	
+
+
 
 	
 
