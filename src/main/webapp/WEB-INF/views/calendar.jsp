@@ -29,60 +29,124 @@ table, td, th {
 }
 
 thead td {
-	width: 300px;
+
 	font-weight: 600;
 	text-align: center;
 	background-color: activecaption;
 	border: 1px solid black;
 }
-th{
-	width:100px;
+
+#tableone th{
+	width:200px;
+	font-size:15px;
 }
+#tableone thead td{
+	width:500px;
+
+}
+
+#tabletwo th{
+	width:170px;
+	font-size:10px;
+}
+
 img{
 	width : 100px;
 }
+
 </style>
 
 
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+
 
 	<div class="container mt-4">
 		<div class="container justify-content-center">
-			<p class="text-center" style="font-size: 20px;">이번주 날씨 예상</p>
-			<table class="mt-4">
+			<p class="text-center mt-3" style="font-size: 20px;">날씨 예상</p>
+			<table class="mt-4 m-auto" id="tableone">
 				<thead id="headlist">
 			
 				</thead>
 
-				<tbody id="list">
+				<tbody id="list" style="height: 20px;">
+					
+					
+
+				</tbody>
+					
+			</table>
+	
+			<!-- 
+			<table class="mt-4 m-auto" id="tableone">
+				<thead>
 					<tr>
-						<th>현재날씨</th>
-						<c:if test="${today.TW_SKY eq '맑음'}" ><td><img src="./resources/defaultimg/sun.jpg"></td></c:if>
+						<th></th>
+						<td>신청시간</td>
+						<td>신청 날짜</td>
+						<td>담당자</td>
+						<td>신청 날짜</td>
+						<td>신청 날짜</td>
+					</tr>
+				</thead>		
+			
+				<tbody>
+					<tr>
+						<td>첫날</td>
+						<td>신청시간</td>
 						
-						<td>2일자리</td>
-						<td>맑은가</td>
-						<td>확인을</td>
-						<td>해보자</td>
-						<td>확인을</td>
-						<td>해보자</td>
+						<td>신청 날짜</td>
+						<td>담당자</td>
 					</tr>
 					
-						<tr>
-						<th>현재온도</th>
-						<td>${today.TW_TEMPER}</td>
-						<td>좋은가2</td>
-						<td>맑은가3</td>
-						<td>확인을4</td>
-						<td>해보자5</td>
-						<td>확인을</td>
-						<td>해보자</td>
-					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
 						
-				</tbody>
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>		
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>		
+					<tr>
+						<td>아이디</td>
+						<td>신청시간</td>
+						
+						<td>신청 날짜</td>
+						<td>담당자</td>
+					</tr>	
+						
+				</tbody>		
 			</table>
+				 -->
 		</div>
+			
 
 	</div>
 	
@@ -101,6 +165,7 @@ img{
 			var contenthead="";
 	contenthead +=	"<tr>";
 	contenthead +=	"<th></th>";
+	
 	contenthead +=		"<td>"+data.today.TW_DATE+"</td>";
 	contenthead +=		"<td>"+data.tomor.TW_DATE+"</td>";
 	contenthead +=		"<td>"+data.third.W_DATE+"</td>";
@@ -109,8 +174,36 @@ img{
 	contenthead +=		"<td>"+data.sixth.W_DATE+"</td>";
 	contenthead +=		"<td>"+data.seventh.W_DATE+"</td>";
 	contenthead +=	"</tr>";
-	$("#headlist").empty();
-	$("#headlist").append(contenthead);
+		$("#headlist").empty();
+		$("#headlist").append(contenthead);
+	
+	var content="";
+		content +=	"<tr>";
+		content +=	"<th>현재 날씨</th>";
+		content +=		"<td>"+data.today.TW_SKY+"</td>";
+		content +=		"<td>"+data.tomor.TW_SKY+"</td>";
+		content +=		"<td>"+data.third.W_PMSKY+"</td>";
+		content +=		"<td>"+data.fouth.W_PMSKY+"</td>";
+		content +=		"<td>"+data.fifth.W_PMSKY+"</td>";
+		content +=		"<td>"+data.sixth.W_PMSKY+"</td>";
+		content +=		"<td>"+data.seventh.W_PMSKY+"</td>";
+		content +=	"</tr>";	
+	
+		content +=	"<tr>";
+		content +=	"<th>최고/최저 기온</th>";
+		content +=		"<td>"+data.today.TW_TEMPERL+" / "+data.today.TW_TEMPERH+"</td>";
+		content +=		"<td>"+data.tomor.TW_TEMPERL+" / "+data.today.TW_TEMPERH+"</td>";
+		content +=		"<td>"+data.third.W_TEMPERL+" / "+data.third.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.fouth.W_TEMPERL+" / "+data.fouth.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.fifth.W_TEMPERL+" / "+data.fifth.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.sixth.W_TEMPERL+" / "+data.sixth.W_TEMPERH+"</td>";
+		content +=		"<td>"+data.seventh.W_TEMPERL+" / "+data.seventh.W_TEMPERH+"</td>";		
+		content +=	"</tr>";		
+		
+	
+	$("#list").empty();
+	$("#list").append(content);
+	
 			},
 		error : function(e) {
 			console.log("오류 발생 ", e);

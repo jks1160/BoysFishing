@@ -47,7 +47,7 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<jsp:include page="calendar.jsp"></jsp:include>
+		<jsp:include page="calendar.jsp"></jsp:include>
 	
 	<div class='container'>
 		<h2 class='text-dark font-weight-bold' style="margin-top: 25px;">섬
@@ -107,6 +107,7 @@
 
 		</div>
 	</div>
+	
 	<div class="container mt-4 " style="overflow:auto;"></div>
 		<hr />
 </body>
