@@ -81,14 +81,22 @@
 			<c:otherwise><td>${map.I_NAME }</td></c:otherwise>
 			</c:choose>
 		</tr>
+		<c:choose>
+		<c:when test="${map.RI_STARTRETURNYN eq 'Y'}">
 		<tr>
 			<th>출항시간</th>
 			<td>${map.RI_STARTTIME }</td>
 		</tr>
+		</c:when>
+		</c:choose>
+		<c:choose>
+		<c:when test="${map.RI_STARTRETURNYN eq 'N'}">
 		<tr>
 			<th>회항시간</th>
-			<td>${map.RI_RETURNTIME}</td>
+			<td>${map.RI_RETURNTIME }</td>
 		</tr>
+		</c:when>
+		</c:choose>
 		<tr>
 			<th>소요시간</th>
 			<td>${map.RI_DURINGTIME }</td>
