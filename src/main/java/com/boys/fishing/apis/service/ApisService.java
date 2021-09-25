@@ -712,5 +712,27 @@ public class ApisService {
 		return map;
 	}
 
+	public ModelAndView weekendweahter() {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> todaylist = dao.todayweatherlist();
+		HashMap<String, Object> tomorrowlist = dao.tomorrowweatherlist();
+		HashMap<String, Object> thirddaylist = dao.thirddayweatherlist();
+		HashMap<String, Object> fouthdaylist = dao.fouthdayweatherlist();
+		HashMap<String, Object> fifthdaylist = dao.fifthdayweatherlist();
+		HashMap<String, Object> sixthdaylist = dao.sixthdayweatherlist();
+		HashMap<String, Object> seventhdaylist = dao.seventhdayweatherlist();
+		
+		mav.addObject("today",todaylist);
+		mav.addObject("tomor",tomorrowlist);
+		mav.addObject("third",thirddaylist);
+		mav.addObject("fouth",fouthdaylist);
+		mav.addObject("fifth",fifthdaylist);
+		mav.addObject("sixth",sixthdaylist);
+		mav.addObject("seventh",seventhdaylist);
+				
+		mav.setViewName("calendar_weather");
+		return mav;
+	}
+
 	
 }

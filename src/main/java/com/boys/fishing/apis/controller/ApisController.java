@@ -74,7 +74,12 @@ public class ApisController {
 	
 		@RequestMapping(value="/calendar_call", method = RequestMethod.GET)
 		public @ResponseBody HashMap<String, Object> calendar_call() {
-			HashMap<String, Object> map = service.todayweahterlist();//u_userid
+			HashMap<String, Object> map = service.todayweahterlist();//u_userid/weekendweather
 			return map;
 	}
+		@RequestMapping(value="/weekendweather")
+		public ModelAndView weekendweather() {
+			return service.weekendweahter();
+	}
+		
 }
