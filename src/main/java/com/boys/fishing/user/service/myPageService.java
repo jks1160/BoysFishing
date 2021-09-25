@@ -294,6 +294,20 @@ public class myPageService {
 		return String.valueOf(success);
 	}
 
+	public ArrayList<HashMap<String, Object>> reserHistory(int shipNum) {
+		ArrayList<HashMap<String, Object>> reserHistory = dao.reserHistory(shipNum);
+		return reserHistory;
+	}
+
+	public ModelAndView captainSchedule(String userid) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<ReserDTO> shipName = new ArrayList<ReserDTO>();
+		shipName = dao.shipNamee(userid);
+		mav.addObject("shipName", shipName);
+		mav.setViewName("captainSchedule");
+		return mav;
+	}
+
 		
 		
 		

@@ -146,7 +146,7 @@ UserDTO myUserInfo(String u_userid); //영환
 	ArrayList<HashMap<String, String>> captainScheduleList(String userid);
 	ArrayList<ReserDTO> captainScheduleDetail(String userId, Date date);
 	ArrayList<HashMap<String, Object>> reserWait(String userId, String wait, String date); //예약 대기중 리스트
-	ArrayList<ReserDTO> captainSchedule(String u_userid);
+	
 
 	int reserDecide(String num);
 	ReserDTO shipListDetail(String u_userid, String s_name);
@@ -159,6 +159,8 @@ UserDTO myUserInfo(String u_userid); //영환
 	void shipImgInsert(HashMap<String, String> params); //영환
 
 	HashMap<String, Object> myReserveDetail(String ri_num); //영환
+
+	ArrayList<HashMap<String, Object>> reserHistory(int shipNum);
 
 	
 
