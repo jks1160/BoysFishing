@@ -91,7 +91,14 @@
 			<th>결재금액</th>
 			<td>${map.RI_PAY}원</td>
 		</tr>
-		
+		<tr>
+			<th>예약상태</th>
+			<c:choose>
+				<c:when test="${map.RI_CODE eq 'RI001' }"><td>예약신청</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI002' }"><td>예약확정</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI003' }"><td>예약취소</td></c:when>
+			</c:choose>
+		</tr>
 		<tr>
 			<td colspan="2">
 			
