@@ -24,12 +24,19 @@
 		* {
  	    font-family: 'Do Hyeon', sans-serif;
 	}
-		table, td ,th{
+		table, td th{
 		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 5px 10px;
 		text-align: center;
+		table-layout: fixed;
 	}
+		th{
+		width: 200px;
+		}
+		td{
+		height: 30px; 
+		}
 		.entire{
 		text-align: center;
 		margin-top: 5%;
@@ -42,6 +49,11 @@
  		 margin-bottom:50px;
  		 text-align: center;
  		 }
+ 		 img {
+ 		 width: 200px;
+ 		 height: 200px;
+		 object-fit: contain;
+		}
 	
 		</style>
 
@@ -50,11 +62,12 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 회원정보</h2></div>
 	<div class="entire">
+	
 	<div class="rounded float-start">
 		<img id="profileImg" class="rounded" alt="배 이미지" style="width: 200px;">
 	</div>
 	
-	<div>
+	<div style="padding-top:170px; padding-left: 600px">
 	<button type="button" onclick="location.href='shipJoinForm'">등록하기</button>
 	<select onchange="select(this)" id="shipNameOption">
 	<c:forEach items="${list}" var="shipName">
@@ -62,8 +75,8 @@
 	</c:forEach>
 	</select>
 	</div>
-	<div>
 	
+	<div>
 	<table class="table table-bordered">
 		<tr>
 			<th>배 이름</th>

@@ -141,7 +141,8 @@
 							        op_startTime : myReser.OP_STARTTIME,
 							        op_duringTime : myReser.OP_DURINGTIME,
 							        op_startPoint : myReser.OP_STARTPOINT,
-							        op_returnTime : myReser.OP_RETURNTIME
+							        op_returnTime : myReser.OP_RETURNTIME,
+							        op_price : myReser.OP_PRICE
 							      } 
 							     
 							});
@@ -164,8 +165,8 @@
 			var opduring = e.event.extendedProps.op_duringTime;
 			var ssp = e.event.extendedProps.op_startPoint;
 			var rtm = e.event.extendedProps.op_returnTime;
-			
-			window.open("/fishing/reser/cap_check_res?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum+"&i_name="+iname+"&op_duringtime="+opduring+"&op_startpoint="+ssp+"&op_returntime="+rtm,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
+			var price = e.event.extendedProps.op_price;
+			window.open("/fishing/reser/userReser_Vation?op_date="+opdate+"&op_starttime="+opstart+"&s_num="+snum+"&i_num="+inum+"&i_name="+iname+"&op_duringtime="+opduring+"&op_startpoint="+ssp+"&op_returntime="+rtm+"&op_price="+price,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
 			
 
 		},
