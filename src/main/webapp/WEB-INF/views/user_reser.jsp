@@ -95,18 +95,6 @@
 			editable : true, // 에디터 가능한지 
 			selectable : true, //선택 가능한지
 			dayMaxEventRows: true,
-			dateClick : function(e) {
-				console.log("이벤트 ",e);
-				//오늘 이후의 일정만 클릭 이벤트가 붙는다.
-				if (Number(e.date) > Number(today)) {
-					console.log(e);
-
-					//window.open("./captainWriteForm?op_date="+e.dateStr,"_blank","toolbar=yes, menubar=yes, width=700, height=500").focus();
-					
-					//풀 캘린더 소환
-					calendar.render();
-				}
-			},
 			events : function(info, successCallback, failureCallback) {
 				$.ajax({
 					url : 'show_ship_sch',
@@ -142,10 +130,10 @@
 							
 							console.log("스타트데이 : ", reserDate);
 							my_reser.push({
-								title : myReser.I_NAME,
+								title : "예약 가능",
 								start : reserDate,
 								color : "#FFCCE5",
-								/* extendedProps: {
+								 extendedProps: {
 							        op_date: reserDate,
 							        s_num : myReser.S_NUM,
 							        i_num : myReser.I_NUM,
@@ -154,12 +142,11 @@
 							        op_duringTime : myReser.OP_DURINGTIME,
 							        op_startPoint : myReser.OP_STARTPOINT,
 							        op_returnTime : myReser.OP_RETURNTIME
-							      } */
+							      } 
 							     
 							});
 						}); // forEach end
-
-						console.log(successCallback(my_reser));
+						successCallback(my_reser);
 					}, // ajax success end
 					error : function(e) {
 						console.log("에러났습니다.", e);
