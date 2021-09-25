@@ -91,6 +91,12 @@
 		padding: 5px 10px;
 		text-align: center;
 	}
+		th{
+		width: 200px;
+		}
+		td{
+		height: 30px; 
+		}
 	    thead{
 		font-weight:600;
 		text-align: center;
@@ -100,7 +106,6 @@
 		display: none;
 		}
 		.entire{
-		text-align: center;
 		margin-top: 5%;
 		margin-right: 20%;
 		margin-bottom: 5%;
@@ -111,6 +116,11 @@
  		 margin-bottom:50px;
  		 text-align: center;
  		 }
+ 		 img {
+ 		 width: 200px;
+ 		 height: 200px;
+		 object-fit: contain;
+		}
 		</style>
 
 	</head>
@@ -118,23 +128,26 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 회원정보</h2></div>
 	<div class="entire">
+	
 	<div class="rounded float-start">
 		<img src="resources/defaultimg/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
-	<div style="margin: 20px 50px;">
- 	<form id="fileUpload">
+	</div>	
+	
+	<div style="padding-top:170px; padding-left: 0px">
+ 	<form style="margin :0px; padding: 0px"  id="fileUpload">
 	<input type="file" hidden="hidden" name="file" id="fileinput" onchange="uploadFile()">
 	<button type="button" id="fileUpdate">등록</button>
 	<button type="button" id="fileDelete" onclick="shipFileDelete()">삭제</button>
 	</form>
 	</div>
 	
-	</div>
+	
 	<form action="shipJoin" name="shipJoin" method="POST">
 	<table class="table table-bordered">
 	<thead>
 			<tr>
 				<td>항목</td>
-				<td>값</td>
+				<td>입력 값</td>
 			</tr>
 	</thead>
 	    <tr>
@@ -153,15 +166,15 @@
 		<tr>
 			<th>최대탑승인원</th>
 			<td>
-			<input style="width:300px;" name="s_maxpassenger" id="s_maxpassenger" type="number" value=""/>
+			<input style="width:300px;"  name="s_maxpassenger" id="s_maxpassenger" type="number" value=""/>
 			</td>
 		</tr>
 		<tr>
 			<th>정박위치주소</th>
 			<td>
-			<input style="width:300px;" name="address" id="address" type="text" readonly="readonly"/>
-			<input type="text" name="addressDetail" id="addressDetail" placeholder="상세주소를 입력해주세요">
-			<button type="button" id="s_address" onclick="sample4_execDaumPostcode()">주소 검색</button></td>
+			<input style="width:300px; margin-left: 75px" size="40px" name="address" id="address" type="text" readonly="readonly"/>
+			<button type="button" id="s_address" onclick="sample4_execDaumPostcode()">주소 검색</button>
+			<input type="text" style="margin-top: 5px; width:300px" name="addressDetail" id="addressDetail" placeholder="상세주소를 입력해주세요"></td>
 		</tr>
 		<tr>
 			<th>장비현황</th>
@@ -180,7 +193,7 @@
 			TV<input type="checkbox" id="convenient" name="c_1" value="TV"/>
 			화장실<input type="checkbox" id="convenient" name="c_2" value="화장실"/>
 			주차장<input type="checkbox" id="convenient" name="c_3" value="주차장"/>
-			휴게실<input type="checkbox" id="convenient" name="c_4" value="휴게실"/>
+			휴게실<input type="checkbox" id="convenient" name="c_4" value="휴게실"/></br>
 			냉장고<input type="checkbox" id="convenient" name="c_5" value="냉장고"/>
 			커피포트<input type="checkbox" id="convenient" name="c_6" value="커피포트"/>
 			구명조끼<input type="checkbox" id="convenient" name="c_7" value="구명조끼"/>
