@@ -8,14 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.reservation.service.ReserService;
 
 @Controller
@@ -37,10 +37,16 @@ public class ReserController {
 
 	// 섬 상세보기
 	@RequestMapping(value = "/detail_island", method = RequestMethod.GET)
-	public ModelAndView detail_island(@RequestParam HashMap<String, String> params) {
+	public ModelAndView detail_island(@RequestParam HashMap<String, String> params, RedirectAttributes rAttr) {
 
 		logger.info("섬 정보 요청 : {}", params.get("choice"));
-
+		ModelAndView mav = new ModelAndView();
+		if(params.get("choice") == null) {
+			rAttr.addFlashAttribute("msg","섬을 선택해 주세요!");
+			mav.setViewName("redirect:/islandsReservation");
+			return mav;
+		}
+		
 		return service.detail_island(params.get("choice"));
 	}
 
@@ -102,5 +108,19 @@ public class ReserController {
 		
 		
 		return service.captain_sche_detail(params);
+	}
+	
+	/** 조재현
+	 * 유저 배편 예약하기 진입 컨트롤러
+	 * @return
+	 */
+	@RequestMapping(value="/userReservation")
+	public ModelAndView userReservation(@RequestParam HashMap<String, Object> params) {
+		
+		logger.info("섬 번호 : {}, 배 번호: {}",params.get("i_num"), params.get("s_num"));
+		
+		
+		
+		return service.userReservation(params);
 	}
 }

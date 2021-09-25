@@ -76,7 +76,9 @@ public class ReserService {
 		logger.info("배편 찾기 서비스 : {}", find_ship);
 		ModelAndView mav = new ModelAndView();
 
+		// 배편
 		ArrayList<ReserDTO> list = reserDAO.findShip(find_ship);
+		// 섬 이름 정보 보기
 		IslandDTO dto = apiDAO.getIslandName(find_ship);
 
 		logger.info("완료 : {}", list);
@@ -96,6 +98,7 @@ public class ReserService {
 			logger.info("인당 배 값 : {}", list.get(i).getOp_price());
 			logger.info("이미지 이름 : {}", list.get(i).getSi_name());
 			logger.info("이미지 경로  : {}", list.get(i).getS_img());
+			logger.info("섬 번호 : {}",list.get(i).getI_num());
 		}
 
 		// 배 정보 페이지 완성 시 보내면 된다.
@@ -155,24 +158,40 @@ public class ReserService {
 	}
 
 	/**
-	 * 조재현
-	 * 선장 스케줄 업데이트 서비스
+	 * 조재현 선장 스케줄 업데이트 서비스
+	 * 
 	 * @param params
 	 * @return
 	 */
 
 	public HashMap<String, Object> captain_sche_detail(HashMap<String, Object> params) {
-		logger.info("선장 업데이트 : {}",params);
+		logger.info("선장 업데이트 : {}", params);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+
 		int success = reserDAO.updateCapSche(params);
-		
-		//int success = reserDAO.upDateSchedul(params.get)
-		
-		//map.put("Success", success);
-		
-		
+
+		// int success = reserDAO.upDateSchedul(params.get)
+
+		// map.put("Success", success);
+
 		return map;
+	}
+
+	/** 조재현
+	 * 유저 배 편 예약 서비스 메소드 입니다.
+	 * @param params 배 번호, 섬 번호가 있다.
+	 * @return
+	 */
+	public ModelAndView userReservation(HashMap<String, Object> params) {
+		
+		logger.info("배 편 보여주기 서비스 해당 메소드는 달력에 배 편 예약 가능한 날짜를 보여주기 위함이다.");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("s_num", params.get("s_num"));
+		mav.addObject("i_num", params.get("i_num"));
+		mav.setViewName("user_reser");
+		
+		
+		return mav;
 	}
 
 }

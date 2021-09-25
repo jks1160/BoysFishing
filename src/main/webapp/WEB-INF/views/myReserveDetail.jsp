@@ -51,39 +51,45 @@
 	</thead>
 	    <tr>
 			<th>예약번호</th>
-			<td></td>
+			<td>${map.RI_NUM }</td>
 		</tr>
 		<tr>
 			<th>예약자ID</th>
-			<td></td>
+			<td>${map.RI_USERID }</td>
 		</tr>
 		<tr>
 			<th>목적지</th>
-			<td></td>
+			<c:choose>
+			<c:when test="${map.RI_STARTRETURNYN eq 'Y'}"><td>${map.I_NAME }</td></c:when>
+			<c:otherwise><td>${map.RI_STARTPOINT }</td></c:otherwise>
+			</c:choose>
 		</tr>
 		<tr>
 			<th>출항지</th>
-			<td></td>
+			<c:choose>
+			<c:when test="${map.RI_STARTRETURNYN eq 'Y'}"><td>${map.RI_STARTPOINT }</td></c:when>
+			<c:otherwise><td>${map.I_NAME }</td></c:otherwise>
+			</c:choose>
 		</tr>
 		<tr>
 			<th>출항시간</th>
-			<td></td>
+			<td>${map.RI_STARTTIME }</td>
 		</tr>
 		<tr>
 			<th>회항시간</th>
-			<td></td>
+			<td>${map.RI_RETURNTIME}</td>
 		</tr>
 		<tr>
 			<th>소요시간</th>
-			<td></td>
+			<td>${map.RI_DURINGTIME }</td>
 		</tr>
 		<tr>
 			<th>인원수</th>
-			<td></td>
+			<td>${map.RI_PEOPLE}명</td>
 		</tr>
 		<tr>
 			<th>결재금액</th>
-			<td></td>
+			<td>${map.RI_PAY}원</td>
 		</tr>
 		
 		<tr>

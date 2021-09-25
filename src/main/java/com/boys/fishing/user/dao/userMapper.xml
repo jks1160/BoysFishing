@@ -48,15 +48,26 @@
 	SELECT s_name FROM ship WHERE u_userid=#{u_userid} ORDER BY s_name
 </select>
 
-<insert id="shipJoin" parameterType="hashmap">
+<insert id="shipJoin" useGeneratedKeys="true" keyColumn="s_num" keyProperty="s_num" parameterType="reser">
 	INSERT INTO ship (s_num,u_userid,s_name,s_minpassenger,s_maxpassenger,s_img,s_equipment,s_convenient,s_address)
-	 VALUES(S_NUM_SEQ.nextval,#{u_userid},#{s_name},#{s_minpassenger},#{s_maxpassenger},'N',#{equipment},#{convenient},#{address})
+	 VALUES(S_NUM_SEQ.nextval,#{u_userid},#{s_name},#{s_minpassenger},#{s_maxpassenger},'N',#{s_equipment},#{s_convenient},#{s_address})
 </insert>
 
 <select id="shipListDetail" parameterType="String" resultType="reser">
 	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{param1} AND s_name=#{param2}
 </select>
 
+<update id="shipImg" parameterType="hashmap">
+	UPDATE ship set s_img='Y' WHERE s_num=#{s_num}
+</update>
+
+<insert id="shipImgInsert" parameterType="hashmap">
+	INSERT INTO shipimg VALUES (#{s_num},#{newFileName})
+</insert>
+
+<select id="myReserveDetail" parameterType="String" resultType="hashmap" >
+	SELECT * FROM reserinfo LEFT OUTER JOIN island i ON( i.i_num = reserinfo.i_num) WHERE ri_num=#{params}
+</select>
 
 
 
@@ -150,9 +161,9 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	FROM reserINFO r, ship s WHERE s.snum = r.s_num AND r.RI_date = #{param1} 
 </select>
  -->
-<select id="reserWait" resultType="reser">
+<select id="reserWait" resultType="HashMap">
 SELECT s.s_name, r.ri_num, r.ri_userid, i.i_name, r.ri_startpoint, r.ri_starttime, r.ri_returntime,
-r.ri_duringtime, r.ri_people, r.ri_pay, r.ri_code
+r.ri_duringtime, r.ri_people, r.ri_pay, r.ri_code, i.i_name
 FROM reserInfo r, island i, ship s  
 WHERE s.s_num = r.s_num and i.i_num = r.i_num and s.u_userid in(#{param1}) and ri_code=#{param2} and TO_CHAR(ri_date, 'yyyy-mm-dd') = #{param3}
 </select>

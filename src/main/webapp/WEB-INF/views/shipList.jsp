@@ -9,7 +9,7 @@
 		  integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
 		  crossorigin="anonymous"></script>
 		<meta charset="UTF-8">
-		<title>MyUserInfoUpdate</title>
+		<title>SOMEFISH</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		
 		<!-- 글꼴 -->
@@ -102,7 +102,11 @@
 				$("#s_address").html(data.dto.s_address);
 				$("#s_equipment").html(data.dto.s_equipment);
 				$("#s_convenient").html(data.dto.s_convenient);
-				//$("#si_name").attr("scr",/)
+				if(data.dto.si_name == null){
+					$("#profileImg").attr("src","resources/defaultimg/defaultprofile.png");
+				}else{
+					$("#profileImg").attr("src",data.path);
+				}
 			},
 			error:function(e){
 				console.log(e);
@@ -127,7 +131,12 @@
 				$("#s_address").html(data.dto.s_address);
 				$("#s_equipment").html(data.dto.s_equipment);
 				$("#s_convenient").html(data.dto.s_convenient);
-				//$("#si_name").attr("scr",/)
+				if(data.dto.si_name == null){
+					$("#profileImg").attr("src","resources/defaultimg/defaultprofile.png");
+				}else{
+				$("#profileImg").attr("src",data.path);
+				console.log(data.path);
+				}
 			},
 			error:function(e){
 				console.log(e);
