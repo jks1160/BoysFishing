@@ -28,18 +28,56 @@
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
+.card-img-top{
+    height:200px;
+}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container my-5 justify-content-between">
 	<div class="row">
 		<div class="col">
-			<h2>섬섬톡</h2>
+			<h2>섬섬톡</h2> 
 		</div>
+        <div class="form-group">
+            <label for="sel1">카테고리 :</label>
+            <select class="form-control" id="sel1">
+              <option checked>자유게시판</option>
+              <option>후기게시판</option>
+              <option>정보게시판</option>
+            </select>
+        </div>
 	</div>
+    <hr>
+    <c:forEach var="" items="">
+    <div class="row justify-content-md-center">
+        <div class="col-10">
+            <div class="card">
+                <img class="card-img-top" src="" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title">John Doe</h4>
+                  <p class="card-text">Some example text.</p>
+                  <a href="#">상세보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </c:forEach>
 </div>
 </body>
 <script>
-
+console.log($("#sel1").val());
+/* $.ajax({
+    url:'overCheck',
+    type:'POST',
+    data:{ "category": $("#sel1").val()},
+    dataType:'JSON',
+    success:function(data){
+    	
+    },
+    error:function(e){
+		console.log(e);
+    }
+}); */
 </script>
 </html>
