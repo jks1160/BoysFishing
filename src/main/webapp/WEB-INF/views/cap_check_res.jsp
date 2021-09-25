@@ -63,6 +63,11 @@
 						<input type='text' hidden='hidden' value="${reser.op_returntime}" name='op_returntime'/>
 					</td>
 				</tr>
+				<tr>
+					<td>결제 금액 : ${reser.op_price }
+						<input type='text' hidden='hidden' value="${reser.op_price}" name='op_price'/>
+					</td>
+				</tr>
 			</table>
 			<button class='btn btn-primary'>수정하기</button>
 			</form>

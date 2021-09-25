@@ -8,6 +8,9 @@
 		 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
 		  integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" 
 		  crossorigin="anonymous"></script>
+		  <link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
 		<meta charset="UTF-8">
 		<title>MyReserveDetail</title>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -35,14 +38,21 @@
  		 margin-bottom:50px;
  		 text-align: center;
  		 }
-	
+		.entire{
+		text-align: center;
+		margin-top: 5%;
+		margin-right: 20%;
+		margin-bottom: 5%;
+		margin-left: 20%;
+	}
 		</style>
 
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 예약정보</h2></div>
-	<table>
+	<div class="entire">
+	<table class="table table-bordered">
 	<thead>
 			<tr>
 				<td>항목</td>
@@ -71,14 +81,22 @@
 			<c:otherwise><td>${map.I_NAME }</td></c:otherwise>
 			</c:choose>
 		</tr>
+		<c:choose>
+		<c:when test="${map.RI_STARTRETURNYN eq 'Y'}">
 		<tr>
 			<th>출항시간</th>
 			<td>${map.RI_STARTTIME }</td>
 		</tr>
+		</c:when>
+		</c:choose>
+		<c:choose>
+		<c:when test="${map.RI_STARTRETURNYN eq 'N'}">
 		<tr>
 			<th>회항시간</th>
-			<td>${map.RI_RETURNTIME}</td>
+			<td>${map.RI_RETURNTIME }</td>
 		</tr>
+		</c:when>
+		</c:choose>
 		<tr>
 			<th>소요시간</th>
 			<td>${map.RI_DURINGTIME }</td>
@@ -91,7 +109,14 @@
 			<th>결재금액</th>
 			<td>${map.RI_PAY}원</td>
 		</tr>
-		
+		<tr>
+			<th>예약상태</th>
+			<c:choose>
+				<c:when test="${map.RI_CODE eq 'RI001' }"><td>예약신청</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI002' }"><td>예약확정</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI003' }"><td>예약취소</td></c:when>
+			</c:choose>
+		</tr>
 		<tr>
 			<td colspan="2">
 			
@@ -99,6 +124,7 @@
 			
 		</tr>
 		</table>
+		</div>
 	</body>
 	<script>
 	

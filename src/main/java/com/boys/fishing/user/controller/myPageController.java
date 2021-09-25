@@ -77,12 +77,15 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	@RequestMapping(value="/pointCharge")
-	public String pointCharge(Model model, HttpSession session ,@RequestParam String p_charge) {
+	public ModelAndView pointCharge(Model model, HttpSession session ,@RequestParam String p_charge, RedirectAttributes rAttr) {
 		logger.info("포인트충전 왔슈?"+p_charge);
+		ModelAndView mav = new ModelAndView();
 		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		String userId = userInfo.get("u_userid");
-		myservice.pointCharge(Integer.parseInt(p_charge),userId);
-		return "redirect:/pointPage";
+		String msg = myservice.pointCharge(Integer.parseInt(p_charge),userId);
+		rAttr.addFlashAttribute("msg",msg);
+		mav.setViewName("redirect:/pointPage");
+		return mav;
 	}
 	
 	@RequestMapping(value="/pointWithdraw")
