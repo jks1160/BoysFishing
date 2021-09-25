@@ -57,7 +57,7 @@ function decideButton(number){
 		data : param,
 		success : function(data){
 			console.log(data);
-			window.location.reload();
+			waiting();
 		},
 		error : function(e){
 			console.log(e);
