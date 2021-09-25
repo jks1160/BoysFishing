@@ -101,7 +101,7 @@ input{
 	<tr>
 		<td>운항비용</td>
 		<td>
-			<input type="number" name = "op_price" step="1000" required/>
+			<input type="number" name = "op_price" step="1000"  required/>
 		</td>
 	</tr>
 	<tr>

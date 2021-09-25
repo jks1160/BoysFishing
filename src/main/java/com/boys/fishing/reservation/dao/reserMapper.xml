@@ -43,4 +43,10 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 		WHERE s_num = #{ori_s_num} AND i_num=#{ori_i_num} AND op_starttime = #{ori_op_starttime} AND op_date = #{ori_op_date}
 	</update>
 
+	<!-- 배 편 스케줄 가져오기 -->
+	<select id="choice_reser" resultType='hashmap'>
+		SELECT * FROM operrange op LEFT OUTER JOIN ship s
+		ON (s.s_num = op.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num)
+		WHERE op.i_num=#{param2} AND op.s_num = #{param1} AND op.op_date > SYSDATE
+	</select>
 </mapper>

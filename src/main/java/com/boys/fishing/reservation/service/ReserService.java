@@ -188,10 +188,30 @@ public class ReserService {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("s_num", params.get("s_num"));
 		mav.addObject("i_num", params.get("i_num"));
+		String s_num = (String)params.get("s_num");
+		String i_num = (String)params.get("i_num");
+		
+		ArrayList<HashMap<String, Object>> choice_list = reserDAO.choice_reser(s_num,i_num);
+		
+		mav.addObject("reserInfoList", choice_list);
 		mav.setViewName("user_reser");
 		
 		
 		return mav;
+	}
+
+	public HashMap<String, Object> show_List(HashMap<String, Object> params) {
+		
+		logger.info("이벤트 등록해야한다.");
+		String s_num = (String)params.get("s_num");
+		String i_num = (String)params.get("i_num");
+		
+		ArrayList<HashMap<String, Object>> choice_list = reserDAO.choice_reser(s_num,i_num);
+		HashMap<String, Object> Reser_List = new HashMap<String, Object>();
+		Reser_List.put("choice_list", choice_list);
+		
+		
+		return Reser_List;
 	}
 
 }
