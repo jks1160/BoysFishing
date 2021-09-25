@@ -104,7 +104,7 @@ function RealReser(){ //예약 신청하기 function
 			"s_num" : "${reser.s_num}",
 			"ri_startpoint" : "${reser.op_startpoint}",
 			"ri_starttime" : "${reser.op_starttime}",
-			"ri_duringtime" : "${reser.op_starttime}",
+			"ri_duringtime" : "${reser.op_duringtime}",
 			"ri_returntime" : "${reser.op_returntime}",
 			"ri_people" : people,
 			"ri_startreturnYN" : pick,
