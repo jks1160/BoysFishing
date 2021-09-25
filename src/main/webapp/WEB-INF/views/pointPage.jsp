@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>SOMEFISH</title>
-<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +34,7 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
+
 <div class="entire">
 	<img src="resources/user.png"  width="50px"/> <div class="user">${loginId}님의 포인트 정보</div>
 	<br><br>
@@ -78,7 +78,10 @@
 			
 			</tbody>
 		</table>
-			<div class="p_point_page">
+			<div class="container row" >
+				<nav class="container col-auto mt-3" aria-lable="Page navigation"  style="text-align: center;">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>
 			</div>
 			
 	</div>
@@ -147,7 +150,16 @@ function pointListCall(p_page) {
 		success : function(data) {
 			console.log(data);
 			pointDrawList(data);
-			pointPageList(data);
+			currPage = data.currPage;
+			$("#pagination").twbsPagination({
+				startPage: data.currPage,//시작페이지
+				totalPages: data.totalPage,  //총 페이지 갯수
+				visiblePages:5, //보여줄 페이지 갯수
+				onPageClick: function(e,page){
+					//console.log(e,page);
+					pointlistCall(page);
+				}
+			});	
 		},
 		error : function(e) {
 			console.log(e);
@@ -190,22 +202,6 @@ function pointDrawList(list) {
 	});
 	$(".p_history_cont").empty();
 	$(".p_history_cont").append(content);
-}
-
-function pointPageList(list){
-	var content = "";
-	console.log("페이징처리 함수옴")
-		for(i = 1; i<= list.totalPage; i++){
-			content += "<span class='page'>";
-			if(i != list.currPage){
-				content += "<button onclick='pointListCall("+i+");'>"+i+"</button>";
-			}else{
-				content += "<b>"+i+"</b>";
-			}
-			content += "</span>";
-		};
-		$(".p_point_page").empty();
-		$(".p_point_page").append(content);
 }
 </script>
 </html>

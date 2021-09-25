@@ -108,6 +108,9 @@ public class myPageService {
 		pointHistory = dao.pointHistoryList(start,user,end);
 		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
 		logger.info("총 페이지: "+totalPage);
+		
+		page = page>pages ? pages : page;
+		
 		map.put("list", pointHistory);
 		map.put("totalPage", pages);
 		map.put("currPage", page);
