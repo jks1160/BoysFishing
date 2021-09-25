@@ -48,14 +48,14 @@
 			<tr>
 				<td>포인트 충전하기</td>
 				<td>
-					<input type="text" name="p_charge">
+					<input type="text" name="p_charge" pattern="^[0-9]+$" maxlength="8">
 					<button>충전하기</button>
 				</td>
 			</tr>
 			<tr>
 				<td>포인트 출금하기</td>
 				<td>
-					<input type="text" name="p_withdraw">
+					<input id = "withdrawButton" type="text" name="p_withdraw" pattern="^[0-9]+$" maxlength="8">
 					<button onclick='return withdraw(this.form)'>출금하기</button>
 				</td>		
 			</tr>
@@ -85,7 +85,15 @@
 </div>
 </body>
 <script>
-function withdraw(form) { 
+function withdraw(form) {
+	var withdraw = document.getElementById('withdrawButton').value;
+	var balance = ${point};
+	withdraw = Number(withdraw);
+	if(withdraw > balance){
+		alert("출금액을 다시 확인하세요.");
+		//window.location.reload();
+		return false;
+	}
     form.action='pointWithdraw'; 
     form.submit(); 
     return true; 

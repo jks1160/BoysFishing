@@ -24,6 +24,13 @@
 		margin-left: 30%;
 		text-align : center;
 }
+.entire1{
+		margin-top : 5%;
+		margin-right: 30%;
+		margin-bottom: 5%;
+		margin-left: 5%;
+		text-align : center;
+}
 </style>
 </head>
 <body>
@@ -113,6 +120,7 @@ function waitDetailDrawList(list) {
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
 		content += "<hr>";
+		content += "<div class='entire'>";
 		content += "<table class='table-bordered'>";
 		content += "<tr><td>배이름</td><td>"+item.s_name+"</td></tr>";
 		content += "<tr><td>예약번호</td><td>"+item.ri_num+"</td></tr>";
@@ -124,8 +132,9 @@ function waitDetailDrawList(list) {
 		content += "<tr><td>소요시간</td><td>"+item.ri_duringtime+"</td></tr>";
 		content += "<tr><td>인원수</td><td>"+item.ri_people+"</td></tr>";
 		content += "<tr><td>결제금액</td><td>"+item.ri_pay+"</td></tr>";
-		content += "<tr><td colspan='2'><button onclick='decideButton("+item.ri_num+")'>확정하기</button></td>"
-		content +="</table>"
+		content += "<tr><td colspan='2'><button onclick='decideButton("+item.ri_num+")'>확정하기</button></td>";
+		content += "</table>";
+		content += "</div>";
 	});
 	$("#reserDetail").empty();
 	$("#reserDetail").append(content);
@@ -135,21 +144,23 @@ function decideDetailDrawList(list) {
 	console.log(list);
 	var content = "";
 	list.list.forEach(function(item, idx) {
+		console.log(item.i_name);
 		console.log(item, idx);
 		content += "<hr>";
-		content += "<table class='table-bordered'>";
-		content += "<tr><td>배이름</td><td>"+item.s_name+"</td></tr>";
-		content += "<tr><td>예약번호</td><td>"+item.ri_num+"</td></tr>";
-		content += "<tr><td>예약자ID</td><td>"+item.ri_userid+"</td></tr>";
-		content += "<tr><td>목적지</td><td>"+item.i_name+"</td></tr>";
-		content += "<tr><td>출항지</td><td>"+item.ri_startpoint+"</td></tr>";
-		content += "<tr><td>출항시간</td><td>"+item.ri_starttime+"</td></tr>";
-		content += "<tr><td>회항시간</td><td>"+item.ri_returntime+"</td></tr>";
-		content += "<tr><td>소요시간</td><td>"+item.ri_duringtime+"</td></tr>";
-		content += "<tr><td>인원수</td><td>"+item.ri_people+"</td></tr>";
-		content += "<tr><td>결제금액</td><td>"+item.ri_pay+"</td></tr>";
-		
+		content += "<div class='entire1'>";
+		content += "<table class='table-bordered' width='300', height='50'>";
+		content += "<tr><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
+		content += "<tr><td>예약번호</td><td>"+item.RI_NUM+"</td></tr>";
+		content += "<tr><td>예약자ID</td><td>"+item.RI_USERID+"</td></tr>";
+		content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
+		content += "<tr><td>출항지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+		content += "<tr><td>출항시간</td><td>"+item.RI_STARTTIME+"</td></tr>";
+		content += "<tr><td>회항시간</td><td>"+item.RI_RETURNTIME+"</td></tr>";
+		content += "<tr><td>소요시간</td><td>"+item.RI_DURINGTIME+"</td></tr>";
+		content += "<tr><td>인원수</td><td>"+item.RI_PEOPLE+"</td></tr>";
+		content += "<tr><td>결제금액</td><td>"+item.RI_PAY+"</td></tr>";
 		content +="</table>"
+		content += "</div>";
 	});
 	$("#reserDetail").empty();
 	$("#reserDetail").append(content);

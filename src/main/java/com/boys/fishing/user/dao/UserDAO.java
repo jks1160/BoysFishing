@@ -131,25 +131,29 @@ UserDTO myUserInfo(String u_userid); //영환
 		
 	ArrayList<ReserDTO> shipList(String u_userid); //영환
 
-	String shipName(String userId);
+	String shipName(String userId); 
 
 	int check_cap(String userId);
 
 	int captainWrite(ReserDTO reser);
 
 
-	void shipJoin(HashMap<String, String> params);
+	int shipJoin(ReserDTO dto); //영환
 
 	int notice(UserDTO dto);
 
 
 	ArrayList<HashMap<String, String>> captainScheduleList(String userid);
 	ArrayList<ReserDTO> captainScheduleDetail(String userId, Date date);
-	ArrayList<ReserDTO> reserWait(String userId, String wait, String date); //예약 대기중 리스트
+	ArrayList<HashMap<String, Object>> reserWait(String userId, String wait, String date); //예약 대기중 리스트
 	ArrayList<ReserDTO> captainSchedule(String u_userid);
 
 	int reserDecide(String num);
 	ReserDTO shipListDetail(String u_userid, String s_name);
+
+	void shipImg(HashMap<String, String> params); //영환
+
+	void shipImgInsert(HashMap<String, String> params); //영환
 
 	
 

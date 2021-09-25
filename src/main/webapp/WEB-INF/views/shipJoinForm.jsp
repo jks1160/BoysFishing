@@ -43,7 +43,7 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
            		console.log(buildingName);
-                document.getElementById("s_address").value = roadAddr +' '+buildingName;
+                document.getElementById("address").value = roadAddr +' '+buildingName;
                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
                 
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
@@ -131,21 +131,21 @@
 		<tr>
 			<th>최소탑승인원</th>
 			<td>
-			<input style="width:300px;" name="s_minpassenger" id="s_minpassenger" type="text" value=""/>
+			<input style="width:300px;" name="s_minpassenger" id="s_minpassenger" type="number" value=""/>
 			</td>
 		</tr>
 		<tr>
 			<th>최대탑승인원</th>
 			<td>
-			<input style="width:300px;" name="s_maxpassenger" id="s_maxpassenger" type="text" value=""/>
+			<input style="width:300px;" name="s_maxpassenger" id="s_maxpassenger" type="number" value=""/>
 			</td>
 		</tr>
 		<tr>
 			<th>정박위치주소</th>
 			<td>
-			<input style="width:300px;" name="s_address" id="s_address" type="text" readonly="readonly"/>
-			<input type="text" name="s_addressDetail" id="s_addressDetail" placeholder="상세주소를 입력해주세요">
-			<button type="button" id="address" onclick="sample4_execDaumPostcode()">주소 검색</button></td>
+			<input style="width:300px;" name="address" id="address" type="text" readonly="readonly"/>
+			<input type="text" name="addressDetail" id="addressDetail" placeholder="상세주소를 입력해주세요">
+			<button type="button" id="s_address" onclick="sample4_execDaumPostcode()">주소 검색</button></td>
 		</tr>
 		<tr>
 			<th>장비현황</th>
@@ -254,21 +254,6 @@
 				}	
 			});
 	}
-	
-	    var equipment = [];     // 배열 초기화
-	    $("input[name='equipment']:checked").each(function(i) {
-	    	equipment.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
-	    })
-	    	$("#s_equipment").val(equipment);
-	    
-	    var convenient = [];     // 배열 초기화
-	    $("input[name='convenient']:checked").each(function(i) {
-	    	convenient.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
-	    })
-	    	$("#s_convenient").val(convenient);
-
-
-
 	
 	</script>
 </html>

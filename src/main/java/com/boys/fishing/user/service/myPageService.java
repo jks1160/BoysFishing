@@ -261,8 +261,9 @@ public class myPageService {
 		
 	public HashMap<String, Object> reserWait(String userId, String wait, String date) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<ReserDTO> waitScheduleDetail = new ArrayList<ReserDTO>();
+		ArrayList<HashMap<String, Object>> waitScheduleDetail = new ArrayList<HashMap<String,Object>>();
 		waitScheduleDetail = dao.reserWait(userId, wait, date);
+		logger.info("Test : {}", waitScheduleDetail);
 		map.put("list", waitScheduleDetail);
 		return map;
 	}
