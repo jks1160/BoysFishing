@@ -88,7 +88,7 @@
 					<li class="nav-item"><a class="nav-link active text-white"
 						aria-current="page" href="#">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/fishing/calendar">조재현(달력 작업중)</a></li>
+						aria-current="page" href="/fishing/weekendweather">이번주 날씨</a></li>
 					<li class="nav-item"><c:choose>
 
 							<c:when test="${empty sessionScope.userinfo}"></c:when>
