@@ -115,14 +115,18 @@ public class myPageService {
 	}
 
 	//회원 포인트 충전
-	public void pointCharge(int p_charge, String user) {
+	public String pointCharge(int p_charge, String user) {
 		int balance = 0;
 		int currBalance;
 		currBalance = dao.point(user);
 		balance = currBalance + p_charge;
+		if(balance > 3000000) {
+			return "잔액 최대치(3억)을 넘길 수 없습니다.";
+		}
 		logger.info("balance: "+ balance + "p_charge: "+ p_charge + "user: " + user);
 		dao.pointCharge(balance, p_charge, user);
 		
+		return null;
 	}
 
 	//회원 포인트 출금
@@ -273,6 +277,10 @@ public class myPageService {
 			
 		ArrayList<HashMap<String, String>> reserList = dao.captainScheduleList(userid);
 			
+		for (HashMap<String, String> item : reserList) {
+			logger.info("날짜 : {}",item.get("ri_date"));
+		}
+		
 		return reserList;
 	}
 

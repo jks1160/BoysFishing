@@ -48,14 +48,14 @@
 			<tr>
 				<td>포인트 충전하기</td>
 				<td>
-					<input type="text" name="p_charge" pattern="^[0-9]+$" maxlength="8">
+					<input id = "chargeNumber" type="text" name="p_charge" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="8">
 					<button>충전하기</button>
 				</td>
 			</tr>
 			<tr>
 				<td>포인트 출금하기</td>
 				<td>
-					<input id = "withdrawButton" type="text" name="p_withdraw" pattern="^[0-9]+$" maxlength="8">
+					<input id = "withdrawNumber" type="text" name="p_withdraw" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="8">
 					<button onclick='return withdraw(this.form)'>출금하기</button>
 				</td>		
 			</tr>
@@ -80,23 +80,58 @@
 		</table>
 			<div class="p_point_page">
 			</div>
+			
 	</div>
 <button onclick="location.href='myPage'">뒤로가기</button>
 </div>
 </body>
 <script>
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
+//0원 입력 금지!
+$(document).ready(function(){
+	$('#chargeNumber').focusout(function(){
+		var a = document.getElementById("chargeNumber").value;
+		console.log(a);
+		if(a <= 0 ){
+			if(!a){
+				return false;
+			}
+			alert("0보다 큰 수를 입력해주세요");
+			document.getElementById("chargeNumber").value = "";
+		}
+	});
+})
+
+$(document).ready(function(){
+	$('#withdrawNumber').focusout(function(){
+		var a = document.getElementById("withdrawNumber").value;
+		console.log(a);
+		if(a <= 0 ){
+			if(!a){
+				return false;
+			}
+			alert("0보다 큰 수를 입력해주세요");
+			document.getElementById("withdrawNumber").value = "";
+		}
+	});
+})
+
+//
 function withdraw(form) {
-	var withdraw = document.getElementById('withdrawButton').value;
+	var withdraw = document.getElementById('withdrawNumber').value;
 	var balance = ${point};
 	withdraw = Number(withdraw);
 	if(withdraw > balance){
 		alert("출금액을 다시 확인하세요.");
+		document.getElementById("withdrawNumber").value = "";
 		//window.location.reload();
 		return false;
 	}
     form.action='pointWithdraw'; 
     form.submit(); 
-    return true; 
   } 
 var code;
 var p_page = 1;
@@ -152,11 +187,9 @@ function pointDrawList(list) {
 		content += "<td>" + item.p_balance  + "</td>";
 		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";
 		content += "</tr>";
-	console.log(typeof date.getMonth());
 	});
 	$(".p_history_cont").empty();
 	$(".p_history_cont").append(content);
-	console.log("자유게시판");
 }
 
 function pointPageList(list){

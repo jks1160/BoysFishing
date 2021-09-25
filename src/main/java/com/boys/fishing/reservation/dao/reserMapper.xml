@@ -25,7 +25,7 @@
 	<!-- 선장의 스케줄 -->
 	<select id="captain_reser" resultType='hashmap'>
 	SELECT op.s_num, op.i_num, op.op_startpoint, op.op_starttime, op.op_duringtime, i.i_name,
-op.op_returntime, op.op_date, op.op_date FROM operrange op LEFT OUTER JOIN ship s 
+op.op_returntime, op.op_date, op.op_date, op.op_price FROM operrange op LEFT OUTER JOIN ship s 
 ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u_userid=#{param1}
 	</select>
 	<!-- 선장 스케줄 업데이트 -->
