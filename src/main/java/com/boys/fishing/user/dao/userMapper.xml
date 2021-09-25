@@ -65,6 +65,11 @@
 	INSERT INTO shipimg VALUES (#{s_num},#{newFileName})
 </insert>
 
+<select id="myReserveDetail" parameterType="String" resultType="hashmap" >
+	SELECT * FROM reserinfo LEFT OUTER JOIN island i ON( i.i_num = reserinfo.i_num) WHERE ri_num=#{params}
+</select>
+
+
 
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->
@@ -226,5 +231,9 @@ UPDATE reserInfo set ri_code = 'RI002' WHERE ri_num = #{param1}
 	SELECT DISTINCT TO_CHAR(sub.ri_date, 'yyyy-mm-dd') AS end FROM 
 	(SELECT s.*,ri.* FROM ship s INNER JOIN reserinfo ri ON (s.s_num = ri.s_num) WHERE s.u_userid =#{param1}) sub
 </select>
+
+<insert id="pointSet">
+	INSERT INTO point VALUES(#{param1},'PNT_001',SYSDATE,'관리자','0','0')
+</insert>
 
 </mapper>

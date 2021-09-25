@@ -95,7 +95,7 @@
 	      selectable: true, //선택 가능한지
 	      dateClick: function(e){
 	    	  
-	    	  location.href="myReserveDetail";
+	    	  
 	    	  
 	      },
 	       events: function(info, successCallback, failureCallback){
@@ -124,20 +124,32 @@
 							
 							
 							console.log("스타트데이 : " , reserDate);
+							console.log("예약번호 :"+ myReser.ri_num);
 							my_reser.push({
 								start : reserDate,
-								title : "예약"
+								title : "예약",
+									extendedProps: {
+								        ri_num : myReser.ri_num
+								      }
 							});
 						}); // forEach end
 						
-
 						console.log(successCallback(my_reser));
 					}, // ajax success end
 					error : function(e){
 					console.log("에러났습니다." ,e);
 					} // ajax error end
 	    	  });// ajax end  
-	      }// events:function end */ 
+	      },
+	      eventClick:function(event){
+	    	  console.log("이벤트 클릭");
+	    	  const today = new Date(event.event._instance.range.start);
+	    	  var day = today.toISOString();
+	    	  var ri_num = event.event.extendedProps.ri_num;
+	    	  console.log("예약번호 :"+ ri_num);
+	    	  //location.href="/fishing/captainScheduleDetail?date="+day.substr(0,10);
+	    	  location.href="myReserveDetail?ri_num="+ri_num;
+	      },// events:function end */ 
 	     
 	       
 	    });// full Calendar end 

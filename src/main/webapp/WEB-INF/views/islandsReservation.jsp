@@ -112,7 +112,7 @@
 		<hr />
 </body>
 <script>
-
+console.log("검사 " , $("input[type='text']").hasClass("pick_island"));
 // 마커 인포윈도우 생성
 var infowindow = [];
 
@@ -293,33 +293,34 @@ return markerImage;
 	// 검색
 	function reser_research(){
 		var r_rsc = document.getElementById("text-zone").value;
-		$.ajax({
-			url: "reser/reser_research",
-			type : "GET",
-			data : {
-				'searchData' : r_rsc
-			},
-			dataType : "JSON",
-			success : function(data){
-				var context ="";
-				if(data.findData.length == 0){
-					$("#result").empty();
-					$("#result").append("<h6 class='text-danger'><a class='list-group-item list-group-item-action pick_data text-danger'>검색 결과가 존재하지 않습니다.</a></h6>");
-				}else{
-					data.findData.forEach(function(item){
-						// 여러개가 나오기 때문에 += 으로 해야한다.
-						context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"' >"+item.i_name+"</a>";
-
-					})
-					$(".result_list").empty();
-					$(".result_list").append(context);
+		
+		if(r_rsc != ""){
+			$.ajax({
+				url: "reser/reser_research",
+				type : "GET",
+				data : {
+					'searchData' : r_rsc
+				},
+				dataType : "JSON",
+				success : function(data){
+					var context ="";
+						if(data.findData.length == 0){
+						$("#result").empty();
+						$("#result").append("<h6 class='text-danger'><a class='list-group-item list-group-item-action pick_data text-danger'>검색 결과가 존재하지 않습니다.</a></h6>");
+					}else{
+						data.findData.forEach(function(item){
+							// 여러개가 나오기 때문에 += 으로 해야한다.
+							context += "<a class='list-group-item list-group-item-action pick_data' id='"+item.i_num+"' >"+item.i_name+"</a>";		
+						})
+						$(".result_list").empty();
+						$(".result_list").append(context);
+					}
+				},
+				error : function(e) {
+					console.log("오류 발생 ", e);
 				}
-			},
-			error : function(e) {
-				console.log("오류 발생 ", e);
-			}
-			
-		});
+			});			
+		}
 	}
 	// 검색 결과 확정
 	$(document).on("click",".pick_data",function(){
@@ -334,14 +335,22 @@ return markerImage;
 	// 섬 상세보기
 	function detail_island() {
 		// 검색 결과를 선택하지 않으면...
-		//console.log("으아아 " ,$(".pick_island").val());
+	
 		//오류 대폭 수정
 		if($(".pick_island").val() == null || $(".pick_island").val() == "" || $(".pick_data").val() ==null ){
 			alert("섬을 선택하세요");
 		}
-		else{ //검색 결과를 선택하면 진행
+		else if(!($("input[type='text']").hasClass("pick_island"))){ //검색 결과를 선택하면 진행
+			alert("섬을 선택하세요");
+		}else {
 			document.research_form.submit();
 		}
+	}
+	//개수작 부릴 경우
+	var msg = "${msg}";
+	console.log("msg",msg);
+	if(msg != ""){
+		alert(msg);
 	}
 	
 </script>

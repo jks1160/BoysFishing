@@ -14,7 +14,7 @@
 	</select> 
 	<!-- 유저 달력 예약 정보를 가져온다. -->
 	<select id="user_reser" resultType="reser">
-		SELECT ri_num, ri_userid, ri_code, s_num, ri_date FROM reserINFO
+		SELECT ri_num, ri_userid, ri_code, s_num, ri_date,ri_startreturnyn FROM reserINFO
 		WHERE ri_userid = #{param1}
 	</select>
 	<!-- 섬의 상세정보를 가져온다. -->
