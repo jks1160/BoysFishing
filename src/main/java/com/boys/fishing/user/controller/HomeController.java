@@ -91,19 +91,7 @@ public class HomeController {
 		logger.info(dto.getU_useremail());
 		return service.join(dto, attr, file);
 	}
-	//달력
-	@RequestMapping(value="/calendar", method = RequestMethod.GET)
-	public String calendar(@ModelAttribute UserDTO dto, HttpSession session) {
-		logger.info("달력 테스트 ");
-		
-		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
-		logger.info("맵 : {}",map);
-		logger.info("아이디 : {}", map.get("u_userid"));
-		session.setAttribute("u_userid", map.get("u_userid"));
-		
-		
-		return "calendar";
-	}
+	
 	@RequestMapping(value="/overCheck", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, String> overCheck(@RequestParam HashMap<String, String> map) {
 		logger.info("중복 확인 요청 ");

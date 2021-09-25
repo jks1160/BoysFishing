@@ -56,5 +56,13 @@ public class BoardService {
 		}
 		return page;
 	}
+
+	public ModelAndView someTalkList(String sel) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<SumsumDTO> list = dao.someTalkList(sel);
+		mav.setViewName("someTalk");
+		mav.addObject("list",list);
+		return mav;
+	}
 	
 }

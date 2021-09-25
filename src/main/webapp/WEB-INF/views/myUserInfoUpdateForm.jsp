@@ -64,15 +64,15 @@
 		<img src="/photo/${dto.ui_name}" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 		</c:otherwise>
 	</c:choose>
- 	
-	<div style="margin: 20px 50px;">
- 	<form id="fileUpload">
+ 	</div>
+	<div style="margin-right: 500px; padding-top:194px">
+ 	<form style="margin-bottom: 0px" id="fileUpload">
 	<input type="file" name="file" id="fileinput" onchange="uploadFile()">
 	<button type="button" id="fileUpdate">수정</button>
 	<button type="button" id="fileDelete">삭제</button>
 	</form>
 	</div>
-	</div>
+	
 	<form action="userInfoUpdate" name="userInfoUpdate" method="POST">
 	<table class="table table-bordered">
 	<thead>

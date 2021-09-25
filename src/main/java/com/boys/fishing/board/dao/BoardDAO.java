@@ -13,4 +13,6 @@ public interface BoardDAO {
 
 	int someWrite(SumsumDTO dto);
 
+	ArrayList<SumsumDTO> someTalkList(String sel);
+
 }

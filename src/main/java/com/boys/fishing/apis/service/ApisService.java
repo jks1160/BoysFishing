@@ -26,8 +26,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.apis.dao.ApisDAO;
+import com.boys.fishing.apis.dto.TodayWeather;
+import com.boys.fishing.apis.dto.WeatherDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -282,7 +285,7 @@ public class ApisService {
         ArrayList<HashMap<String, Object>> list = jsonArray(jsonObjecttwo4.get("item"));
 		
         String sky = (String) list.get(5).get("fcstValue");//하늘상태
-		if(sky.equals("0")) {
+		if(sky.equals("1")) {
 			sky="맑음";
 		}else if(sky.equals("3")) {
 			sky="구름많음";
@@ -396,7 +399,7 @@ public class ApisService {
         ArrayList<HashMap<String, Object>> list5 = jsonArray(jsonObjectsix4.get("item"));
         
         String sky2 = (String) list5.get(138).get("fcstValue");//하늘상태
-		if(sky2.equals("0")) {
+		if(sky2.equals("1")) {
 			sky2="맑음";
 		}else if(sky2.equals("3")) {
 			sky2="구름많음";
@@ -684,6 +687,51 @@ public class ApisService {
         }
                 
         return map;
+	}
+
+	public HashMap<String, Object> todayweahterlist() {
+		HashMap<String, Object> map  = new HashMap<String, Object>();
+		HashMap<String, Object> todaylist = dao.todayweatherlist();
+		HashMap<String, Object> tomorrowlist = dao.tomorrowweatherlist();
+		HashMap<String, Object> thirddaylist = dao.thirddayweatherlist();
+		HashMap<String, Object> fouthdaylist = dao.fouthdayweatherlist();
+		HashMap<String, Object> fifthdaylist = dao.fifthdayweatherlist();
+		HashMap<String, Object> sixthdaylist = dao.sixthdayweatherlist();
+		HashMap<String, Object> seventhdaylist = dao.seventhdayweatherlist();
+		
+		map.put("today", todaylist);
+		map.put("tomor",tomorrowlist);
+		map.put("third",thirddaylist);
+		map.put("fouth",fouthdaylist);
+		map.put("fifth",fifthdaylist);
+		map.put("sixth",sixthdaylist);
+		map.put("seventh",seventhdaylist);
+		
+		logger.info("확인 용도 :{}",map);
+		
+		return map;
+	}
+
+	public ModelAndView weekendweahter() {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> todaylist = dao.todayweatherlist();
+		HashMap<String, Object> tomorrowlist = dao.tomorrowweatherlist();
+		HashMap<String, Object> thirddaylist = dao.thirddayweatherlist();
+		HashMap<String, Object> fouthdaylist = dao.fouthdayweatherlist();
+		HashMap<String, Object> fifthdaylist = dao.fifthdayweatherlist();
+		HashMap<String, Object> sixthdaylist = dao.sixthdayweatherlist();
+		HashMap<String, Object> seventhdaylist = dao.seventhdayweatherlist();
+		
+		mav.addObject("today",todaylist);
+		mav.addObject("tomor",tomorrowlist);
+		mav.addObject("third",thirddaylist);
+		mav.addObject("fouth",fouthdaylist);
+		mav.addObject("fifth",fifthdaylist);
+		mav.addObject("sixth",sixthdaylist);
+		mav.addObject("seventh",seventhdaylist);
+				
+		mav.setViewName("calendar_weather");
+		return mav;
 	}
 
 	
