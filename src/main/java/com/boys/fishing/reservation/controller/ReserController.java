@@ -133,4 +133,32 @@ public class ReserController {
 		
 		return service.show_List(params);
 	}
+	/** 조재현
+	 * 
+	 * 
+	 * @param params 예약 하기 위해 운항 정보를 가져온다.
+	 * @return
+	 */
+	@RequestMapping(value="/userReser_Vation", method= RequestMethod.GET)
+	public ModelAndView userReser_Vation(@RequestParam HashMap<String, Object> params, HttpSession session) {
+		
+		logger.info("야호 :{}", params);
+		
+		
+		return service.userReser_Vation(params,session);
+	}
+	/** 조재현
+	 *  예약 기능
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping(value="/RealReser", method = RequestMethod.POST)
+	public ModelAndView RealReser(@RequestParam HashMap<String, Object> params, HttpSession session) {
+		
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String id =(String) map.get("u_userid");
+		logger.info("예약 정보 : {} ",params);
+		
+		return service.RealReser(params,id);
+	}
 }
