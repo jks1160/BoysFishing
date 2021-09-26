@@ -188,7 +188,7 @@ UPDATE reserInfo set ri_code = 'RI004', ri_cancelreason = #{param2} WHERE ri_num
 
 <!-- 예약확정 취소 -->
 <update id="decideCancel">
-UPDATE reserInfo set ri_code = 'RI004', ri_cancelreason = #{param2} WHERE ri_num = #{param1}
+UPDATE reserInfo set ri_code = 'RI005', ri_cancelreason = #{param2} WHERE ri_num = #{param1}
 </update>
 
 <select id="overCheck" resultType="int">
