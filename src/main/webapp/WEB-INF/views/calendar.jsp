@@ -49,11 +49,6 @@ thead td {
 	width:170px;
 	font-size:10px;
 }
-
-img{
-	width : 100px;
-}
-
 </style>
 
 
