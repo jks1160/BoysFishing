@@ -35,6 +35,9 @@
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
+.fc-event-title-container{
+  	cursor : pointer
+  }
 </style>
 </head>
 <body>
@@ -89,7 +92,7 @@
 			navLinks : false, // can click day/week names to navigate views
 			businessHours : true, // display business hours
 			locale : "ko", //한글 설정
-			editable : true, // 에디터 가능한지 
+			editable : false, // 에디터 가능한지 
 			selectable : true, //선택 가능한지
 			dayMaxEventRows: true,
 			dateClick : function(e) {

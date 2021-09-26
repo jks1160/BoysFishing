@@ -61,7 +61,7 @@ var O_nuel = year+'-'+month+'-'+date;
       navLinks: false, // can click day/week names to navigate views
       businessHours: true, // display business hours
       locale: "ko", //한글 설정
-      editable: true, // 에디터 가능한지 
+      editable: false, // 에디터 가능한지 
       selectable: true, //선택 가능한지
       dateClick: false,
       events: function(info, successCallback, failureCallback){
@@ -244,6 +244,9 @@ var O_nuel = year+'-'+month+'-'+date;
 		margin-left: 20%;
   }
   
+  .fc-event-title-container{
+  	cursor : pointer
+  }
 
 </style>
 </head>
