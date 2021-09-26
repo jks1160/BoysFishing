@@ -52,11 +52,11 @@ public class BoardController {
 		return service.someTalkList(selec).addObject("selec",title);
 	}
 	@RequestMapping(value = "/someWriteForm")
-	public String someWriteForm(HttpSession session) {
+	public ModelAndView someWriteForm(HttpSession session) {
 		logger.info("섬섬톡 글쓰기폼 요청");
 		
 		
-		return "someWriteForm";
+		return service.someWriteForm();
 	}
 	
 	@RequestMapping(value = "/someWrite")

@@ -15,4 +15,6 @@ public interface BoardDAO {
 
 	ArrayList<SumsumDTO> someTalkList(String sel);
 
+	ArrayList<String> fish();
+
 }

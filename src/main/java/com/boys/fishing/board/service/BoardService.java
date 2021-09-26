@@ -64,5 +64,13 @@ public class BoardService {
 		mav.addObject("list",list);
 		return mav;
 	}
+
+	public ModelAndView someWriteForm() {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<String> fishList = dao.fish();
+		mav.setViewName("someWriteForm");
+		mav.addObject("fishList", fishList);
+		return mav;
+	}
 	
 }
