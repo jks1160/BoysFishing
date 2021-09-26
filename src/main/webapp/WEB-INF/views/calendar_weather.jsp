@@ -18,7 +18,7 @@
 
 <style>
 * {
-	font-family: 'Do Hyeon', sans-serif;
+	font-fPMily: 'Do Hyeon', sans-serif;
 }
 
 		table, td ,th{
@@ -63,10 +63,25 @@
 	vertical-align: middle;
 }
 
+	
 #tabletwo th{
-	width:170px;
-	font-size:10px;
+	width:200px;
+	font-size:20px;
+	border : 1px solid black;
+	background-color: cornflowerblue;
+	color:white;
 }
+#tabletwo thead td{
+	width:500px;
+
+}
+#tabletwo tbody td{
+	width:500px;
+	border : 1px solid black;
+	font-size : 20px;
+	vertical-align: middle;
+}
+
 
 
 img{
@@ -171,30 +186,228 @@ img{
 			</table>
 	
 			<hr/>
+			
+			<h2 class='text-dark font-weight-bold' style="margin-top: 25px;">주중 날씨</h2>
 			<table class="m-auto mt-4" id="tabletwo">
 				<thead>
 					<tr>
 						<th></th>
-						<td>${today.TW_DATE}</td>
-						<td>${tomor.TW_DATE}</td>
+
+						<td>${third.W_DATE}</td>
+						<td>${fouth.W_DATE}</td>
+						<td>${fifth.W_DATE}</td>
+						<td>${sixth.W_DATE}</td>
+						<td>${seventh.W_DATE}</td>
+					
 					</tr>
 				</thead>		
 			
 				<tbody>
 					<tr>
-						<td>첫날</td>
-						<td>신청시간</td>						
-						<td>신청 날짜</td>
+						<td>오전기상</td>
+						<td>
+						<c:choose>
+						<c:when test="${third.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>	
+						</td>						
+						<td>
+						<c:choose>
+						<c:when test="${fouth.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"> </c:when>
+						<c:when test="${fouth.W_AMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_AMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>	
+						</td>
+						
+						<td>
+						<c:choose>
+						<c:when test="${fifth.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_AMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>	
+						</td>						
+						
+						<td>
+						<c:choose>
+						<c:when test="${sixth.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_AMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>
+						</td>
+	
+						<td>
+							<c:choose>
+						<c:when test="${seventh.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>
+						</td>						
 					</tr>
 					
+					
 					<tr>
-						<td>두번째</td>
-						<td>신청시간</td>						
-						<td>신청 날짜</td>
+					<td>오후기상</td>
+						<td>
+						<c:choose>
+						<c:when test="${third.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>	
+						</td>						
+						<td>
+						<c:choose>
+						<c:when test="${fouth.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"> </c:when>
+						<c:when test="${fouth.W_PMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fouth.W_PMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>	
+						</td>
+						
+						<td>
+						<c:choose>
+						<c:when test="${fifth.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${fifth.W_PMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>	
+						</td>						
+						
+						<td>
+						<c:choose>
+						<c:when test="${sixth.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${sixth.W_PMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>
+						</td>
+	
+						<td>
+							<c:choose>
+						<c:when test="${seventh.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_PMSKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${seventh.W_AMSKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
+						</c:choose>
+						</td>					
 					</tr>
+					
+						<tr>
+						<td>강수확률(오전/오후)</td>
+						<td>${third.W_AMPOP } / ${third.W_PMPOP }</td>						
+						<td>${fouth.W_AMPOP } / ${fouth.W_PMPOP }</td>	
+						<td>${fifth.W_AMPOP } / ${fifth.W_PMPOP }</td>	
+						<td>${sixth.W_AMPOP } / ${sixth.W_PMPOP }</td>	
+						<td>${seventh.W_AMPOP } / ${seventh.W_PMPOP }</td>					
+					</tr>
+					
+						<tr>
+						<td>최고/최저 기온</td>
+						<td><span style="color:cornflowerblue">${third.W_TEMPERL }</span> / <span style="color:red">${third.W_TEMPERH }</span></td>						
+						<td><span style="color:cornflowerblue">${fouth.W_TEMPERL }</span> / <span style="color:red">${fouth.W_TEMPERH }</span></td>
+						<td><span style="color:cornflowerblue">${fifth.W_TEMPERL }</span> / <span style="color:red">${fifth.W_TEMPERH }</span></td>
+						<td><span style="color:cornflowerblue">${sixth.W_TEMPERL }</span> / <span style="color:red">${sixth.W_TEMPERH }</span></td>
+						<td><span style="color:cornflowerblue">${seventh.W_TEMPERL }</span> / <span style="color:red">${seventh.W_TEMPERH }</span></td>
+						</tr>
+					
+					<tr>
+						<td>오전/오후 파고</td>
+						<td>${third.W_AMWAVELOW }~${third.W_AMWAVEHIGH } / ${third.W_PMWAVELOW }~${third.W_PMWAVEHIGH }</td>						
+						<td>${fouth.W_AMWAVELOW }~${fouth.W_AMWAVEHIGH } / ${fouth.W_PMWAVELOW }~${fouth.W_PMWAVEHIGH }</td>
+						<td>${fifth.W_AMWAVELOW }~${fifth.W_AMWAVEHIGH } / ${fifth.W_PMWAVELOW }~${fifth.W_PMWAVEHIGH }</td>
+						<td>${sixth.W_AMWAVELOW }~${sixth.W_AMWAVEHIGH } / ${sixth.W_PMWAVELOW }~${sixth.W_PMWAVEHIGH }</td>
+						<td>${seventh.W_AMWAVELOW }~${seventh.W_AMWAVEHIGH } / ${seventh.W_PMWAVELOW }~${seventh.W_PMWAVEHIGH }</td>				
+					</tr>
+
 				</tbody>
 			</table>
-			
+			<hr/>
 		</div>
 			
 
