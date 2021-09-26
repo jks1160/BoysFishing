@@ -108,6 +108,14 @@ function delSchedule(){ //스케줄 삭제 메소드
 		type: "POST",
 		success : function(data){
 			console.log("삭제 성공 :", data);
+			if(data.success >0){
+				alert("삭제 성공");
+				opener.document.location.reload();
+				window.close();			
+			}
+			else{
+				alert(data.msg);
+			}
 		},
 		error: function(e) {
 			console.log("에러 발생 ",e);
