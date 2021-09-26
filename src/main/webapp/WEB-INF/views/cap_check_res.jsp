@@ -31,47 +31,71 @@
 	<div class='container'>
 		<h4 class='text-center'>${id }의 스케줄</h4>
 		<hr/>
-		<div>
-			<h6>${reser.op_date} 스케줄</h6>
+		<div class='table-responsive'>
+			<h6 class='text-center info'>${reser.op_date} 스케줄</h6>
 			<form action='/fishing/captainUpdateForm' method='GET'>
-			<table>
+			<table class='table table-hover text-center''>
+			<tbody class='table-bordered'>
 				<tr>
-					<td>목적지 : ${reser.i_name }
+					<th>목적지
 						<input type='text' hidden='hidden' value="${reser.i_name}" name='i_name'/>
 						<input type='text' hidden='hidden' value="${reser.op_date}" name='op_date'/>
 						<input type='text' hidden='hidden' value="${reser.s_num}" name='s_num'/>
 						<input type='text' hidden='hidden' value="${reser.i_num}" name='i_num'/>
+					</th>
+					<td>
+						${reser.i_name }
 					</td>
 				</tr>
 				<tr>
-					<td>출항지 : ${reser.op_startpoint }
+					<th>출항지 
 						<input type='text' hidden='hidden' value="${reser.op_startpoint}" name='op_startpoint'/>
+					</th>
+					<td>
+						${reser.op_startpoint }
 					</td>
 				</tr>
 				<tr>
-					<td>출항 시간 : ${reser.op_starttime }
+					<th>출항 시간 
 						<input type='text' hidden='hidden' value="${reser.op_starttime}" name='op_starttime'/>
+					</th>
+					<td>
+						${reser.op_starttime }
 					</td>
 				</tr>
 				<tr>
-					<td>소요 시간 : ${reser.op_duringtime }
+					<th>소요 시간 
 						<input type='text' hidden='hidden' value="${reser.op_duringtime}" name='op_duringtime'/>
+					</th>
+					<td>
+						${reser.op_duringtime }
 					</td>
 				</tr>
 				<tr>
-					<td>회항 시간 : ${reser.op_returntime }
+					<th>회항 시간
 						<input type='text' hidden='hidden' value="${reser.op_returntime}" name='op_returntime'/>
+					</th>
+					<td>
+						${reser.op_returntime }
 					</td>
 				</tr>
 				<tr>
-					<td>결제 금액 : ${reser.op_price }
+					<th>결제 금액
 						<input type='text' hidden='hidden' value="${reser.op_price}" name='op_price'/>
+					</th>
+					<td>
+						${reser.op_price }
 					</td>
 				</tr>
+				</tbody>
 			</table>
-			<button class='btn btn-primary'>수정하기</button>
+			<div  style='text-align:center'>
+				<button class='btn btn-outline-primary text-center'>수정하기</button>
+				<input type='button' class='btn btn-outline-primary'  value='스케줄 제거' onclick=''/>
+				<input type='button' class = 'btn btn-outline-primary' value='종료' onclick='window.close()'/>
+				</div>
 			</form>
-			<input type='button' class = 'btn btn-primary' value='종료' onclick='window.close()'/>
+			
 		</div>
 	</div>
 	
