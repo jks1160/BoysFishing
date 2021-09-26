@@ -23,4 +23,10 @@ public interface ManageDAO {
 
 	ManageDTO capreq_detailimg(String u_userid);
 
+	ArrayList<ManageDTO> peoplelist();
+
+	ArrayList<ManageDTO> peoplesearch(String searchvalue);
+
+	ArrayList<ManageDTO> peoplelistcall(int startlist, int endlist);
+
 }

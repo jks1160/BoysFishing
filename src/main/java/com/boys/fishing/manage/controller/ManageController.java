@@ -83,4 +83,19 @@ public class ManageController {
 
 	}
 	
+	@RequestMapping(value="/peoplelist", method = RequestMethod.GET)
+	public ModelAndView peoplelist(@RequestParam HashMap<String, String> params) {
+		logger.info("기본 회원정보 요청 : {}", params);
+		return service.peoplelist();
+	}
+	@RequestMapping(value="/peoplesearch", method = RequestMethod.GET)
+	public ModelAndView peoplesearch(@RequestParam HashMap<String, Object> map) {
+		logger.info("회원정보 서치 : {}", map);
+		return service.peoplesearch(map);
+	}
+	
+	@RequestMapping(value="/peoplelistcall/{startlist}/{endlist}", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String , Object> peoplelistcall(@PathVariable int startlist,@PathVariable int endlist) {
+		return service.peoplelistcall(startlist,endlist);
+	}
 }
