@@ -135,17 +135,17 @@ public class BoardController {
 		return service.someDetail(b_num);
 	}
 	
-	@RequestMapping(value = "/someUpdate")
+	@RequestMapping(value = "/someUpdateForm")
 	public ModelAndView someUpdate(@RequestParam String b_num, HttpSession session) {
 		logger.info("Some 수정 요청");
 		
-		return service.someUpdate(b_num,session);
+		return service.someUpdateForm(b_num,session);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/fileUpdateDelete")
 	public HashMap<String, String> fileUpdateDelete(HttpSession session, @RequestParam String fileName) {
-		logger.info("Some 수정 요청");
+		logger.info("Some 수정 폼 요청");
 		HashMap<String, String> map = new HashMap<String, String>();
 		session.removeAttribute("fileName");
 		String success = "true";
@@ -153,6 +153,18 @@ public class BoardController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/someUpdate")
+	public ModelAndView someUpdate(@ModelAttribute SumsumDTO dto, HttpSession session) {
+		logger.info("Some 수정 요청");
+		
+		return service.someUpdate(dto,session);
+	}
 	
+	@RequestMapping(value = "/someDelete")
+	public String someDelete(@RequestParam String b_num, RedirectAttributes attr) {
+		logger.info("Some 삭제 요청");
+		
+		return service.someDelete(b_num, attr);
+	}
 	
 }

@@ -40,6 +40,7 @@ img {
 <div class="container m-5 h-100">
 	<form action="someWrite" method="POST">
 	<div class="row justify-content-md-center">
+	<input type="hidden" name="b_num" value="${dto.b_num }">
 		<div class="col-10">
 			<h2>수정하기</h2>
 			<div class="text-right">

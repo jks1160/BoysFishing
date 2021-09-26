@@ -154,7 +154,7 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public ModelAndView someUpdate(String b_num, HttpSession session) {
+	public ModelAndView someUpdateForm(String b_num, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<SumsumDTO> list = dao.fileList(b_num);
 		ArrayList<String> fileList = new ArrayList<String>();
@@ -168,6 +168,39 @@ public class BoardService {
 		mav.addObject("dto",dto);
 		mav.addObject("fishList",fishList);
 		return mav;
+	}
+	
+	@Transactional
+	public ModelAndView someUpdate(SumsumDTO dto, HttpSession session) {
+		ArrayList<String> fileList = (ArrayList<String>) session.getAttribute("fileList");
+		dao.fileDel(dto.getB_num());
+		for (String string : fileList) {
+			dao.someImgUpload(Integer.toString(dto.getB_num()), string)	;
+		}
+		dao.someUpdate(dto);
+		return null;
+	}
+	
+	@Transactional
+	public String someDelete(String b_num, RedirectAttributes attr) {
+
+		ArrayList<SumsumDTO> list = dao.fileList(b_num);
+		ArrayList<String> fileList = new ArrayList<String>();
+		for (SumsumDTO item : list){
+			fileList.add(item.getBi_name());
+		}
+		for (String file : fileList) {
+			File delFile = new File("C:/upload/" + file);
+			if (delFile.exists()) {
+				delFile.delete();
+			}			
+		}
+		dao.fileDel(Integer.parseInt(b_num));
+		if(dao.someDelete(b_num)>0) {
+			attr.addFlashAttribute("msg","삭제에 성공했습니다.");
+		}
+		attr.addFlashAttribute("msg","삭제에 실패했습니다.");
+		return "redirect:/someTalk";
 	}
 
 }

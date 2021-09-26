@@ -70,10 +70,10 @@
                   <p class="col-8 card-text text-truncate my-3">${dto.b_content }</p>
                   <c:choose>
 	                  <c:when test="${dto.ui_name eq null}">
-	                  		<img class="rounded-circle" src="resources/defaultimg/defaultprofile.png" style="width:60px; height:60px;">
+	                  		<img class="rounded-circle p-1 border" src="resources/defaultimg/defaultprofile.png" style="width:60px; height:60px;">
 	                  </c:when>
 	                  <c:otherwise>
-	                  		<img class="rounded-circle p-1 border" src="/photo/${sessionScope.userinfo.ui_name }" style="width:60px; height:60px;">
+	                  		<img class="rounded-circle p-1 border" src="/photo/${dto.ui_name }" style="width:60px; height:60px;">
 	                  </c:otherwise>
 	              </c:choose>
                   <b class="mx-2">작성자 : ${dto.u_usernickname }</b>
@@ -88,6 +88,9 @@
 </div>
 </body>
 <script>
+	if("${msg}" != ""){
+		alert("${msg}");
+	}
 	$("#selec").change(function(){
 		$("#form").submit();
 	});
