@@ -63,7 +63,7 @@ img{
 
 	<div class="container mt-4">
 		<div class="container justify-content-center">
-			<h2 class='text-dark font-weight-bold ' style="margin-top: 25px; display:inline; ">날씨 정보 확인</h2><input type="button" class=" btn btn-primary"style="margin-left: 15px;"onclick="location.href='/fishing/weekendweather'" value="이번주 날씨 보러가기">
+			<h2 class='text-dark font-weight-bold ' style="margin-top: 25px; display:inline; ">날씨 정보 확인(인천)</h2><input type="button" class=" btn btn-primary"style="margin-left: 15px;"onclick="location.href='/fishing/weekendweather'" value="이번주 날씨 보러가기">
 		<hr />
 			<table class="mt-4 m-auto" id="tableone">
 				<thead id="headlist">

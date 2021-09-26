@@ -26,4 +26,13 @@
 		INNER JOIN userinfo u ON u.u_userid = b.b_userid
 		LEFT OUTER JOIN boardimg bi ON b.b_num = bi.bi_num WHERE b.b_code = #{param1} AND b_blindyn = 'N' AND u.u_userdelyn = 'N' ORDER BY b.b_num DESC
 	</select>
+	
+	
+	
+	
+	
+	
+	<select id="fish" resultType="String">
+		SELECT * FROM fishes
+	</select>
 </mapper>
