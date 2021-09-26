@@ -16,7 +16,12 @@
 	
 	
 	
-	<insert id="someWrite" parameterType="sumsum">
+	<insert id="someWrite" 
+	parameterType="sumsum"
+	useGeneratedKeys="true" 
+	keyColumn="b_num" 
+	keyProperty="b_num"
+	>
 		INSERT INTO board VALUES(b_num_seq.NEXTVAL, '우럭', #{b_subject}, #{b_content}, SYSDATE, #{b_userid}, #{b_code}, '')
 	</insert>
 	
@@ -35,4 +40,16 @@
 	<select id="fish" resultType="String">
 		SELECT * FROM fishes
 	</select>
+	
+	
+	
+	
+	
+	
+	<insert id="someImgUpload" parameterType="hashmap">
+		<foreach collection="fileList" item="file" >
+			INSERT INTO boardIMG VALUES (#{b_num}, #{file})
+		</foreach>
+	</insert>
+	
 </mapper>

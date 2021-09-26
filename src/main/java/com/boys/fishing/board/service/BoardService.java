@@ -1,8 +1,10 @@
 package com.boys.fishing.board.service;
 
+import org.apache.tools.ant.types.FileList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -55,12 +58,18 @@ public class BoardService {
 	
 	
 	//섬섬톡 글쓰기
-	public String someWrite(SumsumDTO dto) {
+	@Transactional
+	public String someWrite(SumsumDTO dto, ArrayList<String> fileList) {
 		logger.info("글쓰기 서비스 진입");
 		String page = "redirect:/someWriteForm";
 		if(dao.someWrite(dto)>0) {
-			page = "redirect:/someTalk";
-			return page;
+			page = "redirect:/someTalk";			
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("fileList", fileList);
+		map.put("b_num", Integer.toString(dto.getB_num()));
+		if(fileList != null) {
+			dao.someImgUpload(map);	
 		}
 		return page;
 	}
@@ -108,12 +117,8 @@ public class BoardService {
 
 	
 	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		boolean success = false;
-		// 서버에 저장된 파일을 삭제하기 위하여 자바 File 클래스를 사용함.
-		// Files의 delete를 사용하고자 한다면 경로를 Path에 담아서 매개변수로 담아줘야 한다.
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		File delFile = new File("C:/upload/" + fileName);
 
 		if (delFile.exists()) {
@@ -121,9 +126,10 @@ public class BoardService {
 		}
 		if (success) {
 			ArrayList<String> fileList = (ArrayList<String>) session.getAttribute("fileList");
-			for (String string : fileList) {
-				if(string.equals(fileName)) {
-					logger.info("파일 삭제 성공여부 : "+fileList.remove(string));					
+			Iterator<String> itr = fileList.iterator();
+			while(itr.hasNext()) {
+				if(itr.next().equals(fileName)) {
+					itr.remove();
 				}
 			}
 			logger.info("업로드된 파일 수 : " + fileList.size());
