@@ -68,11 +68,10 @@ public class BoardService {
 		if(dao.someWrite(dto)>0) {
 			page = "redirect:/someTalk";			
 		}
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("fileList", fileList);
-		map.put("b_num", Integer.toString(dto.getB_num()));
 		if(fileList != null) {
-			dao.someImgUpload(map);	
+			for (String file : fileList) {
+				dao.someImgUpload(Integer.toString(dto.getB_num()), file);				
+			}
 		}
 		return page;
 	}
@@ -142,6 +141,14 @@ public class BoardService {
 		map.put("success", success);
 
 		return map;
+	}
+
+	public ModelAndView someDetail(String b_num) {
+		ModelAndView mav = new ModelAndView();
+		SumsumDTO dto = dao.someDetail(b_num);
+		mav.setViewName("someDetail");
+		mav.addObject("dto",dto);
+		return mav;
 	}
 	
 	

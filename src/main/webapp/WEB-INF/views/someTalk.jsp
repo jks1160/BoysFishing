@@ -35,6 +35,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <div class="container my-5">
 	<div class="row">
 		<div class="col">
@@ -56,10 +57,10 @@
 	</div>
     <hr>
     <c:forEach var="dto" items="${list }">
-    <div class="row justify-content-md-center rounded list">
+    <div class="row justify-content-md-center rounded list m-3">
         <div class="col-10">
             <div class="card">
-                <img class="card-img-top" 
+                <img class="card-img-top p-5" 
                 	<c:choose>
                 		<c:when test="${dto.bi_name ne null }">src="/photo/${dto.bi_name }"</c:when>
                 		<c:otherwise>src="resources/defaultimg/sumsumdefault.jpg"</c:otherwise>
@@ -67,7 +68,8 @@
                 <div class="card-body">
                   <h4 class="col -8 card-title text-truncate"><b>${dto.b_subject }</b></h4>
                   <p class="col-8 card-text text-truncate">${dto.b_content }</p>
-                  <a href="#">상세보기</a><b class="mx-2" style="float:right;">대상어종 : ${dto.fish }</b><i class="fas fa-fish" style="float:right;"></i>
+                  <a href="someDetail?b_num=${dto.b_num }">상세보기</a><b class="mx-2" style="float:right;">대상어종 : ${dto.fish }</b><i class="fas fa-fish" style="float:right;"></i>
+                  <b class="mx-2" style="float:right;">작성자 : ${dto.u_usernickname }</b>
                 </div>
             </div>
         </div>
@@ -88,5 +90,6 @@
 					if ($('.mydata:not(:visible)').length == 0)
 						$(a).remove();});
 					return false;}));
+	$(".card-body").find(".img").remove();
 </script>
 </html>

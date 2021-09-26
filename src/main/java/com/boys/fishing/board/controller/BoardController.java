@@ -129,5 +129,15 @@ public class BoardController {
 	}
 	
 	
-
+	@RequestMapping(value = "/someDetail")
+	public ModelAndView someDetail(@RequestParam String b_num) {
+		logger.info("Some 상세보기 요청");
+		return service.someDetail(b_num);
+	}
+	
+	@RequestMapping(value = "/someUpdate")
+	public ModelAndView someUpdate(@RequestParam String b_num) {
+		logger.info("Some 수정 요청");
+		return service.someDetail(b_num);
+	}
 }
