@@ -27,6 +27,12 @@ public interface ReserDAO {
 	int delSchdule(HashMap<String, Object> params);
 
 
+	ArrayList<String> checkNReser(HashMap<String, Object> params);
+
+	void delReser(String ri_num);
+
+
+
 	
 
 	
