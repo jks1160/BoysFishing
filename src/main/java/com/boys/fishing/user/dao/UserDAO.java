@@ -168,6 +168,8 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int decideCancel(String num, String cancelReason);
 
+	String findCap_ship(String string);
+
 	
 
 

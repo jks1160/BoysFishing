@@ -153,7 +153,10 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	INSERT INTO operrange 
 	VALUES(#{s_num}, #{i_num},#{op_startpoint},#{op_starttime},#{op_duringtime},#{op_returntime},#{op_date},#{op_price})
 </insert>
-
+<!-- 배 주인 찾기 -->
+<select id="findCap_ship" resultType ="String" parameterType="String">
+	SELECT u_userid FROM ship WHERE s_num = #{param1}
+</select>
 
 <!-- 운항예약확정 히스토리 페이징처리를 위한 운항예약확정 히스토리 전체페이지 확인 -->
 <select id="totalPageCR" resultType="int">

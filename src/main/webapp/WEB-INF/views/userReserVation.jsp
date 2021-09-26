@@ -64,11 +64,11 @@
 				</tr>
 				<tr>
 					<td>결제 금액 : ${reser.op_price }
-						<input type='text' hidden='hidden' value="${reser.op_price}" name='op_price'/>
+						<input type='number' hidden='hidden' value="${reser.op_price}" name='op_price' />
 					</td>
 				</tr>
 				<tr>
-					<td>탑승 인원  : <input type='text' name='ri_people' id='people'/></td>
+					<td>탑승 인원  : <input type='text' name='ri_people' id='people' min='1' maxlength='4' onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/></td>
 				</tr>
 				<tr>
 					<td>
@@ -94,38 +94,61 @@ function RealReser(){ //예약 신청하기 function
 			pick = node.value;
 		}
 	});
-	console.log(people);
+	if(pick ==  null){ //입항 출항 선택 강요
+		alert("입항 출항을 선택해 주세요!");
+	}else if(people == ""){ // 사람 인원 수 체크
+		alert("인원수를 선택해 주세요!");
+	}else {
 	$.ajax({
-		url: "RealReser",
-		type : "POST",
-		data : {
-			"ri_userid" : "${id}",
-			"i_num" : "${reser.i_num}",
-			"s_num" : "${reser.s_num}",
-			"ri_startpoint" : "${reser.op_startpoint}",
-			"ri_starttime" : "${reser.op_starttime}",
-			"ri_duringtime" : "${reser.op_duringtime}",
-			"ri_returntime" : "${reser.op_returntime}",
-			"ri_people" : people,
-			"ri_startreturnYN" : pick,
-			"ri_date" : "${reser.op_date}",
-			"op_price" : "${reser.op_price}"
-		},
-		dataType : "JSON",
-		success : function(data){
-			
-			console.log("성공 ", data);
-			alert("예약 되었습니다!");
-			opener.document.location.reload();
-			window.close();
-		},
-		error : function(e){
-			console.log("에러입니다 :",e);
+				url : "RealReser",
+				type : "POST",
+				data : {
+					"ri_userid" : "${id}",
+					"i_num" : "${reser.i_num}",
+					"s_num" : "${reser.s_num}",
+					"ri_startpoint" : "${reser.op_startpoint}",
+					"ri_starttime" : "${reser.op_starttime}",
+					"ri_duringtime" : "${reser.op_duringtime}",
+					"ri_returntime" : "${reser.op_returntime}",
+					"ri_people" : people,
+					"ri_startreturnYN" : pick,
+					"ri_date" : "${reser.op_date}",
+					"op_price" : "${reser.op_price}"
+				},
+				dataType : "JSON",
+				success : function(data) {
+					if(data.success == 2){
+						console.log("성공 ", data);
+						alert("예약 되었습니다!");
+						opener.document.location.reload();
+						window.close();
+					}else if(data.msg =="실패"){ 	// 포인트가 모자랄 경우
+						alert("포인트가 모자랍니다!");
+						window.close();					
+					}
+					
+				},
+				error : function(e) {
+					console.log("에러입니다 :", e);
+				}
+			});
+
 		}
-	});
-}
+	}
 
-
-
+	// 인원 0명 금지
+	$(document).ready(function() {
+		$('#people').focusout(function() {
+			var a = document.getElementById("people").value;
+			console.log(a);
+			if (a <= 0) {
+				if (!a) {
+					return false;
+				}
+				alert("0보다 큰 수를 입력해주세요");
+				document.getElementById("people").value = "";
+			}
+		});
+	})
 </script>
 </html>
