@@ -17,10 +17,12 @@ public class WeatherDTO {
 	private String w_amWaveHigh; //오전 최고 파고
 	private String w_pmWaveLow; //오후 최소 파고
 	private String w_pmWaveHigh; //오후 최고 파고
+	
 	private String w_amHighLevel;// 오전만조높이
 	private String w_amLowLevel; // 오전간조높이
 	private String w_amHghTime; //오전 만조시간
 	private String w_amLowTime;//오전 간조시간
+	
 	private String w_pmLowLevel; // 오후간조높이
 	private String w_pmHighLevel;//오후만조높이
 	private String w_pmLowTime;//오후간조시간
