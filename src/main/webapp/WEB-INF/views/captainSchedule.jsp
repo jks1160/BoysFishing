@@ -117,19 +117,38 @@ var O_nuel = year+'-'+month+'-'+date;
     calendar.render();
   });
 
+
+//운항예약확정 히스토리 부분
+
+
+//페이징 처리시에 페이지 변수 선언
+ var p_page = 1;
+ var ship_Num;
+//페이징 기능 뿌리는 함수
+ $("#pagePerNum").change(function(){
+		//페이징 초기화
+		$("#pagination").twbsPagination('destroy');
+		reserHistory(ship_Num, p_page);
+	});
+ 
+//셀렉트 선택하면 해당 옵션의 밸류값을 가져오는 함수
  function chageShopSelect1(){
 		var shipSelect = document.getElementById("shipName");
 		var selectValue = shipSelect.options[shipSelect.selectedIndex].value;
 		console.log("배넘버: ",selectValue);
 		selectValue = parseInt(selectValue);
+		ship_Num = selectValue;
 		//배 이름을 받아오면 출항지를 뿌리는 함수 출력
-		reserHistory(selectValue);
+		$("#pagination").twbsPagination('destroy');
+		reserHistory(selectValue,p_page);
 	}
 
-	function reserHistory(shipNum){
+//운항예약확정 히스토리 뽑는 총괄함수
+	function reserHistory(shipNum,p_page){
 		console.log("여기옴?");
 		var param = {};
 		param.shipNum = shipNum;
+		param.page = p_page;
 		$.ajax({
 			type : 'get',
 			url : 'reserHistory',
@@ -137,12 +156,28 @@ var O_nuel = year+'-'+month+'-'+date;
 			dataType : 'JSON',
 			success : function(data) {
 				console.log(data);
-				if(data.length > 0){
+				console.log("데이터 크기?: ",Object.keys(data).length);
+				console.log("데이터?: ",Object.keys(data));
+				console.log("데이터?: ",Object.values(data)[2].length);
+				if(Object.values(data)[2].length > 0){
+					console.log("여기와라");
 					reserHitoryFormDraw();
 					reserHistoryDrawList(data)
+					p_page = data.currPage;
+					$("#pagination").twbsPagination({
+						startPage: data.currPage,//시작페이지
+						totalPages: data.totalPage,  //총 페이지 갯수
+						visiblePages:5, //보여줄 페이지 갯수
+						onPageClick: function(e,page){
+							//console.log(e,page);
+							reserHistory(shipNum,page);
+						}
+					});	
 				}else{
+					console.log("데이터없당");
 					$("#reserHistory").empty();
 					$("#tableDraw").empty();
+					$("#pagination").empty();
 				}
 			},
 			error : function(e) {
@@ -151,29 +186,35 @@ var O_nuel = year+'-'+month+'-'+date;
 		});
 	}
 
+//운항예약확정 히스토리 중 테이블 폼을 뽑는 함수
 	function reserHitoryFormDraw(){
 		var content = "";
-		content += "<table><thead>";
+		content += "<table class='table-bordered'><thead>";
 		content += "<tr><th>예약자 닉네임</th><th>무인도 이름</th><th>운행날짜</th><th>인원수</th><th>결제 금액</th><th>예약 날짜</th></tr>";
 		content += "</thead><tbody id='reserHistory'></tbody></table>";
+		
 		$("#tableDraw").empty();
 		$("#tableDraw").append(content);
 	}
-	
+
+//운항예약확정 히스토리 중 히스토리 데이터를 갖고오는 함수
 	function reserHistoryDrawList(list) {
 		console.log(list);
 		var content = "";
-		
-		list.forEach(function(item, idx) {
+		list.list.forEach(function(item, idx) {
 			console.log(item, idx);
-			var date = new Date(item.OP_DATE);
+			var opDate = new Date(item.OP_DATE);
+			var reserDate = new Date(item.RI_RESERDATE);
 			content += "<tr>";
 			content += "<td>"+item.U_USERNICKNAME+"</td>";
 			content += "<td>"+item.I_NAME+"</td>";
-			content += "<td>"+date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() +"</td>";
+			content += "<td>"+opDate.getFullYear() +"-"+  (opDate.getMonth()+1) +"-"+ opDate.getDate() +" "+ opDate.getHours() +":"+ opDate.getMinutes() +"</td>";
 			content += "<td>"+item.RI_PEOPLE+"</td>";
 			content += "<td>"+item.RI_PAY+"</td>";
-			content += "<td>"+item.RI_RESERDATE+"</td></tr>";
+			content += "<td>"+reserDate.getFullYear() +"-"+  (reserDate.getMonth()+1) +"-"+ reserDate.getDate() +" "+ reserDate.getHours() +":"+ reserDate.getMinutes() +"</td>";
+			
+							
+			
 		});
 		$("#reserHistory").empty();
 		$("#reserHistory").append(content);
@@ -221,13 +262,18 @@ var O_nuel = year+'-'+month+'-'+date;
 	<hr>
 	<h3>예약 확정 히스토리</h3>
 		<select id = "shipName" name = "s_num" onchange="chageShopSelect1()">
-			<option>선택</option>
+			<<option value='0'>선택</option>
 			<c:forEach var="name" items="${shipName}">
 			<option value="${name.s_num}">${name.s_name}</option>
 			</c:forEach>
 		</select>
 	<div id = "tableDraw">
 	
+	</div>
+	<div class="container row" >
+		<nav id = "pageNav" class="container col-auto mt-3" aria-lable="Page navigation"  style="text-align: center;">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>
 	</div>
 </div>
 

@@ -128,7 +128,7 @@ INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{pa
 <!-- 포인트 히스토리 -->
 <select id="pointHistoryList" resultType="userInfo">
 select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY p_regdate DESC)
-AS rnum, p_content, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{param2}) WHERE rnum BETWEEN #{param1} AND #{param3}
+AS rnum, p_content, p_otherid, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{param2}) WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
 <!-- 포인트 히스토리 페이징처리를 위한 포인트 히스토리 전체페이지 확인 -->
@@ -155,12 +155,18 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 </insert>
 
 
+<!-- 운항예약확정 히스토리 페이징처리를 위한 운항예약확정 히스토리 전체페이지 확인 -->
+<select id="totalPageCR" resultType="int">
+SELECT COUNT(s_num) FROM reserINFO WHERE s_num = #{param1} AND ri_code = 'RI002'
+</select>
+
 <!-- 선장 운항 확정 히스토리 뿌리기 -->
 <select id="reserHistory" resultType="hashmap">
-SELECT u.u_usernickname, i.I_name, o.op_date, r.RI_people, r.RI_pay, r.RI_reserdate
+select distinct * FROM (SELECT ROW_NUMBER() OVER(ORDER BY o.op_date DESC)
+AS rnum, u.u_usernickname, i.I_name, o.op_date, r.RI_people, r.RI_pay, r.RI_reserdate
 FROM reserINFO r, operrange o, island i, userInfo u
-WHERE r.s_num = #{param1} AND r.RI_code = 'RI002' AND o.I_num = r.I_num AND o.I_num = i.I_num AND u.U_userid = r.RI_userid
-ORDER BY o.op_date DESC
+WHERE r.s_num = #{param2} AND r.RI_code = 'RI002' AND o.I_num = r.I_num AND o.I_num = i.I_num AND u.U_userid = r.RI_userid) 
+WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
 <select id="reserWait" resultType="HashMap">
