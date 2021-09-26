@@ -285,9 +285,9 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	//선장 운항예약 히스토리(예약확정만)
 	@ResponseBody
 	@RequestMapping(value="/reserHistory")
-	public ArrayList<HashMap<String, Object>> reserHistory(int shipNum){
+	public HashMap<String, Object> reserHistory(int shipNum, int page){
 		logger.info("선장 운항예약 히스토리 요청");
-		return myservice.reserHistory(shipNum);
+		return myservice.reserHistory(shipNum, page);
 	}
 	
 }

@@ -294,9 +294,26 @@ public class myPageService {
 		return String.valueOf(success);
 	}
 
-	public ArrayList<HashMap<String, Object>> reserHistory(int shipNum) {
-		ArrayList<HashMap<String, Object>> reserHistory = dao.reserHistory(shipNum);
-		return reserHistory;
+	public HashMap<String, Object> reserHistory(int shipNum, int page) {
+		logger.info("운항예약확정 히스토리 서비스 진입");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalPage;
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1; 
+		ArrayList<HashMap<String, Object>> reserHistory = new ArrayList<HashMap<String,Object>>();
+		
+		totalPage = dao.totalPageCR(shipNum);
+		reserHistory = dao.reserHistory(start,shipNum,end);
+		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
+		logger.info("총 페이지: "+totalPage);
+		
+		page = page>pages ? pages : page;
+		
+		map.put("list", reserHistory);
+		map.put("totalPage", pages);
+		map.put("currPage", page);
+		return map;
 	}
 
 	public ModelAndView captainSchedule(String userid) {
