@@ -22,8 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.board.dao.BoardDAO;
 import com.boys.fishing.board.dto.SumsumDTO;
-import com.spring.bbs.dto.BoardDTO;
-import com.spring.bbs.dto.FileDTO;
 
 @Service
 public class BoardService {
