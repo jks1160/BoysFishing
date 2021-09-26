@@ -35,6 +35,7 @@
 		display: inline-block;
 		margin-right: 25px;
 	}
+
 </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
 <div class="user">
 	<div class="user">
 		<a href="myUserInfo"><img src="resources/defaultimg/user.png" width="50px"/>
-		 <br>마이페이지
+		 <br>유저정보
 		 </a>
 	</div>
 	<div class="user">
