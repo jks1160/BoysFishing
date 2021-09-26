@@ -31,6 +31,8 @@ public interface ReserDAO {
 
 	void delReser(String ri_num);
 
+	int tryReser(String id, String capId, int i, int j);
+
 
 
 	

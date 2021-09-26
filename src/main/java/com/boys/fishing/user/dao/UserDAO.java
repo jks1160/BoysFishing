@@ -168,6 +168,11 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int decideCancel(String num, String cancelReason);
 
+	ArrayList<HashMap<String, Object>> reserHistoryList(int start, String userId, int end);
+
+	int totalPageR(String userId);
+	String findCap_ship(String string);
+
 	
 
 
