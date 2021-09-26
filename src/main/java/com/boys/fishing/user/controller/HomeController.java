@@ -218,7 +218,7 @@ public class HomeController {
 		return "myUserReserve";
 	}	
 	
-	@RequestMapping(value="/myReserveDetail", method = RequestMethod.GET)
+	@RequestMapping(value="/myReserveDetail", method = RequestMethod.POST)
 	public ModelAndView myReserveDetail(@RequestParam String ri_num) { //영환
 		logger.info("예약확인 상세보기 ");
 	
@@ -257,9 +257,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/shipFileDelete", method = RequestMethod.POST)
-	public @ResponseBody boolean shipFileDelete(HttpSession session) { //영환
+	public @ResponseBody boolean shipFileDelete(HttpSession session,@RequestParam String newFileName) { //영환
 		logger.info("배 이미지 삭제");
 		boolean del = false;
+		if(newFileName != "") {
+			session.setAttribute("newFileName", newFileName);
+		}
 		System.out.println(session.getAttribute("newFileName"));
 		if(session.getAttribute("newFileName")!=null) {
 			service.shipFileDelete(session);
@@ -278,7 +281,8 @@ public class HomeController {
 		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
 		logger.info("아이디 : {}", map.get("u_userid"));
 		String u_userid = (String) map.get("u_userid");
-		return service.shipJoin(newFileName,params,u_userid);
+		String ship = "join";
+		return service.shipJoin(newFileName,params,u_userid,ship);
 	}	
 	
 	@RequestMapping(value="/shipListDetail", method = RequestMethod.POST)
@@ -288,5 +292,27 @@ public class HomeController {
 		logger.info("아이디 : {}", map.get("u_userid"));
 		String u_userid = (String) map.get("u_userid");
 		return service.shipListDetail(u_userid,s_name);
+	}	
+	
+	@RequestMapping(value="/shipUpdateForm", method = RequestMethod.POST)
+	public ModelAndView shipUpdateForm(HttpSession session,@RequestParam HashMap<String, String> params) { //영환
+		logger.info("배 정보 수정하기");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("shipUpdateForm");
+		logger.info("params: {}",params);
+		mav.addObject("params",params);
+		return mav;
+	}	
+	
+	@RequestMapping(value="/shipUpdate", method = RequestMethod.POST)
+	public ModelAndView shipUpdate(HttpSession session,@RequestParam HashMap<String, String> params) { //영환
+		logger.info("배 등록하기");
+		System.out.println(session.getAttribute("newFileName"));
+		String newFileName = (String) session.getAttribute("newFileName");
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
+		String ship = "update";
+		return service.shipJoin(newFileName,params,u_userid, ship);
 	}	
 }

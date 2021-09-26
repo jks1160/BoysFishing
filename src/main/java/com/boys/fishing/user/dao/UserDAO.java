@@ -154,7 +154,7 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int pointSet(String u_userid);
 
-	void shipImg(HashMap<String, String> params); //영환
+	void shipImgY(HashMap<String, String> params); //영환
 
 	void shipImgInsert(HashMap<String, String> params); //영환
 
@@ -172,6 +172,14 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int totalPageR(String userId);
 	String findCap_ship(String string);
+
+	void shipUpdate(ReserDTO dto); //영환
+
+	void shipImgUpdate(HashMap<String, String> params); //영환
+
+	void shipImgDelete(HashMap<String, String> params); //영환
+
+	void shipImgN(HashMap<String, String> params); //영환
 
 	
 

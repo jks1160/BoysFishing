@@ -130,19 +130,19 @@
 	<div class="entire">
 	
 	<div class="rounded float-start">
-		<img src="resources/defaultimg/defaultprofile.png" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
+		<img src="" id="profileImg" class="rounded" alt="회원 프로필 이미지" style="width: 200px;">
 	</div>	
 	
 	<div style="padding-top:170px; padding-left: 0px">
  	<form style="margin :0px; padding: 0px"  id="fileUpload">
 	<input type="file" hidden="hidden" name="file" id="fileinput" onchange="uploadFile()">
-	<button type="button" id="fileUpdate">등록</button>
+	<button type="button" id="fileUpdate">수정</button>
 	<button type="button" id="fileDelete" onclick="shipFileDelete()">삭제</button>
 	</form>
 	</div>
 	
 	
-	<form action="shipJoin" name="shipJoin" method="POST">
+	<form action="shipUpdate" name="shipJoin" method="POST">
 	<table class="table table-bordered">
 	<thead>
 			<tr>
@@ -153,20 +153,20 @@
 	    <tr>
 			<th>배이름</th>
 			<td>
-			<input style="width:300px;" type="text" name="s_name" id="s_name" value=""/>
+			<input style="width:300px;" type="text" name="s_name" id="s_name" value="${params.s_name }"/>
 			</td>
 		</tr>
 
 		<tr>
 			<th>최소탑승인원</th>
 			<td>
-			<input style="width:300px;" name="s_minpassenger" id="s_minpassenger" type="number" value=""/>
+			<input style="width:300px;" name="s_minpassenger" id="s_minpassenger" type="number" value="${params.s_minpassenger }"/>
 			</td>
 		</tr>
 		<tr>
 			<th>최대탑승인원</th>
 			<td>
-			<input style="width:300px;"  name="s_maxpassenger" id="s_maxpassenger" type="number" value=""/>
+			<input style="width:300px;"  name="s_maxpassenger" id="s_maxpassenger" type="number" value="${params.s_maxpassenger }"/>
 			</td>
 		</tr>
 		<tr>
@@ -208,6 +208,7 @@
 			
 		</tr>
 		</table>
+		<input type="hidden" name="s_num" value="${params.s_num}">
 		</form>
 		
 		<div class="road">
@@ -218,9 +219,16 @@
 		</div>
 	</body>
 	<script>
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
+	
+	var path = "${params.path}";
+	var newFileName = path.substring(path.lastIndexOf("/")+1);
+	
+	window.onload = function(){
+		if(path != ""){
+			$("#profileImg").attr("src",path);
+		}else{
+			$("#profileImg").attr("src","resources/defaultimg/defaultprofile.png");
+		}
 	}
 	
 	$(function(){
@@ -263,8 +271,13 @@
 		shipFileDelete();
 	}
 	
+
+	
 	function shipFileDelete(){
-		var newFileName = "";
+		console.log("newFileName : "+newFileName);
+		console.log("path : "+path);
+		
+
 		 $.ajax({
 				url:'shipFileDelete',
 				type:'POST',
