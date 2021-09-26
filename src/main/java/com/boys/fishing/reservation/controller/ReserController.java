@@ -159,8 +159,11 @@ public class ReserController {
 		String id =(String) map.get("u_userid");
 		logger.info("예약 정보 : {} ",params);
 		
+		
+		
 		return service.RealReser(params,id);
 	}
+	
 	/** 조재현
 	 *  선장 스케줄 삭제
 	 * @param params

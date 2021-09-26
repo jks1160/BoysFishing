@@ -90,9 +90,7 @@
 			
 		</div>
 	</div>
-	<span id="remoCon">
-		위로가기
-	</span>
+
 </body>
 <script>
 

@@ -77,4 +77,8 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 	<delete id="delSchdule" parameterType="hashMap">
 		DELETE FROM operrange WHERE op_date =#{op_date} AND s_num = #{s_num} AND i_num = #{i_num} AND op_startpoint= #{op_startpoint} AND op_starttime= #{op_starttime} AND op_duringtime = #{op_duringtime} AND op_returntime = #{op_returntime} AND op_price = #{op_price} 
 	</delete>
+	<!-- 예약 시 유저 돈 지출 -->
+	<insert id="tryReser">
+		INSERT INTO point VALUES(#{param1},'PNT_003',SYSDATE, #{param2}, #{param3}, #{param4})
+	</insert>
 </mapper>

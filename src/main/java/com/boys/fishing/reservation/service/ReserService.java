@@ -236,16 +236,31 @@ public class ReserService {
 	 * @param id
 	 * @return
 	 */
+	@Transactional
 	public HashMap<String, Object> RealReser(HashMap<String, Object> params, String id) {
-		ModelAndView mav = new ModelAndView();
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("예약 아이디: {}",id);
 		logger.info("데이터 : {}", params);
 		
-		int success = reserDAO.RealReser(params);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("success", success);
-		return map;
+		// 예약하는 사람의 최대 포인트
+		int point_Check = userDAO.point(id); 
+		//선장 아이디
+		String capId = userDAO.findCap_ship((String)params.get("s_num")); 
+		int op_price = Integer.parseInt((String)params.get("op_price"));
+		int ri_people = Integer.parseInt((String)params.get("ri_people"));
+		if(point_Check > (op_price* ri_people)) { //금액이 가능할 경우
+			logger.info("예약 가능 ");
+			int success = reserDAO.RealReser(params); // 예약한다.
+			success += reserDAO.tryReser(id,capId,op_price*ri_people,point_Check-(op_price*ri_people));
+			map.put("success", success);
+			return map;			
+		}else {// 금액이 모자랄 경우
+			
+			String msg = "실패";
+			map.put("msg", msg);
+			return map;
+		}
+		
 	}
 
 	/** 조재현

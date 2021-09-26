@@ -341,7 +341,7 @@ public class myPageService {
 	}
 
 	public HashMap<String, Object> reserHistoryList(int page, String userId) {
-		logger.info("회원 포인트히스토리 조회 서비스");
+		logger.info("회원 예약히스토리 조회 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int totalPage;
 		int pagePerCnt = 5;

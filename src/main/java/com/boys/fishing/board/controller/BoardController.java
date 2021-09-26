@@ -65,9 +65,9 @@ public class BoardController {
 		logger.info("섬섬톡 글쓰고 요청");
 		HashMap<String, String> userinfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		dto.setB_userid(userinfo.get("u_userid"));
+		ArrayList<String> fileList = (ArrayList<String>)session.getAttribute("fileList");
 		
-		
-		return service.someWrite(dto);
+		return service.someWrite(dto,fileList);
 	}
 	
 	@RequestMapping(value = "someList")
@@ -116,6 +116,8 @@ public class BoardController {
 	@RequestMapping(value = "/upload", method= RequestMethod.POST)
 	public ModelAndView upload(MultipartFile file, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
 		logger.info("파일업로드 요청");
+		ArrayList<String> fileList = new ArrayList<String>();
+		session.setAttribute("fileList", fileList);
 		return service.fileUpload(file, session);
 	}
 	

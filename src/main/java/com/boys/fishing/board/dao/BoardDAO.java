@@ -17,4 +17,6 @@ public interface BoardDAO {
 
 	ArrayList<String> fish();
 
+	int someImgUpload(HashMap<String, Object> map);
+
 }
