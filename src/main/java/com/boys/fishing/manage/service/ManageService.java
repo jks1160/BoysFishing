@@ -13,6 +13,7 @@ import com.boys.fishing.manage.dao.ManageDAO;
 import com.boys.fishing.manage.dto.ManageDTO;
 
 
+
 @Service
 public class ManageService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -66,6 +67,39 @@ public class ManageService {
 	public void capreq_reject(HashMap<String, String> map) {
 		int suc = dao.capreq_reject(map);
 		logger.info("거절 성공 여부 :{}",suc);	
+	}
+
+	public ModelAndView peoplelist() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("peoplelist");		
+		ArrayList<ManageDTO> list = dao.peoplelist();
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+
+	public ModelAndView peoplesearch(HashMap<String, Object> map) {
+		ModelAndView mav = new ModelAndView();
+		String searchvalue = (String) map.get("searchid");
+		ArrayList<ManageDTO> peoplesearch = dao.peoplesearch(searchvalue);
+		mav.addObject("peoplesearch", peoplesearch);
+		mav.setViewName("peoplelist");		
+		
+		return mav;
+	}
+
+	public HashMap<String, Object> peoplelistcall(int startlist, int endlist) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		startlist = startlist + 5;
+		endlist = endlist + 5;
+		ArrayList<ManageDTO> list = dao.peoplelistcall(startlist,endlist);
+	
+		map.put("list", list);
+	
+		map.put("start", startlist);
+		map.put("end", endlist);
+		
+		return map;
 	}
 	
 }

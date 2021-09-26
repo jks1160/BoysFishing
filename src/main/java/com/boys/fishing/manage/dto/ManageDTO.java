@@ -12,6 +12,15 @@ public class ManageDTO {
 	private String cap_requestTime;
 	private String cap_manager;
 	private String L_name;
+
+	private String u_userphonenum;
+	private String u_useremail;
+	private String u_usernickname;
+	private String u_manageryn;
+	private String u_kakaoyn;
+	private String u_userdelyn;
+	private String u_joindate;
+	
 	
 	public String getU_userid() {
 		return u_userid;
@@ -54,5 +63,47 @@ public class ManageDTO {
 	}
 	public void setL_name(String l_name) {
 		L_name = l_name;
+	}
+	public String getU_userphonenum() {
+		return u_userphonenum;
+	}
+	public void setU_userphonenum(String u_userphonenum) {
+		this.u_userphonenum = u_userphonenum;
+	}
+	public String getU_useremail() {
+		return u_useremail;
+	}
+	public void setU_useremail(String u_useremail) {
+		this.u_useremail = u_useremail;
+	}
+	public String getU_usernickname() {
+		return u_usernickname;
+	}
+	public void setU_usernickname(String u_usernickname) {
+		this.u_usernickname = u_usernickname;
+	}
+	public String getU_manageryn() {
+		return u_manageryn;
+	}
+	public void setU_manageryn(String u_manageryn) {
+		this.u_manageryn = u_manageryn;
+	}
+	public String getU_kakaoyn() {
+		return u_kakaoyn;
+	}
+	public void setU_kakaoyn(String u_kakaoyn) {
+		this.u_kakaoyn = u_kakaoyn;
+	}
+	public String getU_userdelyn() {
+		return u_userdelyn;
+	}
+	public void setU_userdelyn(String u_userdelyn) {
+		this.u_userdelyn = u_userdelyn;
+	}
+	public String getU_joindate() {
+		return u_joindate;
+	}
+	public void setU_joindate(String u_joindate) {
+		this.u_joindate = u_joindate;
 	}
 }

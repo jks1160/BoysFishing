@@ -104,7 +104,7 @@ data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExterna
 			<div class="container">
 				<div class="row">
 					<div class="col-6 lg-6">
-						<a class="nav-link active text-white" aria-current="page" href="#">회원정보</a>
+						<a class="nav-link active text-white" aria-current="page" href="/fishing/manage/peoplelist">회원정보</a>
 					</div>
 					
 					<div class="col-6 lg-6">
