@@ -160,7 +160,13 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	HashMap<String, Object> myReserveDetail(String ri_num); //영환
 
-	ArrayList<HashMap<String, Object>> reserHistory(int shipNum);
+	ArrayList<HashMap<String, Object>> reserHistory(int start, int shipNum, int end);
+
+	int totalPageCR(int shipNum);
+
+	int reserCancel(String num, String cancelReason);
+
+	int decideCancel(String num, String cancelReason);
 
 	
 

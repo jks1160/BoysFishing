@@ -53,4 +53,28 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 	<insert id="RealReser" parameterType="hashMap">
 		INSERT INTO reserinfo VALUES (ri_num_seq.NEXTVAL,#{ri_userid},#{i_num},'RI001',#{s_num},#{ri_startpoint},#{ri_starttime},#{ri_duringtime},#{ri_returntime},#{ri_people},#{ri_startreturnYN},#{ri_date},'없음',#{op_price}*#{ri_people},SYSDATE) 
 	</insert>
+	
+	<!-- 예약 확정이 있는지 확인 -->
+	<select id="checkReser" resultType="int" parameterType='hashMap'>
+		SELECT COUNT(ri.ri_num) FROM operrange op LEFT OUTER JOIN reserinfo ri
+		ON ( op.i_num = ri.i_num AND  op.s_num = ri.s_num AND op.op_date = ri.ri_date)
+		WHERE ri.ri_code ='RI002' AND op.s_num = #{s_num} AND op.i_num = #{i_num} AND op.op_date =#{op_date}
+		AND op.op_starttime = #{op_starttime} AND op.op_returntime = #{op_returntime} AND op.op_duringtime = #{op_duringtime}
+	</select>
+	
+	<!-- 예약 요청 확인 -->
+	<select id="checkNReser" resultType='String' parameterType="hashMap">
+		SELECT ri.ri_num FROM operrange op LEFT OUTER JOIN reserinfo ri
+		ON ( op.i_num = ri.i_num AND  op.s_num = ri.s_num AND op.op_date = ri.ri_date)
+		WHERE ri.ri_code ='RI001' AND op.s_num = #{s_num} AND op.i_num = #{i_num} AND op.op_date =#{op_date}
+		AND op.op_starttime = #{op_starttime} AND op.op_returntime = #{op_returntime} AND op.op_duringtime = #{op_duringtime}
+	</select>
+	<!-- 예약 요청 삭제 -->
+	<update id="delReser" parameterType="String">
+		UPDATE reserinfo SET ri_code= 'RI004' WHERE ri_num = #{param1}
+	</update>
+	<!-- 스케줄 삭제 -->
+	<delete id="delSchdule" parameterType="hashMap">
+		DELETE FROM operrange WHERE op_date =#{op_date} AND s_num = #{s_num} AND i_num = #{i_num} AND op_startpoint= #{op_startpoint} AND op_starttime= #{op_starttime} AND op_duringtime = #{op_duringtime} AND op_returntime = #{op_returntime} AND op_price = #{op_price} 
+	</delete>
 </mapper>

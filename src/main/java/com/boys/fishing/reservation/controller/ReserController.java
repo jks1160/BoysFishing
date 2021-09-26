@@ -148,7 +148,7 @@ public class ReserController {
 		return service.userReser_Vation(params,session);
 	}
 	/** 조재현
-	 *  예약 기능
+	 *  일반 유저 배 편 예약 신청 기능
 	 * @param params
 	 * @return
 	 */
@@ -161,4 +161,24 @@ public class ReserController {
 		
 		return service.RealReser(params,id);
 	}
+	/** 조재현
+	 *  선장 스케줄 삭제
+	 * @param params
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/delSchedule" , method= RequestMethod.POST)
+	public @ResponseBody HashMap<String, Object> delSchedule(@RequestParam HashMap<String, Object> params, HttpSession session){
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String id = (String)map.get("u_userid");
+		
+		logger.info("삭제 할 정보 : {}", params);
+		logger.info("삭제 요청 아이디 : {}", id);
+		
+		
+		return service.delSchedule(id,params);
+	}
+	
+		
+	
 }

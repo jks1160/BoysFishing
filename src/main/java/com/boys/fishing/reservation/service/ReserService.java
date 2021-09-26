@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.apis.dao.ApisDAO;
@@ -229,6 +230,12 @@ public class ReserService {
 		return mav;
 	}
 
+	/** 조재현
+	 *  일반 유저 예약 신청 서비스
+	 * @param params
+	 * @param id
+	 * @return
+	 */
 	public HashMap<String, Object> RealReser(HashMap<String, Object> params, String id) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -238,6 +245,49 @@ public class ReserService {
 		int success = reserDAO.RealReser(params);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("success", success);
+		return map;
+	}
+
+	/** 조재현
+	 *  선장 스케줄 삭제 메소드
+	 * @param id
+	 * @param params
+	 * @return
+	 */
+	@Transactional
+	public HashMap<String, Object> delSchedule(String id, HashMap<String, Object> params) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		logger.info("스케줄 삭제 서비스 요청 아이디 : {}", id);
+		logger.info("삭제 할 스케줄 데이터 : {} ", params);
+		
+		int checker = reserDAO.checkReser(params);
+		String msg ="스케줄 삭제 완료";
+		int success = 0;
+		if(checker>0) { // 예약 확정이 있으면 삭제할 수 없다.
+			logger.info("checker : {} ", checker);
+			msg =" 확정 된 예약이 있습니다!";
+			map.put("msg", msg);
+		}else { //예약 확정이 없으면 예약 요청이 있는지 확인, 예약 번호 가져오기
+			ArrayList<String> del_list = reserDAO.checkNReser(params);
+			if(del_list.size() >0) { // 예약 요청들 있는지 확인 후 삭제
+				logger.info("머야 : {}",del_list.size() );
+				logger.info("먼데 : {}", del_list.get(0));
+				// 예약 요청 삭제
+				for (String ri_num : del_list) { // 모든 예약 요청 번호들 삭제
+					logger.info("ri_num :{}",ri_num); 
+					reserDAO.delReser(ri_num); 
+				}
+				 // 스케줄 삭제
+				success = reserDAO.delSchdule(params);
+			}else { // 예약 요청이 없으면 그냥 스케줄 삭제
+				success = reserDAO.delSchdule(params);
+			}
+		}
+		
+		map.put("success", success);
+		
 		return map;
 	}
 

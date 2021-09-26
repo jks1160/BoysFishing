@@ -240,14 +240,27 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	@RequestMapping(value="/reserDecide")
 	public String reserDecide(String num) {
 		logger.info("예약번호: {}",num);
+		
 		return myservice.reserDecide(num);
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value="/reserCancel")
+	public String reserCancel(String num, String cancelReason) {
+		logger.info("예약번호: {}",num);
+		logger.info("취소 사유: {}",cancelReason);
+		return myservice.reserCancel(num,cancelReason);
+	}
 	
 	
-	
-	
+	@ResponseBody
+	@RequestMapping(value="/decideCancel")
+	public String decideCancel(String num, String cancelReason) {
+		logger.info("예약번호: {}",num);
+		logger.info("취소 사유: {}",cancelReason);
+		return myservice.decideCancel(num,cancelReason);
+	}
 	
 	
 	
@@ -285,9 +298,9 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	//선장 운항예약 히스토리(예약확정만)
 	@ResponseBody
 	@RequestMapping(value="/reserHistory")
-	public ArrayList<HashMap<String, Object>> reserHistory(int shipNum){
+	public HashMap<String, Object> reserHistory(int shipNum, int page){
 		logger.info("선장 운항예약 히스토리 요청");
-		return myservice.reserHistory(shipNum);
+		return myservice.reserHistory(shipNum, page);
 	}
 	
 }

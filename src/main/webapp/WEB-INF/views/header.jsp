@@ -34,14 +34,41 @@
 				</svg>
 			</a>
 
-			<form
-				class="d-flex m-auto  top-50 start-50">
-				<input class="ms-5 " type="search" placeholder="검색"
-					aria-label="Search">
-				<button
-					class="btn btn-outline-light btn-sm ms-2 text-cornflowerblue"
-					type="submit">검색</button>
-			</form>
+		<div class="mx-auto"
+			id="menu">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ">
+					<li class="nav-item"><a class="nav-link active text-white"
+						aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
+					</li>
+					<li class="nav-item"><a class="nav-link active text-white"
+						aria-current="page" href="/fishing/someTalk">섬섬톡</a></li>
+						
+					<li class="nav-item"><a class="nav-link active text-white"
+                 		 aria-current="page" href="/fishing/qna">Q&A</a></li>
+			
+					<li class="nav-item"><a class="nav-link active text-white"
+						aria-current="page" href="/fishing/myPage">마이페이지</a></li>
+				
+					<li class="nav-item"><a class="nav-link active text-white"
+						aria-current="page" href="/fishing/weekendweather">이번주 날씨</a></li>
+					<li class="nav-item"><c:choose>
+
+							<c:when test="${empty sessionScope.userinfo}"></c:when>
+							<c:when test="${sessionScope.userinfo.u_manageryn eq 'N' }"></c:when>
+
+							<c:when test="${sessionScope.userinfo.u_manageryn eq 'Y' }">
+<a class="nav-link active text-white" type="button"	data-bs-toggle="collapse"
+data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+	aria-expanded="false" aria-label="Toggle navigation"> 
+	<span>관리자 메뉴</span></a>
+							</c:when>
+							<c:otherwise></c:otherwise>
+						</c:choose></li>
+				</ul>
+			</div>
+		</div>
+
 			<div class="d-flex" id="menu">
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -70,45 +97,7 @@
 			</div>
 		</div>
 	</nav>
-	<nav class="navbar navbar-expand-sm container-row" 
-		style="background-color: cornflowerblue; height: 30px;">
-		<div class="mx-auto"
-			id="menu">
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ">
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/fishing/islandsReservation">섬정보/예약</a>
-					</li>
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/fishing/someTalk">섬섬톡</a></li>
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/fishing/qna">Q&A</a></li>
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/fishing/myPage">마이페이지</a></li>
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="#">공지사항</a></li>
-					<li class="nav-item"><a class="nav-link active text-white"
-						aria-current="page" href="/fishing/weekendweather">이번주 날씨</a></li>
-					<li class="nav-item"><c:choose>
-
-							<c:when test="${empty sessionScope.userinfo}"></c:when>
-							<c:when test="${sessionScope.userinfo.u_manageryn eq 'N' }"></c:when>
-
-							<c:when test="${sessionScope.userinfo.u_manageryn eq 'Y' }">
-<a class="nav-link active text-white" type="button"	data-bs-toggle="collapse"
-data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-	aria-expanded="false" aria-label="Toggle navigation"> 
-	<span>관리자 메뉴</span></a>
-							</c:when>
-							<c:otherwise></c:otherwise>
-						</c:choose></li>
-				</ul>
-			</div>
-		</div>
-
-	</nav>
-
-
+	
 
 	<div class="collapse opacity-50" id="navbarToggleExternalContent">
 		<div class="bg-primary p-2">
@@ -117,25 +106,11 @@ data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExterna
 					<div class="col-6 lg-6">
 						<a class="nav-link active text-white" aria-current="page" href="#">회원정보</a>
 					</div>
+					
 					<div class="col-6 lg-6">
 						<a class="nav-link active text-white" aria-current="page"
 							href="/fishing/manage/captainlist">선장관리</a>
-					</div>
-					<div class="col-6 lg-6">
-						<a class="nav-link active text-white" aria-current="page" href="#">신고관리</a>
-					</div>
-					<div class="col-6 lg-6">
-						<a class="nav-link active text-white" aria-current="page" href="#">블랙리스트관리</a>
-					</div>
-					<div class="col-6 lg-6">
-						<a class="nav-link active text-white" aria-current="page" href="#">Q&A관리</a>
-					</div>
-					<div class="col-6 lg-6">
-						<a class="nav-link active text-white" aria-current="page" href="#">배편관리</a>
-					</div>
-					<div class="col-6 lg-6">
-						<a class="nav-link active text-white" aria-current="page" href="#">공지사항</a>
-					</div>
+					</div>					
 					<div class="col-6 lg-6">
 						<a class="nav-link active text-white" aria-current="page"
 							href="/fishing/insertisland">섬 관리</a>
