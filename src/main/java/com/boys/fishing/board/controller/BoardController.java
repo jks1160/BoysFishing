@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -112,12 +113,18 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping(value = "/upload", method= RequestMethod.POST)
+	public ModelAndView upload(MultipartFile file, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+		logger.info("파일업로드 요청");
+		return service.fileUpload(file, session);
+	}
 	
 	
-	
-	
-	
-	
+	@RequestMapping(value = "/fileDelete",method= RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> fileDelete(@RequestParam String fileName, HttpSession session) {
+		logger.info("파일삭제 요청 : "+fileName);
+		return service.fileDelete(fileName, session);
+	}
 	
 	
 
