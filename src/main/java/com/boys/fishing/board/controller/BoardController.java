@@ -136,8 +136,23 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/someUpdate")
-	public ModelAndView someUpdate(@RequestParam String b_num) {
+	public ModelAndView someUpdate(@RequestParam String b_num, HttpSession session) {
 		logger.info("Some 수정 요청");
-		return service.someDetail(b_num);
+		
+		return service.someUpdate(b_num,session);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/fileUpdateDelete")
+	public HashMap<String, String> fileUpdateDelete(HttpSession session, @RequestParam String fileName) {
+		logger.info("Some 수정 요청");
+		HashMap<String, String> map = new HashMap<String, String>();
+		session.removeAttribute("fileName");
+		String success = "true";
+		map.put("success", success);
+		return map;
+	}
+	
+	
+	
 }

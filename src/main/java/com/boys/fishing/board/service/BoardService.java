@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
@@ -151,7 +153,21 @@ public class BoardService {
 		return mav;
 	}
 	
-	
-	
+	@Transactional
+	public ModelAndView someUpdate(String b_num, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<SumsumDTO> list = dao.fileList(b_num);
+		ArrayList<String> fileList = new ArrayList<String>();
+		for (SumsumDTO item : list){
+			fileList.add(item.getBi_name());
+		}
+		session.setAttribute("fileList", fileList);
+		SumsumDTO dto = dao.someDetail(b_num);
+		ArrayList<String> fishList = dao.fish();
+		mav.setViewName("someUpdate");
+		mav.addObject("dto",dto);
+		mav.addObject("fishList",fishList);
+		return mav;
+	}
 
 }

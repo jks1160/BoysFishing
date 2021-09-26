@@ -41,13 +41,14 @@ img {
 	<form action="someWrite" method="POST">
 	<div class="row justify-content-md-center">
 		<div class="col-10">
-			<h2>글쓰기</h2>
+			<h2>수정하기</h2>
 			<div class="text-right">
 			<i class="fas fa-fish m-1"></i>
 	            <label for="fishes">어종 : &nbsp;</label>
 	            <select class="form-contro form-inlinel" id="fishes" name="fish">
 	            <c:forEach var="fish" items="${fishList}">
-	              <option value="${fish }">${fish }</option>
+	            	<c:if test="${fish eq dto.fish }"><option value="${fish }" selected>${fish }</option></c:if>
+	              	<option value="${fish }">${fish }</option>
 	            </c:forEach>
 	            </select>
 	        </div>
@@ -60,16 +61,16 @@ img {
 		</div>
 		<div class="col-5">
 			<div class="form-group">
-				<input type="text" class="form-control" id="usr" name="b_subject">
+				<input type="text" class="form-control" id="usr" name="b_subject" value="${dto.b_subject }">
 			</div>
 		</div>
 		<div class="col-3">
 			<div class="form-group form-inline">
 				<label for="selec">카테고리 :</label>
             	<select class="form-control form-inline mx-2" id="selec" name="b_code">
-              		<option value="B001" selected>자유게시판</option>
-              		<option value="B002">후기게시판</option>
-              		<option value="B003">정보게시판</option>
+              		<option value="B001" <c:if test="${dto.b_code eq 'B001' }">selected</c:if>>자유게시판</option>
+              		<option value="B002" <c:if test="${dto.b_code eq 'B002' }">selected</c:if>>후기게시판</option>
+              		<option value="B003" <c:if test="${dto.b_code eq 'B003' }">selected</c:if>>정보게시판</option>
             	</select>
             </div>
 		</div>
@@ -78,7 +79,7 @@ img {
 		<div class="col-10">
 		<hr>
 			<div class="form-group">
-		  		<div id="editable" contenteditable="true" style="height:450px;"></div> <!-- div 내용을 서버에 보낼 수 있도록 input을 추가 -->
+		  		<div class="border p-3" id="editable" contenteditable="true" style="height:450px;"></div>
 				<input id="content" type="hidden" name="b_content" value="" />
 			</div>
 		</div>
@@ -88,7 +89,7 @@ img {
 			<input type="button" class= "btn btn-outline-dark btn-sm" value="사진올리기" onclick="fileUp()" />
 		</div>
 		<div class="col-2">
-			<button type="button" id="save" class= "btn btn-outline-dark btn-sm">글 작성</button>
+			<button type="button" id="save" class= "btn btn-outline-dark btn-sm">수정하기</button>
 		</div>
 	</div>
 	</form>
@@ -96,15 +97,15 @@ img {
 <hr>
 </body>
 <script>
+	$("#editable").html('${dto.b_content}');
+	$("a.img").attr("onclick","del(this);");
+	$("a.img").append("<b>X</b>");
+
 function fileUp() {
 	// 2번째 매개변수 창의 이름
 	window.open('uploadForm', 'file upload', 'width=400, height=100');
 }
 $("#save").click(function() {
-	/* <a href = '#' id = '${path}' onclick='del(this)' >
-	<img src='${path}' width='250'/>
-	<b>X</b>
-	</a>*/
 	// content에서 a태그 하위의 b태그 삭제
 	$("#editable").find("b").remove();
 	// a 태그 자체를 삭제? a태그의 onclick 만 삭제 ------ 수정할 때를 생각한다면 onclick만 삭제하는 것이 좋음.
@@ -115,12 +116,11 @@ $("#save").click(function() {
 });
 
 function del(elem){ //(this)
-
 	var fileName = elem.id.substring(elem.id.lastIndexOf("/")+1);
 	// ajax를 쓰는 이유는 기존에 작성한 글을 지우지 않기 위하여
 	// ajax를 통하여 서버에 저장된 파일을 지우고 세션의 값만 지운다 그리고 성공여부를 success로 반환하여 파일이 담긴 태그를 지울지 정한다.
 	$.ajax({
-		url:"fileDelete",
+		url:"fileUpdateDelete",
 		type:"get",
 		data:{"fileName": fileName},
 		dataType:"json",
