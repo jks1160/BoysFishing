@@ -41,6 +41,17 @@
     	 cursor : pointer
   } 
  		 
+ 		 .entire{
+		text-align: center;
+		margin-top: 5%;
+		margin-right: 20%;
+		margin-bottom: 5%;
+		margin-left: 20%;
+		}
+		.r_history{
+			text-align: center;
+		}
+	 		 
 		</style>
 
 	</head>
@@ -54,11 +65,122 @@
 	
 	</div>
 	
+
 	<form id="reserveForm" action="myReserveDetail" method="POST">
 		<input type="hidden" id="ri_num" name="ri_num">
 	</form>
+
+	
+	<!-- 회원유저 예약 히스토리 -->
+	<div class='entire'>
+	<div class="r_history">
+		<h3>예약 히스토리</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>예약번호</th>
+					<th>목적지</th>
+					<th>결제금액</th>
+					<th>예약날짜</th>
+					<th>예약상태</th>
+				</tr>
+			</thead>
+			<tbody class="r_history_cont">
+			
+			</tbody>
+		</table>
+			<div class="container row" >
+				<nav class="container col-auto mt-3" aria-lable="Page navigation"  style="text-align: center;">
+					<ul class="pagination" id="pagination"></ul>
+				</nav>
+			</div>
+	</div>
+	</div>
+	
+	
+
 	</body>
 	<script>
+	//회원 예약 히스토리
+var code;
+var p_page = 1;
+reserHistoryListCall(p_page);
+
+$("#pagePerNum").change(function(){
+	//페이징 초기화
+	$("#pagination").twbsPagination('destroy');
+	reserHistoryListCall(p_page);
+});
+
+function reserHistoryListCall(p_page) {
+	var param = {};
+	param.page = p_page;
+	$.ajax({
+		type : 'get',
+		url : 'reserHistoryList',
+		data : param,
+		dataType : 'JSON',
+		success : function(data) {
+			console.log(data);
+			reserHistoryDrawList(data);
+			p_page = data.currPage;
+			$("#pagination").twbsPagination({
+				startPage: data.currPage,//시작페이지
+				totalPages: data.totalPage,  //총 페이지 갯수
+				visiblePages:5, //보여줄 페이지 갯수
+				onPageClick: function(e,page){
+					//console.log(e,page);
+					reserHistoryListCall(page);
+				}
+			});	
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
+}
+
+function reserHistoryDrawList(list) {
+	console.log(list);
+	var content = "";
+	list.list.forEach(function(item, idx) {
+		console.log(item, idx);
+		var date = new Date(item.RI_RESERDATE);
+		switch(item.RI_CODE){
+		case "RI002":
+			code = "예약확정";
+			break;
+		case "RI003":
+			code = "유저예약취소";
+			break;
+		case "RI004":
+			code = "선장예약취소";
+			break;
+		case "RI005":
+			code = "선장예약확정취소";
+			break;
+		case "RI006":
+			code = "유저예약확정취소";
+			break;
+		}
+		content += "<tr>";
+		content += "<td>" + item.RI_NUM  + "</td>";
+		content += "<td>" + item.I_NAME  + "</td>";
+		content += "<td>" + item.RI_PAY  + "</td>";
+		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";
+		content += "<td>"+code+"</td>";
+		content += "</tr>";
+	});
+	$(".r_history_cont").empty();
+	$(".r_history_cont").append(content);
+}
+	
+	
+	
+	
+	
+	
+
 	var checker = "${sessionScope.u_userid}";
 	console.log(checker);
 	

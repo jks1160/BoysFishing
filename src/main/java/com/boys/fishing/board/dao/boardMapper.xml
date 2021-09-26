@@ -16,14 +16,42 @@
 	
 	
 	
-	<insert id="someWrite" parameterType="sumsum">
-		INSERT INTO board VALUES(b_num_seq.NEXTVAL, '우럭', #{b_subject}, #{b_content}, SYSDATE, #{b_userid}, #{b_code}, '')
+	<insert id="someWrite" 
+	parameterType="sumsum"
+	useGeneratedKeys="true" 
+	keyColumn="b_num" 
+	keyProperty="b_num"
+	>
+		INSERT INTO board VALUES(b_num_seq.NEXTVAL, #{fish} , #{b_subject}, #{b_content}, SYSDATE, #{b_userid}, #{b_code}, 'N')
 	</insert>
 	
 	
 	<select id="someTalkList" resultType="sumsum">
-		SELECT b.*, u.u_usernickname, bi.bi_name FROM board b 
+		SELECT DISTINCT b.b_num, b.*, u.u_usernickname, bi.bi_name FROM board b 
 		INNER JOIN userinfo u ON u.u_userid = b.b_userid
 		LEFT OUTER JOIN boardimg bi ON b.b_num = bi.bi_num WHERE b.b_code = #{param1} AND b_blindyn = 'N' AND u.u_userdelyn = 'N' ORDER BY b.b_num DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	<select id="fish" resultType="String">
+		SELECT * FROM fishes
+	</select>
+	
+	
+	
+	
+	
+	
+	<insert id="someImgUpload" parameterType="hashmap">
+			INSERT INTO boardIMG VALUES (#{param1}, #{param2})
+	</insert>
+	
+	
+	<select id="someDetail" resultType="sumsum">
+		SELECT b.*, u.u_usernickname FROM board b INNER JOIN userinfo u ON b.b_userid = u.u_userid WHERE b_num = #{param1}
 	</select>
 </mapper>

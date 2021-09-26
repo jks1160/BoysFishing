@@ -15,4 +15,12 @@ public interface BoardDAO {
 
 	ArrayList<SumsumDTO> someTalkList(String sel);
 
+	ArrayList<String> fish();
+
+	int someImgUpload(HashMap<String, Object> map);
+
+	int someImgUpload(String string, String file);
+
+	SumsumDTO someDetail(String b_num);
+
 }

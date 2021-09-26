@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,11 +53,11 @@ public class BoardController {
 		return service.someTalkList(selec).addObject("selec",title);
 	}
 	@RequestMapping(value = "/someWriteForm")
-	public String someWriteForm(HttpSession session) {
+	public ModelAndView someWriteForm(HttpSession session) {
 		logger.info("섬섬톡 글쓰기폼 요청");
 		
 		
-		return "someWriteForm";
+		return service.someWriteForm();
 	}
 	
 	@RequestMapping(value = "/someWrite")
@@ -64,9 +65,9 @@ public class BoardController {
 		logger.info("섬섬톡 글쓰고 요청");
 		HashMap<String, String> userinfo = (HashMap<String, String>) session.getAttribute("userinfo");
 		dto.setB_userid(userinfo.get("u_userid"));
+		ArrayList<String> fileList = (ArrayList<String>)session.getAttribute("fileList");
 		
-		
-		return service.someWrite(dto);
+		return service.someWrite(dto,fileList);
 	}
 	
 	@RequestMapping(value = "someList")
@@ -112,13 +113,31 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping(value = "/upload", method= RequestMethod.POST)
+	public ModelAndView upload(MultipartFile file, HttpSession session) { // input의 name과 맞춰서 받아야함. session은 글에 등록된 파일을 저장하기 위하여 활용
+		logger.info("파일업로드 요청");
+		ArrayList<String> fileList = new ArrayList<String>();
+		session.setAttribute("fileList", fileList);
+		return service.fileUpload(file, session);
+	}
 	
 	
+	@RequestMapping(value = "/fileDelete",method= RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> fileDelete(@RequestParam String fileName, HttpSession session) {
+		logger.info("파일삭제 요청 : "+fileName);
+		return service.fileDelete(fileName, session);
+	}
 	
 	
+	@RequestMapping(value = "/someDetail")
+	public ModelAndView someDetail(@RequestParam String b_num) {
+		logger.info("Some 상세보기 요청");
+		return service.someDetail(b_num);
+	}
 	
-	
-	
-	
-
+	@RequestMapping(value = "/someUpdate")
+	public ModelAndView someUpdate(@RequestParam String b_num) {
+		logger.info("Some 수정 요청");
+		return service.someDetail(b_num);
+	}
 }

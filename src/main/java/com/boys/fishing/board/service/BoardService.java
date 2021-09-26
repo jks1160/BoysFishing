@@ -1,14 +1,28 @@
 package com.boys.fishing.board.service;
 
+import org.apache.tools.ant.types.FileList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -47,12 +61,17 @@ public class BoardService {
 	
 	
 	//섬섬톡 글쓰기
-	public String someWrite(SumsumDTO dto) {
+	@Transactional
+	public String someWrite(SumsumDTO dto, ArrayList<String> fileList) {
 		logger.info("글쓰기 서비스 진입");
 		String page = "redirect:/someWriteForm";
 		if(dao.someWrite(dto)>0) {
-			page = "redirect:/someTalk";
-			return page;
+			page = "redirect:/someTalk";			
+		}
+		if(fileList != null) {
+			for (String file : fileList) {
+				dao.someImgUpload(Integer.toString(dto.getB_num()), file);				
+			}
 		}
 		return page;
 	}
@@ -64,5 +83,75 @@ public class BoardService {
 		mav.addObject("list",list);
 		return mav;
 	}
+
+	public ModelAndView someWriteForm() {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<String> fishList = dao.fish();
+		mav.setViewName("someWriteForm");
+		mav.addObject("fishList", fishList);
+		return mav;
+	}
+
+	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("uploadForm");
+		String fileName = file.getOriginalFilename();
+		String newFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+
+		try {
+			byte[] bytes = file.getBytes();
+			Path filePath = Paths.get("C:/upload/" + newFileName);
+			Files.write(filePath, bytes);
+			String path = "/photo/" + newFileName;
+
+			mav.addObject("path", path);
+
+			ArrayList<String> fileList = (ArrayList<String>) session.getAttribute("fileList");
+			fileList.add(newFileName); //fileName = oriFileName
+			logger.info("업로드된 파일 수 : " + fileList.size());
+			session.setAttribute("fileList", fileList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
 	
+	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
+		boolean success = false;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		File delFile = new File("C:/upload/" + fileName);
+
+		if (delFile.exists()) {
+			success = delFile.delete();
+		}
+		if (success) {
+			ArrayList<String> fileList = (ArrayList<String>) session.getAttribute("fileList");
+			Iterator<String> itr = fileList.iterator();
+			while(itr.hasNext()) {
+				if(itr.next().equals(fileName)) {
+					itr.remove();
+				}
+			}
+			logger.info("업로드된 파일 수 : " + fileList.size());
+			session.setAttribute("fileList", fileList);
+		}
+		logger.info("file delete success : " + success);
+		map.put("success", success);
+
+		return map;
+	}
+
+	public ModelAndView someDetail(String b_num) {
+		ModelAndView mav = new ModelAndView();
+		SumsumDTO dto = dao.someDetail(b_num);
+		mav.setViewName("someDetail");
+		mav.addObject("dto",dto);
+		return mav;
+	}
+	
+	
+	
+
 }

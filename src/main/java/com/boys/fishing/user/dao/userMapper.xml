@@ -144,7 +144,7 @@ INSERT INTO point(p_userid, p_content, p_otherid, p_cost, p_balance) VALUES(#{pa
 <!-- 포인트 히스토리 -->
 <select id="pointHistoryList" resultType="userInfo">
 select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY p_regdate DESC)
-AS rnum, p_content, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{param2}) WHERE rnum BETWEEN #{param1} AND #{param3}
+AS rnum, p_content, p_otherid, p_regdate, p_cost, p_balance FROM point WHERE p_userid = #{param2}) WHERE rnum BETWEEN #{param1} AND #{param3}
 </select>
 
 <!-- 포인트 히스토리 페이징처리를 위한 포인트 히스토리 전체페이지 확인 -->
@@ -169,15 +169,40 @@ SELECT * FROM ship  WHERE s_num = #{param1}
 	INSERT INTO operrange 
 	VALUES(#{s_num}, #{i_num},#{op_startpoint},#{op_starttime},#{op_duringtime},#{op_returntime},#{op_date},#{op_price})
 </insert>
-
-
-<!-- 선장 운항 확정 히스토리 뿌리기 -->
-<select id="reserHistory" resultType="hashmap">
-SELECT u.u_usernickname, i.I_name, o.op_date, r.RI_people, r.RI_pay, r.RI_reserdate
-FROM reserINFO r, operrange o, island i, userInfo u
-WHERE r.s_num = #{param1} AND r.RI_code = 'RI002' AND o.I_num = r.I_num AND o.I_num = i.I_num AND u.U_userid = r.RI_userid
-ORDER BY o.op_date DESC
+<!-- 배 주인 찾기 -->
+<select id="findCap_ship" resultType ="String" parameterType="String">
+	SELECT u_userid FROM ship WHERE s_num = #{param1}
 </select>
+
+<!-- 운항예약확정 히스토리 페이징처리를 위한 운항예약확정 히스토리 전체페이지 확인 -->
+<select id="totalPageCR" resultType="int">
+SELECT COUNT(r.s_num) FROM reserINFO r, operrange o, island i, userInfo u 
+WHERE r.s_num = #{param1} AND r.RI_code IN('RI002', 'RI003', 'RI004', 'RI005') AND o.op_date = r.ri_date AND r.i_num=i.i_num AND o.s_num=r.s_num AND u.U_userid = r.RI_userid
+</select>
+
+<!-- 선장 운항 히스토리 뿌리기 -->
+<select id="reserHistory" resultType="hashmap">
+select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY o.op_date DESC)
+AS rnum, u.u_usernickname, i.I_name, o.op_date, r.RI_people, r.RI_pay, r.RI_reserdate, r.RI_code
+FROM reserINFO r, operrange o, island i, userInfo u
+WHERE r.s_num = #{param2} AND r.RI_code IN('RI002', 'RI003', 'RI004', 'RI005') AND o.op_date = r.ri_date AND r.i_num=i.i_num AND o.s_num=r.s_num AND u.U_userid = r.RI_userid) 
+WHERE rnum BETWEEN #{param1} AND #{param3}
+</select>
+
+<!-- 유저예약  히스토리 페이징처리를 위한 유저예약 히스토리 전체페이지 확인 -->
+<select id="totalPageR" resultType="int">
+SELECT COUNT(ri_userid) FROM reserINFO WHERE ri_userid = 'prac2' AND RI_code IN('RI002', 'RI003', 'RI004', 'RI005', 'RI006')
+</select>
+
+<!-- 유저 예약 히스토리 뿌리기 -->
+<select id="reserHistoryList" resultType="hashmap">
+select * FROM (SELECT ROW_NUMBER() OVER(ORDER BY r.ri_reserdate DESC)
+AS rnum, r.ri_num, i.I_name, r.RI_pay, r.RI_reserdate, r.RI_code
+FROM reserINFO r, operrange o, island i, userInfo u
+WHERE r.ri_userid = #{param2} AND r.RI_code IN('RI002', 'RI003', 'RI004', 'RI005','RI006') AND o.op_date = r.ri_date AND r.i_num=i.i_num AND o.s_num=r.s_num AND u.U_userid = r.RI_userid) 
+WHERE rnum BETWEEN #{param1} AND #{param3}
+</select>
+
 
 <select id="reserWait" resultType="HashMap">
 SELECT s.s_name, r.ri_num, r.ri_userid, i.i_name, r.ri_startpoint, r.ri_starttime, r.ri_returntime,
@@ -191,7 +216,15 @@ WHERE s.s_num = r.s_num and i.i_num = r.i_num and s.u_userid in(#{param1}) and r
 UPDATE reserInfo set ri_code = 'RI002' WHERE ri_num = #{param1}
 </update>
 
+<!-- 예약취소 -->
+<update id="reserCancel">
+UPDATE reserInfo set ri_code = 'RI004', ri_cancelreason = #{param2} WHERE ri_num = #{param1}
+</update>
 
+<!-- 예약확정 취소 -->
+<update id="decideCancel">
+UPDATE reserInfo set ri_code = 'RI005', ri_cancelreason = #{param2} WHERE ri_num = #{param1}
+</update>
 
 <select id="overCheck" resultType="int">
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}

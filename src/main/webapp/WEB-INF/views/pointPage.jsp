@@ -24,9 +24,6 @@
 		margin-bottom: 5%;
 		margin-left: 20%;
 	}
-	.user{
-		display: inline-block;
-	}
 	.p_history{
 		text-align: center;
 	}
@@ -68,6 +65,7 @@
 			<thead>
 				<tr>
 					<th>항목</th>
+					<th>대상자 아이디</th>
 					<th>금액</th>
 					<th>잔액</th>
 					<th>날짜</th>
@@ -141,6 +139,7 @@ pointListCall(p_page);
 
 $("#pagePerNum").change(function(){
 	//페이징 초기화
+	console.log("뿌찍");
 	$("#pagination").twbsPagination('destroy');
 	pointlistCall(p_page);
 });
@@ -157,7 +156,6 @@ function pointListCall(p_page) {
 			console.log(data);
 			pointDrawList(data);
 			p_page = data.currPage;
-			console.log("twbs전까지옴?");
 			$("#pagination").twbsPagination({
 				startPage: data.currPage,//시작페이지
 				totalPages: data.totalPage,  //총 페이지 갯수
@@ -202,6 +200,7 @@ function pointDrawList(list) {
 		}
 		content += "<tr>";
 		content += "<td>" + code + "</td>";
+		content += "<td>" + item.p_otherid  + "</td>";
 		content += "<td>" + item.p_cost  + "</td>";
 		content += "<td>" + item.p_balance  + "</td>";
 		content += "<td>" + date.getFullYear() +"-"+  (date.getMonth()+1) +"-"+ date.getDate() +" "+ date.getHours() +":"+ date.getMinutes() + "</td>";

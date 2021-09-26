@@ -22,6 +22,18 @@ public interface ReserDAO {
 
 	int RealReser(HashMap<String, Object> params);
 
+	int checkReser(HashMap<String, Object> params);
+
+	int delSchdule(HashMap<String, Object> params);
+
+
+	ArrayList<String> checkNReser(HashMap<String, Object> params);
+
+	void delReser(String ri_num);
+
+	int tryReser(String id, String capId, int i, int j);
+
+
 
 	
 

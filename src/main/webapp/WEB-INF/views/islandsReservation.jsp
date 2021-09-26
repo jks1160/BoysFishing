@@ -40,9 +40,9 @@
 * {
 	font-family: 'Do Hyeon', sans-serif;
 }
-	body{
+body{
 	margin-bottom:100px;
-	}
+} 
 </style>
 </head>
 <body>
@@ -253,6 +253,7 @@ kakao.maps.event.addListener(marker, 'click', function() {
 
     //클릭 시 해당 섬과 일치하는 경우 알람창을 띄운다.
     for(var i=0; i<infowindow.length; i++){
+    	//console.log("이게 뭐지? : ",infowindow[i].cc);
     	if(infowindow[i].cc == is_name){
     		infowindow[i].open(map,marker);
     		break;
