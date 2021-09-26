@@ -229,6 +229,12 @@ public class ReserService {
 		return mav;
 	}
 
+	/** 조재현
+	 *  일반 유저 예약 신청 서비스
+	 * @param params
+	 * @param id
+	 * @return
+	 */
 	public HashMap<String, Object> RealReser(HashMap<String, Object> params, String id) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -238,6 +244,24 @@ public class ReserService {
 		int success = reserDAO.RealReser(params);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("success", success);
+		return map;
+	}
+
+	/** 조재현
+	 *  선장 스케줄 삭제 메소드
+	 * @param id
+	 * @param params
+	 * @return
+	 */
+	public HashMap<String, Object> delSchedule(String id, HashMap<String, Object> params) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		logger.info("스케줄 삭제 서비스 요청 아이디 : {}", id);
+		logger.info("삭제 할 스케줄 데이터 : {} ", params);
+		//params.put(, value)
+		//int success = reserDAO.delSchdule();
+		
 		return map;
 	}
 

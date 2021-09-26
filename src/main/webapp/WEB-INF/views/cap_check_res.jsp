@@ -33,7 +33,7 @@
 		<hr/>
 		<div class='table-responsive'>
 			<h6 class='text-center info'>${reser.op_date} 스케줄</h6>
-			<form action='/fishing/captainUpdateForm' method='GET'>
+			<form action='/fishing/captainUpdateForm' method='GET' id='frm'>
 			<table class='table table-hover text-center''>
 			<tbody class='table-bordered'>
 				<tr>
@@ -91,13 +91,30 @@
 			</table>
 			<div  style='text-align:center'>
 				<button class='btn btn-outline-primary text-center'>수정하기</button>
-				<input type='button' class='btn btn-outline-primary'  value='스케줄 제거' onclick=''/>
+				<input type='button' class='btn btn-outline-primary'  value='스케줄 제거' onclick='delSchedule()'/>
 				<input type='button' class = 'btn btn-outline-primary' value='종료' onclick='window.close()'/>
 				</div>
 			</form>
 			
 		</div>
 	</div>
-	
 </body>
+<script>
+function delSchedule(){ //스케줄 삭제 메소드
+	$.ajax({
+		url:'delSchedule',
+		data: $("#frm").serialize(),
+		dataType : "JSON",
+		type: "POST",
+		success : function(data){
+			console.log("삭제 성공 :", data);
+		},
+		error: function(e) {
+			console.log("에러 발생 ",e);
+		}
+	});
+}
+
+</script>
+
 </html>
