@@ -164,6 +164,10 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int totalPageCR(int shipNum);
 
+	int reserCancel(String num, String cancelReason);
+
+	int decideCancel(String num, String cancelReason);
+
 	
 
 
