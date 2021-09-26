@@ -325,6 +325,21 @@ public class myPageService {
 		return mav;
 	}
 
+	//선장이 운항 예약 취소
+	public String reserCancel(String num, String cancelReason) {
+		logger.info("예약취소 서비스 진입");
+		int success;
+		success = dao.reserCancel(num,cancelReason);
+		return String.valueOf(success);
+	}
+
+	public String decideCancel(String num, String cancelReason) {
+		logger.info("예약취소 서비스 진입");
+		int success;
+		success = dao.decideCancel(num,cancelReason);
+		return String.valueOf(success);
+	}
+
 		
 		
 		

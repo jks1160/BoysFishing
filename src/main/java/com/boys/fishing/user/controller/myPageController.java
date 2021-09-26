@@ -240,14 +240,27 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	@RequestMapping(value="/reserDecide")
 	public String reserDecide(String num) {
 		logger.info("예약번호: {}",num);
+		
 		return myservice.reserDecide(num);
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value="/reserCancel")
+	public String reserCancel(String num, String cancelReason) {
+		logger.info("예약번호: {}",num);
+		logger.info("취소 사유: {}",cancelReason);
+		return myservice.reserCancel(num,cancelReason);
+	}
 	
 	
-	
-	
+	@ResponseBody
+	@RequestMapping(value="/decideCancel")
+	public String decideCancel(String num, String cancelReason) {
+		logger.info("예약번호: {}",num);
+		logger.info("취소 사유: {}",cancelReason);
+		return myservice.decideCancel(num,cancelReason);
+	}
 	
 	
 	

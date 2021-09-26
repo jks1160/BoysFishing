@@ -181,7 +181,15 @@ WHERE s.s_num = r.s_num and i.i_num = r.i_num and s.u_userid in(#{param1}) and r
 UPDATE reserInfo set ri_code = 'RI002' WHERE ri_num = #{param1}
 </update>
 
+<!-- 예약취소 -->
+<update id="reserCancel">
+UPDATE reserInfo set ri_code = 'RI004', ri_cancelreason = #{param2} WHERE ri_num = #{param1}
+</update>
 
+<!-- 예약확정 취소 -->
+<update id="decideCancel">
+UPDATE reserInfo set ri_code = 'RI004', ri_cancelreason = #{param2} WHERE ri_num = #{param1}
+</update>
 
 <select id="overCheck" resultType="int">
 	SELECT COUNT(U_userid) FROM userinfo WHERE ${param1} = #{param2}

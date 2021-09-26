@@ -65,7 +65,55 @@ function decideButton(number){
 	});
 }
 
+//예약 대기중인거 취소하기
+function cancelButton(number){
+	console.log("예약취소간다?");
+	var cancelReason = prompt("예약 취소 사유가 무엇인가요?");
+	console.log("사유: ",cancelReason);
+	if(!cancelReason){
+		return false;
+	}
+	var param = {};
+	param.num = number;
+	param.cancelReason = cancelReason;
+	$.ajax({
+		type : 'get',
+		url : 'reserCancel',
+		data : param,
+		success : function(data){
+			console.log(data);
+			waiting();
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
 
+//예약 확정인거 취소하기
+function decideCancelButton(number){
+	console.log("예약취소간다?");
+	var cancelReason = prompt("예약 취소 사유가 무엇인가요?");
+	console.log("사유: ",cancelReason);
+	if(!cancelReason){
+		return false;
+	}
+	var param = {};
+	param.num = number;
+	param.cancelReason = cancelReason;
+	$.ajax({
+		type : 'get',
+		url : 'decideCancel',
+		data : param,
+		success : function(data){
+			console.log(data);
+			decide();
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
 //대기중
 function waiting(){
 	console.log("여기옴?");
@@ -132,7 +180,8 @@ function waitDetailDrawList(list) {
 		content += "<tr><td>소요시간</td><td>"+item.RI_DURINGTIME+"</td></tr>";
 		content += "<tr><td>인원수</td><td>"+item.RI_PEOPLE+"</td></tr>";
 		content += "<tr><td>결제금액</td><td>"+item.RI_PAY+"</td></tr>";
-		content += "<tr><td colspan='2'><button onclick='decideButton("+item.RI_NUM+")'>확정하기</button></td>";
+		content += "<tr><td><button onclick='decideButton("+item.RI_NUM+")'>확정하기</button></td>";
+		content += "<td><button onclick='cancelButton("+item.RI_NUM+")'>취소하기</button></td></tr>";
 		content += "</table>";
 		content += "</div>";
 	});
@@ -159,6 +208,7 @@ function decideDetailDrawList(list) {
 		content += "<tr><td>소요시간</td><td>"+item.RI_DURINGTIME+"</td></tr>";
 		content += "<tr><td>인원수</td><td>"+item.RI_PEOPLE+"</td></tr>";
 		content += "<tr><td>결제금액</td><td>"+item.RI_PAY+"</td></tr>";
+		content += "<tr><td colspan='2'><button onclick='decideCancelButton("+item.RI_NUM+")'>확정취소하기</button></td></tr>";
 		content +="</table>"
 		content += "</div>";
 	});
