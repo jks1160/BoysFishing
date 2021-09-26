@@ -123,11 +123,12 @@ var O_nuel = year+'-'+month+'-'+date;
 
 //페이징 처리시에 페이지 변수 선언
  var p_page = 1;
- var ship_Num;
+ var ship_Num = 0;
 //페이징 기능 뿌리는 함수
  $("#pagePerNum").change(function(){
 		//페이징 초기화
 		$("#pagination").twbsPagination('destroy');
+		
 		reserHistory(ship_Num, p_page);
 	});
  
@@ -149,6 +150,8 @@ var O_nuel = year+'-'+month+'-'+date;
 		var param = {};
 		param.shipNum = shipNum;
 		param.page = p_page;
+		console.log("배번호: ",ship_Num);
+		console.log("현재페이지: ",p_page);
 		$.ajax({
 			type : 'get',
 			url : 'reserHistory',
@@ -190,7 +193,7 @@ var O_nuel = year+'-'+month+'-'+date;
 	function reserHitoryFormDraw(){
 		var content = "";
 		content += "<table class='table-bordered'><thead>";
-		content += "<tr><th>예약자 닉네임</th><th>무인도 이름</th><th>운행날짜</th><th>인원수</th><th>결제 금액</th><th>예약 날짜</th></tr>";
+		content += "<tr><th>예약자 닉네임</th><th>무인도 이름</th><th>운행날짜</th><th>인원수</th><th>결제 금액</th><th>예약 날짜</th><th>예약상태</th></tr>";
 		content += "</thead><tbody id='reserHistory'></tbody></table>";
 		
 		$("#tableDraw").empty();
@@ -203,6 +206,20 @@ var O_nuel = year+'-'+month+'-'+date;
 		var content = "";
 		list.list.forEach(function(item, idx) {
 			console.log(item, idx);
+			switch(item.RI_CODE){
+			case "RI002":
+				code = "예약확정";
+				break;
+			case "RI003":
+				code = "유저예약취소";
+				break;
+			case "RI004":
+				code = "선장예약취소";
+				break;
+			case "RI005":
+				code = "선장예약확정취소";
+				break;
+			}
 			var opDate = new Date(item.OP_DATE);
 			var reserDate = new Date(item.RI_RESERDATE);
 			content += "<tr>";
@@ -212,6 +229,7 @@ var O_nuel = year+'-'+month+'-'+date;
 			content += "<td>"+item.RI_PEOPLE+"</td>";
 			content += "<td>"+item.RI_PAY+"</td>";
 			content += "<td>"+reserDate.getFullYear() +"-"+  (reserDate.getMonth()+1) +"-"+ reserDate.getDate() +" "+ reserDate.getHours() +":"+ reserDate.getMinutes() +"</td>";
+			content += "<td>"+code+"</td></tr>";
 			
 							
 			
@@ -260,7 +278,7 @@ var O_nuel = year+'-'+month+'-'+date;
 
 <div class="entire">
 	<hr>
-	<h3>예약 확정 히스토리</h3>
+	<h3>예약 히스토리</h3>
 		<select id = "shipName" name = "s_num" onchange="chageShopSelect1()">
 			<<option value='0'>선택</option>
 			<c:forEach var="name" items="${shipName}">

@@ -142,6 +142,7 @@ pointListCall(p_page);
 
 $("#pagePerNum").change(function(){
 	//페이징 초기화
+	console.log("뿌찍");
 	$("#pagination").twbsPagination('destroy');
 	pointlistCall(p_page);
 });
