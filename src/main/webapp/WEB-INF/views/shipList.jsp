@@ -60,7 +60,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 회원정보</h2></div>
+	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 배 정보</h2></div>
 	<div class="entire">
 	
 	<div class="rounded float-start">
@@ -105,18 +105,28 @@
 		<tr>
 			<td colspan="2">
 			
-			<button type="button" onclick="">수정하기</button>
+			<button type="button" onclick="shipUpdate()">수정하기</button>
+		
 			
 		</tr>
 		</table>
 		</div>
 		</div>
+		
+		<form id="shipUpdate" action="shipUpdateForm" method="POST">
+			<input type="hidden" id="num" name="s_num">
+			<input type="hidden" id="name" name="s_name">
+			<input type="hidden" id="minpassenger" name="s_minpassenger">
+			<input type="hidden" id="maxpassenger" name="s_maxpassenger">
+			<input type="hidden" id="path" name="path">
+		</form>
 	</body>
 	<script>
 
 	window.onload = function(){
+		
 		var s_name = $("#shipName").val();
-
+		
 		$.ajax({
 			url:'shipListDetail',
 			type:'POST',
@@ -134,6 +144,11 @@
 				}else{
 					$("#profileImg").attr("src",data.path);
 				}
+				if($("#shipNameOption option:selected").val() != data.dto.s_name){
+					$("#shipNameOption").find('option:first').prop('selected', true);
+					}
+				$("#num").val(data.dto.s_num);
+				console.log("s_num :"+data.dto.s_num);
 			},
 			error:function(e){
 				console.log(e);
@@ -164,11 +179,34 @@
 				$("#profileImg").attr("src",data.path);
 				console.log(data.path);
 				}
+				$("#num").val(data.dto.s_num);
+				console.log("s_num :"+data.dto.s_num);
 			},
 			error:function(e){
 				console.log(e);
 			}	
 		}); 
+	}
+	
+	function shipUpdate(){
+		var s_name = $("#s_name").html();
+		var s_minpassenger = $("#s_minpassenger").html();
+		var s_maxpassenger = $("#s_maxpassenger").html();
+		var profileImg = $("#profileImg").attr("src");
+		var Img = profileImg.substring(1,6)
+		
+		if(Img != "photo"){
+			profileImg = null;
+		}
+		console.log("profileImg : "+profileImg);
+		console.log("Img : "+Img);
+		$("#name").val(s_name);
+		$("#minpassenger").val(s_minpassenger);
+		$("#maxpassenger").val(s_maxpassenger);
+		$("#path").val(profileImg);
+		
+  	    $("#shipUpdate").submit();
+	
 	}
 	
 	</script>

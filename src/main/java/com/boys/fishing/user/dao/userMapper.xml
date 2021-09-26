@@ -57,7 +57,7 @@
 	SELECT * FROM ship s left OUTER JOIN shipimg i ON s.s_num=i.s_num WHERE s.u_userid=#{param1} AND s_name=#{param2}
 </select>
 
-<update id="shipImg" parameterType="hashmap">
+<update id="shipImgY" parameterType="hashmap">
 	UPDATE ship set s_img='Y' WHERE s_num=#{s_num}
 </update>
 
@@ -69,6 +69,22 @@
 	SELECT * FROM reserinfo LEFT OUTER JOIN island i ON( i.i_num = reserinfo.i_num) WHERE ri_num=#{params}
 </select>
 
+<update  id="shipUpdate" parameterType="reser">
+	UPDATE ship set s_name=#{s_name},s_minpassenger=#{s_minpassenger},s_maxpassenger=#{s_maxpassenger},s_equipment=#{s_equipment},
+	s_convenient=#{s_convenient},s_address=#{s_address} WHERE s_num=#{s_num}
+</update>
+
+<update id="shipImgUpdate" parameterType="hashmap">
+	UPDATE shipimg set si_name=#{newFileName} WHERE s_num=#{s_num}
+</update>
+
+<delete id="shipImgDelete" parameterType="hashmap">
+	DELETE FROM shipimg WHERE s_num=#{s_num}
+</delete>
+
+<update id="shipImgN" parameterType="hashmap">
+	UPDATE ship set s_img='N' WHERE s_num=#{s_num}
+</update>
 
 
 <!-- 마이페이지 메인 -->

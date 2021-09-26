@@ -37,6 +37,9 @@
  		 margin-bottom:50px;
  		 text-align: center;
  		 }
+ 		 .fc-event-title-container{
+    	 cursor : pointer
+  } 
  		 
  		 .entire{
 		text-align: center;
@@ -62,6 +65,11 @@
 	
 	</div>
 	
+
+	<form id="reserveForm" action="myReserveDetail" method="POST">
+		<input type="hidden" id="ri_num" name="ri_num">
+	</form>
+
 	
 	<!-- 회원유저 예약 히스토리 -->
 	<div class='entire'>
@@ -90,6 +98,7 @@
 	</div>
 	
 	
+
 	</body>
 	<script>
 	//회원 예약 히스토리
@@ -211,7 +220,7 @@ function reserHistoryDrawList(list) {
 	      navLinks: false, // can click day/week names to navigate views
 	      businessHours: true, // display business hours
 	      locale: "ko", //한글 설정
-	      editable: true, // 에디터 가능한지 
+	      editable: false, // 에디터 가능한지 
 	      selectable: true, //선택 가능한지
 	      dayMaxEventRows: true,
 	      dateClick: function(e){
@@ -278,8 +287,10 @@ function reserHistoryDrawList(list) {
 	    	  var day = today.toISOString();
 	    	  var ri_num = event.event.extendedProps.ri_num;
 	    	  console.log("예약번호 :"+ ri_num);
-	    	  //location.href="/fishing/captainScheduleDetail?date="+day.substr(0,10);
-	    	  location.href="myReserveDetail?ri_num="+ri_num;
+	    	  $("#ri_num").val(ri_num);
+	    	  console.log($("#ri_num").val());
+	    	  $("#reserveForm").submit();
+	    	 
 	      },// events:function end */ 
 	      views :{ // 이벤트 맥시멈 제한(보이는거)
 				timeGrid: {

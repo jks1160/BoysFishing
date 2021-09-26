@@ -47,4 +47,17 @@
 		 where u_userid=#{u_userid}
 	</update>
 
+
+	<select id="peoplelist"  resultType="manageDTO">
+    	select * from (select rownum as num, userinfo.* from userinfo order by u_joindate asc) u left outer join captain c on u.u_userid=c.u_userid where num between 1 and 5	
+    	</select>	
+	
+	<select id="peoplesearch"  resultType="manageDTO" parameterType="String">
+	select * from userinfo u left outer join captain c on u.u_userid=c.u_userid where u.u_userid LIKE '%'||#{searchid}||'%' 
+	</select>
+	
+	<select id="peoplelistcall"  resultType="manageDTO" parameterType="int">
+    	select * from (select rownum as num, userinfo.* from userinfo order by u_joindate asc) u left outer join captain c on u.u_userid=c.u_userid where num between #{param1} and #{param2}	
+    	</select>
+	
 </mapper>

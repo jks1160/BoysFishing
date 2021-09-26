@@ -89,7 +89,7 @@ div.card{
 						<h4 class="my-2 fw-bold">섬을 예약해보세요!</h4>
 						<p class="text-muted mt-2">평소에 어떻게 가야 할지 몰랐던 그 섬! <br>저희가 
 						단 한번의 클릭으로 해결해 드립니다!</p>
-						<input class="btn btn-primary" value="자세히 보기" onclick="location.href='/fishing/islandsReservation'"/>
+						<input type="button" class="btn btn-primary" value="자세히 보기" onclick="location.href='/fishing/islandsReservation'"/>
 					</div>
 					<div class="col-md-4">
 						<span class="fa-stack fa-4x"> <i
@@ -98,7 +98,7 @@ div.card{
 						<h4 class="my-2 fw-bold">경험을 공유하세요</h4>
 						<p class="text-muted">섬을 좋아하는 모두가 이용할수 있는 커뮤니티입니다!<br>
 						섬섬톡을 확인해보세요!</p>
-						<input class="btn btn-primary" value="자세히 보기" onclick="location.href='/fishing/someTalk'"/>
+						<input type="button" class="btn btn-primary" value="자세히 보기" onclick="location.href='/fishing/someTalk'"/>
 					</div>
 					<div class="col-md-4">
 						<span class="fa-stack fa-4x"> <i
@@ -106,7 +106,7 @@ div.card{
 						</span>
 						<h4 class="my-2 fw-bold">이번주 날씨를 확인하세요!</h4>
 						<p class="text-muted">간편하게 날씨를 확인하여 예약에 등록!<br>한눈에 날씨를 확인할수 있습니다~</p>
-						<input class="btn btn-primary" value="자세히 보기" onclick="location.href='/fishing/weekendweather'"/>
+						<input type="button" class="btn btn-primary" value="자세히 보기" onclick="location.href='/fishing/weekendweather'"/>
 					</div>
 				</div>
 			</div>
@@ -130,43 +130,47 @@ div.card{
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+          <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a href="/" style="{display:block;{color:black}">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a href="/" style="{display:block;{color:black}">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a href="/" style="{display:block;{color:black}">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>
-            <div class="col mx-1">
+            <div class="col mx-1 border">
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
+	                    <div class="card-body">
+                    	<a href="/" style="{display:block;{color:black}">
+		                      <b class="card-title border">Card title</b>
+		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	                    </a>
                     </div>
                 </div>
             </div>

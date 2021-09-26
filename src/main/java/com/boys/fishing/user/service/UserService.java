@@ -465,37 +465,37 @@ public class UserService {
 		
 }
 	@Transactional
-	public ModelAndView shipJoin(String newFileName, HashMap<String, String> params, String u_userid) { //영환
+	public ModelAndView shipJoin(String newFileName, HashMap<String, String> params, String u_userid, String ship) { //영환
 		logger.info("배 등록");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/shipList");
 		String s_address = params.get("address") + " " +params.get("addressDetail");
 		
 		//장비
-		String s_equipment = "";
+		String equipment = "";
 		for(int i=0; i < 6; i++) {
 			String e = "e_"+i;
 			String ee = params.get(e);
 			if(ee != null) {
 				String eee = params.get(e)+","; 
-				s_equipment += eee; 
+				equipment += eee; 
 				
 			}
 		}
-		s_equipment = s_equipment.substring(0,s_equipment.length()-1);
+		String s_equipment = equipment.substring(0,equipment.length()-1);
 		
 		//편의시설
-		String s_convenient = "";
+		String convenient = "";
 		for(int i=0; i < 11; i++) {
 			String c = "c_"+i;
 			String cc = params.get(c);
 			if(cc != null) {
 				String ccc = params.get(c)+","; 
-				s_convenient += ccc; 
+				convenient += ccc; 
 				
 			}
 		}
-		s_convenient = s_convenient.substring(0,s_convenient.length()-1);
+		String s_convenient = convenient.substring(0,convenient.length()-1);
 		
 		logger.info("장비 :"+s_equipment);
 		logger.info("편의시설 :"+s_convenient);
@@ -518,14 +518,30 @@ public class UserService {
 		dto.setS_minpassenger(Integer.parseInt(params.get("s_minpassenger")));
 		dto.setS_maxpassenger(Integer.parseInt(params.get("s_maxpassenger")));
 		
-		dao.shipJoin(dto); //배 정보 인서트 (이미지여부 N) 배 넘버 key값 가져오기
-		logger.info("등록한 s_num :"+dto.getS_num());
-		String s_num = Integer.toString(dto.getS_num());
-		params.put("s_num", s_num); //key값 params에 넣기
+		if(ship.equals("join")) { // 배 신규 등록할 경우
+			dao.shipJoin(dto); //배 정보 인서트 (이미지여부 N) 배 넘버 key값 가져오기
+			logger.info("등록한 s_num :"+dto.getS_num());
+			String s_num = Integer.toString(dto.getS_num());
+			params.put("s_num", s_num); //key값 params에 넣기
 		if(newFileName !=null) { //이미지가 있을 경우 
-			dao.shipImg(params); //이미지 여부 Y로 업데이트
+			dao.shipImgY(params); //이미지 여부 Y로 업데이트
 			dao.shipImgInsert(params); //이미지 테이블에 인서트
+			}
 		}
+		
+		if(ship.equals("update")) { // 배 정보 업데이트 할 경우
+			dao.shipUpdate(dto); //배 정보 업데이트 (이미지여부 N) 배 넘버 key값 가져오기
+			logger.info("업데이트 s_num :"+params.get("s_num"));
+			//String s_num = Integer.toString(dto.getS_num());
+			//params.put("s_num", s_num); //key값 params에 넣기
+		if(newFileName !=null) { //이미지가 있을 경우 
+			dao.shipImgUpdate(params); // 이미지 테이블 업데이트
+		}else{
+			dao.shipImgDelete(params); //이미지 테이블 딜리트
+			dao.shipImgN(params); // 이미지 여부 N 업데이트
+			}
+		}
+		
 		return mav;
 	}
 
