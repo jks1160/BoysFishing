@@ -111,6 +111,17 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	@ResponseBody
+	@RequestMapping(value="/reserHistoryList")
+	public HashMap<String,Object> reserHistoryList(HttpSession session, int page) {
+		logger.info("포인트 히스토리 리스트 받기 요청");
+		HashMap<String, String> userInfo = (HashMap<String, String>) session.getAttribute("userinfo");
+		String userId = userInfo.get("u_userid");
+		logger.info("page:"+page+" user:"+userId);
+		return myservice.reserHistoryList(page, userId);
+	}
+	
+	
+	@ResponseBody
 	@RequestMapping(value="/mp_sumsumlist")
 	public HashMap<String,Object> sumsumlist(int page, HttpSession session) {
 		logger.info("자유글 리스트 받기 요청");

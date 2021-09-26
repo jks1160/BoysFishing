@@ -24,9 +24,6 @@
 		margin-bottom: 5%;
 		margin-left: 20%;
 	}
-	.user{
-		display: inline-block;
-	}
 	.p_history{
 		text-align: center;
 	}

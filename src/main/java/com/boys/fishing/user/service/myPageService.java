@@ -340,6 +340,28 @@ public class myPageService {
 		return String.valueOf(success);
 	}
 
+	public HashMap<String, Object> reserHistoryList(int page, String userId) {
+		logger.info("회원 포인트히스토리 조회 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int totalPage;
+		int pagePerCnt = 5;
+		int end = page*pagePerCnt;
+		int start = (end-pagePerCnt)+1;
+		
+		ArrayList<HashMap<String, Object>> reserHistoryList = new ArrayList<HashMap<String,Object>>();
+		totalPage = dao.totalPageR(userId);
+		reserHistoryList = dao.reserHistoryList(start,userId,end);
+		int pages = (totalPage%pagePerCnt == 0) ? totalPage/pagePerCnt : totalPage/pagePerCnt+1;
+		logger.info("총 페이지: "+totalPage);
+		
+		page = page>pages ? pages : page;
+		
+		map.put("list", reserHistoryList);
+		map.put("totalPage", pages);
+		map.put("currPage", page);
+		return map;
+	}
+
 		
 		
 		
