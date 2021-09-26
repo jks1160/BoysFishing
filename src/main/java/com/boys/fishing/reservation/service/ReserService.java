@@ -259,8 +259,19 @@ public class ReserService {
 		
 		logger.info("스케줄 삭제 서비스 요청 아이디 : {}", id);
 		logger.info("삭제 할 스케줄 데이터 : {} ", params);
-		//params.put(, value)
-		//int success = reserDAO.delSchdule();
+		
+		int checker = reserDAO.checkReser(params);
+		String msg ="스케줄 삭제 완료";
+		
+		if(checker>0) {
+			logger.info("checker : {} ", checker);
+			msg =" 확정 된 예약이 있습니다!";
+			map.put("msg", msg);
+		}else {
+			int success = reserDAO.delSchdule(params);
+		}
+		
+		
 		
 		return map;
 	}
