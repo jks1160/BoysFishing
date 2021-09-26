@@ -70,9 +70,9 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 		AND op.op_starttime = #{op_starttime} AND op.op_returntime = #{op_returntime} AND op.op_duringtime = #{op_duringtime}
 	</select>
 	<!-- 예약 요청 삭제 -->
-	<delete id="delReser" parameterType="String">
-		DELETE FROM reserinfo ri WHERE ri_num= #{param1}
-	</delete>
+	<update id="delReser" parameterType="String">
+		UPDATE reserinfo SET ri_code= 'RI004' WHERE ri_num = #{param1}
+	</update>
 	<!-- 스케줄 삭제 -->
 	<delete id="delSchdule" parameterType="hashMap">
 		DELETE FROM operrange WHERE op_date =#{op_date} AND s_num = #{s_num} AND i_num = #{i_num} AND op_startpoint= #{op_startpoint} AND op_starttime= #{op_starttime} AND op_duringtime = #{op_duringtime} AND op_returntime = #{op_returntime} AND op_price = #{op_price} 
