@@ -287,12 +287,11 @@ public class ReserService {
 		}else { //예약 확정이 없으면 예약 요청이 있는지 확인, 예약 번호 가져오기
 			ArrayList<String> del_list = reserDAO.checkNReser(params);
 			if(del_list.size() >0) { // 예약 요청들 있는지 확인 후 삭제
-				logger.info("머야 : {}",del_list.size() );
-				logger.info("먼데 : {}", del_list.get(0));
 				// 예약 요청 삭제
 				for (String ri_num : del_list) { // 모든 예약 요청 번호들 삭제
-					logger.info("ri_num :{}",ri_num); 
-					reserDAO.delReser(ri_num); 
+					logger.info("ri_num :{}",ri_num);
+					reserDAO.delReser(ri_num); // 예약 요청 삭제  
+					reserDAO.returnPoint(ri_num); // 돈 환불
 				}
 				 // 스케줄 삭제
 				success = reserDAO.delSchdule(params);

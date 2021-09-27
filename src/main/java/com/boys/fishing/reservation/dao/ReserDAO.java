@@ -33,6 +33,8 @@ public interface ReserDAO {
 
 	int tryReser(String id, String capId, int i, int j);
 
+	void returnPoint(String ri_num);
+
 
 
 	
