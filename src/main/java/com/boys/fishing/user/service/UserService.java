@@ -585,22 +585,23 @@ public class UserService {
 		ModelAndView mav = new ModelAndView();
 		String s_userid = dao.shipOwner(s_num);
 		int balance = dao.point(s_userid);
-		String path = "myUserReserve";
+		String path = "myReserveDetail";
+		logger.info("코드는?: {}",ri_code);
 		if(ri_code.equals("RI001")) {
+			logger.info("안녕 : {}",ri_code);
 			ri_code = "RI003";
 			dao.reserveCancelPoint(u_userid,ri_pay); //금액 환불
 			dao.reserveCancel(ri_num,ri_code);
-			dao.reserveCancel(ri_num,ri_code);
 		}
-		if(ri_code.equals("RI002") && balance>Integer.parseInt(ri_pay)) {
+		if(ri_code.equals("RI002") && balance>=Integer.parseInt(ri_pay)) {
+			
 			ri_code = "RI006";
+			logger.info("안녕 : {}",ri_code);
 			dao.reserveCancelCap(u_userid,s_userid,ri_pay); //선장에게 돈받아와서
 			dao.reserveCancelUser(u_userid,s_userid,ri_pay); //유저에게 입금
 			dao.reserveCancel(ri_num,ri_code);
-			dao.reserveCancel(ri_num,ri_code);
 		}else {
-			rttr.addFlashAttribute("msg","환불이 불가능 합니다. 선장에게 문의 바랍니다.");
-			path = "redirect:/myReserveDetail";
+			mav.addObject("msg","환불이 불가능 합니다. 선장에게 문의 바랍니다.");
 		}
 		mav.setViewName(path);
 		return mav;

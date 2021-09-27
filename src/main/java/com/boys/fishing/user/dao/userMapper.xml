@@ -101,7 +101,7 @@
 </insert>
 
 <insert id="reserveCancelCap"  parameterType="String">
-	INSERT INTO point VALUES(#{param2},'PNT_004',SYSDATE,#{param1},#{param3},
+	INSERT INTO point VALUES(#{param2},'PNT_006',SYSDATE,#{param1},#{param3},
 	(select p_balance from(select * from point where p_userid = #{param2} order by p_regdate DESC) 
 	where ROWNUM = 1)- #{param3})
 </insert>

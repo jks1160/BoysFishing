@@ -143,7 +143,7 @@
 			<input type="hidden" name="ri_code" value="${map.RI_CODE }">
 			<input type="hidden" name="s_num" value="${map.S_NUM }">
 			<input type="hidden" name="ri_pay" value="${map.RI_PAY }">
-			<button type="submit" >취소하기</button>
+			<button >취소하기</button>
 			</form>
 		</tr>
 		</c:when>
