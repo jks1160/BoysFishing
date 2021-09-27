@@ -33,7 +33,7 @@ public class BoardController {
 	@Autowired BoardService service;
 	
 	@RequestMapping(value = "/someTalk")
-	public ModelAndView someTalk(@RequestParam(required = false) String selec) {
+	public ModelAndView someTalk(@RequestParam(required = false) String selec, HttpSession session) {
 		logger.info("섬섬톡페이지 요청");
 		logger.info("cate : "+selec);
 		if(selec == null) {
@@ -51,12 +51,13 @@ public class BoardController {
 			title = "정보게시판";
 			break;
 		}
+		
 		return service.someTalkList(selec).addObject("selec",title);
 	}
 	@RequestMapping(value = "/someWriteForm")
 	public ModelAndView someWriteForm(HttpSession session) {
 		logger.info("섬섬톡 글쓰기폼 요청");
-		
+		session.removeAttribute("fileList");
 		
 		return service.someWriteForm();
 	}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd">
+
+	<!-- 스케쥴러는 servlet에서 실행이 되야한다. -->
+	<!-- 아래 두 방법을 혼용하는 것은 위험하다. 둘 중 하나만 선택하라. -->
+	<!-- 어노테이션으로 등록 -->
+	<!-- @Scheduler 어노테이션 검색해서 실행 -->
+	<task:annotation-driven/>
+	
+	<!-- 빈으로 등록하는 방법 -->
+	<!-- fixed - * : 매 초마다 실행시 유리 -->
+	<!-- cron : 매 분/시/일/요일/월/년 마다 실행시 유리 -->
+	<!-- <bean id="scheduleJob" class="com.boys.fishing.reservation.service.SchedulerService"/>
+		<task:scheduled-tasks>
+			<task:scheduled ref="scheduleJob" method="checker" cron="0/5 * * * * MON-FRI"/>
+		</task:scheduled-tasks>
+	 -->
+
+</beans>

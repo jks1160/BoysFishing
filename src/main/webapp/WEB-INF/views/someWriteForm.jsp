@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="icon.png">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
-<title>j-query 강좌</title>
+<title>SOMEFISH 섬섬톡 글쓰기</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -37,7 +37,7 @@ img {
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<div class="container m-5 h-100">
+<div class="container mt-5 h-100">
 	<form action="someWrite" method="POST">
 	<div class="row justify-content-md-center">
 		<div class="col-10">
