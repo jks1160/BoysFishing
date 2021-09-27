@@ -181,8 +181,8 @@ function waitDetailDrawList(list) {
 		content += "<tr><td>소요시간</td><td>"+item.RI_DURINGTIME+"</td></tr>";
 		content += "<tr><td>인원수</td><td>"+item.RI_PEOPLE+"</td></tr>";
 		content += "<tr><td>결제금액</td><td>"+item.RI_PAY+"</td></tr>";
-		content += "<tr><td><button onclick='decideButton("+item.RI_NUM+")'>확정하기</button></td>";
-		content += "<td><button onclick='cancelButton("+item.RI_NUM+")'>취소하기</button></td></tr>";
+		content += "<tr><td colspan='2'><button onclick='decideButton("+item.RI_NUM+")'>확정하기</button>&nbsp;<button onclick='cancelButton("+item.RI_NUM+")'>취소하기</button></td>";
+	
 		content += "</table>";
 		content += "</div>";
 		content += "<br/>";
