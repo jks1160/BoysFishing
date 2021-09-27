@@ -99,7 +99,7 @@ function cancelButton(number){
 
 //예약 확정인거 취소하기
 function decideCancelButton(number){
-	console.log("예약취소간다?");
+	console.log("예약 확정 취소");
 	var cancelReason = prompt("예약 취소 사유가 무엇인가요?");
 	console.log("사유: ",cancelReason);
 	if(!cancelReason){
@@ -113,8 +113,15 @@ function decideCancelButton(number){
 		url : 'decideCancel',
 		data : param,
 		success : function(data){
-			console.log(data);
-			decide();
+			console.log("취소 확정 데이터:" ,data);
+			if(data >2){ // data == 3일 경우 
+				alert("예약 확정이 취소되었습니다!");
+				
+				decide();
+			}else{
+				alert("보유하신 포인트가 적습니다!");
+			}
+			
 		},
 		error : function(e){
 			console.log(e);
