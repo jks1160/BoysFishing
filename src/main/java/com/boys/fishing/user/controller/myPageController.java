@@ -261,8 +261,13 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		return myservice.reserDecide(num,capId);
 	}
-	
-	
+	/** 조재현, 한준성
+	 * 예약 대기 중 취소하기 및 포인트 반납(선장에게는 영향 X)
+	 * 
+	 * @param num
+	 * @param cancelReason
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/reserCancel")
 	public String reserCancel(String num, String cancelReason) {

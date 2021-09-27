@@ -344,12 +344,22 @@ public class myPageService {
 		mav.setViewName("captainSchedule");
 		return mav;
 	}
-
+	
+	
+	/** 조재현, 한준성
+	 *  선장이 예약 요청이 온 것을 삭제하고 포인트를 돌려준다.
+	 *  
+	 * @param num 예약 번호
+	 * @param cancelReason 취소 이유
+	 * @return
+	 */
 	//선장이 운항 예약 취소
+	@Transactional
 	public String reserCancel(String num, String cancelReason) {
-		logger.info("예약취소 서비스 진입");
-		int success;
-		success = dao.reserCancel(num,cancelReason);
+		logger.info("예약요청 취소 서비스 진입");
+		int success = 0;
+		success += dao.reserCancel(num,cancelReason); // 예약 취소
+		success += reserDAO.returnPoint(num);
 		return String.valueOf(success);
 	}
 
@@ -363,7 +373,7 @@ public class myPageService {
 	 */
 	@Transactional
 	public String decideCancel(String num, String cancelReason, String capId) {
-		logger.info("예약취소 서비스 진입");
+		logger.info("예약확정 취소 서비스 진입");
 		int success;
 		
 		//선장이 환불 할 돈이 없을 경우.
