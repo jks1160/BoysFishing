@@ -203,4 +203,16 @@ public class BoardService {
 		return "redirect:/someTalk";
 	}
 
+	public ModelAndView qnaanswer(String answervalue, String qnum) {
+		ModelAndView mav = new ModelAndView();
+		int suc = dao.qnaanswer(answervalue,qnum);
+		String page="redirect:/qna";
+		System.out.println("성공?" + suc);
+		mav.setViewName(page);
+		return mav;
+	}
+	
+	
+	
+
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -165,6 +166,12 @@ public class BoardController {
 		logger.info("Some 삭제 요청");
 		
 		return service.someDelete(b_num, attr);
+	}
+	
+	@RequestMapping(value = "/qnaanswer")
+	public ModelAndView qnaanswer(@RequestParam String answervalue, @RequestParam String qnum) {
+		logger.info("확인용도 {},{}",answervalue,qnum);		
+		return service.qnaanswer(answervalue, qnum);
 	}
 	
 }
