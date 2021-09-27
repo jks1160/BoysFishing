@@ -22,8 +22,13 @@
 		text-align : center;
 }
 .entire1{
-		margin:auto;
-		text-align : center;
+		
+		
+		text-align: center;
+		margin-top: 2%;
+		margin-right: 20%;
+		margin-bottom: 2%;
+		margin-left: 20%;
 }
 table{
 		width:50px;
@@ -183,7 +188,7 @@ function waitDetailDrawList(list) {
 		console.log(item, idx);
 		content += "<hr>";
 		content += "<br/>";
-		content += "<div class='entire'>";
+		content += "<div class='entire1'>";
 		content += "<table class='table-bordered container justify-content-center'>";
 		content += "<tr style='background-color:lightgrey'><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
 		content += "<tr><td>예약번호</td><td>"+item.RI_NUM+"</td></tr>";

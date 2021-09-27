@@ -27,6 +27,6 @@
 	
 	<!-- 어노테이션으로 스케줄러 등록 -->
 	<!-- @Scheduled 어노테이션을 검색해서 실행 -->
-	<task:annotation-driven/>
+	<!-- <task:annotation-driven/> -->
 	
 </beans:beans>

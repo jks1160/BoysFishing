@@ -43,6 +43,8 @@ public interface ReserDAO {
 
 	int minusCap(String capId, String reserId, int reserMoney, int i);
 
+	ArrayList<ReserDTO> getOldReser();
+
 
 
 	
