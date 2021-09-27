@@ -45,12 +45,18 @@
 		margin-bottom: 5%;
 		margin-left: 20%;
 	}
+		.date{
+		text-align: center;
+		margin-right: 20%;
+		padding-right: 25%;
+		}
 		</style>
 
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 예약정보</h2></div>
+	<div class="date"><h4 id ="onDate">탑승 날짜 : ${map.RI_DATE}</h4></div>
 	<div class="entire">
 	<table class="table table-bordered">
 	<thead>
@@ -121,13 +127,15 @@
 			</c:choose>
 		</tr>
 		<c:choose>
-		<c:when test="${map.RI_CODE eq 'RI004' || map.RI_CODE eq 'RI004' }">
+		<c:when test="${map.RI_CODE eq 'RI004' || map.RI_CODE eq 'RI005' }">
 		<tr>
 			<th>취소사유</th>
 			<td>${map.RI_CANCELREASON}원</td>
 		</tr>
 		</c:when>
 		</c:choose>
+		<c:choose>
+		<c:when test="${map.RI_DATE gt today}">
 		<tr>
 			<td colspan="2">
 			<form action="reserveCancel" method="POST">
@@ -136,10 +144,15 @@
 			<button type="submit" >취소하기</button>
 			</form>
 		</tr>
+		</c:when>
+		</c:choose>
 		</table>
 		</div>
 	</body>
 	<script>
-	
+ 	var onDate = $("#onDate").html();
+ 	var Date = onDate.substring(0,onDate.lastIndexOf(" ")+1);
+ 	console.log(Date);
+ 	$("#onDate").html(Date);
 	</script>
 </html>

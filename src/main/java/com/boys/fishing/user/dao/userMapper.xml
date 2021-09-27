@@ -295,4 +295,21 @@ UPDATE reserInfo set ri_code = 'RI005', ri_cancelreason = #{param2} WHERE ri_num
 SELECT * FROM (SELECT ROWNUM AS NUM, board.* FROM board order by b_regdate desc) b left outer join boardimg bi on b.b_num = bi.bi_num where rownum&lt;=5
 </select>
 
+<!-- 예약 확정 시 선장에게 포인트 지급 -->
+<insert id="getReserPoint" >
+	INSERT INTO point VALUES(#{param1}, 
+	'PNT_005', 
+	SYSDATE, 
+	(SELECT ri_userid FROM reserinfo WHERE ri_num =#{param2}), 
+	(SELECT ri_pay FROM reserinfo WHERE ri_num=#{param2}), 
+	(select p_balance
+from(
+   select *
+   from point
+   where p_userid = #{param1}
+   order by p_regdate DESC
+)
+where ROWNUM = 1) + (SELECT ri_pay FROM reserinfo WHERE ri_num=#{param2}))
+</insert>
+
 </mapper>

@@ -56,8 +56,15 @@ function decideButton(number){
 		url : 'reserDecide',
 		data : param,
 		success : function(data){
-			console.log(data);
-			waiting();
+			console.log("데이터 :", data);
+			if(data>1){
+				alert("확정 완료");
+				waiting(); // 다시 그려주기 위함.				
+			}else{
+				alert("다시 시도해 주세요!");
+				waiting(); // 다시 그려주기 위함.
+			}
+			
 		},
 		error : function(e){
 			console.log(e);
@@ -81,7 +88,7 @@ function cancelButton(number){
 		url : 'reserCancel',
 		data : param,
 		success : function(data){
-			console.log(data);
+			console.log("데이터 :",data);
 			waiting();
 		},
 		error : function(e){

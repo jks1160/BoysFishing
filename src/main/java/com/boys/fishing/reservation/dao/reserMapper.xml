@@ -71,7 +71,7 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 	</select>
 	<!-- 예약 요청 삭제 -->
 	<update id="delReser" parameterType="String">
-		UPDATE reserinfo SET ri_code= 'RI004' WHERE ri_num = #{param1}
+		UPDATE reserinfo SET ri_code= 'RI004', RI_cancelreason='스케줄 취소' WHERE ri_num = #{param1}
 	</update>
 	<!-- 스케줄 삭제 -->
 	<delete id="delSchdule" parameterType="hashMap">
@@ -94,4 +94,9 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
    		select * from point where p_userid = (SELECT ri_userid FROM reserinfo WHERE ri_num =#{param1})
    order by p_regdate DESC ) where ROWNUM = 1) + (SELECT ri_pay FROM reserinfo WHERE ri_num = #{param1}))
 	</insert>
+	<!-- 예약자 아이디 가져오기 -->
+	<select id="getReserId" resultType="String">
+		SELECT ri_userid FROM reserinfo WHERE ri_num = #{param1}
+	</select>
+	
 </mapper>
