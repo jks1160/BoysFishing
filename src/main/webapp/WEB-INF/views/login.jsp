@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="icon.png">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
-<title>SOMEFISH</title>
+<title>SOMEFISH 로그인</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link

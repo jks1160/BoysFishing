@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initail-scale=1.0">
-<title>SOMEFISH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -45,14 +44,17 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<table class="table table-condensed table-striped">
-						<thead>
+						<thead style="border-bottom: 2px solid black">
 							<tr data-toggle="collapse" data-target="#demo1"class="accordion-toggle">
 								<td>
 									<button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button>
 								</td>
-								<th>작성자</th>
-								<th>제목</th>
-								<th>내용</th>
+								<th class="text-center">작성자</th>
+								<th class="text-center">제목</th>
+								<th class="text-center">내용</th>
+								<c:if test = "${sessionScope.userinfo.u_manageryn eq 'Y' }">
+									<th class="text-center">답변 여부</th>
+								</c:if>
 							</tr>
 						</thead>
 						<c:forEach var="dto" items="${QNAList}">
@@ -61,9 +63,17 @@
 									<td>
 										<button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button>
 									</td>
-									<td>${dto.U_USERNICKNAME}</td>
-									<td>${dto.Q_SUBJECT}</td>
-									<td>${dto.Q_REGDATE}</td>
+									<td class="text-center">${dto.U_USERNICKNAME}</td>
+									<td class="text-center">${dto.Q_SUBJECT}</td>
+									<td class="text-center">${dto.Q_REGDATE}</td>
+									<c:choose>
+									<c:when test = "${dto.Q_ANSWERCON ne null }">
+										<td class="text-center"><b>O</b></td>
+									</c:when>
+									<c:otherwise>
+										<td class="text-center"><b>X</b></td>
+									</c:otherwise>
+									</c:choose>
 								</tr>
 								<tr>
 									<td colspan="6" class="hiddenRow">
@@ -77,7 +87,7 @@
 										<c:if test="${sessionScope.userinfo.u_manageryn eq 'Y'}">
 										<c:if test="${dto.Q_ANSWERCON eq null}">
 										<form action="/fishing/qnaanswer" method="get">
-										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요" style="width:300px"> &nbsp;&nbsp;&nbsp; <button>입력</button>
+										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요" style="width:300px"> &nbsp;&nbsp;&nbsp; <button class="btn btn-outline-dark">입력</button>
 										 <input type="hidden" id="qnum" name="qnum" value="${dto.Q_NUM}">
 										 </form>
 										 
