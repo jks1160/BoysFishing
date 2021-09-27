@@ -152,6 +152,12 @@
 		</div>
 	</body>
 	<script>
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+	
+	
  	var onDate = $("#onDate").html();
  	var Date = onDate.substring(0,onDate.lastIndexOf(" ")+1);
  	console.log(Date);
