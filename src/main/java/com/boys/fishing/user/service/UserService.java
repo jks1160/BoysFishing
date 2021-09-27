@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boys.fishing.apis.dao.ApisDAO;
 import com.boys.fishing.apis.dto.IslandDTO;
+import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.reservation.dto.ReserDTO;
 import com.boys.fishing.user.dao.UserDAO;
 import com.boys.fishing.user.dto.UserDTO;
@@ -599,6 +600,10 @@ public class UserService {
 		dao.reserveCancel(ri_num,ri_code);
 		mav.setViewName("myUserReserve");
 		return mav;
+	}
+//	최신 글 5개 불러오기
+	public ArrayList<SumsumDTO> recentlylist() {
+		return dao.recentlylist();
 	}
 	
 	

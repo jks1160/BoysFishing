@@ -114,68 +114,31 @@ div.card{
 	<div class="container my-5">
         <div class="row">
             <div class="col mt-5 mb-2">
-                <h2>인기 게시글</h2>
+                <h2>최신 게시글</h2>
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="col mx-1 border">
-                <div class="card">
-                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
-	                    <div class="card-body">
-                    	<a href="/" style="{display:block;{color:black}">
-		                      <b class="card-title border">Card title</b>
-		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        
+            <div class="mx-1 border d-flex row">
+        <c:forEach items="${list}" var="bbs">
+                <div class="card col">
+                <c:choose>
+                	 <c:when test="${bbs.bi_name ne null}"><img src="/photo/${bbs.bi_name}" class="card-img-top border" alt="..."></c:when>   
+                	 <c:otherwise><img src="./resources/defaultimg/defaultimg2.gif" class="card-img-top border" alt="..."></c:otherwise>
+                </c:choose>
+	                    <div class="card-body text-center">
+                    	<a href="/fishing/someTalk" style="{display:block;{color:black}">
+		                      <b class="card-title border text-center">${bbs.b_subject}</b>
 	                    </a>
                     </div>
                 </div>
+         </c:forEach>
             </div>
-          <div class="col mx-1 border">
-                <div class="card">
-                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
-	                    <div class="card-body">
-                    	<a href="/" style="{display:block;{color:black}">
-		                      <b class="card-title border">Card title</b>
-		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                    </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mx-1 border">
-                <div class="card">
-                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
-	                    <div class="card-body">
-                    	<a href="/" style="{display:block;{color:black}">
-		                      <b class="card-title border">Card title</b>
-		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                    </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mx-1 border">
-                <div class="card">
-                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
-	                    <div class="card-body">
-                    	<a href="/" style="{display:block;{color:black}">
-		                      <b class="card-title border">Card title</b>
-		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                    </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col mx-1 border">
-                <div class="card">
-                    <img src="./resources/defaultimg/default.png" class="card-img-top border" alt="...">
-	                    <div class="card-body">
-                    	<a href="/" style="{display:block;{color:black}">
-		                      <b class="card-title border">Card title</b>
-		                      <p class="card-text border">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	                    </a>
-                    </div>
-                </div>
-            </div>
+       
+      
         </div>
     </div>
+
 </body>
 <script type="text/javascript">
 	
