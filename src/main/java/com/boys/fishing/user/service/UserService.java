@@ -582,6 +582,7 @@ public class UserService {
 	@Transactional
 	public ModelAndView reserveCancel(String ri_num, String ri_code, String s_num, String ri_pay, String u_userid, RedirectAttributes rttr) {
 		logger.info("예약 취소 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView();
 		String s_userid = dao.shipOwner(s_num);
 		int balance = dao.point(s_userid);
@@ -592,15 +593,19 @@ public class UserService {
 			ri_code = "RI003";
 			dao.reserveCancelPoint(u_userid,ri_pay); //금액 환불
 			dao.reserveCancel(ri_num,ri_code);
-		}
-		if(ri_code.equals("RI002") && balance>=Integer.parseInt(ri_pay)) {
-			
+			map = dao.myReserveDetail(ri_num);
+			mav.addObject("map",map);
+		}else if(ri_code.equals("RI002") && balance>=Integer.parseInt(ri_pay)) {
 			ri_code = "RI006";
 			logger.info("안녕 : {}",ri_code);
 			dao.reserveCancelCap(u_userid,s_userid,ri_pay); //선장에게 돈받아와서
 			dao.reserveCancelUser(u_userid,s_userid,ri_pay); //유저에게 입금
 			dao.reserveCancel(ri_num,ri_code);
-		}else {
+			map = dao.myReserveDetail(ri_num);
+			mav.addObject("map",map);
+		}else if(ri_code.equals("RI002") && !(balance>=Integer.parseInt(ri_pay))){
+			map = dao.myReserveDetail(ri_num);
+			mav.addObject("map",map);
 			mav.addObject("msg","환불이 불가능 합니다. 선장에게 문의 바랍니다.");
 		}
 		mav.setViewName(path);
