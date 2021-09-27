@@ -321,12 +321,18 @@ public class HomeController {
 	
 	@RequestMapping(value="/reserveCancel", method = RequestMethod.POST)
 	public ModelAndView reserveCancel(HttpSession session,@RequestParam String ri_num,
-			@RequestParam String ri_code,@RequestParam String s_num,@RequestParam String ri_pay,
-			RedirectAttributes rttr) { //영환
+			@RequestParam String ri_code,@RequestParam String s_num,@RequestParam String ri_pay) { //영환
 		logger.info("예약 취소");
 		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
 		logger.info("아이디 : {}", map.get("u_userid"));
 		String u_userid = (String) map.get("u_userid");
-		return service.reserveCancel(ri_num,ri_code,s_num,ri_pay,u_userid,rttr);
+		return service.reserveCancel(ri_num,ri_code,s_num,ri_pay,u_userid);
 	}	
+	
+	@RequestMapping(value="/shipNameChk", method = RequestMethod.POST)
+	public @ResponseBody boolean shipNameChk(String s_name) { //영환
+		logger.info("배 이름 중복체크 ");
+
+		return service.shipNameChk(s_name);
+	}
 }

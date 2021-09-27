@@ -126,7 +126,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 회원정보</h2></div>
+	<div class="head"><h2>${sessionScope.userinfo.u_usernickname} 님의 배 등록</h2></div>
 	<div class="entire">
 	
 	<div class="rounded float-start">
@@ -142,7 +142,7 @@
 	</div>
 	
 	
-	<form action="shipJoin" name="shipJoin" method="POST">
+	<form action="shipJoin" name="shipJoin" id="shipJoin" method="POST">
 	<table class="table table-bordered">
 	<thead>
 			<tr>
@@ -153,28 +153,29 @@
 	    <tr>
 			<th>배이름</th>
 			<td>
-			<input style="width:300px;" type="text" name="s_name" id="s_name" value=""/>
+			<input style="width:300px;" maxlength="20" type="text" name="s_name" id="s_name" placeholder="배 이름을 입력해주세요."/>
+			<button type="button" disabled="disabled" id="overChk">중복확인</button>
 			</td>
 		</tr>
 
 		<tr>
 			<th>최소탑승인원</th>
 			<td>
-			<input style="width:300px;" name="s_minpassenger" id="s_minpassenger" type="number" value=""/>
+			<input style="width:300px;" min="1" name="s_minpassenger" id="s_minpassenger" oninput='handleOnInput(this, 3)' type="number" placeholder="최소탑승인원을 입력해주세요."/>
 			</td>
 		</tr>
 		<tr>
 			<th>최대탑승인원</th>
 			<td>
-			<input style="width:300px;"  name="s_maxpassenger" id="s_maxpassenger" type="number" value=""/>
+			<input style="width:300px;" min="1"  name="s_maxpassenger" id="s_maxpassenger" oninput='handleOnInput(this, 3)' type="number" placeholder="최대탑승인원을 입력해주세요."/>
 			</td>
 		</tr>
 		<tr>
 			<th>정박위치주소</th>
 			<td>
-			<input style="width:300px; margin-left: 75px" size="40px" name="address" id="address" type="text" readonly="readonly"/>
-			<button type="button" id="s_address" onclick="sample4_execDaumPostcode()">주소 검색</button>
-			<input type="text" style="margin-top: 5px; width:300px" name="addressDetail" id="addressDetail" placeholder="상세주소를 입력해주세요"></td>
+			<input style="width:300px; margin-left: 75px" size="40px" name="address" id="address" type="text" readonly="readonly" placeholder="주소검색을 이용해 입력해주세요."/>
+			<input type="text" style="margin-top: 5px; width:300px" maxlength="50" name="addressDetail" id="addressDetail" placeholder="상세주소를 입력해주세요">
+			<button type="button" id="s_address" onclick="sample4_execDaumPostcode()">주소 검색</button></td>
 		</tr>
 		<tr>
 			<th>장비현황</th>
@@ -203,7 +204,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-			<button type="submit" id="submitBtn" >저장하기</button>
+			<button type="button" id="submitBtn" onclick="checkfield()" >저장하기</button>
 			</td>
 			
 		</tr>
@@ -218,6 +219,7 @@
 		</div>
 	</body>
 	<script>
+	//배 없을 경우 등록먼저 하라는 메세지
 	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
@@ -257,7 +259,7 @@
 		window.onbeforeunload = null;
 	});
 
-	
+	//새로고침 시 이미지 삭제
 	window.onbeforeunload = function() {
 		console.log("실행?");
 		shipFileDelete();
@@ -286,8 +288,136 @@
 			});
 	}
 	
+	//===================================================================================================
+		
+		overChk = true;
+	$(function(){
+		$("#s_name").on('input',function(){
+			overChk = false;
+			if($("#s_name").val()==''){
+				$("#overChk").attr("disabled",true);
+			}else{
+				$("#overChk").attr("disabled",false);
+			}
+		});
+	})
+	
+	$("#overChk").click(function(){
+		var s_name = $("input[id=s_name]").val();
+		var space = /\s/g;  //공백
+		var hangleChk = /([^가-힣a-z\x20])/i; //모음,자음만 사용불가
+		var Chk = /[가-힣A-Za-z0-9]{1,20}/; //영문 숫자 한글만 허용
+		var Chkresult = Chk.test(s_name);
+		var hangleChkresult = s_name.match(hangleChk);
+		console.log(s_name);
+	
+		if(s_name ==""){
+			alert("배 이름을 입력해주세요.");
+			$("#s_name").focus();
+			return;
+		}else if(!s_name.length>20){
+			alert("배 이름은 20자 이하로 입력해주세요.");
+			$("#s_name").focus();
+			return;
+		}else if(!Chkresult){
+			alert("영문,숫자,한글만 사용 가능합니다.");
+			$("#s_name").focus();
+			return;
+		}else if(s_name.match(space)){
+			  alert("공백은 사용할 수 없습니다.");
+			  return;
+		}else if(hangleChkresult){
+			 alert("모음/자음만 사용할 수 없습니다.");
+			  return;
+		}
+	
+		 $.ajax({
+			url:'shipNameChk',
+			type:'POST',
+			data:{'s_name':s_name},
+			dataType:'JSON',
+			success:function(data){
+				console.log("중복여부  :"+data);
+				
+				if(data){
+				alert("사용 가능한 닉네임 입니다.");
+				overChk = true;
+				$("#overChk").attr("disabled",true);
+				}else{
+				alert("이미 사용중인 닉네임 입니다.");
+				overChk = false;
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}	
+		}); 
+	})	
+	
+	function checkfield(){
+		//값 변수
+		var s_minpassenger = $("#s_minpassenger").val();
+		var s_maxpassenger = $("#s_maxpassenger").val();
+		var address = $("#address").val();
+		var addressDetail = $("#addressDetail").val();
+		
+	// 공백체크	
+	if(s_minpassenger ==""){
+		alert("최소 탑승인원을 입력해주세요.");
+		$("#s_minpassenger").focus();
+		return;
+	}else if(s_maxpassenger ==""){
+		alert("최대 탑승인원을 입력해주세요.");
+		$("#s_maxpassenger").focus();
+		return;
+	}else if(address ==""){
+		alert("정박지 주소를 입력해주세요.");
+		$("#address").focus();
+		return;
+	}else if(addressDetail ==""){
+		alert("정박지 상세주소를 입력해주세요.");
+		$("#address").focus();
+		return;	
+	}
+
+	// 체크박스 체크여부
+	var eqChk = $("input:checkbox[id=equipment]").is(":checked")
+	var conChk = $("input:checkbox[id=convenient]").is(":checked")
+	if(eqChk == false){
+		alert("보유 장비를 1개 이상 체크해 주세요.");
+		return;	
+	}else if(conChk == false){
+		alert("보유 편의시설을 1개 이상 체크해 주세요.");
+		return;	
+	}
 	
 	
+	
+	if(overChk){
+		$("form[id=shipJoin]").submit();
+	  }else{
+		alert("배 이름 중복체크를 해주세요");
+	  }
+	}
+	
+	// 플러스,마이너스 입력 방지
+	var number = document.getElementById('s_minpassenger');
+
+	number.onkeydown = function(e) {
+	    if(!((e.keyCode > 95 && e.keyCode < 106)
+	      || (e.keyCode > 47 && e.keyCode < 58) 
+	      || e.keyCode == 8)) {
+	        return false;
+	    }
+	}
+	
+	//input type="number" 글자수 입력제한
+	function handleOnInput(el, maxlength) {
+		  if(el.value.length > maxlength)  {
+		    el.value 
+		      = el.value.substr(0, maxlength);
+		  }
+		}
 	</script>
 </html>
 

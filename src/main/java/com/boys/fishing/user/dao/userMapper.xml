@@ -112,6 +112,10 @@
 	where ROWNUM = 1)+ #{param3})
 </insert>
 
+<select id="shipNameChk" parameterType="String" resultType="int">
+	SELECT COUNT(s_name) FROM ship WHERE s_name = #{s_name}
+</select>
+
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->
 <select id="captainYN" resultType="String">
