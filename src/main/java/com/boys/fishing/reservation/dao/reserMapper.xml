@@ -81,4 +81,17 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 	<insert id="tryReser">
 		INSERT INTO point VALUES(#{param1},'PNT_003',SYSDATE, #{param2}, #{param3}, #{param4})
 	</insert>
+	<!-- 예약 요청 거절 시 반환 -->
+	<insert id="returnPoint" parameterType = "String">
+	INSERT INTO point VALUES(
+	(SELECT ri_userid FROM reserinfo WHERE ri_num = #{param1}), 
+	'PNT_004',
+	SYSDATE, 
+	'관리자',
+	(SELECT ri_pay FROM reserinfo WHERE ri_num = #{param1}),
+	(select p_balance
+	from(
+   		select * from point where p_userid = (SELECT ri_userid FROM reserinfo WHERE ri_num =#{param1})
+   order by p_regdate DESC ) where ROWNUM = 1) + (SELECT ri_pay FROM reserinfo WHERE ri_num = #{param1}))
+	</insert>
 </mapper>

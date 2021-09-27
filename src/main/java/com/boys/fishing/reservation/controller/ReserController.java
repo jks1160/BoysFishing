@@ -83,7 +83,13 @@ public class ReserController {
 
 		return service.captain_reser(capId);
 	}
-
+	/** 조재현 
+	 * 선장 스케줄 상세보기
+	 * @param params
+	 * @param session
+	 * @return
+	 */
+	
 	@RequestMapping(value = "/cap_check_res", method = RequestMethod.GET)
 	public ModelAndView cap_check_res(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		logger.info("선장 스케줄 상세보기 진입");

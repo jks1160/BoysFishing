@@ -267,10 +267,16 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@ResponseBody
 	@RequestMapping(value="/decideCancel")
-	public String decideCancel(String num, String cancelReason) {
+	public String decideCancel(String num, String cancelReason, HttpSession session) {
+		HashMap<String, Object> map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String capId = (String) map.get("u_userid");
+		
+		logger.info("선장 아이디 :{}",capId);
 		logger.info("예약번호: {}",num);
 		logger.info("취소 사유: {}",cancelReason);
-		return myservice.decideCancel(num,cancelReason);
+		
+		return null;
+		//return myservice.decideCancel(num,cancelReason);
 	}
 	
 	

@@ -73,7 +73,7 @@
 				<tr>
 					<td>
 						<input type='radio' name='ri_start' value='Y' id='sr' /> 출항
-						<input type='radio' name='ri_start' value='N' id='sr' /> 입항
+						<input type='radio' name='ri_start' value='N' id='sr' /> 회항
 					</td>
 				</tr>
 			</table>
