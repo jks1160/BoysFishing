@@ -37,6 +37,12 @@ public interface ReserDAO {
 
 	String getReserId(String num);
 
+	int getReserMoney(String num);
+
+	int returnCapPoint(String num, String capId);
+
+	int minusCap(String capId, String reserId, int reserMoney, int i);
+
 
 
 	

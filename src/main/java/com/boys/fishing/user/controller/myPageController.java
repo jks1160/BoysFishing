@@ -277,6 +277,15 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 	}
 	
 	
+	/** 조재현, 한준성
+	 *  예약 확정 취소 => 선장의 포인트 감소 및 유저에게 포인트 반환
+	 *  단, 선장에게 환불 포인트가 있는지 확인해야 한다.
+	 * @param num
+	 * @param cancelReason
+	 * @param session
+	 * @return
+	 */
+	
 	@ResponseBody
 	@RequestMapping(value="/decideCancel")
 	public String decideCancel(String num, String cancelReason, HttpSession session) {

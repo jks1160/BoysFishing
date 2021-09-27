@@ -368,20 +368,29 @@ public class myPageService {
 	 *  
 	 * @param num 예약 번호
 	 * @param cancelReason 취소 이유
-	 * @param capId 
+	 * @param capId 선장 아이디
 	 * @return success (int)
 	 */
 	@Transactional
 	public String decideCancel(String num, String cancelReason, String capId) {
 		logger.info("예약확정 취소 서비스 진입");
-		int success;
+		int success = 0;
+		String reserId = reserDAO.getReserId(num);// 예약자 아이디 가져오기
 		
 		//선장이 환불 할 돈이 없을 경우.
+		int capMoney = dao.point(capId); //캡틴의 총 보유 머니
+		int reserMoney = reserDAO.getReserMoney(num); //예약 비용
 		
+		if(capMoney >= reserMoney) { // 선장 보유 금액보다 예약 비용이 낮으면..
+			// 선장의 돈을 뺀다.
+			success += reserDAO.minusCap(capId, reserId, reserMoney, capMoney-reserMoney);
+			success += reserDAO.returnCapPoint(num,capId); //포인트를 반환한다. 		
+			success += dao.decideCancel(num,cancelReason); //스케줄 삭제			
+			return String.valueOf(success); // 총 2의 값을 보내면  스크립트 단에서 처리
+		}else {
+			return "false";
+		}
 		
-		success = dao.decideCancel(num,cancelReason);
-		
-		return String.valueOf(success);
 	}
 
 	public HashMap<String, Object> reserHistoryList(int page, String userId) {

@@ -98,5 +98,25 @@ ON (op.s_num = s.s_num) LEFT OUTER JOIN island i ON (op.i_num = i.i_num) WHERE u
 	<select id="getReserId" resultType="String">
 		SELECT ri_userid FROM reserinfo WHERE ri_num = #{param1}
 	</select>
-	
+	<!-- 예약 비용 가져오기 -->
+	<select id="getReserMoney" resultType='int'>
+		SELECT ri_pay FROM reserinfo WHERE ri_num = #{param1}
+	</select>
+	<!-- 예약 확정 거절 시 유저 돈 채우기 -->
+	<insert id ="returnCapPoint" parameterType="String">
+	INSERT INTO point VALUES(
+	(SELECT ri_userid FROM reserinfo WHERE ri_num = #{param1}), 
+	'PNT_004',
+	SYSDATE, 
+	#{param2},
+	(SELECT ri_pay FROM reserinfo WHERE ri_num = #{param1}),
+	(select p_balance
+	from(
+   		select * from point where p_userid = (SELECT ri_userid FROM reserinfo WHERE ri_num =#{param1})
+   order by p_regdate DESC ) where ROWNUM = 1) + (SELECT ri_pay FROM reserinfo WHERE ri_num = #{param1}))
+	</insert>
+	<!-- 예약 확정 거절 시  -->
+	<insert id="minusCap">
+		INSERT INTO point VALUES(#{param1}, 'PNT_006', SYSDATE, #{param2},#{param3},#{param4})
+	</insert>
 </mapper>
