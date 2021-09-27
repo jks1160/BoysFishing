@@ -71,17 +71,19 @@
 										<b>Q : ${dto.Q_CONTENT}</b>
 										<hr/>
 										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1" <c:if test="${dto.Q_ANSWERCON eq null}">hidden</c:if>>관리자 : ${dto.Q_ANSWERCON }</div>
+											
 										
 										
 										<c:if test="${sessionScope.userinfo.u_manageryn eq 'Y'}">
 										<c:if test="${dto.Q_ANSWERCON eq null}">
-										<form class=""  class="">
-										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요"><button> 입력 </button>
-										</form>
+										<form action="/fishing/qnaanswer" method="get">
+										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요"><button>입력</button>
+										 <input type="text" id="qnum" name="qnum" value="${dto.Q_NUM}">
+										 </form>
+										 
 										</c:if>
 										</c:if>
-										
-										
+															
 										</div>
 										<hr>
 									</td>
@@ -105,5 +107,33 @@
 	if("${msg}" != ""){
 		alert("${msg}");
 	}
+	/*
+	function qnaanswer(){
+		var answervalue = $("#answervalue").val();
+		var qnum = $("#qnum").val();
+		
+			if(answervalue.length>0){
+				$.ajax({
+					url:"qnaanswer",
+					type:'get',
+					data:{
+						answervalue : answervalue,
+						qnum : qnum
+					},
+					dataType:'JSON',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(error){
+						console.log(error);
+					}			
+				});	
+		}else{
+			alert("내용을 입력해주세요.");
+		}
+		
+		
+	}
+	*/
 </script>
 </html>

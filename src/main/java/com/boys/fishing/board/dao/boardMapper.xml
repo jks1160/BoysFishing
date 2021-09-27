@@ -80,4 +80,10 @@
 	<delete id="someDelete">
 		DELETE FROM board WHERE b_num = #{param1}
 	</delete>
+	 
+	<!-- qna 답변 넣기 -->
+	<update id="qnaanswer">
+	UPDATE QNA SET q_answercon = #{param1} WHERE q_num = #{param2}
+	</update>
+	
 </mapper>

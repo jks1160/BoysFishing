@@ -3,6 +3,8 @@ package com.boys.fishing.board.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.boys.fishing.board.dto.SumsumDTO;
 
 public interface BoardDAO {
@@ -28,6 +30,8 @@ public interface BoardDAO {
 	int someUpdate(SumsumDTO dto);
 
 	int someDelete(String b_num);
+
+	int qnaanswer(String answervalue, String qnum);
 
 
 }
