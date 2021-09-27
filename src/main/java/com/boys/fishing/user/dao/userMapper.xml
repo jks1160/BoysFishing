@@ -284,7 +284,7 @@ UPDATE reserInfo set ri_code = 'RI005', ri_cancelreason = #{param2} WHERE ri_num
 
 <select id="captainScheduleList" resultType="hashmap">
 	SELECT DISTINCT TO_CHAR(sub.ri_date, 'yyyy-mm-dd') AS end FROM 
-	(SELECT s.*,ri.* FROM ship s INNER JOIN reserinfo ri ON (s.s_num = ri.s_num) WHERE s.u_userid =#{param1}) sub
+	(SELECT s.*,ri.* FROM ship s INNER JOIN reserinfo ri ON (s.s_num = ri.s_num) WHERE s.u_userid =#{param1} AND (ri.ri_code = 'RI001' OR ri.ri_code = 'RI002')) sub
 </select>
 
 <insert id="pointSet">

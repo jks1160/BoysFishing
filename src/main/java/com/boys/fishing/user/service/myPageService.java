@@ -281,7 +281,7 @@ public class myPageService {
 		ArrayList<HashMap<String, String>> reserList = dao.captainScheduleList(userid);
 			
 		for (HashMap<String, String> item : reserList) {
-			logger.info("날짜 : {}",item.get("ri_date"));
+			logger.info("날짜 : {}",item.get("END"));
 		}
 		
 		return reserList;
