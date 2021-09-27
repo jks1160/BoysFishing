@@ -21,7 +21,7 @@ public class LoginChecker extends HandlerInterceptorAdapter {
 			pass = true;
 			return pass;
 		}else {
-			response.sendRedirect("/fishing/");
+			response.sendRedirect("/fishing/loginPage");
 		}
 		
 		return pass;

@@ -59,7 +59,7 @@ img {
 				<input type="file" id="profileImg" name="file" class="btn btn-outline-dark" value="이미지 등록">
 			</div>
 			<div class="col-2 offset-2">
-				<img id="preprofile" src="resources/default.png">
+				<img id="preprofile" src="resources/defaultimg/default.png">
 			</div>
 		</div>
 			<div class="row my-3 kakaodel">
@@ -129,7 +129,7 @@ img {
 							name="emailEnd">
 							<option value="naver.com">naver.com</option>
 							<option value="hanmail.net">hanmail.net</option>
-							<option value="gamil.com">gamil.com</option>
+							<option value="gmail.com">gamil.com</option>
 						</select>
 					</div>
 				</div>
