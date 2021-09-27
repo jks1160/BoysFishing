@@ -207,7 +207,7 @@ img{
 						<td>오전기상</td>
 						<td>
 						<c:choose>
-						<c:when test="${third.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_AMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
 						<c:when test="${third.W_AMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
 						<c:when test="${third.W_AMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
 						<c:when test="${third.W_AMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
@@ -295,7 +295,7 @@ img{
 					<td>오후기상</td>
 						<td>
 						<c:choose>
-						<c:when test="${third.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny" style="height:100px; width:100px;"></c:when>
+						<c:when test="${third.W_PMSKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
 						<c:when test="${third.W_PMSKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
 						<c:when test="${third.W_PMSKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
 						<c:when test="${third.W_PMSKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
