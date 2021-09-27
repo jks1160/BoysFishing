@@ -86,6 +86,10 @@
 	UPDATE ship set s_img='N' WHERE s_num=#{s_num}
 </update>
 
+<update id="reserveCancel" parameterType="String">
+	UPDATE reserinfo set ri_code=#{param2} WHERE ri_num=#{param1}
+</update>
+
 
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->

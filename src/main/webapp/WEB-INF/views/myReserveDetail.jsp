@@ -114,14 +114,27 @@
 			<c:choose>
 				<c:when test="${map.RI_CODE eq 'RI001' }"><td>예약신청</td></c:when>
 				<c:when test="${map.RI_CODE eq 'RI002' }"><td>예약확정</td></c:when>
-				<c:when test="${map.RI_CODE eq 'RI003' }"><td>예약취소</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI003' }"><td>유저예약취소</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI004' }"><td>선장예약취소</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI005' }"><td>선장예약취소</td></c:when>
+				<c:when test="${map.RI_CODE eq 'RI006' }"><td>유저예약취소</td></c:when>
 			</c:choose>
 		</tr>
+		<c:choose>
+		<c:when test="${map.RI_CODE eq 'RI004' || map.RI_CODE eq 'RI004' }">
+		<tr>
+			<th>취소사유</th>
+			<td>${map.RI_CANCELREASON}원</td>
+		</tr>
+		</c:when>
+		</c:choose>
 		<tr>
 			<td colspan="2">
-			
-			<button type="button" onclick="">취소하기</button>
-			
+			<form action="reserveCancel" method="POST">
+			<input type="hidden" name="ri_num" value="${map.RI_NUM }">
+			<input type="hidden" name="ri_code" value="${map.RI_CODE }">
+			<button type="submit" >취소하기</button>
+			</form>
 		</tr>
 		</table>
 		</div>

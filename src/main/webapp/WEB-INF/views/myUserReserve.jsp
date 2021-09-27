@@ -252,6 +252,7 @@ function reserHistoryDrawList(list) {
 							}
 							var reserDate = get_year+"-"+get_month+"-"+get_day;
 							var reserYN = myReser.ri_startreturnYN;
+							var cancel = myReser.ri_code;
 							var color = "";
 							var startreturn = "";
 							if(reserYN =='Y'){
@@ -260,6 +261,13 @@ function reserHistoryDrawList(list) {
 							}else{
 								startreturn = "회항 예약";
 								color="#fc176b";
+							}
+							if(cancel == 'RI003' || cancel == 'RI006'){
+								startreturn = "취소 예약";
+								color="#6e2c44";
+							}else if(cancel == 'RI004' || cancel == 'RI005'){
+								startreturn = "취소 예약";
+								color="#6e2c44";
 							}
 							
 							console.log("스타트데이 : " , reserDate);
