@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -564,6 +565,13 @@ public class UserService {
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map = dao.myReserveDetail(ri_num); //해당 회원의 예약정보
+		
+		//오늘날짜
+		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+		Date date = new Date();
+		String today = format.format(date);
+		
+		mav.addObject("today",today);
 		mav.addObject("map",map);
 		mav.setViewName(page);
 		
