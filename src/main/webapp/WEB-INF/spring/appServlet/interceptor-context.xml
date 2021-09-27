@@ -13,6 +13,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/QNAForm"/>
 			<mvc:mapping path="/someWriteForm"/>
+			<mvc:mapping path="/reser/*"/>
 			<bean class="com.boys.fishing.user.service.LoginChecker" />
 		</mvc:interceptor>
 	</mvc:interceptors>
