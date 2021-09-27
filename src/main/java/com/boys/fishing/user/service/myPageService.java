@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.boys.fishing.apis.dao.ApisDAO;
@@ -333,10 +334,21 @@ public class myPageService {
 		return String.valueOf(success);
 	}
 
+	/** 조재현, 한준성
+	 *  예약 확정 취소 버튼
+	 *  
+	 * @param num 예약 번호
+	 * @param cancelReason 취소 이유
+	 * @return success (int)
+	 */
+	@Transactional
 	public String decideCancel(String num, String cancelReason) {
 		logger.info("예약취소 서비스 진입");
 		int success;
+		
+		
 		success = dao.decideCancel(num,cancelReason);
+		
 		return String.valueOf(success);
 	}
 
