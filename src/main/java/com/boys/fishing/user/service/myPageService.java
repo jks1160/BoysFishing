@@ -128,7 +128,7 @@ public class myPageService {
 		int currBalance;
 		currBalance = dao.point(user);
 		balance = currBalance + p_charge;
-		if(balance > 3000000) {
+		if(balance > 300000000) {
 			return "잔액 최대치(3억)을 넘길 수 없습니다.";
 		}
 		logger.info("balance: "+ balance + "p_charge: "+ p_charge + "user: " + user);
