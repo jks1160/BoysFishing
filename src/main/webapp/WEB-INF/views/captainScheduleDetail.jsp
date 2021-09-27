@@ -18,29 +18,29 @@
 	font-family: 'Do Hyeon', sans-serif;
 }
 .entire{
-		margin-top : 5%;
-		margin-right: 30%;
-		margin-bottom: 5%;
-		margin-left: 30%;
+		margin:auto;
 		text-align : center;
 }
 .entire1{
-		margin-top : 5%;
-		margin-right: 30%;
-		margin-bottom: 5%;
-		margin-left: 5%;
+		margin:auto;
 		text-align : center;
 }
+table{
+		width:50px;
+		height:400px;
+		text-align: center;
+}
+
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-	<div class="entire">
+	<div class="container entire mt-3">
 	<h3>스케쥴 상세보기</h3>
 	<button onclick="waiting()">대기중</button>
 	<button onclick="decide()">확정예약</button>
 	<button onclick="location.href='captainSchedule'" >뒤로가기</button>
-		<div id="reserDetail">
+		<div id="reserDetail" class="container justify-content-center">
 	
 		</div>
 	</div>
@@ -168,9 +168,10 @@ function waitDetailDrawList(list) {
 	list.list.forEach(function(item, idx) {
 		console.log(item, idx);
 		content += "<hr>";
+		content += "<br/>";
 		content += "<div class='entire'>";
-		content += "<table class='table-bordered'>";
-		content += "<tr><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
+		content += "<table class='table-bordered container justify-content-center'>";
+		content += "<tr style='background-color:lightgrey'><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
 		content += "<tr><td>예약번호</td><td>"+item.RI_NUM+"</td></tr>";
 		content += "<tr><td>예약자ID</td><td>"+item.RI_USERID+"</td></tr>";
 		content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
@@ -184,6 +185,7 @@ function waitDetailDrawList(list) {
 		content += "<td><button onclick='cancelButton("+item.RI_NUM+")'>취소하기</button></td></tr>";
 		content += "</table>";
 		content += "</div>";
+		content += "<br/>";
 	});
 	$("#reserDetail").empty();
 	$("#reserDetail").append(content);
@@ -196,9 +198,10 @@ function decideDetailDrawList(list) {
 		console.log(item.i_name);
 		console.log(item, idx);
 		content += "<hr>";
+		content += "<br/>";
 		content += "<div class='entire1'>";
-		content += "<table class='table-bordered' width='300', height='50'>";
-		content += "<tr><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
+		content += "<table class='table-bordered container justify-content-center'>";
+		content += "<tr style='background-color:lightgrey'><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
 		content += "<tr><td>예약번호</td><td>"+item.RI_NUM+"</td></tr>";
 		content += "<tr><td>예약자ID</td><td>"+item.RI_USERID+"</td></tr>";
 		content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
@@ -209,8 +212,9 @@ function decideDetailDrawList(list) {
 		content += "<tr><td>인원수</td><td>"+item.RI_PEOPLE+"</td></tr>";
 		content += "<tr><td>결제금액</td><td>"+item.RI_PAY+"</td></tr>";
 		content += "<tr><td colspan='2'><button onclick='decideCancelButton("+item.RI_NUM+")'>확정취소하기</button></td></tr>";
-		content +="</table>"
+		content +="</table>";
 		content += "</div>";
+		content += "<br/>";
 	});
 	$("#reserDetail").empty();
 	$("#reserDetail").append(content);
