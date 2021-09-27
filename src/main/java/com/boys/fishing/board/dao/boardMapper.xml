@@ -83,7 +83,7 @@
 	 
 	<!-- qna 답변 넣기 -->
 	<update id="qnaanswer">
-	UPDATE QNA SET q_answercon = #{param1} WHERE q_num = #{param2}
+	UPDATE QNA SET q_answercon = #{param1},q_answernum = 'Y' WHERE q_num = #{param2}
 	</update>
 	
 </mapper>
