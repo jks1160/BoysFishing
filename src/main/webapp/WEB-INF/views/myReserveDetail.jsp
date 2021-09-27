@@ -134,8 +134,10 @@
 		</tr>
 		</c:when>
 		</c:choose>
+		
 		<c:choose>
-		<c:when test="${map.RI_DATE gt today}">
+		
+		<c:when test="${map.RI_DATE gt today && (map.RI_CODE eq 'RI001' || map.RI_CODE eq 'RI002') }">
 		<tr>
 			<td colspan="2">
 			<form action="reserveCancel" method="POST">

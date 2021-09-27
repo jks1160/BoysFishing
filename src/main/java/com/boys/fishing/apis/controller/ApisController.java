@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,7 +51,6 @@ public class ApisController {
 		return service.islanddel();
 	}
 
-	// 
 	@RequestMapping(value = "/todayweatherinsert")
 	public @ResponseBody HashMap<String, Object> todayweatherinsert(@RequestParam HashMap<String, String> params) {
 		logger.info("당일 날씨 insert 요청");

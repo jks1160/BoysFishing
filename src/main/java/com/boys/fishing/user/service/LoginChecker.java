@@ -1,7 +1,5 @@
 package com.boys.fishing.user.service;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +19,7 @@ public class LoginChecker extends HandlerInterceptorAdapter {
 			pass = true;
 			return pass;
 		}else {
-			response.sendRedirect("/fishing/");
+			response.sendRedirect("/fishing/loginPage");
 		}
 		
 		return pass;

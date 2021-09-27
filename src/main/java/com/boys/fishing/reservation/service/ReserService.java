@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -304,5 +305,22 @@ public class ReserService {
 		
 		return map;
 	}
-
+	/** 조재현
+	 *  스케줄러 => 날짜 지난 예약 신청들 환불 기능( 매 일 12시 ) 
+	 */
+	@Transactional
+	@Scheduled(cron ="0 0 12 * * ?")
+	public void ReserCheck() {// 예약 확정이 안 된 예약들은 제거한다.
+		
+		// 모든 날짜 시난 예약 신청들을 가져온다.
+		ArrayList<ReserDTO> dto = reserDAO.getOldReser();
+		//가져온 모든 지난 예약 신청들의 포인트를 돌려준다. 
+		for (ReserDTO item : dto) { 
+			// 포인트를 되돌려 준다.
+			reserDAO.returnPoint(String.valueOf(item.getI_num()));
+			//가져온 모든 지난 예약 신청들의 상태를 거절로 변경한다.
+			reserDAO.delReser(String.valueOf(item.getI_num()));
+		}
+		
+	}
 }

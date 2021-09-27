@@ -198,8 +198,9 @@ public class BoardService {
 		dao.fileDel(Integer.parseInt(b_num));
 		if(dao.someDelete(b_num)>0) {
 			attr.addFlashAttribute("msg","삭제에 성공했습니다.");
+		}else {
+			attr.addFlashAttribute("msg","삭제에 실패했습니다.");
 		}
-		attr.addFlashAttribute("msg","삭제에 실패했습니다.");
 		return "redirect:/someTalk";
 	}
 
