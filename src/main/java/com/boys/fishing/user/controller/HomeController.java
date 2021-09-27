@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.boys.fishing.user.dto.UserDTO;
 import com.boys.fishing.user.service.UserService;
 
-
+@SuppressWarnings("unchecked")
 @Controller
 public class HomeController {
 	
@@ -317,9 +317,12 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/reserveCancel", method = RequestMethod.POST)
-	public ModelAndView reserveCancel(HttpSession session,@RequestParam String ri_num,@RequestParam String ri_code ) { //영환
+	public ModelAndView reserveCancel(HttpSession session,@RequestParam String ri_num,
+			@RequestParam String ri_code,@RequestParam String s_num,@RequestParam String ri_pay ) { //영환
 		logger.info("예약 취소");
-		
-		return service.reserveCancel(ri_num,ri_code);
+		HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("userinfo");
+		logger.info("아이디 : {}", map.get("u_userid"));
+		String u_userid = (String) map.get("u_userid");
+		return service.reserveCancel(ri_num,ri_code,s_num,ri_pay,u_userid);
 	}	
 }

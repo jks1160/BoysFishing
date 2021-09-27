@@ -90,6 +90,27 @@
 	UPDATE reserinfo set ri_code=#{param2} WHERE ri_num=#{param1}
 </update>
 
+<select id="shipOwner"  parameterType="String" resultType="String">
+	SELECT u_userid FROM ship WHERE s_num=#{s_num}
+</select>
+
+<insert id="reserveCancelPoint"  parameterType="String">
+	INSERT INTO point VALUES(#{param1},'PNT_004',SYSDATE,#{param1},#{param2},
+	(select p_balance from(select * from point where p_userid = #{param1} order by p_regdate DESC) 
+	where ROWNUM = 1)+ #{param2})
+</insert>
+
+<insert id="reserveCancelCap"  parameterType="String">
+	INSERT INTO point VALUES(#{param2},'PNT_004',SYSDATE,#{param1},#{param3},
+	(select p_balance from(select * from point where p_userid = #{param2} order by p_regdate DESC) 
+	where ROWNUM = 1)- #{param3})
+</insert>
+
+<insert id="reserveCancelUser"  parameterType="String">
+	INSERT INTO point VALUES(#{param1},'PNT_004',SYSDATE,#{param2},#{param3},
+	(select p_balance from(select * from point where p_userid = #{param1} order by p_regdate DESC) 
+	where ROWNUM = 1)+ #{param3})
+</insert>
 
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->

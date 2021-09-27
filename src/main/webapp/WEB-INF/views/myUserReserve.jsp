@@ -263,10 +263,10 @@ function reserHistoryDrawList(list) {
 								color="#fc176b";
 							}
 							if(cancel == 'RI003' || cancel == 'RI006'){
-								startreturn = "취소 예약";
+								startreturn = "예약 취소";
 								color="#6e2c44";
 							}else if(cancel == 'RI004' || cancel == 'RI005'){
-								startreturn = "취소 예약";
+								startreturn = "예약 취소";
 								color="#6e2c44";
 							}
 							

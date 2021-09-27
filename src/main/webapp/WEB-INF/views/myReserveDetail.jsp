@@ -141,6 +141,8 @@
 			<form action="reserveCancel" method="POST">
 			<input type="hidden" name="ri_num" value="${map.RI_NUM }">
 			<input type="hidden" name="ri_code" value="${map.RI_CODE }">
+			<input type="hidden" name="s_num" value="${map.S_NUM }">
+			<input type="hidden" name="ri_pay" value="${map.RI_PAY }">
 			<button type="submit" >취소하기</button>
 			</form>
 		</tr>
@@ -154,5 +156,7 @@
  	var Date = onDate.substring(0,onDate.lastIndexOf(" ")+1);
  	console.log(Date);
  	$("#onDate").html(Date);
+ 	
+ 	console.log("${map}");
 	</script>
 </html>

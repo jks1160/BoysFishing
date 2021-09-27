@@ -183,6 +183,14 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	void reserveCancel(String ri_num, String ri_code); //영환
 
+	String shipOwner(String s_num); //영환
+
+	void reserveCancelPoint(String u_userid, String ri_pay); //영환
+
+	void reserveCancelCap(String u_userid, String s_userid, String ri_pay);
+
+	void reserveCancelUser(String u_userid, String s_userid, String ri_pay);
+
 	
 
 

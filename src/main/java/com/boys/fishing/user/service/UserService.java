@@ -577,14 +577,24 @@ public class UserService {
 		
 		return mav;
 	}
-
-	public ModelAndView reserveCancel(String ri_num, String ri_code) {
+	
+	@Transactional
+	public ModelAndView reserveCancel(String ri_num, String ri_code, String s_num, String ri_pay, String u_userid) {
 		logger.info("예약 취소 서비스");
 		ModelAndView mav = new ModelAndView();
+		String s_userid = dao.shipOwner(s_num);
+		int balance = dao.point(s_userid);
 		if(ri_code.equals("RI001")) {
 			ri_code = "RI003";
-		}else if(ri_code.equals("RI002")) {
+			dao.reserveCancelPoint(u_userid,ri_pay); //금액 환불
+		}
+		if(ri_code.equals("RI002") && balance>Integer.parseInt(ri_pay)) {
 			ri_code = "RI006";
+			dao.reserveCancelCap(u_userid,s_userid,ri_pay); //선장에게 돈받아와서
+			dao.reserveCancelUser(u_userid,s_userid,ri_pay); //유저에게 입금
+			
+		}else {
+			
 		}
 		dao.reserveCancel(ri_num,ri_code);
 		mav.setViewName("myUserReserve");
