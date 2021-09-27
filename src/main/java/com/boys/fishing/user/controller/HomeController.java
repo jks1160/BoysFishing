@@ -315,4 +315,11 @@ public class HomeController {
 		String ship = "update";
 		return service.shipJoin(newFileName,params,u_userid, ship);
 	}	
+	
+	@RequestMapping(value="/reserveCancel", method = RequestMethod.POST)
+	public ModelAndView reserveCancel(HttpSession session,@RequestParam String ri_num,@RequestParam String ri_code ) { //영환
+		logger.info("예약 취소");
+		
+		return service.reserveCancel(ri_num,ri_code);
+	}	
 }

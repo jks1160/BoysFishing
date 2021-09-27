@@ -569,6 +569,19 @@ public class UserService {
 		
 		return mav;
 	}
+
+	public ModelAndView reserveCancel(String ri_num, String ri_code) {
+		logger.info("예약 취소 서비스");
+		ModelAndView mav = new ModelAndView();
+		if(ri_code.equals("RI001")) {
+			ri_code = "RI003";
+		}else if(ri_code.equals("RI002")) {
+			ri_code = "RI006";
+		}
+		dao.reserveCancel(ri_num,ri_code);
+		mav.setViewName("myUserReserve");
+		return mav;
+	}
 	
 	
 }
