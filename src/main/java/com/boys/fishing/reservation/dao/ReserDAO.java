@@ -35,6 +35,8 @@ public interface ReserDAO {
 
 	void returnPoint(String ri_num);
 
+	String getReserId(String num);
+
 
 
 	

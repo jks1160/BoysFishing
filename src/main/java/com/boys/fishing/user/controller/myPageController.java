@@ -247,12 +247,19 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		return myservice.reserWait(userId, wait, date);
 	}
 	
+	/** 조재현 , 한준성
+	 *  선장 예약 확인 시 포인트 수거
+	 * @param num
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/reserDecide")
-	public String reserDecide(String num) {
+	public String reserDecide(String num, HttpSession session) {
 		logger.info("예약번호: {}",num);
+		HashMap<String, Object > map = (HashMap<String, Object>) session.getAttribute("userinfo");
+		String capId = (String) map.get("u_userid");
 		
-		return myservice.reserDecide(num);
+		return myservice.reserDecide(num,capId);
 	}
 	
 	
@@ -275,8 +282,8 @@ Logger logger = LoggerFactory.getLogger(this.getClass());
 		logger.info("예약번호: {}",num);
 		logger.info("취소 사유: {}",cancelReason);
 		
-		return null;
-		//return myservice.decideCancel(num,cancelReason);
+		
+		return myservice.decideCancel(num,cancelReason,capId);
 	}
 	
 	
