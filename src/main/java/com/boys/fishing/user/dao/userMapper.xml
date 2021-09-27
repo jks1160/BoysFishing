@@ -290,6 +290,10 @@ UPDATE reserInfo set ri_code = 'RI005', ri_cancelreason = #{param2} WHERE ri_num
 <insert id="pointSet">
 	INSERT INTO point VALUES(#{param1},'PNT_001',SYSDATE,'관리자','0','0')
 </insert>
+<!-- 섬섬톡 최신글 5개 -->
+<select id="recentlylist" resultType="sumsum">
+SELECT * FROM (SELECT ROWNUM AS NUM, board.* FROM board order by b_regdate desc) b left outer join boardimg bi on b.b_num = bi.bi_num where rownum&lt;=5
+</select>
 
 <!-- 예약 확정 시 선장에게 포인트 지급 -->
 <insert id="getReserPoint" >

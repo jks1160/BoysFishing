@@ -183,7 +183,11 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	void reserveCancel(String ri_num, String ri_code); //영환
 
+
+	ArrayList<SumsumDTO> recentlylist();//선우
+
 	int getReserPoint(String capId, String num);
+
 
 	
 

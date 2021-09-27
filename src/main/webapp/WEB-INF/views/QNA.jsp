@@ -20,7 +20,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<title>Insert title here</title>
+<title>SOMEFISH</title>
 <style type="text/css">
 * {
    font-family: 'Do Hyeon', sans-serif;
@@ -67,8 +67,22 @@
 								</tr>
 								<tr>
 									<td colspan="6" class="hiddenRow">
-										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1"><b>Q : ${dto.Q_CONTENT}</b></div>
-										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1" <c:if test="${dto.Q_ANSWERCON eq null}">hidden</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;A:    ${dto.Q_ANSWERCON }</div>
+										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1">
+										<b>Q : ${dto.Q_CONTENT}</b>
+										<hr/>
+										<div id="demo2${dto.Q_NUM }" class="accordian-body collapse px-5 ml-5 py-1" <c:if test="${dto.Q_ANSWERCON eq null}">hidden</c:if>>관리자 : ${dto.Q_ANSWERCON }</div>
+										
+										
+										<c:if test="${sessionScope.userinfo.u_manageryn eq 'Y'}">
+										<c:if test="${dto.Q_ANSWERCON eq null}">
+										<form class=""  class="">
+										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요"><button> 입력 </button>
+										</form>
+										</c:if>
+										</c:if>
+										
+										
+										</div>
 										<hr>
 									</td>
 								</tr>

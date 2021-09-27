@@ -1,5 +1,6 @@
 package com.boys.fishing.user.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.boys.fishing.board.dto.SumsumDTO;
 import com.boys.fishing.user.dto.UserDTO;
 import com.boys.fishing.user.service.UserService;
 
@@ -37,7 +39,8 @@ public class HomeController {
 	public ModelAndView home(Model model, HttpSession session) {
 		logger.info("보이즈 피싱 프로젝트 Some낚시 시작합니다.");
 		ModelAndView mav = new ModelAndView();
-		
+		ArrayList<SumsumDTO> recentlylist = service.recentlylist();
+		mav.addObject("list",recentlylist);
 		if(session.getAttribute("loginId") != null) {
 			mav.setViewName("mainPage");
 		}
