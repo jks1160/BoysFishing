@@ -48,8 +48,17 @@ img {
 				</c:choose>)</small>
 				</h2>
 				<c:if test="${dto.b_userid eq sessionScope.userinfo.u_userid }">
-					<input type="button" class="btn btn-outline-dark btn-sm float-right mr-3 ml-2" value="수정하기" onclick="location.href='someUpdate?b_num=${dto.b_num}'">
+					<input type="button" class="btn btn-outline-dark btn-sm float-right mr-3 ml-2" value="삭제하기" onclick="location.href='someDelete?b_num=${dto.b_num}'">
+					<input type="button" class="btn btn-outline-dark btn-sm float-right mr-3 ml-2" value="수정하기" onclick="location.href='someUpdateForm?b_num=${dto.b_num}'">
 				</c:if>
+				<c:choose>
+	                  <c:when test="${dto.ui_name eq null}">
+	                  		<img class="rounded-circle p-1 border" src="resources/defaultimg/defaultprofile.png" style="width:60px; height:60px;">
+	                  </c:when>
+	                  <c:otherwise>
+	                  		<img class="rounded-circle p-1 border" src="/photo/${sessionScope.userinfo.ui_name }" style="width:60px; height:60px;">
+	                  </c:otherwise>
+	              </c:choose>
 				<b class="ml-2 mr-5">작성자 : ${dto.u_usernickname }</b><b>작성일 : ${dto.b_regdate }</b>
 				<b class="mx-2" style="float:right;">어종 : ${dto.fish }</b><i class="fas fa-fish" style="float:right;"></i>
 			</div>

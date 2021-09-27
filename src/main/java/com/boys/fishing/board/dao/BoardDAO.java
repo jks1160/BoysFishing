@@ -17,10 +17,17 @@ public interface BoardDAO {
 
 	ArrayList<String> fish();
 
-	int someImgUpload(HashMap<String, Object> map);
-
 	int someImgUpload(String string, String file);
 
 	SumsumDTO someDetail(String b_num);
+
+	ArrayList<SumsumDTO> fileList(String b_num);
+
+	int fileDel(int b_num);
+
+	int someUpdate(SumsumDTO dto);
+
+	int someDelete(String b_num);
+
 
 }

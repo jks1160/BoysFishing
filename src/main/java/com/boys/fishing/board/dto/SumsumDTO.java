@@ -8,6 +8,7 @@ import org.apache.ibatis.type.Alias;
 public class SumsumDTO {
 
 	// 유저 닉네임
+	private String ui_name;
 	private String u_usernickname;
 	//섬섬 톡 테이블
 	private int b_num; // 글 번호
@@ -340,5 +341,11 @@ public class SumsumDTO {
 	}
 	public void setU_usernickname(String u_usernickname) {
 		this.u_usernickname = u_usernickname;
+	}
+	public String getUi_name() {
+		return ui_name;
+	}
+	public void setUi_name(String ui_name) {
+		this.ui_name = ui_name;
 	}
 }

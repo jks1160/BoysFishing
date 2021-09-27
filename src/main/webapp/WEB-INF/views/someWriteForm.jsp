@@ -78,8 +78,8 @@ img {
 		<div class="col-10">
 		<hr>
 			<div class="form-group">
-		  		<div id="editable" contenteditable="true" style="height:450px;"></div> <!-- div 내용을 서버에 보낼 수 있도록 input을 추가 -->
-				<input id="content" type="hidden" name="b_content" value="" />
+		  		<div class="border p-3" id="editable" contenteditable="true" style="height:450px;"></div>
+				<input id="content" type="hidden" name="b_content" value=""/>
 			</div>
 		</div>
 	</div>
@@ -88,12 +88,11 @@ img {
 			<input type="button" class= "btn btn-outline-dark btn-sm" value="사진올리기" onclick="fileUp()" />
 		</div>
 		<div class="col-2">
-			<button type="button" id="save" class= "btn btn-outline-dark btn-sm">글 작성</button>
+			<button type="button" id="save" class= "btn btn-outline-dark btn-sm">작성하기</button>
 		</div>
 	</div>
 	</form>
 </div>
-<hr>
 </body>
 <script>
 function fileUp() {
