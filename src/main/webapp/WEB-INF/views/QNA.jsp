@@ -51,7 +51,7 @@
 								</td>
 								<th class="text-center">작성자</th>
 								<th class="text-center">제목</th>
-								<th class="text-center">내용</th>
+								<th class="text-center">날짜</th>
 								<c:if test = "${sessionScope.userinfo.u_manageryn eq 'Y' }">
 									<th class="text-center">답변 여부</th>
 								</c:if>
@@ -66,6 +66,7 @@
 									<td class="text-center">${dto.U_USERNICKNAME}</td>
 									<td class="text-center">${dto.Q_SUBJECT}</td>
 									<td class="text-center">${dto.Q_REGDATE}</td>
+									<c:if test = "${sessionScope.userinfo.u_manageryn eq 'Y' }">
 									<c:choose>
 									<c:when test = "${dto.Q_ANSWERCON ne null }">
 										<td class="text-center"><b>O</b></td>
@@ -74,6 +75,7 @@
 										<td class="text-center"><b>X</b></td>
 									</c:otherwise>
 									</c:choose>
+									</c:if>
 								</tr>
 								<tr>
 									<td colspan="6" class="hiddenRow">

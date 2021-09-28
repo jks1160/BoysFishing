@@ -37,7 +37,7 @@ img {
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<div class="container m-5 h-100">
+<div class="container mt-5 h-100">
 	<form action="someWrite" method="POST">
 	<div class="row justify-content-md-center">
 	<input type="hidden" name="b_num" value="${dto.b_num }">

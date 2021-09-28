@@ -37,7 +37,7 @@ img {
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-	<div class="container m-5 h-100">
+	<div class="container mt-5 h-100">
 		<div class="row justify-content-md-center">
 			<div class="col-10">
 				<h2>제목 : ${dto.b_subject }<small class="text-muted mx-2">(
