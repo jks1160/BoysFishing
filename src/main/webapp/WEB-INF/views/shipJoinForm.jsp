@@ -393,7 +393,7 @@
 	}
 	
 	// 최소 최대 탑승인원 비교
-	if(s_minpassenger > s_maxpassenger){
+	if(parseInt(s_minpassenger) > parseInt(s_maxpassenger)){
 		alert("최소 탑승 인원은 최대 탑승 인원보다 낮아야 합니다.");
 		$("#s_minpassenger").focus();
 		return;	
