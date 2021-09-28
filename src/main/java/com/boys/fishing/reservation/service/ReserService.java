@@ -249,7 +249,7 @@ public class ReserService {
 		String capId = userDAO.findCap_ship((String)params.get("s_num")); 
 		int op_price = Integer.parseInt((String)params.get("op_price"));
 		int ri_people = Integer.parseInt((String)params.get("ri_people"));
-		if(point_Check > (op_price* ri_people)) { //금액이 가능할 경우
+		if(point_Check >= (op_price* ri_people)) { //금액이 가능할 경우
 			logger.info("예약 가능 ");
 			int success = reserDAO.RealReser(params); // 예약한다.
 			success += reserDAO.tryReser(id,capId,op_price*ri_people,point_Check-(op_price*ri_people));
