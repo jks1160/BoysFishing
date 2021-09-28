@@ -305,7 +305,7 @@
 	$("#overChk").click(function(){
 		var s_name = $("input[id=s_name]").val();
 		var space = /\s/g;  //공백
-		var hangleChk = /([^가-힣a-z\x20])/i; //모음,자음만 사용불가
+		var hangleChk  = /([^가-힣A-Za-z0-9\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s\x20])/i;
 		var Chk = /[가-힣A-Za-z0-9]{1,20}/; //영문 숫자 한글만 허용
 		var Chkresult = Chk.test(s_name);
 		var hangleChkresult = s_name.match(hangleChk);

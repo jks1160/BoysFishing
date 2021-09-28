@@ -175,4 +175,12 @@ public class BoardController {
 		return service.qnaanswer(answervalue, qnum);
 	}
 	
+	@RequestMapping(value = "/someComment" ,method= RequestMethod.GET)
+	public String someComment() {
+		logger.info("댓글 대댓글");		
+		return "someComment";
+	}
+	
+	
+	
 }

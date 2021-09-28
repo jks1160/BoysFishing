@@ -24,7 +24,8 @@ public class SumsumDTO {
 	private int c_momnum; // 부모 댓글 번호
 	private Date c_regdate; // 등록 날짜
 	private String c_content;// 댓글 내용
-	private char c_blindYN;//삭제 여부
+	private int c_depthseq; //댓글/대댓글 순서
+	private char c_depth;//댓글대댓글 여부
 	private int c_idx; // 글 번호
 	private int c_userid; // 댓글 작성자
 	//태그 모음, 태그 테이블
@@ -138,11 +139,11 @@ public class SumsumDTO {
 	public void setC_content(String c_content) {
 		this.c_content = c_content;
 	}
-	public char getC_blindYN() {
-		return c_blindYN;
+	public char getC_depth() {
+		return c_depth;
 	}
-	public void setC_blindYN(char c_blindYN) {
-		this.c_blindYN = c_blindYN;
+	public void setC_depth(char c_depth) {
+		this.c_depth = c_depth;
 	}
 	public int getC_idx() {
 		return c_idx;
@@ -348,4 +349,11 @@ public class SumsumDTO {
 	public void setUi_name(String ui_name) {
 		this.ui_name = ui_name;
 	}
+	public int getC_depthseq() {
+		return c_depthseq;
+	}
+	public void setC_depthseq(int c_depthseq) {
+		this.c_depthseq = c_depthseq;
+	}
+	
 }
