@@ -60,7 +60,7 @@ img {
 		</div>
 		<div class="col-5">
 			<div class="form-group">
-				<input type="text" class="form-control" id="usr" name="b_subject">
+				<input type="text" class="form-control" id="usr" name="b_subject" maxlength="20">
 			</div>
 		</div>
 		<div class="col-3">
