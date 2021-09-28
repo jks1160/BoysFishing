@@ -52,7 +52,7 @@ img {
 					<input type="button" class="btn btn-outline-dark btn-sm float-right mr-3 ml-2" value="수정하기" onclick="location.href='someUpdateForm?b_num=${dto.b_num}'">
 				</c:if>
 					<c:choose>
-	                  <c:when test="${dto.ui_name eq ''}">
+	                  <c:when test="${empty dto.ui_name}">
 	                  		<img class="rounded-circle p-1 border" src="resources/defaultimg/defaultprofile.png" style="width:60px; height:60px;">
 	                  </c:when>
 	                  <c:otherwise>
