@@ -129,7 +129,7 @@ img {
 							name="emailEnd">
 							<option value="naver.com">naver.com</option>
 							<option value="hanmail.net">hanmail.net</option>
-							<option value="gmail.com">gamil.com</option>
+							<option value="gmail.com">gmail.com</option>
 						</select>
 					</div>
 				</div>

@@ -16,6 +16,7 @@
 			<mvc:mapping path="/fileDelete"/>
 			<mvc:mapping path="/qnaanswer"/>
 			<mvc:mapping path="/reser/*"/>
+			<mvc:exclude-mapping path="/reser/reser_research"/>
 			<bean class="com.boys.fishing.user.service.LoginChecker" />
 		</mvc:interceptor>
 	</mvc:interceptors>

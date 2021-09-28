@@ -121,22 +121,44 @@ img{
 						
 						<td> 
 						<c:choose>
-						<c:when test="${today.TW_PTY eq '없음'}"><img src="./resources/defaultimg/sunny.png"></c:when>
-						<c:when test="${today.TW_PTY eq '비'}"><img src="./resources/defaultimg/rain.png"></c:when>
-						<c:when test="${today.TW_PTY eq '비/눈'}"><img src="./resources/defaultimg/snowrain.png"></c:when>
-						<c:when test="${today.TW_PTY eq '눈'}"><img src="./resources/defaultimg/snow.png"></c:when>
-						<c:when test="${today.TW_PTY eq '소나기'}"><img src="./resources/defaultimg/rain.png"></c:when>
+						<c:when test="${today.TW_SKY eq '없음'}"><img src="./resources/defaultimg/sunny.png"></c:when>
+						<c:when test="${today.TW_SKY eq '비'}"><img src="./resources/defaultimg/rain.png"></c:when>
+						<c:when test="${today.TW_SKY eq '비/눈'}"><img src="./resources/defaultimg/snowrain.png"></c:when>
+						<c:when test="${today.TW_SKY eq '눈'}"><img src="./resources/defaultimg/snow.png"></c:when>
+						<c:when test="${today.TW_SKY eq '소나기'}"><img src="./resources/defaultimg/rain.png"></c:when>
+						<c:when test="${today.TW_SKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${today.TW_SKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
 						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
 						</c:choose>						
 						</td>						
 						
 						<td>
 						<c:choose>
-						<c:when test="${tomor.TW_PTY eq '없음'}"><img src="./resources/defaultimg/sunny.png"></c:when>
-						<c:when test="${tomor.TW_PTY eq '비'}"><img src="./resources/defaultimg/rain.png"></c:when>
-						<c:when test="${tomor.TW_PTY eq '비/눈'}"><img src="./resources/defaultimg/snowrain.png"></c:when>
-						<c:when test="${tomor.TW_PTY eq '눈'}"><img src="./resources/defaultimg/snow.png"></c:when>
-						<c:when test="${tomor.TW_PTY eq '소나기'}"><img src="./resources/defaultimg/rain.png"></c:when>
+						<c:when test="${tomor.TW_SKY eq '없음'}"><img src="./resources/defaultimg/sunny.png"></c:when>
+						<c:when test="${tomor.TW_SKY eq '비'}"><img src="./resources/defaultimg/rain.png"></c:when>
+						<c:when test="${tomor.TW_SKY eq '비/눈'}"><img src="./resources/defaultimg/snowrain.png"></c:when>
+						<c:when test="${tomor.TW_SKY eq '눈'}"><img src="./resources/defaultimg/snow.png"></c:when>
+						<c:when test="${tomor.TW_SKY eq '소나기'}"><img src="./resources/defaultimg/rain.png"></c:when>
+						<c:when test="${tomor.TW_SKY eq '맑음'}"><img src="./resources/defaultimg/sunny.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '구름많음'}"><img src="./resources/defaultimg/manyclouds.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '구름많고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '구름많고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '구름많고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '구름많고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '흐림'}"><img src="./resources/defaultimg/cloud.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '흐리고 비'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '흐리고 눈'}"><img src="./resources/defaultimg/snow.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '흐리고 비/눈'}"><img src="./resources/defaultimg/snowrain.png" style="height:100px; width:100px;"></c:when>
+						<c:when test="${tomor.TW_SKY eq '흐리고 소나기'}"><img src="./resources/defaultimg/rain.png" style="height:100px; width:100px;"></c:when>
 						<c:otherwise><img src="./resources/defaultimg/sunny.png"></c:otherwise>
 						</c:choose>							
 						</td>
