@@ -50,7 +50,7 @@
 		<div class="d-flex" style="border: 1px solid blue">
 	<div class="container">
 	<div style="border:1px solid black" class="container mt-4">
-	<div id="map" style="width: 500px; height: 400px;" class='container'></div>
+	<div id="map" style="width: 1100px; height: 400px;" class='container'></div>
 	</div>
 	<hr/>
 	

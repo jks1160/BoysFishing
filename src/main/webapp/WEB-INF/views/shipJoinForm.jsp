@@ -290,7 +290,8 @@
 	
 	//===================================================================================================
 		
-		overChk = true;
+		overChk = false;
+	
 	$(function(){
 		$("#s_name").on('input',function(){
 			overChk = false;
@@ -305,7 +306,7 @@
 	$("#overChk").click(function(){
 		var s_name = $("input[id=s_name]").val();
 		var space = /\s/g;  //공백
-		var hangleChk = /([^가-힣a-z\x20])/i; //모음,자음만 사용불가
+		var hangleChk  = /([^가-힣A-Za-z0-9\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s\x20])/i;
 		var Chk = /[가-힣A-Za-z0-9]{1,20}/; //영문 숫자 한글만 허용
 		var Chkresult = Chk.test(s_name);
 		var hangleChkresult = s_name.match(hangleChk);
@@ -388,6 +389,13 @@
 		return;	
 	}else if(conChk == false){
 		alert("보유 편의시설을 1개 이상 체크해 주세요.");
+		return;	
+	}
+	
+	// 최소 최대 탑승인원 비교
+	if(s_minpassenger > s_maxpassenger){
+		alert("최소 탑승 인원은 최대 탑승 인원보다 낮아야 합니다.");
+		$("#s_minpassenger").focus();
 		return;	
 	}
 	

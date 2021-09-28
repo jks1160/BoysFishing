@@ -175,4 +175,5 @@ public class BoardController {
 		return service.qnaanswer(answervalue, qnum);
 	}
 	
+	
 }
