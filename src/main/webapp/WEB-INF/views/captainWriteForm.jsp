@@ -32,6 +32,9 @@
 		margin-bottom: 5%;
 		margin-left: 30%;
 }
+table{
+	width : 350px;
+}
 </style>
 </head>
 

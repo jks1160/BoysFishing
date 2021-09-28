@@ -32,8 +32,8 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <div class="entire">
-	<img src="resources/user.png"  width="50px"/> <div class="user">${loginId}님의 포인트 정보</div>
-	<br><br>
+	<img src="resources/defaultimg/point.png"  width="50px"/> <div class="user">${loginId}님의 포인트 정보</div>
+	<br>
 	<div>
 		<form action="pointCharge" method="GET">
 		<table class="table table-bordered">
