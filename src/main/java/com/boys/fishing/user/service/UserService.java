@@ -537,7 +537,13 @@ public class UserService {
 			dto.setS_num(Integer.parseInt(params.get("s_num")));
 			dao.shipUpdate(dto); //배 정보 업데이트 (이미지여부 N) 배 넘버 key값 가져오기
 		if(newFileName !=null) { //이미지가 있을 경우 
+			if(dao.isShipImg(params) != 0) { //이미지테이블에 정보가 있을 경우
 			dao.shipImgUpdate(params); // 이미지 테이블 업데이트
+			dao.shipImgY(params);
+			}else { // 이미지테이블에 정보가 없을 경우
+			dao.shipImgInsert(params); //이미지테이블 인서트 
+			dao.shipImgY(params);
+			}
 		}else{
 			dao.shipImgDelete(params); //이미지 테이블 딜리트
 			dao.shipImgN(params); // 이미지 여부 N 업데이트
