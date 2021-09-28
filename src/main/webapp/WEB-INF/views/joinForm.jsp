@@ -67,7 +67,7 @@ img {
 					<label for="id">아이디 : </label>
 				</div>
 				<div class="col-5">
-					<input type="text" id="id" class="form-control" name="u_userid" -maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
+					<input type="text" id="id" class="form-control" name="u_userid" maxlength="20" placeholder="특수문자를 제외한 20자로 입력해주세요."
 						<c:if test = "${empty kakaoid}">value="${kakaoid }"</c:if>
 						required>
 					<div class="invalid-feedback">아이디를 입력해주세요.</div>
@@ -82,8 +82,7 @@ img {
 					<label for="pw">비밀번호 : </label>
 				</div>
 				<div class="col-5">
-					<input type="password" class="form-control" name="u_userpw"
-						minlength="8" maxlength="16" placeholder="8~16자로 입력해주세요." required>
+					<input type="password" class="form-control" name="u_userpw" maxlength="16" placeholder="8~16자로 입력해주세요." required>
 					<div class="invalid-feedback">(8자리 이상)비밀번호를 입력해주세요.</div>
 				</div>
 			</div>
@@ -92,8 +91,7 @@ img {
 					<label for="pwck">비밀번호 확인 : </label>
 				</div>
 				<div class="col-5">
-					<input type="password" name="pwck" class="form-control"
-						minlength="8" maxlength="16" placeholder="8~16자로 입력해주세요." required>
+					<input type="password" name="pwck" class="form-control" maxlength="16" placeholder="8~16자로 입력해주세요." required>
 					<div class="invalid-feedback">(8자리 이상)비밀번호를 한번 더 입력해주세요.</div>
 				</div>
 			</div>
@@ -226,19 +224,48 @@ img {
 			alert("값을 입력해 주세요");
 		}
 	});
-	
-	$("input[name=pwck]").focusout(function(){
-		if($("input[name=u_userpw]").val() != $("input[name=pwck]").val() || $("input[name=pwck]").val()==""){
-            alert("비밀번호가 공란이거나 일치 하지 않습니다.");
-        }else{
-            pwChvar = true;
-            $("input[type=password]").prop("readonly",true);
-        }
+ 	$("input[name=u_userpw]").change(function(){
+		if($("input[name=u_userpw]").val().length < 8){	
+			alert("최소 8자리는 입력해 주세요");
+			$("input[name=u_userpw]").focus();
+		}
 	});
+/* 	$(function(){
+		$("input[name=u_userpw]").focusout('input' function(){
+			if($("input[name=u_userpw]").val().length < 8){	
+				alert("최소 8자리는 입력해 주세요");
+			}
+		}
+	});
+ */	 
 	
-    
+ 	$("input[name=pwck]").change(function(){
+		if($("input[name=u_userpw]").val() != $("input[name=pwck]").val()){
+            alert("비밀번호가 일치 	하지 않습니다.");
+		}else{
+	        if($("input[name=u_userpw]").val().length > 8){
+	        pwChvar = true;
+	        $("input[type=password]").prop("readonly",true);        		
+	        }else{
+	        	alert("비밀번호를 최소 8자리로 맞춰주세요");
+	        }
+		}
+	});
+ 
+/*  $(function(){
+     $("input[name=pwck]").focusout('input',function(){
+    	 if($("input[name=u_userpw]").val() != $("input[name=pwck]").val()){
+             alert("비밀번호가 일치 	하지 않습니다.");
+ 		}
+         if($("input[name=u_userpw]").val() != ""){
+         pwChvar = true;
+         $("input[type=password]").prop("readonly",true);        		
+         }
+     });
+  });
+ */    
     $("#id").keyup(function (){
-		chk_input_filter("non_spec", $("#id"));
+		chk_input_filter("alphabet_number", $("#id"));
 	});
     
     $("#nick").keyup(function (){
@@ -280,7 +307,7 @@ img {
 	        const reader = new FileReader();
 	        // 이미지가 로드가 된 경우
 	        reader.onload = e => {
-	            const previewImage = document.getElementById("preprofile");
+	        	const previewImage = document.getElementById("preprofile");
 	            previewImage.src = e.target.result;
 	        };
 	        // reader가 이미지 읽도록 하기
