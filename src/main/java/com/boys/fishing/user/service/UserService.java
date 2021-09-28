@@ -472,6 +472,7 @@ public class UserService {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/shipList");
 		String s_address = params.get("address") + " " +params.get("addressDetail");
+		logger.info("params : {}", params);
 		
 		//장비
 		String equipment = "";
@@ -580,7 +581,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public ModelAndView reserveCancel(String ri_num, String ri_code, String s_num, String ri_pay, String u_userid, RedirectAttributes rttr) {
+	public ModelAndView reserveCancel(String ri_num, String ri_code, String s_num, String ri_pay, String u_userid) {
 		logger.info("예약 취소 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView();
@@ -614,6 +615,16 @@ public class UserService {
 //	최신 글 5개 불러오기
 	public ArrayList<SumsumDTO> recentlylist() {
 		return dao.recentlylist();
+	}
+
+	public boolean shipNameChk(String s_name) {
+		logger.info("닉네임 중복체크 서비스");
+		boolean overChk = false;
+		int isOverChk = dao.shipNameChk(s_name);
+		if(isOverChk == 0) {
+			overChk = true;
+		}
+		return overChk;
 	}
 	
 	

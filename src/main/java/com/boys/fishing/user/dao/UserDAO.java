@@ -197,6 +197,8 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int getReserPoint(String capId, String num);
 
+	int shipNameChk(String s_name);
+
 
 
 	
