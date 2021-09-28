@@ -77,7 +77,7 @@
 			
 			<tr>
 				<th>거절 사유</th>
-				<td><input type="text" id="cap_cancelreason" name="cap_cancelreason" style="width:100%;" value=""></td>
+				<td><input type="text" id="cap_cancelreason" name="cap_cancelreason" style="width:100%;" minlength = "5"  maxlength="100"></td>
 			</tr>
 			
 			<tr>
@@ -106,16 +106,16 @@
 	var userid = $("#hdnid").val();
 	
 		$("#reject").click(function(){
-			if($("#cap_cancelreason").val().length>0){
 				var cap_cancelreason = $("#cap_cancelreason").val();
+			if($("#cap_cancelreason").val().length>0){
 				console.log(cap_cancelreason);
 				location.href='/fishing/manage/capreq_reject?u_userid='+userid+'&cap_cancelreason='+cap_cancelreason;
 			}else{
 				alert("거절 사유를 입력해 주세요.");
-				focus($(this));
 			}
 		})
-
+		
+	
 
 </script>
 </html>

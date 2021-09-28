@@ -46,10 +46,10 @@
 				</div>
 				<div class="col-3">
 					<div class="form-group">
-						<select class="custom-select" name="q_blindYN">
+						<!-- <select class="custom-select" name="q_blindYN">
 							<option selected value="N">공개</option>
 							<option value="Y">비공개</option>
-						</select>
+						</select> -->
 					</div>
 				</div>
 			</div>
