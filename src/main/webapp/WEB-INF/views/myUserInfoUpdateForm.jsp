@@ -87,7 +87,7 @@
 	<thead>
 			<tr>
 				<td>항목</td>
-				<td>값</td>
+				<td>정보</td>
 			</tr>
 	</thead>
 	    <tr>
