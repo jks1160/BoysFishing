@@ -89,7 +89,7 @@
 										<c:if test="${sessionScope.userinfo.u_manageryn eq 'Y'}">
 										<c:if test="${dto.Q_ANSWERCON eq null}">
 										<form action="/fishing/qnaanswer" method="get">
-										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요" style="width:300px"> &nbsp;&nbsp;&nbsp; <button class="btn btn-outline-dark">입력</button>
+										 <input type="text" id="answervalue" name="answervalue" placeholder="답변을 입력해 주세요" style="width:300px" maxlength="100"> &nbsp;&nbsp;&nbsp; <button class="btn btn-outline-dark">입력</button>
 										 <input type="hidden" id="qnum" name="qnum" value="${dto.Q_NUM}">
 										 </form>
 										 
