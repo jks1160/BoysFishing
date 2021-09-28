@@ -34,7 +34,7 @@
 				<br/>입력하신 주소가 정확한지 다시 한번 확인해 주시기 바랍니다.
 				</p>
 			</div>
-	<div class="mt-4 position-absolute top-100 start-50 translate-middle" style="border: 1px solid red; ">
+	<div class="mt-4 position-absolute top-100 start-50 translate-middle">
    		<a href="#" onclick="location.href='/fishing/'" class="translate-middle">메인으로 돌아가기</a>
 	</div>
 </div>

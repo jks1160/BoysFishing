@@ -119,33 +119,6 @@
 	if("${msg}" != ""){
 		alert("${msg}");
 	}
-	/*
-	function qnaanswer(){
-		var answervalue = $("#answervalue").val();
-		var qnum = $("#qnum").val();
-		
-			if(answervalue.length>0){
-				$.ajax({
-					url:"qnaanswer",
-					type:'get',
-					data:{
-						answervalue : answervalue,
-						qnum : qnum
-					},
-					dataType:'JSON',
-					success:function(data){
-						console.log(data);
-					},
-					error:function(error){
-						console.log(error);
-					}			
-				});	
-		}else{
-			alert("내용을 입력해주세요.");
-		}
-		
-		
-	}
-	*/
+
 </script>
 </html>
