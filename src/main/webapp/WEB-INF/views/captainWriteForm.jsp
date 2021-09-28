@@ -39,9 +39,11 @@ table{
 </head>
 
 <body>
+<h4 class='text-center'>운항 스케줄 등록</h4>
+<hr/>
 <div class="entire">
 <form id = "frm" method="GET">
-	<table class="table-bordered">
+	<table class="table-bordered justify-content-md-center">
 	<tr>
 		<td>오늘 날짜</td>
 		<td><input type="text" value= "${op_date}" name = "op_date" readonly/></td>
