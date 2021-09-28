@@ -123,11 +123,12 @@ div.card{
         <c:forEach items="${list}" var="bbs">
                 <div class="card col">
                 <c:choose>
-                	 <c:when test="${bbs.bi_name ne null}"><img src="/photo/${bbs.bi_name}" class="card-img-top border" alt="..."></c:when>   
-                	 <c:otherwise><img src="./resources/defaultimg/defaultimg2.gif" class="card-img-top border" alt="..."></c:otherwise>
+                	<c:when test="${bbs.bi_name ne null}"> <a href="/fishing/someDetail?b_num=${bbs.b_num }"> <img src="/photo/${bbs.bi_name}"  class="card-img-top border" alt="..."> </a></c:when>   
+                	 
+                	 <c:otherwise><a href="/fishing/someDetail?b_num=${bbs.b_num }"><img src="./resources/defaultimg/default.png" class="card-img-top border" alt="..."></a></c:otherwise>
                 </c:choose>
 	                    <div class="card-body text-center">
-                    	<a href="/fishing/someTalk" style="{display:block;{color:black}">
+                    	<a href="/fishing/someDetail?b_num=${bbs.b_num }" style="{display:block;{color:black}">
 		                      <b class="card-title border text-center">${bbs.b_subject}</b>
 	                    </a>
                     </div>
