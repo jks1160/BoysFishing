@@ -199,6 +199,8 @@ UserDTO myUserInfo(String u_userid); //영환
 
 	int shipNameChk(String s_name);
 
+	int isShipImg(HashMap<String, String> params);
+
 
 
 	
