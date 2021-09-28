@@ -142,7 +142,7 @@
 	</div>
 	
 	
-	<form action="shipUpdate" name="shipJoin" method="POST">
+	<form action="shipUpdate" name="shipUpdate" id="shipUpdate" method="POST">
 	<table class="table table-bordered">
 	<thead>
 			<tr>
@@ -416,7 +416,7 @@
 			
 			
 			if(overChk){
-				$("form[id=shipJoin]").submit();
+				$("form[id=shipUpdate]").submit();
 			  }else{
 				alert("배 이름 중복체크를 해주세요");
 			  }

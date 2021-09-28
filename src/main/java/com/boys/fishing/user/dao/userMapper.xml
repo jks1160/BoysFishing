@@ -116,6 +116,10 @@
 	SELECT COUNT(s_name) FROM ship WHERE s_name = #{s_name}
 </select>
 
+<select id="isShipImg" parameterType="hashmap" resultType="int" >
+	SELECT COUNT(s_num) FROM shipimg WHERE s_num = #{s_num}
+</select>
+
 <!-- 마이페이지 메인 -->
 <!-- 선장 여부 파악 -->
 <select id="captainYN" resultType="String">

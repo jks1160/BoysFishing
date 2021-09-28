@@ -125,7 +125,7 @@ public class UserService {
 	}
 
 	public ModelAndView login(String id, String pw, HttpSession session) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		ModelAndView mav = new ModelAndView();
 
 		HashMap<String, String> map = dao.login(id);
@@ -533,12 +533,17 @@ public class UserService {
 		}
 		
 		if(ship.equals("update")) { // 배 정보 업데이트 할 경우
-			dao.shipUpdate(dto); //배 정보 업데이트 (이미지여부 N) 배 넘버 key값 가져오기
 			logger.info("업데이트 s_num :"+params.get("s_num"));
-			//String s_num = Integer.toString(dto.getS_num());
-			//params.put("s_num", s_num); //key값 params에 넣기
+			dto.setS_num(Integer.parseInt(params.get("s_num")));
+			dao.shipUpdate(dto); //배 정보 업데이트 (이미지여부 N) 배 넘버 key값 가져오기
 		if(newFileName !=null) { //이미지가 있을 경우 
+			if(dao.isShipImg(params) != 0) { //이미지테이블에 정보가 있을 경우
 			dao.shipImgUpdate(params); // 이미지 테이블 업데이트
+			dao.shipImgY(params);
+			}else { // 이미지테이블에 정보가 없을 경우
+			dao.shipImgInsert(params); //이미지테이블 인서트 
+			dao.shipImgY(params);
+			}
 		}else{
 			dao.shipImgDelete(params); //이미지 테이블 딜리트
 			dao.shipImgN(params); // 이미지 여부 N 업데이트
