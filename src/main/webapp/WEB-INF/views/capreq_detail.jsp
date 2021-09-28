@@ -107,7 +107,7 @@
 	
 		$("#reject").click(function(){
 				var cap_cancelreason = $("#cap_cancelreason").val();
-			if($("#cap_cancelreason").val().length>0){
+			if($("#cap_cancelreason").val().trim().length>0){
 				console.log(cap_cancelreason);
 				location.href='/fishing/manage/capreq_reject?u_userid='+userid+'&cap_cancelreason='+cap_cancelreason;
 			}else{
