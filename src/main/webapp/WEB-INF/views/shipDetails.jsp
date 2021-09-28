@@ -58,7 +58,7 @@
 						<!-- 배편이 존재할 경우 -->
 						<c:forEach items="${list }" var="item">
 							<div class="list-group-item">
-							<img src="${item.si_name }" style="width: 350px; height: 250px; float:left;" / >
+							<img src="/photo/${item.si_name }" style="width: 350px; height: 250px; float:left;" / >
 							<div style="float:left; width : 15px; height:200px; background-color:white" ></div>
 							<p class='text-dark font-weight-bold'>배 이름 : ${item.s_name }</p>
 							<p style="margin:0px">최대 탑승 인원 : ${item.s_maxpassenger }</p>
