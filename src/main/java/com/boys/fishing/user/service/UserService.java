@@ -125,7 +125,7 @@ public class UserService {
 	}
 
 	public ModelAndView login(String id, String pw, HttpSession session) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		ModelAndView mav = new ModelAndView();
 
 		HashMap<String, String> map = dao.login(id);
