@@ -41,7 +41,7 @@
 				</div>
 				<div class="col-7">
 					<div class="form-group">
-						<input type="text" class="form-control" id="usr" name="q_subject">
+						<input id = "qnaSubject" type="text" class="form-control" id="usr" name="q_subject" minlength="5" maxlength="20" required>
 					</div>
 				</div>
 				<div class="col-3">
@@ -56,16 +56,35 @@
 			<div class="col-flout">
 				<div class="form-group">
 					<label for="comment">QNA 내용 :</label>
-					<textarea class="form-control border" rows="8" id="comment" name="q_content" style="resize: none"></textarea>
+					<textarea id = "qnaContent" class="form-control border" rows="8" id="comment" name="q_content" style="resize: none" minlength = "10" maxlength="300" required></textarea>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
 				<div class="col">
-					<button class="btn btn-outline-dark float-right">작성하기</button>
+					<button id = "submitButton" class="btn btn-outline-dark float-right">작성하기</button>
 				</div>
 			</div>
 		</form>
 	</div>
 </body>
+<script>
+	//공백 막아주는 메서드
+	$('#submitButton').click(function(){
+		console.log("여기옴?");
+		var qnaSubject = $("#qnaSubject").val().trim();
+		var qnaContent = $("#qnaContent").val();
+		
+		if((qnaSubject.length<1)){
+			alert("공백을 제외하여 최소 5글자 이상 입력해주세요");
+			return false;
+		}else{
+			return true;
+		}
+	});
+		
+	
+	
+	
+</script>
 </html>
