@@ -100,6 +100,14 @@ function fileUp() {
 	window.open('uploadForm', 'file upload', 'width=400, height=100');
 }
 $("#save").click(function() {
+		console.log("여기옴?");
+		var someSubject = $("#usr").val().trim();
+		if((someSubject.length<1)){
+			alert("공백을 제외하여 제목을 작성해주세요");
+			return false;
+		}
+	
+	
 	/* <a href = '#' id = '${path}' onclick='del(this)' >
 	<img src='${path}' width='250'/>
 	<b>X</b>
@@ -110,6 +118,13 @@ $("#save").click(function() {
 	$("#editable").find("a").removeAttr("onclick");
 	//div태그 사이에 있는 내용이기에 html로 값 받아옴 
 	$("#content").val($("#editable").html());
+	
+	var someContent = $("#content").val().trim();
+	console.log("value: ",someContent);
+	if(!someContent){
+		alert("내용을 입력해주세요");
+		return false;
+	}
 	$("form").submit();
 });
 
