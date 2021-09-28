@@ -407,12 +407,22 @@
 				return;	
 			}
 			
+			// 최소 최대 탑승인원 비교
+			if(s_minpassenger > s_maxpassenger){
+				alert("최소 탑승 인원은 최대 탑승 인원보다 낮아야 합니다.");
+				$("#s_minpassenger").focus();
+				return;	
+			}
+			
+			
 			if(overChk){
 				$("form[id=shipJoin]").submit();
 			  }else{
 				alert("배 이름 중복체크를 해주세요");
 			  }
 			}
+		
+		
 
 			// 플러스,마이너스 입력 방지
 			var number = document.getElementById('s_minpassenger');
