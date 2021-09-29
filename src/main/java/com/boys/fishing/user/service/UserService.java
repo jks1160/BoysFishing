@@ -147,7 +147,7 @@ public class UserService {
 						userInfo.put(key.toLowerCase(), map.get(key).toString());
 					}
 					userInfo.remove("u_userpw");
-					page = "mainPage";
+					page = "redirect:/";
 					msg = "환영합니다. " + userInfo.get("u_usernickname") + "님";
 				}			
 			}

@@ -42,6 +42,7 @@ public class HomeController {
 		ArrayList<SumsumDTO> recentlylist = service.recentlylist();
 		mav.addObject("list",recentlylist);
 		if(session.getAttribute("loginId") != null) {
+			mav.addObject("list",recentlylist);
 			mav.setViewName("mainPage");
 		}
 		mav.setViewName("mainPage");
@@ -68,7 +69,7 @@ public class HomeController {
 		session.removeAttribute("userinfo");
 		session.removeAttribute("captainYN");
 		
-		return "mainPage";
+		return "redirect:/";
 	}
 		
 	@RequestMapping(value="/myUserInfo", method = RequestMethod.GET)
