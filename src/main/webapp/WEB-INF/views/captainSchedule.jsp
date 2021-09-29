@@ -288,10 +288,10 @@ var O_nuel = year+'-'+month+'-'+date;
 			<option value="${name.s_num}">${name.s_name}</option>
 			</c:forEach>
 		</select>
-	<div id = "tableDraw">
+	<div id = "tableDraw" class="container row justify-content-center">
 	
 	</div>
-	<div class="container row" >
+	<div class="container row " >
 		<nav id = "pageNav" class="container col-auto mt-3" aria-lable="Page navigation"  style="text-align: center;">
 			<ul class="pagination" id="pagination"></ul>
 		</nav>
