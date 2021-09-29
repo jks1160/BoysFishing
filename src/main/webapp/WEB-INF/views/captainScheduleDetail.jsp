@@ -193,8 +193,13 @@ function waitDetailDrawList(list) {
 		content += "<tr style='background-color:lightgrey'><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
 		content += "<tr><td>예약번호</td><td>"+item.RI_NUM+"</td></tr>";
 		content += "<tr><td>예약자ID</td><td>"+item.RI_USERID+"</td></tr>";
-		content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
-		content += "<tr><td>출항지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+		if(item.RI_STARTRETURNYN == 'Y'){
+			content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
+			content += "<tr><td>출항지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+		}else{
+			content += "<tr><td>목적지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+			content += "<tr><td>출항지</td><td>"+item.I_NAME+"</td></tr>";
+		}
 		content += "<tr><td>출항시간</td><td>"+item.RI_STARTTIME+"</td></tr>";
 		content += "<tr><td>회항시간</td><td>"+item.RI_RETURNTIME+"</td></tr>";
 		content += "<tr><td>소요시간</td><td>"+item.RI_DURINGTIME+"</td></tr>";
@@ -223,8 +228,13 @@ function decideDetailDrawList(list) {
 		content += "<tr style='background-color:lightgrey'><td>배이름</td><td>"+item.S_NAME+"</td></tr>";
 		content += "<tr><td>예약번호</td><td>"+item.RI_NUM+"</td></tr>";
 		content += "<tr><td>예약자ID</td><td>"+item.RI_USERID+"</td></tr>";
-		content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
-		content += "<tr><td>출항지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+		if(item.RI_STARTRETURNYN == 'Y'){
+			content += "<tr><td>목적지</td><td>"+item.I_NAME+"</td></tr>";
+			content += "<tr><td>출항지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+		}else{
+			content += "<tr><td>목적지</td><td>"+item.RI_STARTPOINT+"</td></tr>";
+			content += "<tr><td>출항지</td><td>"+item.I_NAME+"</td></tr>";
+		}
 		content += "<tr><td>출항시간</td><td>"+item.RI_STARTTIME+"</td></tr>";
 		content += "<tr><td>회항시간</td><td>"+item.RI_RETURNTIME+"</td></tr>";
 		content += "<tr><td>소요시간</td><td>"+item.RI_DURINGTIME+"</td></tr>";
