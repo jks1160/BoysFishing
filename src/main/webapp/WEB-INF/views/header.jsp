@@ -80,7 +80,7 @@ data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExterna
 										href="loginPage" style="font-size:20px ; vertical-align: middle;">로그인/회원가입</a>
 								</c:when>
 								<c:otherwise>
-									<b class="nav-link active text-white" style="font-size:20px ;">${sessionScope.userinfo.u_userid }
+									<b class="nav-link active text-white" style="font-size:20px ;">${sessionScope.userinfo.u_usernickname }
 										님</b>
 									<a class="nav-link active text-white" href="/fishing/logOut" style="font-size:20px ; vertical-align: middle;">로그아웃</a>
 								</c:otherwise>

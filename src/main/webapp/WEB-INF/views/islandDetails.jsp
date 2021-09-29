@@ -60,12 +60,12 @@
 		<div class = "col-2"  style="border: 1px solid black; background-color:cornflowerblue; color:white">도서이름</div>
 		<div class = "col-4"  style="border: 1px solid black; color:cornflowerblue">${isd.i_name }</div>
 		<div class = "col-2" style="border: 1px solid black; background-color:cornflowerblue; color:white">관리번호</div>
-		<div class = "col-4"  style="border: 1px solid black; color:cornflowerblue">${isd.i_name }</div>
+		<div class = "col-4"  style="border: 1px solid black; color:cornflowerblue">${isd.i_controlnum }</div>
 		</div>
 		
 		<div class ="row" >
 		<div class = "col-2"  style="border: 1px solid black; background-color:cornflowerblue; color:white">지번</div>
-		<div class = "col-4"  style="border: 1px solid black; color:cornflowerblue">${isd.i_name }</div>
+		<div class = "col-4"  style="border: 1px solid black; color:cornflowerblue">${isd.i_jibeon }</div>
 		<div class = "col-2" style="border: 1px solid black; background-color:cornflowerblue; color:white">토지면적</div>
 		<div class = "col-4"  style="border: 1px solid black; color:cornflowerblue">${isd.i_landarea }</div>
 		</div>
